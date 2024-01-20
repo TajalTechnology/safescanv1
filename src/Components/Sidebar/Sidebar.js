@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Sidebar_animation = {
@@ -18,20 +18,6 @@ const Sidebar_animation = {
   },
 };
 
-const text_hedin = {
-  open_text: {
-    display: "block",
-    transition: {
-      damping: 40,
-    },
-  },
-  closed_text: {
-    display: "none",
-    transition: {
-      damping: 40,
-    },
-  },
-};
 
 const Sidebar = () => {
   // const navigate = useNavigate();
