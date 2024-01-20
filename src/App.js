@@ -1,9 +1,9 @@
-
-import './App.css'
-import { Route, Routes } from "react-router-dom";
-import Main from './Layout/Main/Main';
-import Dashboard from './Pages/Dashboard/Dashboard';
-import Admins from './Pages/Admins/Admins';
+import "./App.css";
+import { Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Main from "./Layout/Main/Main";
+import CustomRoutes from "./routes/CustomRoutes";
+import Admins from "./Pages/Admins/Admins";
 
 function App() {
 
@@ -11,19 +11,16 @@ function App() {
   return (
     <>
       <div>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main />
-            }
-          >
-            <Route path={'/dashboard'} element={<Dashboard />} />
-            <Route path={'/admins'} element={<Admins />} />
+        <CustomRoutes>
+          <Route path="/" element={<Admins />} />
+          {/* ------------------------admin dashboard route--------------------- */}
+          <Route path="/admin" element={<Main></Main>}>
+            <Route path="/admin/dashboard" element={<Admins />} />
           </Route>
-        </Routes>
-      </div>
+        </CustomRoutes>
 
+        <Toaster position="top-right" reverseOrder={false} />
+      </div>
     </>
   );
 }
