@@ -4,6 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import Main from './Layout/Main/Main';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Admins from './Pages/Admins/Admins';
+import SignUp from './Pages/SignUp/SignUp';
+import SignIn from './Pages/SignIn/SignIn';
+import ForgotPass from './Pages/ForgotPass/ForgotPass';
 
 function App() {
 
@@ -12,14 +15,18 @@ function App() {
     <>
       <div>
         <Routes>
+          <Route path='/' element={<SignUp />} />
+          <Route path='/signIn' element={<SignIn/>} />
+          <Route path='/forgotPass' element={<ForgotPass/>} />
           <Route
-            path="/"
+            path="/admin/"
             element={
               <Main />
             }
           >
-            <Route path={'/dashboard'} element={<Dashboard />} />
-            <Route path={'/admins'} element={<Admins />} />
+
+            <Route path={'dashboard'} element={<Dashboard />} />
+            <Route path={'admins'} element={<Admins />} />
           </Route>
         </Routes>
       </div>
