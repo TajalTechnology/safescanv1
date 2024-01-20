@@ -10,10 +10,10 @@ const Main = () => {
                 {/* ----------------admin Dashboard sidebar here----------------- */}
                 <Sidebar />
             </div>
-            <div className='bg-[#F4F7FE] w-full min-h-[100vh]'>
+            <div className='bg-[#F4F7FE] xl:px-[30px] px-4 w-full min-h-[100vh]'>
                 {/* Admin dashboard outlet create */}
-                <DashboardNav name={"Liam Ketla"} user="Admin" role={"admin"} />
-                <div className='xl:px-[30px] px-4 '>
+                <DashboardNav />
+                <div className=''>
                     <Outlet></Outlet>
                 </div>
             </div>

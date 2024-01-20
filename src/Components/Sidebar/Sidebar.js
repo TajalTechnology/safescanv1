@@ -1,7 +1,8 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useMediaQuery } from '@react-hook/media-query';
 
 const Sidebar_animation = {
   open: {
@@ -24,10 +25,19 @@ const Sidebar = () => {
   const path = useLocation();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(true);
+  const isSmallScreen = useMediaQuery('(max-width: 1000px)');
 
   // const handelLogout = () => {
   //   navigate("/");
   // };
+
+  useEffect(()=>{
+      if(isSmallScreen){
+        setOpen(false)
+      }else{
+        setOpen(true)
+      }
+  },[isSmallScreen])
 
   const NavData = [
     {
