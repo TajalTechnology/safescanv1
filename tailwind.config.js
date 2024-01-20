@@ -13,7 +13,7 @@ module.exports = {
         secondary: "#707EAE",
         error: "#F52618",
         // lightGray: "#8386A8",
-        // black: "#3D4854",
+        info: "#68769F",
         success: "#4CC800",
         // Average: "#4cb585",
         Warning: "#FFC000",
