@@ -23,8 +23,8 @@ function App() {
     <>
       <div>
         <CustomRoutes>
-          <Route path="/" element={<SignUp />} />
-          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/" element={<SignIn/>} />
+          <Route path="/signIn" element={<SignUp />} />
           <Route path="/forgotPass" element={<ForgotPass />} />
           {/* ------------------------admin dashboard route--------------------- */}
           <Route path="/admin" element={<Main></Main>}>
