@@ -48,7 +48,8 @@ body {
   /* font-family: "Poppins", "sans-serif", "roboto"; */
   font-family: "DM Sans", sans-serif;
   scroll-behavior: smooth;
-  background-color: #F4F7FE;
+  background-color: #c2cadd;
+  /* background-color: #F4F7FE; */
 }
 
 .css-h0q0iv-MuiButtonBase-root-MuiTab-root {
