@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { Tooltip } from "antd";
 import React, { useState } from "react";
-import DeleteModal from "../Shared/modal/DeleteModal";
+import DeleteModal from "../../Shared/modal/DeleteModal";
 
 const AdminTableAction = ({ row }) => {
   const [deleteModal,setDeleteModal] = useState(false)

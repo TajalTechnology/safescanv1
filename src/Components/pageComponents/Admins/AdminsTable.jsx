@@ -1,5 +1,5 @@
 import React from "react";
-import CustomTable from "../Shared/table/CustomTable";
+import CustomTable from "../../Shared/table/CustomTable";
 import { Icon } from "@iconify/react";
 import QRCode from "./QRCode";
 import AdminTableAction from "./AdminTableAction";

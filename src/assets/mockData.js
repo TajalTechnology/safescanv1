@@ -15,6 +15,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:2,
@@ -29,6 +30,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:3,
@@ -43,6 +45,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:4,
@@ -57,6 +60,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:5,
@@ -71,6 +75,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:6,
@@ -85,6 +90,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:7,
@@ -99,6 +105,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:8,
@@ -113,6 +120,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:9,
@@ -127,6 +135,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:10,
@@ -141,6 +150,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:11,
@@ -155,6 +165,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:12,
@@ -169,6 +180,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
     },
     {
         id:13,
@@ -183,6 +195,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:14,
@@ -197,6 +210,7 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:250,
+        fineStatus:"due"
     },
     {
         id:15,
@@ -211,6 +225,237 @@ export const AdminProfiles = [
         major:"02",
         dismissal:"06",
         fine:150,
+        fineStatus:"paid"
+    },
+
+]
+
+
+export const WorkersProfiles = [
+    {
+        id:1,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:2,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:3,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:4,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:5,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:6,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:7,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:8,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:9,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:10,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:11,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:12,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
+    },
+    {
+        id:13,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:14,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:250,
+        fineStatus:"due"
+    },
+    {
+        id:15,
+        firstName:"Ryan",
+        lastName:"Machman",
+        number:"123-4567-896",
+        email:"example@gmail.com",
+        address:"7 castle troy road Limerick Co Limerich ",
+        employersName:"CBL Onstruction LTD",
+        cartImage:"5",
+        minor:"03",
+        major:"02",
+        dismissal:"06",
+        fine:150,
+        fineStatus:"paid"
     },
 
 ]

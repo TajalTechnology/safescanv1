@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import SearchInput from "../../Components/Shared/input/SearchInput";
 import SectionHeading from "../../Components/Shared/SectionHeading";
-import AdminsTable from "../../Components/Admins/AdminsTable";
 import { AdminProfiles } from "../../assets/mockData";
+import AdminsTable from "../../Components/pageComponents/Admins/AdminsTable";
 
 const Admins = () => {
   const [search, setSearch] = React.useState("");
@@ -34,7 +34,7 @@ const Admins = () => {
             <SearchInput
               search={search}
               setSearch={setSearch}
-              placeholder="Search Worker Profile"
+              placeholder="Search Admin Profile"
             />
           </div>
           <div>
