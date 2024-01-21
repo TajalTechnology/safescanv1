@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react";
+
 import { Modal } from "antd";
 import React from "react";
 
