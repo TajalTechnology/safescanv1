@@ -64,7 +64,7 @@ const SignIn = () => {
                             </div>
 
                         </div>
-                        <p className='underline text-info text-sm font-medium mt-4'><Link to={'/forgotPass'} className='font-bold text-primary'>Forgot Password?</Link></p>
+                        <p className='underline text-info text-sm font-medium mt-4'><Link target='_blank' to={'/forgotPass'} className='font-bold text-primary'>Forgot Password?</Link></p>
                         <div className='mt-6 w-full'>
                             <CustomButton className={'w-full'}>
                                 <p>Sign In</p>

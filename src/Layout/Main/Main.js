@@ -6,7 +6,7 @@ import DashboardNav from './DashboardNav';
 const Main = () => {
     return (
         <div className=" flex bg-[#F4F7FE]">
-            <div className=''>
+            <div className=' bg-white'>
                 {/* ----------------admin Dashboard sidebar here----------------- */}
                 <Sidebar />
             </div>

@@ -153,7 +153,7 @@ const SignUp = () => {
 
             {/* -----------image section---------------------- */}
             <div className='lg:flex lg:flex-col hidden w-7/12 h-screen'>
-                <div className='flex-1'>
+                {/* <div className='flex-1'>
                     <img src="/Images/loginDown.svg" alt="background" className='h-full w-full object-cover' />
                 </div>
 
@@ -163,7 +163,7 @@ const SignUp = () => {
 
                 <div className='flex-1'>
                     <img src="/Images/loginUp.svg" alt="background" className='h-full w-full object-cover' />
-                </div>
+                </div> */}
             </div>
 
         </div>

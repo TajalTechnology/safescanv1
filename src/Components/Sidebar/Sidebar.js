@@ -23,7 +23,10 @@ const Sidebar_animation = {
 const Sidebar = () => {
   // const navigate = useNavigate();
   const path = useLocation();
+  // logout modal show--------------
   const [show, setShow] = useState(false);
+
+  // sidebar open--------------
   const [open, setOpen] = useState(true);
   const isSmallScreen = useMediaQuery('(max-width: 1000px)');
 
@@ -31,13 +34,13 @@ const Sidebar = () => {
   //   navigate("/");
   // };
 
-  useEffect(()=>{
-      if(isSmallScreen){
-        setOpen(false)
-      }else{
-        setOpen(true)
-      }
-  },[isSmallScreen])
+  useEffect(() => {
+    if (isSmallScreen) {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  }, [isSmallScreen])
 
   const NavData = [
     {
@@ -60,6 +63,31 @@ const Sidebar = () => {
       icon: <Icon icon="mingcute:user-1-line" />,
       url: "/admin/workers",
     },
+    {
+      title: "Products",
+      icon: <Icon icon="material-symbols:dashboard-outline" />,
+      url: "/admin/products",
+    },
+    {
+      title: "Create Admin",
+      icon: <Icon icon="tabler:wallet" />,
+      url: "/admin/create-admin",
+    },
+    {
+      title: "Create Worker",
+      icon: <Icon icon="lucide:user-round-cog" />,
+      url: "/admin/create-worker",
+    },
+    {
+      title: "Notifications",
+      icon: <Icon icon="mingcute:user-1-line" />,
+      url: "/admin/notifications",
+    },
+    {
+      title: "Profile Settings",
+      icon: <Icon icon="mingcute:user-1-line" />,
+      url: "/admin/profile-settings",
+    },
   ];
 
   const activeStyle = {
@@ -71,7 +99,7 @@ const Sidebar = () => {
       <motion.div
         variants={Sidebar_animation}
         animate={open ? "open" : "closed"}
-        className="flex flex-col justify-between bg-[#fff] h-[100vh] sticky top-0"
+        className="flex flex-col justify-between  bg-white  h-[100vh] sticky top-0"
       >
         <section className="w-full">
           <div className=" flex items-center px-5 py-2 justify-between">
@@ -83,16 +111,14 @@ const Sidebar = () => {
                 }}
                 src="/logo (2).png"
                 alt="logo"
-                className={`max-w-[143px] mx-auto duration-500 ${
-                  open ? "" : "hidden "
-                }`}
+                className={`max-w-[143px] mx-auto duration-500 ${open ? "" : "hidden "
+                  }`}
               />
               <img
                 src="/logo2.png"
                 alt="logo"
-                className={`max-w-[143px] mx-auto ${
-                  open ? " hidden duration-500" : ""
-                }`}
+                className={`max-w-[143px] mx-auto ${open ? " hidden duration-500" : ""
+                  }`}
               />
             </div>
             <button
@@ -121,9 +147,8 @@ const Sidebar = () => {
               >
                 <div className="flex item-center gap-3 font-bold duration-500 ">
                   <div
-                    className={`text-[23px] group-hover:text-[#664DFF] ${
-                      path.pathname === nav?.url ? " text-[#664DFF]" : ""
-                    }`}
+                    className={`text-[23px] group-hover:text-[#664DFF] ${path.pathname === nav?.url ? " text-[#664DFF]" : ""
+                      }`}
                   >
                     {nav?.icon}
                   </div>
@@ -136,9 +161,8 @@ const Sidebar = () => {
                     style={{
                       // transitionDelay: `100ms`,
                     }}
-                    className={`whitespace-pre text-[18px] font-[700] duration-500 group-hover:text-[#1B2559] ${
-                      !open && "opacity-0 translate-x-28 overflow-hidden"
-                    }`}
+                    className={`whitespace-pre text-[18px] font-[700] duration-500 group-hover:text-[#1B2559] ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                      }`}
                   >
                     {nav?.title}
                   </h2>
@@ -152,11 +176,10 @@ const Sidebar = () => {
                 </div>
                 {open && (
                   <div
-                    className={`${
-                      path.pathname === nav?.url
-                        ? " bg-[#664DFF] rounded-full w-[4px] h-[36px]"
-                        : "rounded-full duration-500 w-[4px] h-[36px] group-hover:bg-[#664DFF]"
-                    }`}
+                    className={`${path.pathname === nav?.url
+                      ? " bg-[#664DFF] rounded-full w-[4px] h-[36px]"
+                      : "rounded-full duration-500 w-[4px] h-[36px] group-hover:bg-[#664DFF]"
+                      }`}
                   ></div>
                 )}
               </NavLink>
@@ -164,20 +187,21 @@ const Sidebar = () => {
           </div>
         </section>
 
-        <div>
+        <div className="">
           <div className="flex justify-between items-center group p-4">
             <button
               onClick={() => setShow(true)}
-              className="flex gap-2 w-full py-1 cursor-pointer justify-between rounded-[8px] px-3 bg_color_gradient  items-center"
+              className="flex gap-2 w-full py-1 cursor-pointer justify-between px-3 items-center"
             >
-              <p className="text-[16px] font-[500] text-white">Log out</p>
-              <span className=" text-white w-[40px] flex items-center justify-center rounded-full h-[40px]">
-                <Icon icon="humbleicons:logout" className=" text-[25px]" />
+              <p className="text-base font-medium text-dark-gray">Log out</p>
+              <span className=" text-dark-gray w-[40px] flex items-center justify-center h-[24px]">
+                <Icon icon="humbleicons:logout" className=" text-[24px]" />
               </span>
             </button>
           </div>
         </div>
       </motion.div>
+
     </>
   );
 };
