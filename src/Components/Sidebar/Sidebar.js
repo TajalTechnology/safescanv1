@@ -64,27 +64,27 @@ const Sidebar = () => {
     },
     {
       title: "Products",
-      icon: <Icon icon="material-symbols:dashboard-outline" />,
+      icon: <Icon icon="lucide:package-search" />,
       url: "/admin/products",
     },
     {
       title: "Create Admin",
-      icon: <Icon icon="tabler:wallet" />,
+      icon: <Icon icon="lucide:user-round-plus" />,
       url: "/admin/create-admin",
     },
     {
       title: "Create Worker",
-      icon: <Icon icon="lucide:user-round-cog" />,
+      icon: <Icon icon="lucide:user-plus" />,
       url: "/admin/create-worker",
     },
     {
       title: "Notifications",
-      icon: <Icon icon="mingcute:user-1-line" />,
+      icon: <Icon icon="lucide:bell" />,
       url: "/admin/notifications",
     },
     {
       title: "Profile Settings",
-      icon: <Icon icon="mingcute:user-1-line" />,
+      icon: <Icon icon="ion:settings-outline" />,
       url: "/admin/profile-settings",
     },
   ];
