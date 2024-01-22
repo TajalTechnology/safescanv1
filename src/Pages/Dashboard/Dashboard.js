@@ -4,9 +4,18 @@ import FinesOverview from '../../Components/Pages/Dashboard/FinesOverview';
 import TotalProducts from '../../Components/Pages/Dashboard/TotalProducts';
 import TotalUsers from '../../Components/Pages/Dashboard/TotalUsers';
 import FinesAmount from '../../Components/Pages/Dashboard/FinesAmount';
+import BreadCrumb from '../../Components/Shared/BreadCrumb';
 
 const Dashboard = () => {
     return (
+        <>
+        <BreadCrumb
+          title={"Dashboard"}
+          links={[
+            { title: "Home", url: "/admin/dashboard" },
+            { title: "Dashboard", url: "/admin/dashboard" },
+          ]}
+        />
         <div className='grid grid-cols-1 mb-10'>
             <TopSection />
             <div className='lg:flex gap-5 mb-5'>
@@ -27,6 +36,8 @@ const Dashboard = () => {
             </div>
 
         </div>
+        </>
+        
     );
 };
 

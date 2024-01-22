@@ -2,9 +2,19 @@ import React from 'react';
 import SectionWrapper from '../../Components/Shared/SectionWrapper';
 import { Icon } from '@iconify/react';
 import CustomButton from '../../Components/Shared/CustomButton';
+import BreadCrumb from '../../Components/Shared/BreadCrumb';
 
 const Subscriptions = () => {
     return (
+
+        <>
+        <BreadCrumb
+          title={"Subscription"}
+          links={[
+            { title: "Home", url: "/admin/dashboard" },
+            { title: "Subscription", url: "/admin/subscription" },
+          ]}
+        />
         <div className='lg:flex items-center gap-5'>
             {/* ------basic plan--------- */}
             <div className='w-full lg:w-1/3'>
@@ -88,6 +98,8 @@ const Subscriptions = () => {
                 </SectionWrapper>
             </div>
         </div>
+        </>
+        
     );
 };
 

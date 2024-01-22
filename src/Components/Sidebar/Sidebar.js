@@ -1,8 +1,9 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
+import LogOutModal from "../Shared/modal/LogOutModal";
 
 const Sidebar_animation = {
   open: {
@@ -20,7 +21,7 @@ const Sidebar_animation = {
 };
 
 const Sidebar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const path = useLocation();
   // logout modal show--------------
   const [show, setShow] = useState(false);
@@ -88,6 +89,11 @@ const Sidebar = () => {
       url: "/admin/profile-settings",
     },
   ];
+
+
+  const logout=()=>{
+    navigate('/')
+  }
 
   const activeStyle = {
     color: "#1B2559",
@@ -216,6 +222,12 @@ const Sidebar = () => {
           </div>
         </div>
       </motion.div>
+      <LogOutModal
+        modalOPen={show}
+        setModalOpen={setShow}
+        // className,
+        onDelete={logout}
+      />
     </>
   );
 };

@@ -5,7 +5,7 @@
   padding: 0;
 } */
 
-*{
+* {
   scroll-behavior: smooth;
 }
 
@@ -35,7 +35,7 @@
 
 
 
-.Baloo2_font{
+.Baloo2_font {
   font-family: "Baloo2";
 }
 
@@ -146,19 +146,19 @@ body {
   padding-left: 16px !important;
 }
 
-.ant-table-thead .ant-table-cell:first-child{
+.ant-table-thead .ant-table-cell:first-child {
   padding-left: 22px !important;
 }
 
-.ant-table-thead .ant-table-cell:last-child{
+.ant-table-thead .ant-table-cell:last-child {
   padding-right: 22px !important;
 }
 
-.ant-table-tbody .ant-table-cell:first-child{
+.ant-table-tbody .ant-table-cell:first-child {
   padding-left: 25px !important;
 }
 
-.ant-table-tbody .ant-table-cell:last-child{
+.ant-table-tbody .ant-table-cell:last-child {
   padding-right: 22px !important;
 }
 
@@ -243,19 +243,21 @@ body {
 }
 
 /* -------------checkbox --------------- */
-:where(.css-dev-only-do-not-override-nllxry).ant-checkbox-checked .ant-checkbox-inner{
-background-color: #252F67 !important;
-border: 1px solid #252F67 !important;
+:where(.css-dev-only-do-not-override-nllxry).ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #252F67 !important;
+  border: 1px solid #252F67 !important;
 }
-.ant-checkbox-inner{
-  
-border: 1px solid #252F67 !important;
+
+.ant-checkbox-inner {
+
+  border: 1px solid #252F67 !important;
 }
 
 /* -----------------style for switch------------- */
-:where(.css-dev-only-do-not-override-nllxry).ant-switch:hover{
+:where(.css-dev-only-do-not-override-nllxry).ant-switch:hover {
   background-color: #252F67 !important;
 }
+
 :where(.css-dev-only-do-not-override-nllxry).ant-switch.ant-switch-checked {
   background: #252F67;
 }
@@ -312,6 +314,7 @@ border: 1px solid #252F67 !important;
   color: white !important;
   top: 125px !important;
 }
+
 /* --------------elderly member overview pie chart----------------- */
 #elderly-overview .g2-html-annotation {
   color: white !important;
@@ -323,7 +326,8 @@ border: 1px solid #252F67 !important;
   margin: 0 !important;
   padding: 0 !important;
 }
-#device .ant-popover{
+
+#device .ant-popover {
   z-index: 0 !important;
 }
 
@@ -341,90 +345,53 @@ border: 1px solid #252F67 !important;
 
 /* --------------------ant table pagination---------------- */
 
-/* :where(.css-dev-only-do-not-override-nllxry).ant-table-wrapper .ant-table-pagination.ant-pagination {
-  padding-right: 22px !important;
-} */
-/* here all table pagination gap problem */
-.ant-pagination-next{
-  margin-right:22px !important ;
+.ant-pagination-next {
+  margin-right: 22px !important;
 }
 
 
 .ant-pagination-prev {
-  border: 1px solid rgb(185, 182, 182);
   border-radius: 8px !important;
   padding: 0px 6px !important;
+  background-color: #dfdfe046;
 
 }
 
-.ant-pagination-item-link{
+.ant-pagination-item-link {
   color: rgba(43, 54, 116, 0.8) !important;
 }
 
-.ant-pagination-item-link:disabled{
-color: rgba(157, 158, 163, 0.8) !important;
-}
-
-.ant-pagination-prev ::after {
-  content: 'Previous';
-  margin-left: 2px !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-}
-
-.ant-pagination-item-link ::after {
-  content: '' !important;
+.ant-pagination-item-link:disabled {
+  color: rgba(157, 158, 163, 0.8) !important;
 }
 
 .ant-pagination-next {
-  border: 1px solid rgb(185, 182, 182);
   border-radius: 8px !important;
   margin-left: 8px !important;
   padding: 0px 6px !important;
+  background-color: #dfdfe046;
 }
 
-.ant-pagination-next ::before {
-  content: 'Next';
-  margin-right: 6px !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-}
 
 .ant-pagination-item {
-  border: 1px solid rgb(185, 182, 182) !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   margin: 0px !important;
- 
+
 }
 
-.ant-pagination-item-1 {
-  border: 1px solid rgb(185, 182, 182) !important;
-  border-bottom-right-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 8px !important;
-  border-bottom-left-radius: 8px !important;
-  margin: 0px !important;
-}
 
-.ant-spin-container ul li:nth-last-child(2) {
-  border-bottom-right-radius: 8px !important;
-  border-top-right-radius: 8px !important;
-  border-top-left-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
-  margin: 0px !important;
-}
-
-.ant-pagination-item a{
+.ant-pagination-item a {
   color: rgba(43, 54, 116, 0.6) !important;
 
 }
+
 .ant-pagination-item-active {
-  background-color: #252F67 !important;
-  border: 1px solid #252F67 !important;
+  background-color: #654dff27 !important;
+  border: 1px solid #654dff00 !important;
 }
 
 .ant-pagination-item-active a {
-  color: white !important;
+  color: #664DFF !important;
   font-size: 13px !important;
   font-weight: bold !important;
 
@@ -535,7 +502,7 @@ color: rgba(157, 158, 163, 0.8) !important;
   background: transparent;
   border-radius: 50%;
   /* box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25), */
-    /* inset 5px 5px 35px rgba(0, 0, 0, 0.25); */
+  /* inset 5px 5px 35px rgba(0, 0, 0, 0.25); */
 }
 
 .adding::after {
@@ -585,14 +552,14 @@ color: rgba(157, 158, 163, 0.8) !important;
   }
 }
 
-.ant-progress-text{
-  color:#ffffffd9 !important;
-  font-weight:600;
+.ant-progress-text {
+  color: #ffffffd9 !important;
+  font-weight: 600;
   font-size: 16px;
 }
 
 
-.ant-drawer-wrapper-body .ant-drawer-body{
+.ant-drawer-wrapper-body .ant-drawer-body {
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -600,7 +567,7 @@ color: rgba(157, 158, 163, 0.8) !important;
 
 /* -------------------ant slider style------------------------------ */
 
-.ant-slider-handle::after{
+.ant-slider-handle::after {
   box-shadow: 0 0 0 3px #252F67 !important;
 }
 
@@ -612,14 +579,16 @@ color: rgba(157, 158, 163, 0.8) !important;
 } */
 
 
-  @media only screen and (min-width:1020px) and (max-width: 1580px) {
-    #add_zoom{
-      zoom: 80% !important;
-    }
-   #admin-overview{
-    height: 780px !important;
-   }
-    #add_zoom_90{
-      zoom: 90% !important;
-    }
+@media only screen and (min-width:1020px) and (max-width: 1580px) {
+  #add_zoom {
+    zoom: 80% !important;
   }
+
+  #admin-overview {
+    height: 780px !important;
+  }
+
+  #add_zoom_90 {
+    zoom: 90% !important;
+  }
+}
