@@ -19,6 +19,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           </span>
         </div>
       ),
+      sorter: (a, b) => a.number - b.number,
     },
     {
       title: "Site Address",
@@ -46,6 +47,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           {row.LastTestDate}
         </span>
       ),
+      sorter: (a, b) => a.LastTestDate - b.LastTestDate,
     },
     {
       title: "Next Test Date",
@@ -55,6 +57,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           {row.NextTestDate}
         </span>
       ),
+      sorter: (a, b) => a.NextTestDate - b.NextTestDate,
     },
     {
       title: "Location",
@@ -91,6 +94,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           )}
         </div>
       ),
+      sorter: (a, b) => a.Status - b.Status,
     },
     {
       title: "Image",

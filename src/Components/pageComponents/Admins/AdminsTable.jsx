@@ -69,6 +69,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
             {row.minor}
           </span>
         ),
+        sorter: (a, b) => a.minor - b.minor,
       },
       {
         title: "Major",
@@ -78,6 +79,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
             {row.major}
           </span>
         ),
+        sorter: (a, b) => a.major - b.major,
       },
       {
         title: "Dismissal",
@@ -87,6 +89,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
             {row.dismissal}
           </span>
         ),
+        sorter: (a, b) => a.dismissal - b.dismissal,
       },
       {
         title: "Fine Status",
@@ -96,6 +99,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
             €{row.fine}
           </span>
         ),
+        sorter: (a, b) => a.fine - b.fine,
       },
       {
         title: "QRC Code",
