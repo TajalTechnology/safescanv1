@@ -7,7 +7,7 @@ const TotalUsers = () => {
     const [selected, setSelected] = useState('Monthly');
     const dataDay = ["Weekly", "Monthly"];
     const monthlyData = [
-        { day: "Jan 2023 ", name: "Admin", value: 25, },
+        { day: "Jan 2023", name: "Admin", value: 25, },
         { day: "Feb 2023", name: "Admin", value: 30, },
         { day: "Mar 2023", name: "Admin", value: 25, },
         { day: "Apr 2023", name: "Admin", value: 30, },
@@ -19,18 +19,19 @@ const TotalUsers = () => {
         { day: "Oct 2023", name: "Admin", value: 25, },
         { day: "Nov 2023", name: "Admin", value: 30, },
         { day: "Dec 2023", name: "Admin", value: 20 },
-        { day: "Jan 2023", name: "Workers", value: 20 },
-        { day: "Feb 2023", name: "Workers", value: 30 },
-        { day: "Mar 2023", name: "Workers", value: 25 },
-        { day: "Apr 2023", name: "Workers", value: 22 },
-        { day: "May 2023", name: "Workers", value: 30 },
-        { day: "Jun 2023", name: "Workers", value: 40 },
-        { day: "Jul 2023", name: "Workers", value: 20 },
-        { day: "Aug 2023", name: "Workers", value: 30 },
-        { day: "Sep 2023", name: "Workers", value: 40 },
-        { day: "Oct 2023", name: "Workers", value: 25 },
-        { day: "Nov 2023", name: "Workers", value: 28 },
-        { day: "Dec 2023", name: "Workers", value: 20 },
+        
+        { day: "Jan 2023", name: "Worker", value: 20 },
+        { day: "Feb 2023", name: "Worker", value: 30 },
+        { day: "Mar 2023", name: "Worker", value: 25 },
+        { day: "Apr 2023", name: "Worker", value: 22 },
+        { day: "May 2023", name: "Worker", value: 30 },
+        { day: "Jun 2023", name: "Worker", value: 40 },
+        { day: "Jul 2023", name: "Worker", value: 20 },
+        { day: "Aug 2023", name: "Worker", value: 30 },
+        { day: "Sep 2023", name: "Worker", value: 40 },
+        { day: "Oct 2023", name: "Worker", value: 25 },
+        { day: "Nov 2023", name: "Worker", value: 28 },
+        { day: "Dec 2023", name: "Worker", value: 20 },
     ]
     const weeklyData = [
         { day: "sun", name: "Admin", value: 5, },
@@ -40,13 +41,14 @@ const TotalUsers = () => {
         { day: "Thu", name: "Admin", value: 4, },
         { day: "Fri", name: "Admin", value: 2, },
         { day: "sat", name: "Admin", value: 7, },
-        { day: "sun", name: "Workers", value: 8 },
-        { day: "Mon", name: "Workers", value: 4 },
-        { day: "Tue", name: "Workers", value: 5 },
-        { day: "Wed", name: "Workers", value: 8 },
-        { day: "Thu", name: "Workers", value: 6 },
-        { day: "Fri", name: "Workers", value: 8 },
-        { day: "sat", name: "Workers", value: 7 }
+
+        { day: "sun", name: "Worker", value: 8 },
+        { day: "Mon", name: "Worker", value: 4 },
+        { day: "Tue", name: "Worker", value: 5 },
+        { day: "Wed", name: "Worker", value: 8 },
+        { day: "Thu", name: "Worker", value: 6 },
+        { day: "Fri", name: "Worker", value: 8 },
+        { day: "sat", name: "Worker", value: 7 }
     ]
 
     const [data, setData] = useState(weeklyData);

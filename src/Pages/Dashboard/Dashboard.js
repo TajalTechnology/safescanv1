@@ -13,7 +13,7 @@ const Dashboard = () => {
                 <div className='w-full lg:w-2/3'>
                     <FinesOverview />
                 </div>
-                <div className='w-full lg:w-1/3'>
+                <div className='w-full lg:w-1/3 mt-5 lg:mt-0'>
                     <TotalProducts />
                 </div>
             </div>
@@ -21,7 +21,7 @@ const Dashboard = () => {
                 <div className='w-full lg:w-2/3'>
                     <TotalUsers />
                 </div>
-                <div className='w-full lg:w-1/3'>
+                <div className='w-full lg:w-1/3 mt-5 lg:mt-0'>
                     <FinesAmount />
                 </div>
             </div>
