@@ -1,10 +1,10 @@
 
 const EditInput = ({ label, type, register, defaultValue }) => {
     return (
-        <div className="flex flex-col items-start w-full mt-3">
+        <div className="flex flex-col items-start w-full mt-4">
             <label
                 htmlFor="otp"
-                className='mb-1.5 font-medium text-base text-dark-gray'
+                className='mb-1.5 font-medium text-lg text-dark-gray'
             >
                 {label}
             </label>

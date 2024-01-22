@@ -46,7 +46,7 @@ const CustomModal = ({
           </div>
           <form onSubmit={handleSubmit} className="w-full mt-[0px] px-9 pb-9">
             <div className="">{children}</div>
-            <div className="mt-[20px] flex items-center gap-5">
+            <div className="mt-[30px] flex items-center gap-5">
               <CustomButton onClick={()=>setModalOpen(false)} className={" w-full"}>{buttonText}</CustomButton>
               <button
                 type="button"

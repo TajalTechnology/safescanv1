@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import SectionWrapper from '../../Components/Shared/SectionWrapper';
 import CustomButton from '../../Components/Shared/CustomButton';
 import { Icon } from '@iconify/react';
+import CustomModal from '../../Components/Shared/modal/CustomModal';
+import EditProfile from '../../Components/Pages/ProfileSettings/EditProfile';
 
 const ProfileSettings = () => {
     const [show, setShow] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     return (
         <div className='grid grid-cols-1 text-info/70 mb-10'>
             <SectionWrapper>
@@ -21,7 +24,7 @@ const ProfileSettings = () => {
                         </div>
                     </div>
                     <div>
-                        <CustomButton>
+                        <CustomButton onClick={() => setOpenModal(true)}>
                             <span className='flex items-center text-white gap-2'>
                                 <Icon className='text-lg text-white rotate-180' icon="tabler:edit-circle" />
                                 <span>Edit Information</span>
@@ -36,12 +39,12 @@ const ProfileSettings = () => {
                             <p className='text-xs font-medium'>User Name</p>
                             <h1 className='text-lg font-medium text-[#485585]'>Ryanmohon123</h1>
                         </div>
-                        
+
                         <div>
                             <p className='text-xs font-medium'>Password</p>
                             <div className='flex items-center justify-between gap-2'>
                                 {
-                                    show ? <h1 className='text-lg font-medium text-[#485585]'>Ryanmohon123</h1> : <h1 className='text-lg font-medium text-[#485585]'>********</h1>
+                                    show ? <h1 className='text-lg font-medium text-[#485585]'>12345678</h1> : <h1 className='text-lg font-medium text-[#485585]'>********</h1>
                                 }
                                 <button type='button' className='mr-5' onClick={() => setShow(pre => !pre)}>
                                     {
@@ -107,7 +110,15 @@ const ProfileSettings = () => {
 
                 </div>
             </SectionWrapper>
-
+            <CustomModal
+                width={'600px'}
+                modalOPen={openModal}
+                setModalOpen={setOpenModal}
+                title={'Edit Information'}
+                buttonText={'Save Changes'}
+            >
+                <EditProfile setOpenModal={setOpenModal} />
+            </CustomModal>
         </div>
     );
 };
