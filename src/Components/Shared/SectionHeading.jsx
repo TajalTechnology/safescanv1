@@ -3,7 +3,7 @@ import React from 'react';
 const SectionHeading = ({children}) => {
     return (
         <div>
-            <p className='text-2xl font-bold text-dark-gray'>{children}</p>
+            <h2 className='text-2xl font-bold text-dark-gray'>{children}</h2>
         </div>
     );
 };
