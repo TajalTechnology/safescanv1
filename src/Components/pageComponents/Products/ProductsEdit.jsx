@@ -5,8 +5,7 @@ import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 
 const ProductsEdit = ({ item, setModalOpen, modalOPen }) => {
-
-    const [active,setActive]=useState("due")
+  const [active, setActive] = useState("Needs Attention");
 
   const {
     register,
@@ -14,15 +13,14 @@ const ProductsEdit = ({ item, setModalOpen, modalOPen }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: item.firstName,
-      lastName: item.lastName,
-      email: item.email,
+      name: item.name,
       number: item.number,
       address: item.address,
-      employersName: item.employersName,
-      minor: item.minor,
-      major:item.major,
-      dismissal:item.dismissal,
+      testersName: item.testersName,
+      Location: item.Location,
+      note: item.note,
+      LastTestDate: "2024-04-01",
+      NextTestDate: "2024-04-02",
     },
   });
 
@@ -36,14 +34,14 @@ const ProductsEdit = ({ item, setModalOpen, modalOPen }) => {
       setModalOpen={setModalOpen}
       handleSubmit={handleSubmit(onSubmit)}
       width={590}
-      title="Edit Worker"
+      title="Edit Product"
       buttonText={"Save Changes"}
     >
       <div className="flex items-center gap-4">
         <CustomInput
-          label={"First Name"}
+          label={"Product Name"}
           type={"text"}
-          register={register("firstName", {
+          register={register("name", {
             required: {
               value: true,
               message: "Please enter first name",
@@ -54,44 +52,18 @@ const ProductsEdit = ({ item, setModalOpen, modalOPen }) => {
         />
 
         <CustomInput
-          label={"Last Name"}
+          label={"Product Number"}
           type={"text"}
-          register={register("lastName", {
+          register={register("number", {
             required: {
               value: true,
-              message: "Please enter last name",
+              message: "Please enter Mobile Number",
             },
           })}
-          error={errors.lastName}
-          placeholder={"Enter Last Name"}
+          error={errors.number}
+          placeholder={"Mobile Number"}
         />
       </div>
-
-      <CustomInput
-        label={"Mobile Number"}
-        type={"text"}
-        register={register("number", {
-          required: {
-            value: true,
-            message: "Please enter Mobile Number",
-          },
-        })}
-        error={errors.number}
-        placeholder={"Mobile Number"}
-      />
-
-      <CustomInput
-        label={"Email Address"}
-        type={"email"}
-        register={register("email", {
-          required: {
-            value: true,
-            message: "Please enter Email Address",
-          },
-        })}
-        error={errors.email}
-        placeholder={"Email Address"}
-      />
 
       <CustomInput
         label={"Site Address"}
@@ -100,41 +72,123 @@ const ProductsEdit = ({ item, setModalOpen, modalOPen }) => {
         placeholder={"Enter Site Address"}
       />
       <CustomInput
-        label={"Employers Name"}
+        label={"Testers Name"}
         type={"text"}
-        register={register("employersName")}
+        register={register("testersName")}
         placeholder={"Enter Employers Name"}
       />
 
       <div className=" flex items-center gap-4 justify-between">
-        <CustomInput
-          label={"level 1"}
-          type={"text"}
-          register={register("minor")}
-          placeholder={"Enter level 1"}
-        />
-        <CustomInput
-          label={"level 2"}
-          type={"text"}
-          register={register("major")}
-          placeholder={"Enter level 2 "}
-        />
-        <CustomInput
-          label={"level 3"}
-          type={"text"}
-          register={register("dismissal")}
-          placeholder={"Enter level 3"}
-        />
+        <div className="flex flex-col items-start w-full mt-3">
+          <label
+            htmlFor="otp"
+            className="mb-1.5 font-medium text-base text-dark-gray"
+          >
+            Last Test Date
+          </label>
+          <input
+            className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+            type={"date"}
+            id="otp"
+            {...register("LastTestDate")}
+          />
+        </div>
+        <div className="flex flex-col items-start w-full mt-3">
+          <label
+            htmlFor="otp"
+            className="mb-1.5 font-medium text-base text-dark-gray"
+          >
+            Next Test Date
+          </label>
+          <input
+            className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+            type={"date"}
+            id="otp"
+            {...register("NextTestDate")}
+          />
+        </div>
       </div>
 
+      <CustomInput
+        label={"Location"}
+        type={"text"}
+        register={register("Location")}
+        placeholder={"Enter level 3"}
+      />
 
       <div className=" mt-5">
-           <h3 className="mb-1.5 font-medium text-base text-dark-gray">Fine Status</h3> 
-           <div className="w-full flex item-center justify-center gap-5">
-                <button onClick={()=>setActive("paid")} type="button" className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${active==="paid" ? "bg-[#4CC800] text-white" : " bg-transparent text-[#4CC800]"}`}><Icon icon="material-symbols:check" className={`text-[18px] ${active==="paid" ? " text-white" : "text-[#4CC800]/30 "}`}/>Fines Paid</button>
+        <h3 className="mb-1.5 font-medium text-base text-dark-gray">
+          Fine Status
+        </h3>
+        <div className="w-full flex item-center justify-center gap-5">
+          <button
+            onClick={() => setActive("Passed")}
+            type="button"
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${
+              active === "Passed"
+                ? "bg-[#4CC800] text-white"
+                : " bg-transparent text-[#4CC800]"
+            }`}
+          >
+            <Icon
+              icon="material-symbols:check"
+              className={`text-[18px] ${
+                active === "Passed" ? " text-white" : "text-[#4CC800]/30 "
+              }`}
+            />
+            Passed
+          </button>
 
-                <button onClick={()=>setActive("due")} type="button" className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${active==="due" ? "bg-[#F40909] text-white" : " bg-transparent text-[#F40909]"}`}><Icon icon="material-symbols:check" className={`text-[18px] ${active==="due" ? " text-white" : "text-[#F40909]/30 "}`}/>Fines Due</button>
-           </div>
+          <button
+            onClick={() => setActive("Needs Attention")}
+            type="button"
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#FFC000] ${
+              active === "Needs Attention"
+                ? "bg-[#FFC000] text-white"
+                : " bg-transparent text-[#FFC000]"
+            }`}
+          >
+            <Icon
+              icon="material-symbols:check"
+              className={`text-[18px] ${
+                active === "Needs Attention" ? " text-white" : "text-[#FFC000]/30 "
+              }`}
+            />
+            Needs Attention
+          </button>
+
+          <button
+            onClick={() => setActive("Failed")}
+            type="button"
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${
+              active === "Failed"
+                ? "bg-[#F40909] text-white"
+                : " bg-transparent text-[#F40909]"
+            }`}
+          >
+            <Icon
+              icon="material-symbols:check"
+              className={`text-[18px] ${
+                active === "Failed" ? " text-white" : "text-[#F40909]/30 "
+              }`}
+            />
+            Failed
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-start w-full mt-3">
+        <label
+          htmlFor="otp"
+          className="mb-1.5 font-medium text-base text-dark-gray"
+        >
+          Last Test Date
+        </label>
+        <textarea
+          className="py-[15px] h-[74px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+          name=""
+          {...register("note")}
+        ></textarea>
       </div>
     </CustomModal>
   );

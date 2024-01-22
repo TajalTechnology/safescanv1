@@ -37,9 +37,9 @@ const ProductsTableAction = ({ row }) => {
         modalOPen={deleteModal}
         onDelete={() => setDeleteModal(false)}
         setModalOpen={setDeleteModal}
-        title={"Delete Worker Profile!"}
+        title={"Delete Product!"}
         title2={
-          "Are you sure you want to delete this worker profile? This action cannot be undone."
+          "Are you sure you want to delete this product? This action cannot be undone."
         }
       />
     </>
