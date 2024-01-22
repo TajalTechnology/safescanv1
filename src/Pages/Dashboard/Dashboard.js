@@ -3,6 +3,7 @@ import TopSection from '../../Components/Pages/Dashboard/TopSection';
 import FinesOverview from '../../Components/Pages/Dashboard/FinesOverview';
 import TotalProducts from '../../Components/Pages/Dashboard/TotalProducts';
 import TotalUsers from '../../Components/Pages/Dashboard/TotalUsers';
+import FinesAmount from '../../Components/Pages/Dashboard/FinesAmount';
 
 const Dashboard = () => {
     return (
@@ -13,7 +14,7 @@ const Dashboard = () => {
                     <FinesOverview />
                 </div>
                 <div className='w-full lg:w-1/3'>
-                <TotalProducts/>
+                    <TotalProducts />
                 </div>
             </div>
             <div className='lg:flex gap-5'>
@@ -21,7 +22,7 @@ const Dashboard = () => {
                     <TotalUsers />
                 </div>
                 <div className='w-full lg:w-1/3'>
-                {/* <TotalProducts/> */}
+                    <FinesAmount />
                 </div>
             </div>
 
