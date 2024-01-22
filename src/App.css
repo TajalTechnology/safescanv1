@@ -46,8 +46,10 @@
 body {
   width: 100%;
   /* font-family: "Poppins", "sans-serif", "roboto"; */
-  font-family: "Baloo2";
+  font-family: "DM Sans", sans-serif;
   scroll-behavior: smooth;
+  background-color: #c2cadd;
+  /* background-color: #F4F7FE; */
 }
 
 .css-h0q0iv-MuiButtonBase-root-MuiTab-root {
@@ -119,33 +121,45 @@ body {
 
 /* ---------style for ant design table----------- */
 
-.ant-table-thead .ant-table-cell {
-  background-color: green !important;
-}
-
 .ant-table-cell {
-  color: #5D6670
+  color: #5D6670;
 }
 
 .ant-table-thead>tr>th {
   color: #68709C !important;
   font-size: 13px !important;
   font-weight: 700 !important;
-  background: red !important;
 }
 
-.support-agent-dashboard .ant-table-cell {
-  padding: 16px 27px !important;
-}
+/* .support-agent-dashboard .ant-table-cell {
+  padding: 16px 10px !important;
+} */
 
-.admin__Table .ant-table-cell {
+/* .admin__Table .ant-table-cell {
   padding: 16px 22px !important;
-}
+} */
 
 .ant-table-thead .ant-table-cell {
   background-color: #F7F7F9 !important;
   border-radius: 0px !important;
-  padding: 16px 27px !important;
+  padding: 16px 10px !important;
+  padding-left: 16px !important;
+}
+
+.ant-table-thead .ant-table-cell:first-child{
+  padding-left: 22px !important;
+}
+
+.ant-table-thead .ant-table-cell:last-child{
+  padding-right: 22px !important;
+}
+
+.ant-table-tbody .ant-table-cell:first-child{
+  padding-left: 25px !important;
+}
+
+.ant-table-tbody .ant-table-cell:last-child{
+  padding-right: 22px !important;
 }
 
 /* -----------support agent > dashboard > activity > elderly conditions date picker------------- */
@@ -590,35 +604,6 @@ color: rgba(157, 158, 163, 0.8) !important;
   box-shadow: 0 0 0 3px #252F67 !important;
 }
 
-/* ------------------------trend table --------------- */
-#trend .ant-table-cell{
-
-  border-bottom: none !important;
-  padding: 0px !important;
-
-}
-
-
-
-#chart-table .ant-table-thead .ant-table-cell{
-color:#2B3674 !important;
-font-weight: 700 !important;
-font-size: 13px !important;
-}
-
-#chart-table .ant-table-tbody .ant-table-cell{
-color:#707EAE !important;
-font-size: 16px !important;
-}
-
-/* ------------modal table--------- */
-#modal-table .ant-table-cell{
-  padding-left: 30px !important;
-}
-
-#admin__support__agent .ant-table-tbody tr{
-  cursor:  pointer !important;
-}
 
 /* @media screen and (min-device-width: 1020px) and (max-device-width: 1580px) { 
     .add_zoom{

@@ -1,9 +1,20 @@
-
-import './App.css'
-import { Route, Routes } from "react-router-dom";
-import Main from './Layout/Main/Main';
-import Dashboard from './Pages/Dashboard/Dashboard';
-import Admins from './Pages/Admins/Admins';
+import "./App.css";
+import { Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Main from "./Layout/Main/Main";
+import CustomRoutes from "./routes/CustomRoutes";
+import Admins from "./Pages/Admins/Admins";
+import Workers from "./Pages/Workers/Workers";
+import Subscriptions from "./Pages/Subscriptions/Subscriptions";
+import ProfileSettings from "./Pages/ProfileSettings/ProfileSettings";
+import Products from "./Pages/Products/Products";
+import CreateWorker from "./Pages/CreateWorker/CreateWorker";
+import Notifications from "./Pages/Notifications/Notifications";
+import CreateAdmin from "./Pages/CreateAdmin/CreateAdmin";
+import SignUp from "./Pages/SignUp/SignUp";
+import SignIn from "./Pages/SignIn/SignIn";
+import ForgotPass from "./Pages/ForgotPass/ForgotPass";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 function App() {
 
@@ -11,19 +22,26 @@ function App() {
   return (
     <>
       <div>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main />
-            }
-          >
-            <Route path={'/dashboard'} element={<Dashboard />} />
-            <Route path={'/admins'} element={<Admins />} />
+        <CustomRoutes>
+          <Route path="/" element={<SignIn/>} />
+          <Route path="/signIn" element={<SignUp />} />
+          <Route path="/forgotPass" element={<ForgotPass />} />
+          {/* ------------------------admin dashboard route--------------------- */}
+          <Route path="/admin" element={<Main></Main>}>
+            <Route path="/admin/dashboard" element={<Dashboard/>} />
+            <Route path="/admin/subscription" element={<Subscriptions/>} />
+            <Route path="/admin/admins" element={<Admins/>} />
+            <Route path="/admin/workers" element={<Workers/>} />
+            <Route path="/admin/products" element={<Products/>} />
+            <Route path="/admin/create-admin" element={<CreateAdmin/>} />
+            <Route path="/admin/create-worker" element={<CreateWorker/>} />
+            <Route path="/admin/notifications" element={<Notifications/>} />
+            <Route path="/admin/profile-settings" element={<ProfileSettings/>} />
           </Route>
-        </Routes>
-      </div>
+        </CustomRoutes>
 
+        <Toaster position="top-right" reverseOrder={false} />
+      </div>
     </>
   );
 }
