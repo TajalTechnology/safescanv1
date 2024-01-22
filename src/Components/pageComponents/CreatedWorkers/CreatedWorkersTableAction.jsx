@@ -2,10 +2,10 @@ import { Icon } from "@iconify/react";
 import { Tooltip } from "antd";
 import React, { useState } from "react";
 import DeleteModal from "../../Shared/modal/DeleteModal";
-import CreatedAdminsEdit from "./CreatedAdminsEdit";
 import ShareModal from "../../Shared/modal/ShareModal";
+import CreatedWorkers from "./CreatedWorkersEdit";
 
-const CreatedAdminsTableAction = ({ row }) => {
+const CreatedWorkersTableAction = ({ row }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [share,setShare] = useState(false);
@@ -41,7 +41,7 @@ const CreatedAdminsTableAction = ({ row }) => {
       </div>
 
       {/* ============= Workers edit Modal============ */}
-      <CreatedAdminsEdit item={row} modalOPen={edit} setModalOpen={setEdit} />
+      <CreatedWorkers item={row} modalOPen={edit} setModalOpen={setEdit} />
 
       {/* ============= Workers edit Modal============ */}
       <ShareModal item={row} modalOPen={share} setModalOpen={setShare} shareText={shareText} setShareText={setShareText}/>
@@ -60,4 +60,4 @@ const CreatedAdminsTableAction = ({ row }) => {
   );
 };
 
-export default CreatedAdminsTableAction;
+export default CreatedWorkersTableAction;

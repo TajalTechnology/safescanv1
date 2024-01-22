@@ -24,17 +24,17 @@ const CreateAdmin = () => {
     return (
         <>
         <BreadCrumb
-          title={"Products"}
+          title={"Create Admin"}
           links={[
             { title: "Home", url: "/admin/dashboard" },
-            { title: "Products", url: "/admin/products" },
+            { title: "Create Admin", url: "/admin/create-admin" },
           ]}
         />
         <div className=" mb-8">
           <div className=" bg-white rounded-[20px] ">
-            <div className=" flex items-center justify-between px-[22px] py-[20px] w-full">
-              <SectionHeading>Products List </SectionHeading>
-              <div className='flex items-center gap-3'>
+            <div className=" flex md:items-center flex-col md:flex-row justify-between px-[22px] py-[20px] w-full">
+              <SectionHeading>Created Admins</SectionHeading>
+              <div className='flex flex-col md:flex-row md:items-center gap-3'>
               <SearchInput
                 search={search}
                 setSearch={setSearch}
