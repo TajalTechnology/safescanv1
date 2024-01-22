@@ -26,7 +26,7 @@ const SignUp = () => {
         <div className='flex  '>
             {/* ---------------input fields---------------- */}
             <div className=' bg-white lg:w-5/12 w-full flex  items-center justify-center '>
-                <div className='w-full px-[50px] my-16'>
+                <div className='w-full px-[50px] my-16 overflow-y-scroll '>
                     <div className='mb-[50px]'>
                         <h1 className='text-dark-gray text-[28px] font-bold'>Sign Up</h1>
                         <p className='text-normal text-base text-info'>Please Fill Those Information Bellow To Create an Account.</p>
@@ -147,23 +147,17 @@ const SignUp = () => {
                             </CustomButton>
                         </div>
                     </form>
-                    <p className='text-center text-info text-sm font-medium mt-4'>Already Have An Account? <Link to={'/signIn'} className='font-bold underline text-primary'>Sign In</Link></p>
+                    <p className='text-center text-info text-sm font-medium mt-4'>Already Have An Account? <Link to={'/'} className='font-bold underline text-primary'>Sign In</Link></p>
                 </div>
             </div>
 
             {/* -----------image section---------------------- */}
-            <div className='lg:flex lg:flex-col hidden w-7/12 h-screen'>
-                {/* <div className='flex-1'>
-                    <img src="/Images/loginDown.svg" alt="background" className='h-full w-full object-cover' />
+            <div className='lg:flex lg:flex-col hidden fixed top-0 right-0 w-7/12 h-screen'>
+            <div className='w-full h-full relative'>
+                    <img src="/Images/loginup.svg" alt="" className=' absolute bottom-0 right-0 '/>
+                    <img src="/Images/mainLogo.svg" alt="" className=' absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]'/>
+                    <img src="/Images/loginDown.svg" alt="" className=' absolute top-0 right-0 '/>
                 </div>
-
-                <div className='flex-1 flex items-center justify-center'>
-                    <p>hello logo</p>
-                </div>
-
-                <div className='flex-1'>
-                    <img src="/Images/loginUp.svg" alt="background" className='h-full w-full object-cover' />
-                </div> */}
             </div>
 
         </div>
