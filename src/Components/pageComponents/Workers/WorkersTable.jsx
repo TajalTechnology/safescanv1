@@ -3,6 +3,7 @@ import CustomTable from "../../Shared/table/CustomTable";
 import { Icon } from "@iconify/react";
 import WorkersTableAction from "./WorkersTableAction";
 import WorkersQRCode from "./WorkersQRCode";
+import CardModal from "../../Shared/modal/CardModal";
 
 const WorkersTable = ({tableData,rowSelection}) => {
   const columns = [
@@ -54,12 +55,7 @@ const WorkersTable = ({tableData,rowSelection}) => {
       {
         title: "Card Image",
         key: "id",
-        render: (row) => (
-          <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
-            <Icon icon="lucide:image" className=" text-[20px]"/>
-            0{row.cartImage}
-          </span>
-        ),
+        render: (row) => (<CardModal date={'12/06/24'} dateTitle={'Expire Date'} row={row}/>),
       },
       {
         title: "Minor",

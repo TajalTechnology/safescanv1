@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CustomTable from "../../Shared/table/CustomTable";
-import { Icon } from "@iconify/react";
 import QRCode from "./QRCode";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";

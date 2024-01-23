@@ -8,10 +8,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import DeleteModal from './DeleteModal';
 
 const CardModal = ({ row, date, dateTitle }) => {
     const [modalOPen, setModalOpen] = useState(false);
     const [imgIndex, setImageIndex] = useState(0);
+    const [deletModal, setDeleteModal] = useState(false);
     return (
         <>
             <Tooltip placement="topLeft" title="View Images">
@@ -57,7 +59,7 @@ const CardModal = ({ row, date, dateTitle }) => {
                                     <span>Edit</span>
                                 </span>
                             </CustomButton>
-                            <button className=" bg-error/10 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white">
+                            <button onClick={()=>setDeleteModal(true)} className=" bg-error/10 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white">
                                 <Icon icon="lucide:trash-2" className=" text-[20px]" />
                             </button>
                         </div>
@@ -107,6 +109,12 @@ const CardModal = ({ row, date, dateTitle }) => {
                     </div>
                 </div>
             </Modal>
+            <DeleteModal
+            modalOPen={deletModal}
+            setModalOpen={setDeleteModal}
+            title={'Delete Image'}
+            title2={'Are You Sure?'}
+            />
         </>
     );
 };
