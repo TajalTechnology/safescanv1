@@ -3,7 +3,7 @@ import CustomTable from "../../Shared/table/CustomTable";
 import { Icon } from "@iconify/react";
 import ProductsQRCode from "./ProductsQRCode";
 import ProductsTableAction from "./ProductsTableAction";
-
+import CardModal from "../../Shared/modal/CardModal";
 const ProductsTable = ({ tableData, rowSelection }) => {
   const columns = [
     {
@@ -99,11 +99,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     {
       title: "Image",
       key: "id",
-      render: (row) => (
-        <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
-          <Icon icon="lucide:image" className=" text-[20px]" />0{row.cartImage}
-        </span>
-      ),
+      render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Attached Date'} row={row}/>),
     },
     {
         title: "Note",
