@@ -21,6 +21,10 @@ const CreateWorker = () => {
       selectedRowKeys,
       onChange: onSelectChange,
     };
+
+    // ======add a key for selected=======
+    const updateData = CreatedAdmins.map((item,index)=>({key:index+1,...item}))
+
     return (
         <>
         <BreadCrumb
@@ -45,7 +49,7 @@ const CreateWorker = () => {
             </div>
             <div>
               <CreatedWorkersTable
-                tableData={CreatedAdmins}
+                tableData={updateData}
                 rowSelection={rowSelection}
               />
             </div>
