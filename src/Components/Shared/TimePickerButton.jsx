@@ -19,7 +19,7 @@ const TimePickerButton = ({selected,setSelected,data,width,className}) => {
             setPopupShow(false);
             setSelected(item)
           }}
-          className=" text-sm w-full items-start rounded-[10px] font-bold  text-light-black hover:bg-primary/10  flex  py-3 px-5"
+          className=" text-xs w-full items-start rounded-[10px] font-bold  text-info hover:bg-primary/10  flex  py-3 px-5"
         >
           {item}
         </button>

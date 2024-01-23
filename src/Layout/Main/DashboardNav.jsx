@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { NotificationsData } from "../../assets/mockData";
-import { Badge, Popover, Tooltip } from "antd";
+import { Popover } from "antd";
 import Notification from "../../Components/Shared/Notification";
 import { useNavigate } from "react-router-dom";
 
@@ -39,7 +39,7 @@ const DashboardNav = () => {
             <input
               type="text"
               placeholder="Search"
-              className=" placeholder-[#8F9BBA]  text-[14px] pl-10 outline-none font-[400] w-full bg-transparent py-3 px-5 rounded-full"
+              className=" placeholder-[#8F9BBA] text-dark-gray  text-[14px] pl-10 outline-none font-[400] w-full bg-transparent py-3 px-5 rounded-full"
             />
           </div>
         </div>

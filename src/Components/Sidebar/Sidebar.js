@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 import LogOutModal from "../Shared/modal/LogOutModal";
@@ -107,7 +107,7 @@ const Sidebar = () => {
         className="flex flex-col justify-between  bg-white  h-[100vh] sticky top-0"
       >
         <div className=" flex items-center px-5 py-2 justify-between">
-          <div className="h-[80px] flex  items-center">
+          <Link to={'/admin/dashboard'}  className="h-[80px] flex  items-center">
             {" "}
             <img
               style={{
@@ -126,7 +126,7 @@ const Sidebar = () => {
                 open ? " hidden duration-500" : ""
               }`}
             />
-          </div>
+          </Link>
           <button
             onClick={() => setOpen(false)}
             className={`text-[#8E9BBA] text-[25px] ${open ? "" : "hidden"}`}
@@ -206,16 +206,16 @@ const Sidebar = () => {
           <div className="flex justify-between items-center group p-4">
             <button
               onClick={() => setShow(true)}
-              className="flex gap-2 w-full py-1 cursor-pointer justify-between px-3 items-center"
+              className="flex w-full text-dark-gray py-2 rounded-[10px] cursor-pointer justify-between px-3 items-center hover:text-white hover:bg-primary duration-300"
             >
               <h2
-                className={`whitespace-pre text-base font-medium text-dark-gray ${
+                className={`whitespace-pre text-base font-medium ${
                   !open && "opacity-0 translate-x-28 overflow-hidden"
                 }`}
               >
                 Log out
               </h2>
-              <span className=" text-dark-gray w-[40px] flex items-center justify-center h-[24px]">
+              <span className=" w-[40px] flex items-center justify-center h-[24px]">
                 <Icon icon="humbleicons:logout" className=" text-[24px]" />
               </span>
             </button>
