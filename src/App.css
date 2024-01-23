@@ -156,10 +156,23 @@ body {
 
 .ant-table-tbody .ant-table-cell:first-child {
   padding-left: 25px !important;
+  width: 10px !important;
 }
+
+
 
 .ant-table-tbody .ant-table-cell:last-child {
   padding-right: 22px !important;
+}
+
+.ant-table-tbody .ant-table-cell:nth-child(2) {
+  padding-left: 0px !important;
+  margin: 0px !important;
+}
+
+.ant-table-thead .ant-table-cell:nth-child(2) {
+  padding-left: 0px !important;
+  margin: 0px !important;
 }
 
 /* -----------support agent > dashboard > activity > elderly conditions date picker------------- */
