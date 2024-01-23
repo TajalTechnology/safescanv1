@@ -23,7 +23,7 @@ const ProfileSettings = () => {
                 <SectionWrapper>
                     {/* -------cover image---------- */}
                     <div className=' border-b'>
-                        <img src="/images/coverPhoto.svg" alt="cover" className=' object-cover h-[196px]' />
+                        <img src="/images/coverPhoto.svg" alt="cover" className=' object-cover w-[100%] h-[196px]' />
                     </div>
                     <div className='flex flex-wrap gap-4 items-center justify-between mt-[14px] mx-5 md:mx-0  md:pl-[46px] md:pr-[25px] '>
                         <div className='md:flex items-center gap-5'>
