@@ -8,7 +8,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
   const columns = [
     {
       title: "Name & Number",
-      key: "id",
+      key: "number",
       render: (row) => (
         <div className="flex flex-col">
           <span className=" text-[14px] font-bold text-[#485585]">
@@ -41,7 +41,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     },
     {
       title: "Last Test Date",
-      key: "id",
+      key: "LastTestDate",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
           {row.LastTestDate}
@@ -51,7 +51,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     },
     {
       title: "Next Test Date",
-      key: "id",
+      key: "NextTestDate",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
           {row.NextTestDate}
@@ -70,7 +70,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     },
     {
       title: "Status",
-      key: "id",
+      key: "Status",
       render: (row) => (
         <div>
           {row.Status === "Passed" && (

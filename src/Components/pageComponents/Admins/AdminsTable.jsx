@@ -63,7 +63,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
       },
       {
         title: "Minor",
-        key: "id",
+        key: "minor",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
             {row.minor}
@@ -73,7 +73,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
       },
       {
         title: "Major",
-        key: "id",
+        key: "major",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
             {row.major}
@@ -83,7 +83,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
       },
       {
         title: "Dismissal",
-        key: "id",
+        key: "dismissal",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
             {row.dismissal}
@@ -93,7 +93,7 @@ const AdminsTable = ({tableData,rowSelection}) => {
       },
       {
         title: "Fine Status",
-        key: "id",
+        key: "fine",
         render: (row) => (
           <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fine > 150 ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
             €{row.fine}
