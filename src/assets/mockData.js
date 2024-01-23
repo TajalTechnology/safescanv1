@@ -795,3 +795,87 @@ export const CreatedAdmins = [
     status: "Active",
   },
 ];
+
+
+export const NotificationsData = [
+  {
+    id: 1,
+    title: 'Test Overdue ',
+    subTitle: 'Prodcut number 123 on site in castroy was due for testing on the 23/11/2023 please itest asdap ',
+    position: 'critical',
+    status: 'unread',
+    time: 'Now'
+  },
+  {
+    id: 2,
+    title: 'Dispinary Action Assigned',
+    subTitle: 'Admin user \David has iussued a dispinary warning to worker Ryan  on your site in castle troy',
+    position: 'warning',
+    status: 'read',
+    time: '01/12/23'
+  },
+  {
+    id: 3,
+    title: 'Test Overdue ',
+    subTitle: 'Prodcut number 123 on site in castroy was due for testing on the 23/11/2023 please itest asdap ',
+    position: 'critical',
+    status: 'read',
+    time: 'Yestarday'
+  },
+  {
+    id: 4,
+    title: 'Dispinary Action Assigned',
+    subTitle: 'Admin user \David has iussued a dispinary warning to worker Ryan  on your site in castle troy',
+    position: 'warning',
+    status: 'unread',
+    time: '01/12/23'
+  },
+  {
+    id: 5,
+    title: 'Test Overdue ',
+    subTitle: 'Prodcut number 123 on site in castroy was due for testing on the 23/11/2023 please itest asdap ',
+    position: 'critical',
+    status: 'read',
+    time: '01/12/23'
+  },
+  {
+    id: 6,
+    title: 'Dispinary Action Assigned',
+    subTitle: 'Admin user \David has iussued a dispinary warning to worker Ryan  on your site in castle troy',
+    position: 'warning',
+    status: 'unread',
+    time: '01/12/23'
+  },
+  {
+    id: 7,
+    title: 'Test Overdue ',
+    subTitle: 'Prodcut number 123 on site in castroy was due for testing on the 23/11/2023 please itest asdap ',
+    position: 'critical',
+    status: 'read',
+    time: '01/12/23'
+  },
+  {
+    id: 8,
+    title: 'Dispinary Action Assigned',
+    subTitle: 'Admin user \David has iussued a dispinary warning to worker Ryan  on your site in castle troy',
+    position: 'warning',
+    status: 'unread',
+    time: '01/12/23'
+  },
+  {
+    id: 9,
+    title: 'Test Overdue ',
+    subTitle: 'Prodcut number 123 on site in castroy was due for testing on the 23/11/2023 please itest asdap ',
+    position: 'critical',
+    status: 'read',
+    time: '01/12/23'
+  },
+  {
+    id: 10,
+    title: 'Dispinary Action Assigned',
+    subTitle: 'Admin user \David has iussued a dispinary warning to worker Ryan  on your site in castle troy',
+    position: 'warning',
+    status: 'read',
+    time: '01/12/23'
+  },
+];
