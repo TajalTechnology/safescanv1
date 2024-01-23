@@ -4,9 +4,9 @@ import { Icon } from '@iconify/react';
 import CustomModal from '../../Shared/modal/CustomModal';
 import ForgotPassModal from './ForgotPassModal';
 
-const EditProfile = () => {
+const EditProfile = ({setOpenModal}) => {
     const [show, setShow] = useState(false)
-    const [openModal, setOpenModal] = useState(false)
+    const [open, setOpen] = useState(false)
     return (
         <div>
             <div className='md:flex items-center gap-5'>
@@ -36,7 +36,7 @@ const EditProfile = () => {
                 />
             </div>
             <div className='relative'>
-               <button onClick={()=>setOpenModal(true)} className='absolute right-0 text-primary font-medium text-lg'>Forgot Password?</button>
+               <button onClick={()=>{setOpen(true);setOpenModal(false)}} className='absolute right-0 text-primary font-medium text-lg'>Forgot Password?</button>
                 <EditInput
                     label={'Password'}
                     type={show ? "text" : "password"}
@@ -157,8 +157,8 @@ const EditProfile = () => {
             </div>
             <CustomModal
                 width={'600px'}
-                modalOPen={openModal}
-                setModalOpen={setOpenModal}
+                modalOPen={open}
+                setModalOpen={setOpen}
                 title={'Forgot Password'}
                 buttonText={'Reset Password'}
             >

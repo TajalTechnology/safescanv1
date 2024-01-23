@@ -9,6 +9,8 @@ const Admins = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
+
+  // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
@@ -17,6 +19,10 @@ const Admins = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+
+  // ======add a key for selected=======
+  const updateData = AdminProfiles.map((item,index)=>({key:index+1,...item}))
 
   return (
     <>
@@ -39,7 +45,7 @@ const Admins = () => {
           </div>
           <div>
             <AdminsTable
-              tableData={AdminProfiles}
+              tableData={updateData}
               rowSelection={rowSelection}
             />
           </div>

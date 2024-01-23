@@ -71,13 +71,17 @@ const SignIn = () => {
                             </CustomButton>
                         </div>
                     </form>
-                    <p className=' text-center text-info text-sm font-medium mt-4'>Don't Have An Account? <Link to={'/'} className='font-bold underline text-primary'>Sign Up</Link></p>
+                    <p className=' text-center text-info text-sm font-medium mt-4'>Don't Have An Account? <Link to={'/signIn'} className='font-bold underline text-primary'>Sign Up</Link></p>
                 </div>
             </div>
 
             {/* -----------image section---------------------- */}
             <div className='lg:flex lg:flex-col hidden w-7/12 h-screen'>
-
+                <div className='w-full h-full relative'>
+                    <img src="/Images/loginup.svg" alt="" className=' absolute bottom-0 right-0 '/>
+                    <img src="/Images/mainLogo.svg" alt="" className=' absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]'/>
+                    <img src="/Images/loginDown.svg" alt="" className=' absolute top-0 right-0 '/>
+                </div>
             </div>
 
         </div>

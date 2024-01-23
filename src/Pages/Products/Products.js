@@ -18,6 +18,12 @@ const Products = () => {
       selectedRowKeys,
       onChange: onSelectChange,
     };
+
+
+    // ======add a key for selected=======
+    const updateData = ProductsData.map((item,index)=>({key:index+1,...item}))
+
+
     return (
         <>
         <BreadCrumb
@@ -39,7 +45,7 @@ const Products = () => {
             </div>
             <div>
               <ProductsTable
-                tableData={ProductsData}
+                tableData={updateData}
                 rowSelection={rowSelection}
               />
             </div>

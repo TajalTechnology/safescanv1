@@ -8,7 +8,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
   const columns = [
     {
       title: "Name & Number",
-      key: "id",
+      key: "number",
       render: (row) => (
         <div className="flex flex-col">
           <span className=" text-[14px] font-bold text-[#485585]">
@@ -19,6 +19,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           </span>
         </div>
       ),
+      sorter: (a, b) => a.number - b.number,
     },
     {
       title: "Site Address",
@@ -40,21 +41,23 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     },
     {
       title: "Last Test Date",
-      key: "id",
+      key: "LastTestDate",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
           {row.LastTestDate}
         </span>
       ),
+      sorter: (a, b) => a.LastTestDate - b.LastTestDate,
     },
     {
       title: "Next Test Date",
-      key: "id",
+      key: "NextTestDate",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
           {row.NextTestDate}
         </span>
       ),
+      sorter: (a, b) => a.NextTestDate - b.NextTestDate,
     },
     {
       title: "Location",
@@ -67,7 +70,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     },
     {
       title: "Status",
-      key: "id",
+      key: "Status",
       render: (row) => (
         <div>
           {row.Status === "Passed" && (
@@ -91,6 +94,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           )}
         </div>
       ),
+      sorter: (a, b) => a.Status - b.Status,
     },
     {
       title: "Image",

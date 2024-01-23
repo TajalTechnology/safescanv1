@@ -63,39 +63,43 @@ const AdminsTable = ({tableData,rowSelection}) => {
       },
       {
         title: "Minor",
-        key: "id",
+        key: "minor",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
             {row.minor}
           </span>
         ),
+        sorter: (a, b) => a.minor - b.minor,
       },
       {
         title: "Major",
-        key: "id",
+        key: "major",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
             {row.major}
           </span>
         ),
+        sorter: (a, b) => a.major - b.major,
       },
       {
         title: "Dismissal",
-        key: "id",
+        key: "dismissal",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
             {row.dismissal}
           </span>
         ),
+        sorter: (a, b) => a.dismissal - b.dismissal,
       },
       {
         title: "Fine Status",
-        key: "id",
+        key: "fine",
         render: (row) => (
           <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fine > 150 ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
             €{row.fine}
           </span>
         ),
+        sorter: (a, b) => a.fine - b.fine,
       },
       {
         title: "QRC Code",

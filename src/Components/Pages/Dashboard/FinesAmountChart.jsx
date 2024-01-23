@@ -58,7 +58,7 @@ const FinesAmountChart = ({ data }) => {
             <div className='h-[228px]  mt-12'>
                 <Pie {...config} />
             </div>
-           <div className='mt-4 flex items-center justify-between max-w-[240px]'>
+           <div className='mt-4 flex items-center justify-between w-[240px]'>
            {
                 data.map((fine, index) => <div key={index} className=''>
                     <span className=''>

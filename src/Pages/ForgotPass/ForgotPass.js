@@ -52,7 +52,11 @@ const ForgotPass = () => {
 
             {/* -----------image section---------------------- */}
             <div className='lg:flex lg:flex-col hidden w-7/12 h-screen'>
-
+            <div className='w-full h-full relative'>
+                    <img src="/Images/loginup.svg" alt="" className=' absolute bottom-0 right-0 '/>
+                    <img src="/Images/mainLogo.svg" alt="" className=' absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]'/>
+                    <img src="/Images/loginDown.svg" alt="" className=' absolute top-0 right-0 '/>
+                </div>
             </div>
 
         </div>

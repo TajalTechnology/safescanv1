@@ -39,7 +39,6 @@ const CreatedWorkersTableAction = ({ row }) => {
           </button>
         </Tooltip>
       </div>
-
       {/* ============= Workers edit Modal============ */}
       <CreatedWorkers item={row} modalOPen={edit} setModalOpen={setEdit} />
 

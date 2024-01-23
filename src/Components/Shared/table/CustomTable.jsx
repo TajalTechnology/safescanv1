@@ -35,7 +35,7 @@ const CustomTable = ({ tableData, columns, scroll,rowSelection }) => {
         dataSource={tableData}
         pagination={paginationOptions}
         scroll={scroll}
-        // rowSelection={rowSelection}
+        rowSelection={rowSelection}
 
       />
       <div className="lg:block text-light-black font-medium text-[14px] text-[#68769F] lg:absolute bottom-[25px] left-6 hidden ">
