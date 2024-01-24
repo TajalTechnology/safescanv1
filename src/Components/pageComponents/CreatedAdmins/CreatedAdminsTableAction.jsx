@@ -8,16 +8,43 @@ import ShareModal from "../../Shared/modal/ShareModal";
 const CreatedAdminsTableAction = ({ row }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [share,setShare] = useState(false);
-  const [shareText,setShareText] = useState("");
+  const [share, setShare] = useState(false);
+  const [shareText, setShareText] = useState("");
+  const [type, setType] = useState("email")
+  const handleShare = () => {
+    if (type === 'email') {
+      if (shareText.trim() !== '') {
+        console.log(shareText)
+        // Create a mailto link with the email address
+        const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
+
+        // Open the default email client
+        window.location.href = mailtoLink;
+        setShare(false)
+      }
+    }
+    if (type === 'Whatsapp') {
+      if (shareText.trim() !== '') {
+
+        const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+
+        // Open WhatsApp
+        window.open(whatsappLink, '_blank');
+        setShare(false)
+      }
+    }
+
+
+
+  };
 
   return (
     <>
       <div className=" flex items-center gap-1">
-      <Tooltip placement="topLeft" title="Share">
+        <Tooltip placement="topLeft" title="Share">
           <button onClick={() => setShare(true)}>
             <Icon
-              icon="lucide:share-2" 
+              icon="lucide:share-2"
               className="text-[22px] hover:text-[#0070F0] text-[#8E9BBA]"
             />
           </button>
@@ -44,9 +71,9 @@ const CreatedAdminsTableAction = ({ row }) => {
       <CreatedAdminsEdit item={row} modalOPen={edit} setModalOpen={setEdit} />
 
       {/* ============= Workers edit Modal============ */}
-      <ShareModal item={row} modalOPen={share} setModalOpen={setShare} shareText={shareText} setShareText={setShareText}/>
+      <ShareModal type={type} setType={setType} item={row} modalOPen={share} setModalOpen={setShare} shareText={shareText} setShareText={setShareText} handleShare={handleShare} />
 
-     {/* ============= Workers delete Modal============ */}
+      {/* ============= Workers delete Modal============ */}
       <DeleteModal
         modalOPen={deleteModal}
         onDelete={() => setDeleteModal(false)}
