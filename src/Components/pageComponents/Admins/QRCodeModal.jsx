@@ -1,8 +1,9 @@
 import { Icon } from "@iconify/react";
 import { Modal, Tooltip } from "antd";
 import React, { useState } from "react";
+import QRCode from "qrcode.react";
 
-const QRCode = ({ row }) => {
+const QRCodeModal = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
 
   return (
@@ -39,7 +40,11 @@ const QRCode = ({ row }) => {
             </button>
           </div>
           <div className="w-full flex items-center justify-center py-7">
-            <img src="/Images/QR_Code2.svg" alt="QRC" />
+          <QRCode
+              size={250}
+              className=" "
+              value={row.email}
+            />
           </div>
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -65,4 +70,4 @@ const QRCode = ({ row }) => {
   );
 };
 
-export default QRCode;
+export default QRCodeModal;

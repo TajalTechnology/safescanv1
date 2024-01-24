@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import CustomTable from "../../Shared/table/CustomTable";
-import QRCode from "./QRCode";
+import QRCode from "./QRCodeModal";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 
