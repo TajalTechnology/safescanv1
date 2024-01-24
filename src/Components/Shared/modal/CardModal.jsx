@@ -213,7 +213,7 @@ const CardModal = ({ row, date, dateTitle }) => {
               </CustomButton>
               <button
                 onClick={() => setEditModal(false)}
-                className=" border border-dark-gray/40  flex items-center justify-center text-dark-gray hover:bg-dark-gray  duration-300 px-5  h-[40px] rounded-[8px] font-medium hover:text-white"
+                className=" border border-dark-gray/40  flex items-center justify-center text-dark-gray hover:bg-primary  duration-300 px-5  h-[40px] rounded-[8px] font-medium hover:text-white"
               >
                 Cancel
               </button>
