@@ -4,15 +4,15 @@ import CustomModal from "../../Shared/modal/CustomModal";
 import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 
-const WorkersEdit = ({ item, setModalOpen, modalOPen }) => {
+const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
 
     const [active,setActive]=useState("due")
 
     useEffect(()=>{
-      if(item){
-        setActive(item?.fineStatus)
-      }
-    },[item])
+        if(item){
+          setActive(item?.fineStatus)
+        }
+      },[item])
 
   const {
     register,
@@ -146,4 +146,4 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen }) => {
   );
 };
 
-export default WorkersEdit;
+export default AdminEdit;

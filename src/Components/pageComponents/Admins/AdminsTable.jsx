@@ -86,7 +86,7 @@ const AdminsTable = ({ tableData, rowSelection }) => {
     {
       title: "Fine Status",
       render: (row) => (
-        <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fine > 150 ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
+        <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fineStatus === "due" ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
           €{row.fine}
         </span>
       ),
