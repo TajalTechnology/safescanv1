@@ -8,6 +8,7 @@ import CustomButton from "../../Shared/CustomButton";
 const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
   const [type,setType] = useState("email")
+  const [shareText, setShareText] = useState("");
   const {
     register,
     handleSubmit,
@@ -22,8 +23,37 @@ const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
   const modalStyle = {
     padding: 0, // Set padding to 0 for the Modal component
   };
+
+  const handleShare = () => {
+    if (type === 'email') {
+      if (shareText.trim() !== '') {
+        console.log(shareText)
+        // Create a mailto link with the email address
+        const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
+
+        // Open the default email client
+        window.location.href = mailtoLink;
+        setSuccess(false)
+      }
+    }
+    if (type === 'Whatsapp') {
+      if (shareText.trim() !== '') {
+
+        const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+
+        // Open WhatsApp
+        window.open(whatsappLink, '_blank');
+        setSuccess(false)
+      }
+    }
+
+
+
+  };
+
   return (
     <div>
+      {/* ---------create worker modal----------------- */}
       <Modal
         centered
         cancelText
@@ -87,6 +117,8 @@ const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
           </div>
         </div>
       </Modal>
+      
+      {/* ---------success and share modal----------------- */}
       <Modal
         centered
         cancelText
@@ -124,7 +156,7 @@ const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
                 required
                 placeholder={type==="email" ? "Enter Email Address" : "Enter Whatsapp Number"}
                 id="otp"
-                
+                onChange={(e)=>setShareText(e.target.value)}
               />
             </div>
           </div>
@@ -137,9 +169,7 @@ const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
               Skip For Now
             </button>
             <button
-              onClick={() => {
-                setSuccess(false);
-              }}
+              onClick={handleShare}
               className="font-bold w-full  h-[40px] px-6 rounded-[10px] bg-primary hover:bg-primary/80 duration-300 border border-primary text-white "
             >
               Share

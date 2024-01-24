@@ -8,7 +8,7 @@ const DeleteModal = ({
   className,
   title,
   title2,
-  onDelete,
+  onDelete=()=>{},
 }) => {
   return (
     <div className="">

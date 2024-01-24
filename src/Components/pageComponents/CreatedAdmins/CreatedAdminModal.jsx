@@ -7,7 +7,9 @@ import CustomButton from "../../Shared/CustomButton";
 
 const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
-  const [type,setType] = useState("email")
+  const [type, setType] = useState("email")
+  const [shareText, setShareText] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -19,11 +21,40 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
     setSuccess(true);
   };
 
+
+  const handleShare = () => {
+    if (type === 'email') {
+      if (shareText.trim() !== '') {
+        console.log(shareText)
+        // Create a mailto link with the email address
+        const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
+
+        // Open the default email client
+        window.location.href = mailtoLink;
+        setSuccess(false)
+      }
+    }
+    if (type === 'Whatsapp') {
+      if (shareText.trim() !== '') {
+
+        const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+
+        // Open WhatsApp
+        window.open(whatsappLink, '_blank');
+        setSuccess(false)
+      }
+    }
+
+
+
+  };
+
   const modalStyle = {
     padding: 0, // Set padding to 0 for the Modal component
   };
   return (
     <div>
+      {/* -----create admin------------- */}
       <Modal
         centered
         cancelText
@@ -87,6 +118,8 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
           </div>
         </div>
       </Modal>
+
+      {/* ----------success and share----------- */}
       <Modal
         centered
         cancelText
@@ -116,16 +149,17 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
 
             <div className=" pt-4">
               <div className="w-full flex items-center justify-between">
-                <button onClick={()=>setType("email")} className={`text-base font-medium ${type==="email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button>
-                <button onClick={()=>setType("Whatsapp")} className={`text-base font-medium ${type==="Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
+                <button onClick={() => setType("email")} className={`text-base font-medium ${type === "email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button>
+                <button onClick={() => setType("Whatsapp")} className={`text-base font-medium ${type === "Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
               </div>
               <input
                 className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
-                type={type==="email" ?"email" : "text"}
+                type={type === "email" ? "email" : "text"}
                 required
-                placeholder={type==="email" ? "Enter Email Address" : "Enter Whatsapp Number"}
+                placeholder={type === "email" ? "Enter Email Address" : "Enter Whatsapp Number"}
                 id="otp"
-                
+                onChange={(e)=>setShareText(e.target.value)}
+
               />
             </div>
           </div>
@@ -138,9 +172,7 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
               Skip For Now
             </button>
             <button
-              onClick={() => {
-                setSuccess(false);
-              }}
+              onClick={handleShare}
               className="font-bold w-full  h-[40px] px-6 rounded-[10px] bg-primary hover:bg-primary/80 duration-300 border border-primary text-white "
             >
               Share

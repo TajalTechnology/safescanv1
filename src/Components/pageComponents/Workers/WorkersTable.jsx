@@ -1,8 +1,8 @@
 import React from "react";
 import CustomTable from "../../Shared/table/CustomTable";
-import { Icon } from "@iconify/react";
 import WorkersTableAction from "./WorkersTableAction";
 import WorkersQRCode from "./WorkersQRCode";
+import CardModal from "../../Shared/modal/CardModal";
 
 const WorkersTable = ({tableData,rowSelection}) => {
   const columns = [
@@ -54,12 +54,7 @@ const WorkersTable = ({tableData,rowSelection}) => {
       {
         title: "Card Image",
         key: "id",
-        render: (row) => (
-          <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
-            <Icon icon="lucide:image" className=" text-[20px]"/>
-            0{row.cartImage}
-          </span>
-        ),
+        render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
       },
       {
         title: "Minor",
@@ -95,7 +90,7 @@ const WorkersTable = ({tableData,rowSelection}) => {
         title: "Fine Status",
         key: "fine",
         render: (row) => (
-          <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fine > 150 ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
+          <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fineStatus ==="due" ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
             €{row.fine}
           </span>
         ),

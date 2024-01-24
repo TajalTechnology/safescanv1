@@ -202,7 +202,33 @@ body {
 
 
 
+/* ----------swiper button--------- */
+.swiper-button-next:after{
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
 
+.swiper-button-next{
+  background-color: #654dff2a;
+  border-radius: 11px !important;
+  padding: 10px 1 !important;
+  height: 38px !important;
+  width: 38px !important;
+  margin-right: -10px;
+}
+.swiper-button-prev::after{
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.swiper-button-prev{
+  background-color: #654dff2a;
+  border-radius: 11px !important;
+  padding: 10px 1 !important;
+  height: 38px !important;
+  width: 38px !important;
+  margin-left: -10px;
+}
 
 /* ===========ant modal css========== */
 

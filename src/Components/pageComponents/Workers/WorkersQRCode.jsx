@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { Modal, Tooltip } from "antd";
 import React, { useState } from "react";
+import QRCode from "qrcode.react";
 
 const WorkersQRCode = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
@@ -39,7 +40,7 @@ const WorkersQRCode = ({ row }) => {
             </button>
           </div>
           <div className="w-full flex items-center justify-center py-7">
-            <img src="/Images/QR_Code2.svg" alt="QRC" />
+            <QRCode size={250} className=" " value={row.email} />
           </div>
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -52,10 +53,13 @@ const WorkersQRCode = ({ row }) => {
             </div>
             <div className="flex items-center gap-3">
               <button className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white">
-                <Icon icon="lucide:arrow-down-to-line" className=" text-[25px]" />
+                <Icon
+                  icon="lucide:arrow-down-to-line"
+                  className=" text-[25px]"
+                />
               </button>
               <button className=" bg-primary/20 flex items-center justify-center hover:bg-primary/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-primary hover:text-white">
-                <Icon icon="lucide:share-2"  className=" text-[20px]" />
+                <Icon icon="lucide:share-2" className=" text-[20px]" />
               </button>
             </div>
           </div>
