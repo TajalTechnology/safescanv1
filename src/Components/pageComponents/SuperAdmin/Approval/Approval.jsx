@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
-import CustomButton from "../../../Shared/CustomButton";
 import { Customers } from "../../../../assets/mockData";
-import SuperCustomerTableData from "./SuperCustomerTableData";
+import ApprovalTable from "./ApprovalTable";
 
-const SuperCustomerTable = () => {
+const Approval = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [create,setCreate] = useState(false)
+
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
@@ -27,20 +26,17 @@ const SuperCustomerTable = () => {
       <div className=" mb-8">
         <div className=" bg-white rounded-[20px] ">
           <div className=" flex md:items-center flex-col md:flex-row justify-between px-[22px] py-[20px] w-full">
-            <SectionHeading>Customers</SectionHeading>
+            <SectionHeading>Approval</SectionHeading>
             <div className="flex flex-col md:flex-row md:items-center gap-3">
               <SearchInput
                 search={search}
                 setSearch={setSearch}
                 placeholder="Search Customer"
               />
-              <CustomButton onClick={() => setCreate(true)}>
-                Create New Customer
-              </CustomButton>
             </div>
           </div>
           <div>
-            <SuperCustomerTableData
+            <ApprovalTable
               tableData={updateData.slice(0,5)}
               rowSelection={rowSelection}
             />
@@ -51,4 +47,5 @@ const SuperCustomerTable = () => {
   );
 };
 
-export default SuperCustomerTable;
+export default Approval;
+
