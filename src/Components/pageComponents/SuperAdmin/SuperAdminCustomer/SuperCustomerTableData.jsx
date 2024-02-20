@@ -1,5 +1,6 @@
 import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
+import CustomerAction from "./CustomerAction";
 
 const SuperCustomerTableData = ({ tableData, rowSelection }) => {
   const columns = [
@@ -70,6 +71,13 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
         <span className=" text-[14px] font-normal text-info">{row.ExpireDate}</span>
       ),
       sorter: (a, b) => a.ExpireDate - b.ExpireDate,
+    },
+    {
+      title: "Action",
+      key: "id",
+      render: (row) => (
+       <CustomerAction row={row} />
+      )
     },
   ];
 
