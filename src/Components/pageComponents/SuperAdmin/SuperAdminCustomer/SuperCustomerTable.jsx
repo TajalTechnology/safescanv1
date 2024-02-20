@@ -4,6 +4,7 @@ import SearchInput from "../../../Shared/input/SearchInput";
 import CustomButton from "../../../Shared/CustomButton";
 import { Customers } from "../../../../assets/mockData";
 import SuperCustomerTableData from "./SuperCustomerTableData";
+import CustomerCreate from "./CustomerCreate";
 
 const SuperCustomerTable = () => {
   const [search, setSearch] = React.useState("");
@@ -47,6 +48,7 @@ const SuperCustomerTable = () => {
           </div>
         </div>
       </div>
+      <CustomerCreate modalOPen={create} setModalOpen={setCreate}/>
     </div>
   );
 };
