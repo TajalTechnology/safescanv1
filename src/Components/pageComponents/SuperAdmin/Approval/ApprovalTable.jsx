@@ -9,7 +9,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-bold text-[#485585]">
-          {row.Username}
+          {row.username}
         </span>
       ),
     },
@@ -34,7 +34,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.address?.slice(0, 16)}...
+          {row.site_address?.slice(0, 16)}...
         </span>
       ),
     },
@@ -43,7 +43,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.SiteName}
+          {row.site_name}
         </span>
       ),
     },
@@ -52,7 +52,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.EmployersName}
+          {row?.emloyeer_name}
         </span>
       ),
     },

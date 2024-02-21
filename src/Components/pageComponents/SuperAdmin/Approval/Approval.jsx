@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
-import { Customers } from "../../../../assets/mockData";
 import ApprovalTable from "./ApprovalTable";
+import { useDebounce } from "use-debounce";
+import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 
 const Approval = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [searchQuery, sestSearchQuery] = useState("");
+  const [searchValue] = useDebounce(search, 1000);
 
+  console.log(searchQuery);
+
+  // ========data fecthing=========
+  const { data, isLoading, refetch } = useCustomersQuery(searchQuery, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const generateQuery = (searchValue) => {
+    const queryParams = [];
+    if (searchValue) {
+      queryParams.push(`&search=${searchValue}`);
+    }
+
+    return queryParams.join("&");
+  };
+
+  useEffect(() => {
+    const query = generateQuery(searchValue);
+    sestSearchQuery(`is_super_admin=false${query}`);
+    refetch();
+  }, [searchValue, refetch]);
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
@@ -19,8 +43,11 @@ const Approval = () => {
     onChange: onSelectChange,
   };
 
-    // ======add a key for selected=======
-    const updateData = Customers.map((item,index)=>({key:index+1,...item}))
+  // ======add a key for selected=======
+  const updateData = data?.map((item, index) => ({
+    key: item?.admin_serial,
+    ...item,
+  }));
   return (
     <div>
       <div className=" mb-8">
@@ -36,10 +63,19 @@ const Approval = () => {
             </div>
           </div>
           <div>
-            <ApprovalTable
-              tableData={updateData.slice(0,5)}
-              rowSelection={rowSelection}
-            />
+            {isLoading ? (
+              <div className=" w-full h-[450px] flex items-center justify-center">
+                {" "}
+                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+              </div>
+            ) : (
+              <>
+                <ApprovalTable
+                  tableData={updateData}
+                  rowSelection={rowSelection}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -48,4 +84,3 @@ const Approval = () => {
 };
 
 export default Approval;
-

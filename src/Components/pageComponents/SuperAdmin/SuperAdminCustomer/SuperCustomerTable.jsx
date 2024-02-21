@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import CustomButton from "../../../Shared/CustomButton";
-import { Customers } from "../../../../assets/mockData";
 import SuperCustomerTableData from "./SuperCustomerTableData";
 import CustomerCreate from "./CustomerCreate";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
@@ -23,7 +22,7 @@ const SuperCustomerTable = () => {
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
-      queryParams.push(`search=${searchValue}`);
+      queryParams.push(`&search=${searchValue}`);
     }
 
     return queryParams.join("&");
@@ -31,7 +30,7 @@ const SuperCustomerTable = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`${query}&is_super_admin=true`);
+    sestSearchQuery(`is_super_admin=true${query}`);
     refetch()
   }, [searchValue,refetch]);
 
@@ -49,8 +48,8 @@ const SuperCustomerTable = () => {
   console.log("all data=====",data)
 
   // ======add a key for selected=======
-  const updateData = Customers.map((item, index) => ({
-    key: index + 1,
+  const updateData = data?.map((item, index) => ({
+    key: item?.admin_serial,
     ...item,
   }));
   return (
@@ -79,7 +78,7 @@ const SuperCustomerTable = () => {
             ) : (
               <>
                 <SuperCustomerTableData
-                  tableData={updateData.slice(0, 5)}
+                  tableData={updateData}
                   rowSelection={rowSelection}
                 />
               </>
