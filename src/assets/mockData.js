@@ -1633,6 +1633,106 @@ export const CreatedAdmins = [
 ];
 
 
+export const Customers = [
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Premium",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Basic",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Premium",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Basic",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Premium",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Basic",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Premium",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+  {
+    id: 1,
+    Username: 'user001',
+    phone: '123-4567-896',
+    email: 'example@gmail.com',
+    address: '7 castle troy road Limerick Co Limerich ',
+    SiteName: 'Any Site Name',
+    EmployersName:"CBL Onstruction LTD",
+    Plan:"Basic",
+    ExpireDate:"May 4, 2025",
+    RequestDate:"May 4, 2024"
+  },
+]
+
+
 export const NotificationsData = [
   {
     id: 1,

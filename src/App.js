@@ -15,9 +15,12 @@ import SignUp from "./Pages/SignUp/SignUp";
 import SignIn from "./Pages/SignIn/SignIn";
 import ForgotPass from "./Pages/ForgotPass/ForgotPass";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import SuperAdmin from "./Layout/SuperAdmin/SuperAdmin";
+import Customer from "./Pages/SuperAdmin/Customer/Customer";
 
 function App() {
 
+  const user = 1
 
   return (
     <>
@@ -38,6 +41,12 @@ function App() {
             <Route path="/admin/notifications" element={<Notifications/>} />
             <Route path="/admin/profile-settings" element={<ProfileSettings/>} />
           </Route>
+
+          <Route path="/super-admin" element={<SuperAdmin />}>
+            <Route path="/super-admin/customers" element={<Customer/>} />
+            <Route path="/super-admin/notifications" element={<Notifications/>} />
+          </Route>
+
         </CustomRoutes>
 
         <Toaster position="top-right" reverseOrder={false} />
