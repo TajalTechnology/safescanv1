@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SuperSidbar from "../../Components/Sidebar/SuperSidbar";
 import DashboardNav from "../Main/DashboardNav";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const SuperAdmin = () => {
+  const navigate = useNavigate();
+  const user = false
+
+  useEffect(()=>{
+    if(user){
+      navigate("/")
+    }
+  },[user])
   return (
     <div className=" flex bg-[#F4F7FE]">
       <div className=" bg-white">

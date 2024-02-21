@@ -1,15 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import CustomButton from "../../../Shared/CustomButton";
 import { Customers } from "../../../../assets/mockData";
 import SuperCustomerTableData from "./SuperCustomerTableData";
 import CustomerCreate from "./CustomerCreate";
+import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
+import { useDebounce } from "use-debounce";
 
 const SuperCustomerTable = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [create,setCreate] = useState(false)
+  const [create, setCreate] = useState(false);
+  const [searchQuery, sestSearchQuery] = useState("");
+  const [searchValue] = useDebounce(search, 1000);
+
+  console.log(searchQuery)
+
+  // ========data fecthing=========
+  const { data, isLoading,refetch } = useCustomersQuery(searchQuery,{ refetchOnMountOrArgChange: true });
+
+  const generateQuery = (searchValue) => {
+    const queryParams = [];
+    if (searchValue) {
+      queryParams.push(`search=${searchValue}`);
+    }
+
+    return queryParams.join("&");
+  };
+
+  useEffect(() => {
+    const query = generateQuery(searchValue);
+    sestSearchQuery(`${query}&is_super_admin=true`);
+    refetch()
+  }, [searchValue,refetch]);
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
@@ -21,8 +45,14 @@ const SuperCustomerTable = () => {
     onChange: onSelectChange,
   };
 
-    // ======add a key for selected=======
-    const updateData = Customers.map((item,index)=>({key:index+1,...item}))
+
+  console.log("all data=====",data)
+
+  // ======add a key for selected=======
+  const updateData = Customers.map((item, index) => ({
+    key: index + 1,
+    ...item,
+  }));
   return (
     <div>
       <div className=" mb-8">
@@ -41,14 +71,23 @@ const SuperCustomerTable = () => {
             </div>
           </div>
           <div>
-            <SuperCustomerTableData
-              tableData={updateData.slice(0,5)}
-              rowSelection={rowSelection}
-            />
+            {isLoading ? (
+              <div className=" w-full h-[450px] flex items-center justify-center">
+                {" "}
+                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+              </div>
+            ) : (
+              <>
+                <SuperCustomerTableData
+                  tableData={updateData.slice(0, 5)}
+                  rowSelection={rowSelection}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
-      <CustomerCreate modalOPen={create} setModalOpen={setCreate}/>
+      <CustomerCreate modalOPen={create} setModalOpen={setCreate} />
     </div>
   );
 };

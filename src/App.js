@@ -17,10 +17,22 @@ import ForgotPass from "./Pages/ForgotPass/ForgotPass";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SuperAdmin from "./Layout/SuperAdmin/SuperAdmin";
 import Customer from "./Pages/SuperAdmin/Customer/Customer";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+// import { DecodeJWT } from "./helper/jwt";
 
 function App() {
 
-  const user = 1
+  const {token} = useSelector((state)=>state.auth);
+
+
+  console.log("token=========",token)
+
+  useEffect(()=>{
+      if(token){
+        // const user =  DecodeJWT(token)
+      }
+  },[token])
 
   return (
     <>
