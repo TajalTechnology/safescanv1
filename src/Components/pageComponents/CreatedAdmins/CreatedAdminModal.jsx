@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 import CustomButton from "../../Shared/CustomButton";
+import { useCreateUserMutation, useCreateUserQuery } from "../../../redux/features/admin/adminApi";
 
 const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
@@ -16,10 +17,43 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const [
+    createUser,
+    { isLoading, isError, error, isSuccess },
+  ] = useCreateUserMutation();
+
+  const onSubmit = async (data) => {
+    createUser(
+      {
+        username: data?.username,
+        password: data?.Password,
+        confirm_password: data?.Password,
+        usertype: "admin",
+      }
+
+    );
+    console.log(data);
     setModalOpen(false);
     setSuccess(true);
   };
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const userInfo = ;
+
+  //     // Dispatch the createUserQuery to create a new user
+  //     const result = await useCreateUserQuery(userInfo).unwrap();
+
+  //     // If the user creation is successful, close the modal and set success to true
+  //     if (result.status === "success") {
+      
+  //     } else {
+  //       // Handle error cases here, if any
+  //       console.error("User creation failed:", result.error);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating user:", error);
+  //   }
+  // };
 
 
   const handleShare = () => {
@@ -158,7 +192,7 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
                 required
                 placeholder={type === "email" ? "Enter Email Address" : "Enter Whatsapp Number"}
                 id="otp"
-                onChange={(e)=>setShareText(e.target.value)}
+                onChange={(e) => setShareText(e.target.value)}
 
               />
             </div>

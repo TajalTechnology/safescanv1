@@ -4,11 +4,11 @@ import SearchInput from "../../Components/Shared/input/SearchInput";
 import SectionHeading from "../../Components/Shared/SectionHeading";
 import { AdminProfiles } from "../../assets/mockData";
 import AdminsTable from "../../Components/pageComponents/Admins/AdminsTable";
+import { useGetUserQuery } from "../../redux/features/admin/adminApi";
 
 const Admins = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
