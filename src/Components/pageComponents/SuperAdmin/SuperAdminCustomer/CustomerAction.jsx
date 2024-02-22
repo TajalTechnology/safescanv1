@@ -22,11 +22,11 @@ const CustomerAction = ({ row }) => {
 
   const handleApprove = ()=>{
       const data={
-        // username:row?.username,
-        is_super_admin: false,
+        username:row?.username,
+        is_approved: false,
       }
 
-      const url =`${row?.userid}?username=${row?.username}`
+      const url =`${row?.userid}`
 
       approve(url,data)
   }
