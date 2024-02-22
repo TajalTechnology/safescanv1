@@ -92,7 +92,10 @@ const Sidebar = () => {
 
 
   const logout=()=>{
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
     navigate('/')
+    window.location.reload();
   }
 
   const activeStyle = {
