@@ -20,35 +20,37 @@ import Customer from "./Pages/SuperAdmin/Customer/Customer";
 
 function App() {
 
- 
+
   return (
     <>
       <div>
         <CustomRoutes>
-          <Route path="/" element={<SignIn/>} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/signIn" element={<SignUp />} />
           <Route path="/forgotPass" element={<ForgotPass />} />
           {/* ------------------------admin dashboard route--------------------- */}
           <Route path="/admin" element={<Main></Main>}>
-            <Route path="/admin/dashboard" element={<Dashboard/>} />
-            <Route path="/admin/subscription" element={<Subscriptions/>} />
-            <Route path="/admin/admins" element={<Admins/>} />
-            <Route path="/admin/workers" element={<Workers/>} />
-            <Route path="/admin/products" element={<Products/>} />
-            <Route path="/admin/create-admin" element={<CreateAdmin/>} />
-            <Route path="/admin/create-worker" element={<CreateWorker/>} />
-            <Route path="/admin/notifications" element={<Notifications/>} />
-            <Route path="/admin/profile-settings" element={<ProfileSettings/>} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/subscription" element={<Subscriptions />} />
+            <Route path="/admin/admins" element={<Admins />} />
+            <Route path="/admin/workers" element={<Workers />} />
+            <Route path="/admin/products" element={<Products />} />
+            <Route path="/admin/create-admin" element={<CreateAdmin />} />
+            <Route path="/admin/create-worker" element={<CreateWorker />} />
+            <Route path="/admin/notifications" element={<Notifications />} />
+            <Route path="/admin/profile-settings" element={<ProfileSettings />} />
           </Route>
 
           <Route path="/super-admin" element={<SuperAdmin />}>
-            <Route path="/super-admin/customers" element={<Customer/>} />
-            <Route path="/super-admin/notifications" element={<Notifications/>} />
+            <Route path="/super-admin/customers" element={<Customer />} />
+            <Route path="/super-admin/notifications" element={<Notifications />} />
           </Route>
 
         </CustomRoutes>
 
-        <Toaster position="top-right" reverseOrder={false} />
+        <Toaster
+          position="top-right"
+          reverseOrder={false} />
       </div>
     </>
   );

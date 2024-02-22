@@ -7,13 +7,14 @@ import { Icon } from "@iconify/react";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 
 const SignIn = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [showpass, setShowpass] = useState(false);
 
-  console.log("user========",user)
+
 
   const {
     register,
@@ -32,9 +33,10 @@ const SignIn = () => {
     }
     if (error) {
       console.log("===error====", error);
-      toast.error("invalid email and password");
+      toast.custom(<ErrorToast message={"this is message"} />,
+        { duration: 3000 });
     }
-  }, [isSuccess, error,reset]);
+  }, [isSuccess, error, reset]);
 
   useEffect(() => {
     if (user?.usertype === "super_admin") {
