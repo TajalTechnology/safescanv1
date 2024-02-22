@@ -9,9 +9,17 @@ export const superApi = apiSlice.injectEndpoints({
             method:"GET",
         })
     }),
+    createCustomer:builder.mutation({
+      query:(data)=>({
+        url: "user/signup",
+        method: "POST",
+        body: data,
+      })
+    })
   }),
 });
 
 export const {
-    useCustomersQuery
+    useCustomersQuery,
+    useCreateCustomerMutation,
 } = superApi;
