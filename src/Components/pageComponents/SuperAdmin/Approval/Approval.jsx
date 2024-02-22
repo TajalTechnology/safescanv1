@@ -27,6 +27,8 @@ const Approval = () => {
     return queryParams.join("&");
   };
 
+  console.log(data)
+
   useEffect(() => {
     const query = generateQuery(searchValue);
     sestSearchQuery(`is_super_admin=false${query}`);

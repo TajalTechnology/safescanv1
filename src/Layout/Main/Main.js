@@ -1,9 +1,20 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import DashboardNav from './DashboardNav';
+import { useSelector } from 'react-redux';
 
 const Main = () => {
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+    useEffect(()=>{
+        // if(user?.usertype ==="super_admin" && !user?.admin_serial === 1){
+
+        // }else{
+        //     navigate("/")
+        // }
+    },[user])
+
     return (
         <div className=" flex bg-[#F4F7FE]">
             <div className=' bg-white'>

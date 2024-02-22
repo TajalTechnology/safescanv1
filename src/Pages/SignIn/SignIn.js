@@ -1,17 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../../Components/Shared/input/CustomInput";
-import PasswordInput from "../../Components/Shared/input/PasswordInput";
 import { useForm } from "react-hook-form";
 import CustomButton from "../../Components/Shared/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import Password from "antd/es/input/Password";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const SignIn = () => {
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [showpass, setShowpass] = useState(false);
+
+  console.log("user========",user)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const [login, { isSuccess, isLoading, error }] = useLoginMutation();
 
@@ -19,25 +28,31 @@ const SignIn = () => {
     if (isSuccess) {
       const message = "login success";
       toast.success(message);
-      navigate("/super-admin/customers")
+      reset()
     }
     if (error) {
       console.log("===error====", error);
       toast.error("invalid email and password");
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error,reset]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    watch,
-  } = useForm();
+  useEffect(() => {
+    if (user?.usertype === "super_admin") {
+      if (user?.admin_serial === 1) {
+        navigate("/super-admin/customers");
+      } else {
+        navigate("/admin/dashboard");
+      }
+    } else {
+      toast.error("you are not Valid user")
+    }
+  }, [user, navigate]);
+
+
 
   const onSubmit = (data) => {
     // navigate('/admin/dashboard')
-     login(data)
+    login(data);
 
     console.log("data===", data);
   };

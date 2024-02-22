@@ -43,10 +43,14 @@ export const authApi = apiSlice.injectEndpoints({
             "token",
             JSON.stringify(result?.data?.token)
           );
+          localStorage.setItem(
+            "user",
+            JSON.stringify(result?.data?.user)
+          );
           dispatch(
             userLoggedIn({
               accessToken: result?.data?.token,
-              user: "",
+              user: result?.data?.user,
             })
           );
         } catch (error) {
