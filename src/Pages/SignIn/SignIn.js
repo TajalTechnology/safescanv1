@@ -123,7 +123,6 @@ const SignIn = () => {
             </div>
             <p className="underline text-info text-sm font-medium mt-4">
               <Link
-                target="_blank"
                 to={"/forgotPass"}
                 className="font-bold text-primary"
               >
