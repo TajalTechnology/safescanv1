@@ -60,9 +60,9 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
       title: "Plan",
       key: "id",
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{row?.Plan}</span>
+        <span className=" text-[14px] font-normal text-info">{row?.plan}</span>
       ),
-      sorter: (a, b) => a?.Plan - b?.Plan,
+      sorter: (a, b) => a?.plan - b?.plan,
     },
     {
       title: "Expire Date",
