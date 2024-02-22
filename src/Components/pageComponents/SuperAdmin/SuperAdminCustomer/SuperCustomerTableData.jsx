@@ -1,6 +1,7 @@
 import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
 import CustomerAction from "./CustomerAction";
+import Plan from "./Plan";
 
 const SuperCustomerTableData = ({ tableData, rowSelection }) => {
   const columns = [
@@ -60,7 +61,8 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
       title: "Plan",
       key: "id",
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{row?.plan}</span>
+        // <span className=" text-[14px] font-normal text-info">{row?.plan}</span>
+        <Plan row={row} />
       ),
       sorter: (a, b) => a?.plan - b?.plan,
     },
