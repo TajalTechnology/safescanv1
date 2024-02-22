@@ -30,7 +30,7 @@ const SuperCustomerTable = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`is_super_admin=true${query}`);
+    sestSearchQuery(`is_approved=true${query}`);
     refetch()
   }, [searchValue,refetch]);
 

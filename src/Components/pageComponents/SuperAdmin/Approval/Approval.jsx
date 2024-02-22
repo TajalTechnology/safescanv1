@@ -31,7 +31,7 @@ const Approval = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`is_super_admin=false${query}`);
+    sestSearchQuery(`is_approved=false${query}`);
     refetch();
   }, [searchValue, refetch]);
 
