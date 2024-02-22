@@ -20,15 +20,13 @@ const CustomerAction = ({ row }) => {
     }
   }, [isSuccess, error]);
 
-  const handleApprove = ()=>{
+  const handleApprove = async()=>{
       const data={
         username:row?.username,
         is_approved: false,
       }
 
-      const url =`${row?.userid}`
-
-      approve(url,data)
+     await approve(row?.userid,data)
   }
 
   return (
