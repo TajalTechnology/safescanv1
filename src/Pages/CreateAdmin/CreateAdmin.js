@@ -90,6 +90,7 @@ const CreateAdmin = () => {
                 <CreatedAdminsTable
                   tableData={updateData}
                   rowSelection={rowSelection}
+                  refetch={refetch}
                 />
               </>
             )}

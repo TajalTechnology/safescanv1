@@ -4,7 +4,7 @@ import WorkersTableAction from "./WorkersTableAction";
 import WorkersQRCode from "./WorkersQRCode";
 import CardModal from "../../Shared/modal/CardModal";
 
-const WorkersTable = ({tableData,rowSelection}) => {
+const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
     {
       title: "First & Last Name",
@@ -104,7 +104,7 @@ const WorkersTable = ({tableData,rowSelection}) => {
       {
         title: "Actions",
         key: "id",
-        render: (row) => (<WorkersTableAction row={row} />),
+        render: (row) => (<WorkersTableAction row={row} refetch={refetch}/>),
       },
 
   ];

@@ -1,16 +1,40 @@
 import { Icon } from "@iconify/react";
 import { Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteModal from "../../Shared/modal/DeleteModal";
 import CreatedAdminsEdit from "./CreatedAdminsEdit";
 import ShareModal from "../../Shared/modal/ShareModal";
+import { useDeleteUserMutation } from "../../../redux/features/admin/adminApi";
+import toast from "react-hot-toast";
 
-const CreatedAdminsTableAction = ({ row }) => {
+const CreatedAdminsTableAction = ({ row,refetch }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [share, setShare] = useState(false);
   const [shareText, setShareText] = useState("");
   const [type, setType] = useState("email")
+
+  const [deleteUser, { isSuccess, isLoading, error }] = useDeleteUserMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Admin Delete success";
+      toast.success(message);
+      refetch();
+      setDeleteModal(false)
+    }
+    if (error) {
+      toast.error(error?.data.error || error?.data.message);
+    }
+  }, [isSuccess, error]);
+
+  const handelDelete= async()=>{
+    const id = `${row?.userid}?username=${row?.username}`;
+    await deleteUser(id)
+
+  }
+
+
   const handleShare = () => {
     if (type === 'email') {
       if (shareText.trim() !== '') {
@@ -76,12 +100,13 @@ const CreatedAdminsTableAction = ({ row }) => {
       {/* ============= Workers delete Modal============ */}
       <DeleteModal
         modalOPen={deleteModal}
-        onDelete={() => setDeleteModal(false)}
+        onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Worker Profile!"}
         title2={
           "Are you sure you want to delete this worker profile? This action cannot be undone."
         }
+        isLoading={isLoading}
       />
     </>
   );

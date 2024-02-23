@@ -83,6 +83,7 @@ const Workers = () => {
                 <WorkersTable
                   tableData={updateData}
                   rowSelection={rowSelection}
+                  refetch={refetch}
                 />
               </>
             )}

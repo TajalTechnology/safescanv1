@@ -87,7 +87,7 @@ const CreateWorker = () => {
                 <CreatedWorkersTable
                   tableData={updateData}
                   rowSelection={rowSelection}
-
+                  refetch={refetch}
                 />
               </>
             )}

@@ -2,7 +2,7 @@ import React from "react";
 import CustomTable from "../../Shared/table/CustomTable";
 import CreatedAdminsTableAction from "./CreatedAdminsTableAction";
 
-const CreatedAdminsTable = ({tableData,rowSelection}) => {
+const CreatedAdminsTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
     {
       title: "Username",
@@ -48,7 +48,7 @@ const CreatedAdminsTable = ({tableData,rowSelection}) => {
         title: "Actions",
         key: "id",
         width:"120px",
-        render: (row) => (<CreatedAdminsTableAction row={row} />),
+        render: (row) => (<CreatedAdminsTableAction row={row} refetch={refetch} />),
       },
 
   ];

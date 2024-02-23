@@ -2,7 +2,7 @@ import React from "react";
 import CustomTable from "../../Shared/table/CustomTable";
 import CreatedWorkersTableAction from "./CreatedWorkersTableAction";
 
-const CreatedWorkersTable = ({tableData,rowSelection}) => {
+const CreatedWorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
     {
       title: "Username",
@@ -48,7 +48,7 @@ const CreatedWorkersTable = ({tableData,rowSelection}) => {
         title: "Actions",
         key: "id",
         width:"120px",
-        render: (row) => (<CreatedWorkersTableAction row={row} />),
+        render: (row) => (<CreatedWorkersTableAction row={row} refetch={refetch}/>),
       },
 
   ];
