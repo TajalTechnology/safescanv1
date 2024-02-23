@@ -27,7 +27,7 @@ const CustomTable = ({ tableData, columns, scroll, rowSelection }) => {
 
   return (
     <div className="lg:relative text-secondary text-base w-full">
-      {tableData.length === 0 ? (
+      {tableData?.length === 0 ? (
         <>
           <div className="w-full h-[200px] flex items-center justify-center">
               <h2 className=" font-semibold text-[25px]">No Data </h2>

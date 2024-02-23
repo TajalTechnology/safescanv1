@@ -4,7 +4,7 @@ import QRCode from "./QRCodeModal";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 
-const AdminsTable = ({ tableData, rowSelection }) => {
+const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
     {
       title: "First & Last Name",
@@ -104,7 +104,7 @@ const AdminsTable = ({ tableData, rowSelection }) => {
     {
       title: "Actions",
       key: "id",
-      render: (row) => (<AdminTableAction row={row} />),
+      render: (row) => (<AdminTableAction row={row} refetch={refetch} />),
     },
 
   ];

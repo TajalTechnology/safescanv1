@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import DeleteModal from "../../Shared/modal/DeleteModal";
 import AdminEdit from "./AdminEdit";
 
-const AdminTableAction = ({ row }) => {
+const AdminTableAction = ({ row,refetch }) => {
   const [deleteModal,setDeleteModal] = useState(false)
   const [edit, setEdit] = useState(false);
 
@@ -31,7 +31,7 @@ const AdminTableAction = ({ row }) => {
       </div>
 
             {/* ============= Workers edit Modal============ */}
-            <AdminEdit item={row} modalOPen={edit} setModalOpen={setEdit} />
+            <AdminEdit item={row} modalOPen={edit} refetch={refetch} setModalOpen={setEdit} />
 
       <DeleteModal modalOPen={deleteModal} onDelete={()=>setDeleteModal(false)} setModalOpen={setDeleteModal} title={"Delete Admin Profile!"} title2={"Are you sure you want to delete this admin profile? This action cannot be undone."}/>
     </>

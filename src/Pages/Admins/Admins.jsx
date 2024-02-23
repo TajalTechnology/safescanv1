@@ -81,6 +81,7 @@ const Admins = () => {
                 <AdminsTable
                   tableData={updateData}
                   rowSelection={rowSelection}
+                  refetch={refetch}
                 />
               </>
             )}

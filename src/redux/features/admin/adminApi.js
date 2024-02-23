@@ -27,8 +27,15 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    updateUser:builder.mutation({
+      query:({id,bodyData})=>({
+        url: `/user/${id}`,
+        method: "PATCH",
+        body: bodyData,
+      })
+    })
   }),
 });
 
 
-export const { useGetUserQuery,useGetAdminQuery,useGetWorkerQuery,useCreateUserMutation } = adminApi;
+export const { useGetUserQuery,useGetAdminQuery,useGetWorkerQuery,useCreateUserMutation,useUpdateUserMutation } = adminApi;
