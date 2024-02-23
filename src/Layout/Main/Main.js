@@ -8,11 +8,9 @@ const Main = () => {
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     useEffect(()=>{
-        // if(user?.usertype ==="super_admin" && !user?.admin_serial === 1){
-
-        // }else{
-        //     navigate("/")
-        // }
+        if(!user){
+            navigate("/")
+        }
     },[user])
 
     return (

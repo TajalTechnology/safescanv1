@@ -5,7 +5,7 @@ import ApprovalModal from "../../../Shared/modal/ApprovalModal";
 import { useApproveMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
 
-const ApprovalAction = ({ row }) => {
+const ApprovalAction = ({ row,refetch,refetch1 }) => {
   const [approval, setApproval] = useState(false);
   const [reject, setReject] = useState(false);
 
@@ -13,10 +13,12 @@ const ApprovalAction = ({ row }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Create Customer success";
+      const message = "Customer Approve success";
       toast.success(message);
       setReject(false);
       setApproval(false)
+      refetch()
+      refetch1()
     }
     if (error) {
       console.log("===error====", error);
@@ -24,22 +26,22 @@ const ApprovalAction = ({ row }) => {
     }
   }, [isSuccess, error]);
 
-  const handleREject = async()=>{
-      const data={
-        username:row?.username,
-        is_approved: false,
-      }
-
-     await approve(row?.userid,data)
-  }
+  // const handleREject = async()=>{
+  //     const data={
+  //       username:row?.username,
+  //       is_approved: false,
+  //     }
+  //     const id=row?.userid;
+  //    await approve({id,data})
+  // }
 
   const handleApprove = async()=>{
     const data={
       username:row?.username,
       is_approved: true,
     }
-
-   await approve(row?.userid,data)
+    const id=row?.userid;
+    await approve({id,data})
 }
 
   return (
@@ -66,7 +68,7 @@ const ApprovalAction = ({ row }) => {
       {/* approval modal */}
       <ApprovalModal
         modalOPen={approval}
-        onDelete={() => handleREject()}
+        onDelete={() => handleApprove()}
         setModalOpen={setApproval}
         title={"Approve Customer!"}
         title2={
@@ -78,7 +80,7 @@ const ApprovalAction = ({ row }) => {
       {/* Reject modal */}
       <ApprovalModal
         modalOPen={reject}
-        onDelete={() => handleApprove()}
+        onDelete={() => setReject(false)}
         setModalOpen={setReject}
         title={"Reject Approval!"}
         title2={

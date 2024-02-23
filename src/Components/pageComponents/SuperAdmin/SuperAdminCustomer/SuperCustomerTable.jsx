@@ -7,22 +7,19 @@ import CustomerCreate from "./CustomerCreate";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 import { useDebounce } from "use-debounce";
 
-const SuperCustomerTable = () => {
-  const [search, setSearch] = React.useState("");
+const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
+
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [create, setCreate] = useState(false);
-  const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
   console.log(searchQuery)
 
-  // ========data fecthing=========
-  const { data, isLoading,refetch } = useCustomersQuery(searchQuery,{ refetchOnMountOrArgChange: true });
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
-      queryParams.push(`&search=${searchValue}`);
+      queryParams.push(`search=${searchValue}`);
     }
 
     return queryParams.join("&");
@@ -30,9 +27,8 @@ const SuperCustomerTable = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`is_approved=true${query}`);
-    refetch()
-  }, [searchValue,refetch]);
+    sestSearchQuery(`${query}&is_approved=true`);
+  }, [searchValue]);
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
@@ -48,8 +44,8 @@ const SuperCustomerTable = () => {
   console.log("all data=====",data)
 
   // ======add a key for selected=======
-  const updateData = data?.map((item, index) => ({
-    key: item?.admin_serial,
+  const updateData = data?.map((item) => ({
+    key: item?.userid,
     ...item,
   }));
   return (
@@ -80,13 +76,15 @@ const SuperCustomerTable = () => {
                 <SuperCustomerTableData
                   tableData={updateData}
                   rowSelection={rowSelection}
+                  refetch={refetch}
+                  refetch1={refetch1}
                 />
               </>
             )}
           </div>
         </div>
       </div>
-      <CustomerCreate modalOPen={create} setModalOpen={setCreate} />
+      <CustomerCreate modalOPen={create} setModalOpen={setCreate} refetch1={refetch1}/>
     </div>
   );
 };

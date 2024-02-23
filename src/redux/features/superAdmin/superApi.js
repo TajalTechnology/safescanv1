@@ -9,6 +9,12 @@ export const superApi = apiSlice.injectEndpoints({
             method:"GET",
         })
     }),
+    approveCustomers:builder.query({
+      query:(query)=>({
+          url:`users?usertype=super_admin&${query}`,
+          method:"GET",
+      })
+  }),
     createCustomer:builder.mutation({
       query:(data)=>({
         url: "user/signup",
@@ -17,7 +23,7 @@ export const superApi = apiSlice.injectEndpoints({
       })
     }),
     approve:builder.mutation({
-      query:(id,data)=>({
+      query:({id,data})=>({
         url: `user/approve/${id}`,
         method: "PATCH",
         body: data,
@@ -28,6 +34,7 @@ export const superApi = apiSlice.injectEndpoints({
 
 export const {
     useCustomersQuery,
+    useApproveCustomersQuery,
     useCreateCustomerMutation,
     useApproveMutation,
 } = superApi;

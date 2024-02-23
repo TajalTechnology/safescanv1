@@ -2,7 +2,7 @@ import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
 import ApprovalAction from "./ApprovalAction";
 
-const ApprovalTable = ({ tableData, rowSelection }) => {
+const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
@@ -68,7 +68,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
         title: "Action",
         key: "id",
         render: (row) => (
-          <ApprovalAction row={row} />
+          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} />
         ),
       },
   ];

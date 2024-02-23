@@ -4,15 +4,17 @@ import { Icon } from "@iconify/react";
 import { useApproveMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
 
-const CustomerAction = ({ row }) => {
+const CustomerAction = ({ row,refetch,refetch1 }) => {
   const [reject, setReject] = useState(false);
   const [approve, { isLoading, error, isSuccess }] = useApproveMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Create Customer success";
+      const message = "Customer Rejects success";
       toast.success(message);
       setReject(false);
+      refetch()
+      refetch1()
     }
     if (error) {
       console.log("===error====", error);
@@ -26,7 +28,8 @@ const CustomerAction = ({ row }) => {
         is_approved: false,
       }
 
-     await approve(row?.userid,data)
+      const id=row?.userid
+     await approve({id,data})
   }
 
   return (

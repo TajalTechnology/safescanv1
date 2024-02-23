@@ -3,37 +3,26 @@ import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import ApprovalTable from "./ApprovalTable";
 import { useDebounce } from "use-debounce";
-import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 
-const Approval = () => {
-  const [search, setSearch] = React.useState("");
+
+const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
+
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
-  console.log(searchQuery);
-
-  // ========data fecthing=========
-  const { data, isLoading, refetch } = useCustomersQuery(searchQuery, {
-    refetchOnMountOrArgChange: true,
-  });
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
       queryParams.push(`&search=${searchValue}`);
     }
-
     return queryParams.join("&");
   };
-
-  console.log(data)
 
   useEffect(() => {
     const query = generateQuery(searchValue);
     sestSearchQuery(`is_approved=false${query}`);
-    refetch();
-  }, [searchValue, refetch]);
+  }, [searchValue]);
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
@@ -47,7 +36,7 @@ const Approval = () => {
 
   // ======add a key for selected=======
   const updateData = data?.map((item, index) => ({
-    key: item?.admin_serial,
+    key: item?.userid,
     ...item,
   }));
   return (
@@ -75,6 +64,8 @@ const Approval = () => {
                 <ApprovalTable
                   tableData={updateData}
                   rowSelection={rowSelection}
+                  refetch={refetch}
+                  refetch1={refetch1}
                 />
               </>
             )}

@@ -8,7 +8,7 @@ import PasswordInput from "../../../Shared/input/PasswordInput";
 import { useCreateCustomerMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
 
-const CustomerCreate = ({ modalOPen, setModalOpen }) => {
+const CustomerCreate = ({ modalOPen, setModalOpen,refetch1 }) => {
   const {
     register,
     handleSubmit,
@@ -23,6 +23,7 @@ const CustomerCreate = ({ modalOPen, setModalOpen }) => {
       const message = "Create Customer success";
       toast.success(message);
       setModalOpen(false)
+      refetch1()
     }
     if (error) {
       console.log("===error====", error);

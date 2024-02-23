@@ -3,7 +3,7 @@ import CustomTable2 from "../../../Shared/table/CustomTable2";
 import CustomerAction from "./CustomerAction";
 import Plan from "./Plan";
 
-const SuperCustomerTableData = ({ tableData, rowSelection }) => {
+const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
@@ -78,7 +78,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
       title: "Action",
       key: "id",
       render: (row) => (
-       <CustomerAction row={row} />
+       <CustomerAction row={row} refetch={refetch} refetch1={refetch1}/>
       )
     },
   ];
