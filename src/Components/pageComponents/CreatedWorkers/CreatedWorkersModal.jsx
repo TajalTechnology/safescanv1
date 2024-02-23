@@ -1,11 +1,13 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 import CustomButton from "../../Shared/CustomButton";
+import toast from "react-hot-toast";
+import { useCreateUserMutation } from "../../../redux/features/admin/adminApi";
 
-const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
+const CreatedWorkersModal = ({ modalOPen,refetch, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
   const [type,setType] = useState("email")
   const [shareText, setShareText] = useState("");
@@ -15,10 +17,35 @@ const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
     formState: { errors },
   } = useForm();
 
+  const [
+    createUser,
+    { isLoading, error, isSuccess },
+  ] = useCreateUserMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Create Worker success";
+      toast.success(message);
+      refetch()
+      setModalOpen(false)
+      setSuccess(true)
+    }
+    if (error) {
+      toast.error(error?.data.error);
+    }
+  }, [isSuccess, error]);
+
   const onSubmit = (data) => {
-    setModalOpen(false);
-    setSuccess(true);
+    const bodyData = {
+      username: data?.username,
+      password: data?.Password,
+      confirm_password: data?.Password,
+      usertype: "worker",
+    }
+    createUser(bodyData);
   };
+
+
 
   const modalStyle = {
     padding: 0, // Set padding to 0 for the Modal component
@@ -111,7 +138,7 @@ const CreatedWorkersModal = ({ modalOPen, setModalOpen }) => {
                 />
               </div>
               <div className="mt-[20px] flex items-center gap-5">
-                <CustomButton className={" w-full"}>Create New</CustomButton>
+                <CustomButton className={" w-full"}>{isLoading ? "Loading..." : "Create New"}</CustomButton>
               </div>
             </form>
           </div>

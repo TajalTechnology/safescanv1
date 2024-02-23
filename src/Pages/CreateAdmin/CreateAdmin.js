@@ -3,7 +3,6 @@ import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import SectionHeading from "../../Components/Shared/SectionHeading";
 import SearchInput from "../../Components/Shared/input/SearchInput";
 import CreatedAdminsTable from "../../Components/pageComponents/CreatedAdmins/CreatedAdminsTable";
-import { CreatedAdmins } from "../../assets/mockData";
 import CustomButton from "../../Components/Shared/CustomButton";
 import CreatedAdminModal from "../../Components/pageComponents/CreatedAdmins/CreatedAdminModal";
 import { useSelector } from "react-redux";

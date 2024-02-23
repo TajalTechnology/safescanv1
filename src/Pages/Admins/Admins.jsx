@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import SearchInput from "../../Components/Shared/input/SearchInput";
 import SectionHeading from "../../Components/Shared/SectionHeading";
-import { AdminProfiles } from "../../assets/mockData";
 import AdminsTable from "../../Components/pageComponents/Admins/AdminsTable";
 import {
   useGetAdminQuery,
-  useGetUserQuery,
 } from "../../redux/features/admin/adminApi";
 import { useDebounce } from "use-debounce";
 import { useSelector } from "react-redux";

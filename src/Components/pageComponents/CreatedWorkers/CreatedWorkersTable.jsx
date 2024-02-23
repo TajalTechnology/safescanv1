@@ -18,7 +18,7 @@ const CreatedWorkersTable = ({tableData,rowSelection}) => {
         key: "id",
         render: (row) => (
           <span className=" text-[14px] font-normal text-info">
-            {row.phoneNumber === "" ?"--":row.phoneNumber}
+            {row.phone === "" ?"--":row.phone}
           </span>
         ),
       },
