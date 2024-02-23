@@ -47,7 +47,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     const bodyData = {
       username: item?.username,
       first_name: data.first_name,
@@ -60,8 +60,9 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       major: Number(data.major),
       dismissal: Number(data.dismissal),
     };
-    const id = item?.userid;
-    updateUser({ id, bodyData });
+    // const id = item?.userid;
+    const id = `${item?.userid}`;
+    await updateUser({id,bodyData});
     console.log("update data=====", bodyData);
 
     // setModalOpen(false);

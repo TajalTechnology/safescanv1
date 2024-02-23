@@ -27,15 +27,21 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    updateUser:builder.mutation({
-      query:({id,bodyData})=>({
-        url: `/user/${id}`,
+    updateUser: builder.mutation({
+      query: ({id,bodyData}) => ({
+        url: `user/${id}`,
         method: "PATCH",
         body: bodyData,
-      })
-    })
+      }),
+    }),
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `user/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 
-export const { useGetUserQuery,useGetAdminQuery,useGetWorkerQuery,useCreateUserMutation,useUpdateUserMutation } = adminApi;
+export const { useGetUserQuery,useGetAdminQuery,useGetWorkerQuery,useCreateUserMutation,useUpdateUserMutation,useDeleteUserMutation } = adminApi;

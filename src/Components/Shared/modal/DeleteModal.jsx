@@ -9,6 +9,7 @@ const DeleteModal = ({
   title,
   title2,
   onDelete=()=>{},
+  isLoading=false
 }) => {
   return (
     <div className="">
@@ -50,11 +51,10 @@ const DeleteModal = ({
             <button
               onClick={() => {
                 onDelete();
-                setModalOpen(false);
               }}
               className="font-bold w-full  h-[40px] px-6 rounded-[10px] bg-red-500 hover:bg-red-700 duration-300 border border-red-500 text-white "
             >
-              Delete
+              {isLoading ? "Loading...": "Delete"} 
             </button>
           </div>
         </div>
