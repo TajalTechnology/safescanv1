@@ -1,12 +1,13 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 import CustomButton from "../../Shared/CustomButton";
-import { useCreateUserMutation, useCreateUserQuery } from "../../../redux/features/admin/adminApi";
+import { useCreateUserMutation } from "../../../redux/features/admin/adminApi";
+import toast from "react-hot-toast";
 
-const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
+const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
   const [type, setType] = useState("email")
   const [shareText, setShareText] = useState("");
@@ -19,42 +20,32 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
 
   const [
     createUser,
-    { isLoading, isError, error, isSuccess },
+    { isLoading, error, isSuccess },
   ] = useCreateUserMutation();
 
-  const onSubmit = async (data) => {
-    createUser(
-      {
-        username: data?.username,
-        password: data?.Password,
-        confirm_password: data?.Password,
-        usertype: "admin",
-      }
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Create Admin success";
+      toast.success(message);
+      refetch()
+      setModalOpen(false)
+      setSuccess(true)
+    }
+    if (error) {
+      toast.error(error?.data.error);
+    }
+  }, [isSuccess, error]);
 
-    );
-    console.log(data);
-    setModalOpen(false);
-    setSuccess(true);
+  const onSubmit = (data) => {
+
+    const bodyData = {
+      username: data?.username,
+      password: data?.Password,
+      confirm_password: data?.Password,
+      usertype: "admin",
+    }
+    createUser(bodyData);
   };
-  // const onSubmit = async (data) => {
-  //   try {
-  //     const userInfo = ;
-
-  //     // Dispatch the createUserQuery to create a new user
-  //     const result = await useCreateUserQuery(userInfo).unwrap();
-
-  //     // If the user creation is successful, close the modal and set success to true
-  //     if (result.status === "success") {
-      
-  //     } else {
-  //       // Handle error cases here, if any
-  //       console.error("User creation failed:", result.error);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creating user:", error);
-  //   }
-  // };
-
 
   const handleShare = () => {
     if (type === 'email') {
@@ -146,7 +137,7 @@ const CreatedAdminModal = ({ modalOPen, setModalOpen }) => {
                 />
               </div>
               <div className="mt-[20px] flex items-center gap-5">
-                <CustomButton className={" w-full"}>Create New</CustomButton>
+                <CustomButton className={" w-full"}>{isLoading ? "Loading...": "Create New"}</CustomButton>
               </div>
             </form>
           </div>

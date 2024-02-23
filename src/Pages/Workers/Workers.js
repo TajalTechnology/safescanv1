@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import SectionHeading from "../../Components/Shared/SectionHeading";
 import SearchInput from "../../Components/Shared/input/SearchInput";
-import { WorkersProfiles } from "../../assets/mockData";
 import WorkersTable from "../../Components/pageComponents/Workers/WorkersTable";
 import { useDebounce } from "use-debounce";
-import { useGetUserQuery } from "../../redux/features/admin/adminApi";
+import { useGetWorkerQuery } from "../../redux/features/admin/adminApi";
+import { useSelector } from "react-redux";
 
 const Workers = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
+  const  {user} = useSelector((state)=>state.auth)
 
   console.log(searchQuery);
 
   // ========data fecthing=========
-  const { data, isLoading, refetch } = useGetUserQuery(searchQuery, {
+  const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
   });
 
@@ -33,9 +34,9 @@ const Workers = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`usertype=admin${query}`);
+    sestSearchQuery(`company_serial=${user?.company_serial}${query}`);
     refetch();
-  }, [searchValue, refetch]);
+  }, [searchValue, refetch,user]);
 
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);

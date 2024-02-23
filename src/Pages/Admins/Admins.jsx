@@ -9,15 +9,17 @@ import {
   useGetUserQuery,
 } from "../../redux/features/admin/adminApi";
 import { useDebounce } from "use-debounce";
+import { useSelector } from "react-redux";
 
 const Admins = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
+  const  {user} = useSelector((state)=>state.auth)
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
-  console.log(searchQuery);
+  console.log(user);
+  console.log("query=======",searchQuery);
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetAdminQuery(searchQuery, {
@@ -35,9 +37,8 @@ const Admins = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`${query}`);
-    refetch();
-  }, [searchValue, refetch]);
+    sestSearchQuery(`company_serial=${user?.company_serial}${query}`);
+  }, [searchValue,user]);
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {

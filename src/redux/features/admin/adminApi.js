@@ -17,13 +17,13 @@ export const adminApi = apiSlice.injectEndpoints({
     }),
     getAdmin: builder.query({
       query: (query) => ({
-        url: `users?usertype=admin${query}`,
+        url: `users?usertype=admin&${query}`,
         method: "GET",
       }),
     }),
     getWorker: builder.query({
       query: (query) => ({
-        url: `users?usertype=worker${query}`,
+        url: `users?usertype=worker&${query}`,
         method: "GET",
       }),
     }),

@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../../Components/Shared/input/CustomInput";
-import PasswordInput from "../../Components/Shared/input/PasswordInput";
 import { useForm } from "react-hook-form";
 import CustomButton from "../../Components/Shared/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import Password from "antd/es/input/Password";
 import toast from "react-hot-toast";
 import { useCreateCustomerMutation } from "../../redux/features/superAdmin/superApi";
 
