@@ -29,6 +29,13 @@ export const superApi = apiSlice.injectEndpoints({
         body: data,
       })
     }),
+    plan:builder.mutation({
+      query:({id,data})=>({
+        url: `user/${id}`,
+        method: "PATCH",
+        body: data,
+      })
+    }),
   }),
 });
 
@@ -37,4 +44,5 @@ export const {
     useApproveCustomersQuery,
     useCreateCustomerMutation,
     useApproveMutation,
+    usePlanMutation,
 } = superApi;

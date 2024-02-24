@@ -59,16 +59,16 @@ const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) =>
     },
     {
       title: "Plan",
-      key: "id",
       render: (row) => (
         // <span className=" text-[14px] font-normal text-info">{row?.plan}</span>
-        <Plan row={row} />
+        <Plan row={row} refetch={refetch}/>
       ),
       sorter: (a, b) => a?.plan - b?.plan,
+      width:"100px"
     },
     {
       title: "Expire Date",
-      key: "id",
+
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">{row?.ExpireDate}</span>
       ),
