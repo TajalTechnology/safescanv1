@@ -6,6 +6,8 @@ import QRCode from "qrcode.react";
 const QRCodeModal = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
 
+  console.log("hello row====",row)
+
   return (
     <>
       <Tooltip placement="topLeft" title="View QRC Code">
