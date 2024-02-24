@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SuperSidbar from "../../Components/Sidebar/SuperSidbar";
 import DashboardNav from "../Main/DashboardNav";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SuperAdmin = () => {
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(()=>{
+      if(user?.usertype ==="super_admin" && user?.admin_serial === 1){
+          
+      }else{
+        navigate("/")
+      }
+  },[user,navigate])
+
   return (
     <div className=" flex bg-[#F4F7FE]">
       <div className=" bg-white">

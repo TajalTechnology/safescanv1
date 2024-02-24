@@ -1,15 +1,16 @@
 import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
 import CustomerAction from "./CustomerAction";
+import Plan from "./Plan";
 
-const SuperCustomerTableData = ({ tableData, rowSelection }) => {
+const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-bold text-[#485585]">
-          {row.Username}
+          {row.username}
         </span>
       ),
     },
@@ -34,7 +35,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.address?.slice(0, 16)}...
+          {row.site_address?.slice(0, 16)}...
         </span>
       ),
     },
@@ -43,7 +44,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.SiteName}
+          {row.site_name}
         </span>
       ),
     },
@@ -52,31 +53,32 @@ const SuperCustomerTableData = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.EmployersName}
+          {row?.emloyeer_name}
         </span>
       ),
     },
     {
       title: "Plan",
-      key: "id",
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{row.Plan}</span>
+        // <span className=" text-[14px] font-normal text-info">{row?.plan}</span>
+        <Plan row={row} refetch={refetch}/>
       ),
-      sorter: (a, b) => a.Plan - b.Plan,
+      sorter: (a, b) => a?.plan - b?.plan,
+      width:"100px"
     },
     {
       title: "Expire Date",
-      key: "id",
+
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{row.ExpireDate}</span>
+        <span className=" text-[14px] font-normal text-info">{row?.ExpireDate}</span>
       ),
-      sorter: (a, b) => a.ExpireDate - b.ExpireDate,
+      sorter: (a, b) => a?.ExpireDate - b?.ExpireDate,
     },
     {
       title: "Action",
       key: "id",
       render: (row) => (
-       <CustomerAction row={row} />
+       <CustomerAction row={row} refetch={refetch} refetch1={refetch1}/>
       )
     },
   ];

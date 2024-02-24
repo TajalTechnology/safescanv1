@@ -1,10 +1,10 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
-import { userLoggedIn } from "../auth/authSlice";
+
 
 export const apiSlice = createApi({
     reducerPath:"api",
     baseQuery:fetchBaseQuery({
-        baseUrl:"",
+        baseUrl:"/api/v1/",
         prepareHeaders: (headers) => {
             // Get the token from localStorage
             const tokenString = localStorage.getItem("token");
@@ -23,21 +23,17 @@ export const apiSlice = createApi({
             query:(data)=>({
                 url:"refresh-token",
                 method:"GET",
-                credentials:"include",
             })
         }),
         loadUser:builder.query({
             query:(data)=>({
-                url:"user/one",
+                url:"user",
                 method:"GET",
             }),
             async onQueryStarted(arg,{queryFulfilled,dispatch}){
                 try {
                     const result = await queryFulfilled;
-                    dispatch(userLoggedIn({
-                        accessToken:"",
-                        user:result.data.user,
-                    }))
+                    console.log("hello",result)
                 } catch (error) {
                     console.log(error)
                 }

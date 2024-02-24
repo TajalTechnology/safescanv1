@@ -1,20 +1,42 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../../Shared/input/CustomInput";
 import CustomButton from "../../../Shared/CustomButton";
 import PasswordInput from "../../../Shared/input/PasswordInput";
+import { useCreateCustomerMutation } from "../../../../redux/features/superAdmin/superApi";
+import toast from "react-hot-toast";
 
-const CustomerCreate = ({ modalOPen, setModalOpen }) => {
+const CustomerCreate = ({ modalOPen, setModalOpen,refetch1 }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const [createCustomer, { isSuccess, isLoading, error }] =
+    useCreateCustomerMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Create Customer success";
+      toast.success(message);
+      setModalOpen(false)
+      refetch1()
+    }
+    if (error) {
+      console.log("===error====", error);
+      toast.error(error?.data.error);
+    }
+  }, [isSuccess, error]);
+
   const onSubmit = (data) => {
-    setModalOpen(false);
+    const updateData = {
+      ...data,
+      usertype: "super_admin",
+    };
+    createCustomer(updateData)
   };
 
   const modalStyle = {
@@ -78,6 +100,18 @@ const CustomerCreate = ({ modalOPen, setModalOpen }) => {
               />
             </div>
             <CustomInput
+              label={"UserName"}
+              type={"text"}
+              register={register("username", {
+                required: {
+                  value: true,
+                  message: "Please enter Mobile Number",
+                },
+              })}
+              error={errors.username}
+              placeholder={"Enter Phone Number"}
+            />
+            <CustomInput
               label={"Mobile Number"}
               type={"text"}
               register={register("phone", {
@@ -104,25 +138,25 @@ const CustomerCreate = ({ modalOPen, setModalOpen }) => {
             <CustomInput
               label={"Site Address"}
               type={"text"}
-              register={register("address", {
+              register={register("site_address", {
                 required: {
                   value: true,
                   message: "Please enter Site Address",
                 },
               })}
-              error={errors.address}
+              error={errors.site_address}
               placeholder={"Enter Site Address"}
             />
             <CustomInput
               label={"Employers Name"}
               type={"text"}
-              register={register("employers_name", {
+              register={register("emloyeer_name", {
                 required: {
                   value: true,
                   message: "Please enter Employers Name",
                 },
               })}
-              error={errors.employers_name}
+              error={errors.emloyeer_name}
               placeholder={"Enter  Employers Name"}
             />
 
@@ -134,22 +168,22 @@ const CustomerCreate = ({ modalOPen, setModalOpen }) => {
                   message: "Please enter Create Password ",
                 },
               })}
-              error={errors.employers_name}
+              error={errors.password}
               placeholder={"Enter Password "}
             />
             <PasswordInput
               label={"Re-enter Password "}
-              register={register("re-password", {
+              register={register("confirm_password", {
                 required: {
                   value: true,
                   message: "Please enter Enter Password ",
                 },
               })}
-              error={errors.employers_name}
+              error={errors.confirm_password}
               placeholder={"Enter Enter Password "}
             />
             <div className="mt-[20px] flex items-center gap-5">
-              <CustomButton className={" w-full"}>Create New</CustomButton>
+              <CustomButton className={" w-full"}>{isLoading ? "Loading..." : "Create New"}</CustomButton>
             </div>
           </form>
         </div>

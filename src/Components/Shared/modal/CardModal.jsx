@@ -54,7 +54,7 @@ const CardModal = ({ row, date, dateTitle }) => {
           </div>
           <div className="w-full flex items-center justify-center py-5">
             <img
-              src={row.cardImages[imgIndex].img}
+              src={row?.cardImages[imgIndex].img}
               alt="card"
               className="w-full"
             />

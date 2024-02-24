@@ -2,6 +2,7 @@
   "name": "eldereue",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com",
   "dependencies": {
     "@ant-design/plots": "^1.2.5",
     "@react-hook/media-query": "^1.1.1",
@@ -24,6 +25,7 @@
     "react-slick": "^0.29.0",
     "react-topbar-progress-indicator": "^4.1.1",
     "swiper": "^10.3.1",
+    "use-debounce": "^10.0.0",
     "wavesurfer.js": "^7.5.1",
     "web-vitals": "^2.1.4"
   },

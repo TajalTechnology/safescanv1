@@ -2,7 +2,7 @@ import React from "react";
 import CustomTable from "../../Shared/table/CustomTable";
 import CreatedWorkersTableAction from "./CreatedWorkersTableAction";
 
-const CreatedWorkersTable = ({tableData,rowSelection}) => {
+const CreatedWorkersTable = ({ tableData, rowSelection, refetch }) => {
   const columns = [
     {
       title: "Username",
@@ -14,43 +14,45 @@ const CreatedWorkersTable = ({tableData,rowSelection}) => {
       ),
     },
     {
-        title: "Phone Number",
-        key: "id",
-        render: (row) => (
-          <span className=" text-[14px] font-normal text-info">
-            {row.phoneNumber === "" ?"--":row.phoneNumber}
-          </span>
-        ),
-      },
-      {
-        title: "Status",
-        key: "id",
-        width:"100px",
-        render: (row) => (
-          <div>
-            {row.status === "Active" && (
-              <span className={`text-[14px] font-medium py-1 px-3 rounded-full bg-[#4CC800]/10 text-[#4CC800]`}>
-                {row.status}
-              </span>
-            )}
-            {row.status === "Inactive" && (
-              <span
-                className={`text-[14px] font-medium py-1 px-3 rounded-full bg-[#2D396B]/10 text-[#2D396B]`}
-              >
-                {row.status}
-              </span>
-            )}
-          </div>
-        ),
-      },
+      title: "Phone Number",
+      key: "id",
+      render: (row) => (
+        <span className=" text-[14px] font-normal text-info">
+          {row.phone === "" ? "--" : row.phone}
+        </span>
+      ),
+    },
+    {
+      title: "Status",
+      key: "id",
+      width: "100px",
+      render: (row) => (
+        <div>
+          {row.is_verified ? (
+            <span
+              className={`text-[14px] font-medium py-1 px-3 rounded-full bg-[#4CC800]/10 text-[#4CC800]`}
+            >
+              Active
+            </span>
+          ) : (
+            <span
+              className={`text-[14px] font-medium py-1 px-3 rounded-full bg-[#2D396B]/10 text-[#2D396B]`}
+            >
+              Inactive
+            </span>
+          )}
+        </div>
+      ),
+    },
 
-      {
-        title: "Actions",
-        key: "id",
-        width:"120px",
-        render: (row) => (<CreatedWorkersTableAction row={row} />),
-      },
-
+    {
+      title: "Actions",
+      key: "id",
+      width: "120px",
+      render: (row) => (
+        <CreatedWorkersTableAction row={row} refetch={refetch} />
+      ),
+    },
   ];
 
   return (

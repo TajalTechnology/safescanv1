@@ -3,16 +3,31 @@ import { useForm } from "react-hook-form";
 import CustomModal from "../../Shared/modal/CustomModal";
 import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
+import { useApproveUserMutation} from "../../../redux/features/admin/adminApi";
+import toast from "react-hot-toast";
 
-const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
+const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
+  const [active, setActive] = useState(0);
+  const [approveUser, { isLoading, isSuccess, error }] = useApproveUserMutation();
+  // console.log("modal Data=======", item);
 
-    const [active,setActive]=useState("due")
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Update Admin success";
+      toast.success(message);
+      refetch();
+      setModalOpen(false);
+    }
+    if (error) {
+      toast.error(error?.data.error || error?.data.message);
+    }
+  }, [isSuccess, error]);
 
-    useEffect(()=>{
-        if(item){
-          setActive(item?.fineStatus)
-        }
-      },[item])
+  useEffect(() => {
+    if (item) {
+      setActive(item?.fine_status);
+    }
+  }, [item]);
 
   const {
     register,
@@ -20,20 +35,33 @@ const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: item.firstName,
-      lastName: item.lastName,
+      first_name: item.first_name,
+      last_name: item.last_name,
       email: item.email,
-      number: item.number,
-      address: item.address,
-      employersName: item.employersName,
+      phone: item.phone,
+      site_address: item.site_address,
+      emloyeer_name: item.emloyeer_name,
       minor: item.minor,
-      major:item.major,
-      dismissal:item.dismissal,
+      major: item.major,
+      dismissal: item.dismissal,
     },
   });
 
-  const onSubmit = (data) => {
-    setModalOpen(false);
+  const onSubmit = async(data) => {
+    const body = {
+      username: item?.username,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      phone: data.phone,
+      site_address: data.site_address,
+      emloyeer_name: data.emloyeer_name,
+      minor: Number(data.minor),
+      major: Number(data.major),
+      dismissal: Number(data.dismissal),
+    }
+    const id = item?.userid;
+    await approveUser({id,body});
   };
 
   return (
@@ -43,32 +71,32 @@ const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
       handleSubmit={handleSubmit(onSubmit)}
       width={590}
       title="Edit Worker"
-      buttonText={"Save Changes"}
+      buttonText={isLoading ? "Loading..." : "Save Changes"}
     >
       <div className="flex items-center gap-4">
         <CustomInput
           label={"First Name"}
           type={"text"}
-          register={register("firstName", {
+          register={register("first_name", {
             required: {
               value: true,
               message: "Please enter first name",
             },
           })}
-          error={errors.firstName}
+          error={errors.first_name}
           placeholder={"Enter First Name"}
         />
 
         <CustomInput
           label={"Last Name"}
           type={"text"}
-          register={register("lastName", {
+          register={register("last_name", {
             required: {
               value: true,
               message: "Please enter last name",
             },
           })}
-          error={errors.lastName}
+          error={errors.last_name}
           placeholder={"Enter Last Name"}
         />
       </div>
@@ -76,13 +104,13 @@ const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
       <CustomInput
         label={"Mobile Number"}
         type={"text"}
-        register={register("number", {
+        register={register("phone", {
           required: {
             value: true,
             message: "Please enter Mobile Number",
           },
         })}
-        error={errors.number}
+        error={errors.phone}
         placeholder={"Mobile Number"}
       />
 
@@ -102,13 +130,13 @@ const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
       <CustomInput
         label={"Site Address"}
         type={"text"}
-        register={register("address")}
+        register={register("site_address")}
         placeholder={"Enter Site Address"}
       />
       <CustomInput
         label={"Employers Name"}
         type={"text"}
-        register={register("employersName")}
+        register={register("emloyeer_name")}
         placeholder={"Enter Employers Name"}
       />
 
@@ -133,14 +161,47 @@ const AdminEdit = ({ item, setModalOpen, modalOPen }) => {
         />
       </div>
 
-
       <div className=" mt-5">
-           <h3 className="mb-1.5 font-medium text-base text-dark-gray">Fine Status</h3> 
-           <div className="w-full flex item-center justify-center gap-5">
-                <button onClick={()=>setActive("paid")} type="button" className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${active==="paid" ? "bg-[#4CC800] text-white" : " bg-transparent text-[#4CC800]"}`}><Icon icon="material-symbols:check" className={`text-[18px] ${active==="paid" ? " text-white" : "text-[#4CC800]/30 "}`}/>Fines Paid</button>
+        <h3 className="mb-1.5 font-medium text-base text-dark-gray">
+          Fine Status
+        </h3>
+        <div className="w-full flex item-center justify-center gap-5">
+          <button
+            onClick={() => setActive(0)}
+            type="button"
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${
+              active === 0
+                ? "bg-[#4CC800] text-white"
+                : " bg-transparent text-[#4CC800]"
+            }`}
+          >
+            <Icon
+              icon="material-symbols:check"
+              className={`text-[18px] ${
+                active === 0 ? " text-white" : "text-[#4CC800]/30 "
+              }`}
+            />
+            Fines Paid
+          </button>
 
-                <button onClick={()=>setActive("due")} type="button" className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${active==="due" ? "bg-[#F40909] text-white" : " bg-transparent text-[#F40909]"}`}><Icon icon="material-symbols:check" className={`text-[18px] ${active==="due" ? " text-white" : "text-[#F40909]/30 "}`}/>Fines Due</button>
-           </div>
+          <button
+            onClick={() => setActive(1)}
+            type="button"
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${
+              active === 1
+                ? "bg-[#F40909] text-white"
+                : " bg-transparent text-[#F40909]"
+            }`}
+          >
+            <Icon
+              icon="material-symbols:check"
+              className={`text-[18px] ${
+                active === 1 ? " text-white" : "text-[#F40909]/30 "
+              }`}
+            />
+            Fines Due
+          </button>
+        </div>
       </div>
     </CustomModal>
   );

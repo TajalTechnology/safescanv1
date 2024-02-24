@@ -1,11 +1,49 @@
 import { Icon } from "@iconify/react";
 import { Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApprovalModal from "../../../Shared/modal/ApprovalModal";
+import { useApproveMutation } from "../../../../redux/features/superAdmin/superApi";
+import toast from "react-hot-toast";
 
-const ApprovalAction = ({ row }) => {
+const ApprovalAction = ({ row,refetch,refetch1 }) => {
   const [approval, setApproval] = useState(false);
   const [reject, setReject] = useState(false);
+
+  const [approve, { isLoading, error, isSuccess }] = useApproveMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Customer Approve success";
+      toast.success(message);
+      setReject(false);
+      setApproval(false)
+      refetch()
+      refetch1()
+    }
+    if (error) {
+      console.log("===error====", error);
+      toast.error(error?.data.error || error?.data.message);
+    }
+  }, [isSuccess, error]);
+
+  // const handleREject = async()=>{
+  //     const data={
+  //       username:row?.username,
+  //       is_approved: false,
+  //     }
+  //     const id=row?.userid;
+  //    await approve({id,data})
+  // }
+
+  const handleApprove = async()=>{
+    const data={
+      username:row?.username,
+      is_approved: true,
+    }
+    const id=row?.userid;
+    await approve({id,data})
+}
+
   return (
     <>
       <div className=" flex items-center gap-1">
@@ -30,14 +68,14 @@ const ApprovalAction = ({ row }) => {
       {/* approval modal */}
       <ApprovalModal
         modalOPen={approval}
-        onDelete={() => setApproval(false)}
+        onDelete={() => handleApprove()}
         setModalOpen={setApproval}
         title={"Approve Customer!"}
         title2={
           "Are you sure you want to approve this customer? This action cannot be undone."
         }
         approval={true}
-        buttonText="Yes, Approve"
+        buttonText={isLoading ? "Loading...": "Yes, Approve"}
       />
       {/* Reject modal */}
       <ApprovalModal
@@ -49,7 +87,7 @@ const ApprovalAction = ({ row }) => {
           "Are you sure you want to reject this approval? This action cannot be undone."
         }
         approval={false}
-        buttonText="Reject"
+        buttonText={isLoading ? "Loading...": "Reject"}
       />
     </>
   );

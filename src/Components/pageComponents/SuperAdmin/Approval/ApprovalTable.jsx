@@ -2,14 +2,14 @@ import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
 import ApprovalAction from "./ApprovalAction";
 
-const ApprovalTable = ({ tableData, rowSelection }) => {
+const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-bold text-[#485585]">
-          {row.Username}
+          {row.username}
         </span>
       ),
     },
@@ -34,7 +34,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.address?.slice(0, 16)}...
+          {row.site_address?.slice(0, 16)}...
         </span>
       ),
     },
@@ -43,7 +43,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.SiteName}
+          {row.site_name}
         </span>
       ),
     },
@@ -52,7 +52,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.EmployersName}
+          {row?.emloyeer_name}
         </span>
       ),
     },
@@ -68,7 +68,7 @@ const ApprovalTable = ({ tableData, rowSelection }) => {
         title: "Action",
         key: "id",
         render: (row) => (
-          <ApprovalAction row={row} />
+          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} />
         ),
       },
   ];

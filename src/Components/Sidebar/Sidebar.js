@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 import LogOutModal from "../Shared/modal/LogOutModal";
@@ -21,7 +21,6 @@ const Sidebar_animation = {
 };
 
 const Sidebar = () => {
-  const navigate = useNavigate();
   const path = useLocation();
   // logout modal show--------------
   const [show, setShow] = useState(false);
@@ -92,7 +91,9 @@ const Sidebar = () => {
 
 
   const logout=()=>{
-    navigate('/')
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
+    window.location.reload();
   }
 
   const activeStyle = {

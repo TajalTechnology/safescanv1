@@ -3,26 +3,19 @@ import React from "react";
 
 const CustomTable2 = ({ tableData, columns, scroll,rowSelection }) => {
   const [start, setStart] = React.useState(1);
-  const [end, setend] = React.useState(10);
+  const [end, setend] = React.useState(5);
 
-
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
 
   // ====table pagination funcation====
   const handlePaginationChange = (page, pageSize) => {
-    scrollTop()
     console.log(`Page: ${page}, Page Size: ${pageSize}`);
-    setStart((pre) => (page === 1 ? 1 : page * 10 - 9));
+    setStart((pre) => (page === 1 ? 1 : page * 5 - 4));
     setend((pre) =>
-      page * 10 > tableData?.length ? tableData?.length : page * 10
+      page * 5 > tableData?.length ? tableData?.length : page * 5
     );
   };
   const paginationOptions = {
+    pageSize: 5,
     onChange: handlePaginationChange,
   };
 
@@ -39,7 +32,7 @@ const CustomTable2 = ({ tableData, columns, scroll,rowSelection }) => {
 
       />
       <div className="lg:block text-light-black font-medium text-[14px] text-[#68769F] lg:absolute bottom-[25px] left-6 hidden ">
-        Showing {start} {end} of {tableData?.length}
+        Showing {start} {tableData?.length < 5 ?tableData?.length : end} of {tableData?.length}
       </div>
     </div>
   );
