@@ -24,6 +24,9 @@ const CreateWorker = () => {
     refetchOnMountOrArgChange: true,
   });
 
+
+  console.log("worker=====",data)
+
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
@@ -69,7 +72,7 @@ const CreateWorker = () => {
               <SearchInput
                 search={search}
                 setSearch={setSearch}
-                placeholder="Search Admin"
+                placeholder="Search Worker"
               />
               <CustomButton onClick={() => setCreate(true)}>
                 Create New Worker
