@@ -6,7 +6,7 @@ export const adminApi = apiSlice.injectEndpoints({
       query: (query) => ({
         url: `users?${query}`,
         method: "GET",
-      })
+      }),
     }),
     createUser: builder.mutation({
       query: (userInfo) => ({
@@ -27,11 +27,29 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    updateUser: builder.mutation({
-      query: ({id,bodyData}) => ({
+    approveUser: builder.mutation({
+      query: ({ id, body }) => ({
         url: `user/${id}`,
         method: "PATCH",
-        body: bodyData,
+        body: body,
+      }),
+    }),
+    updateUser: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `user/${id}`,
+        method: "PATCH",
+        body: {
+          username: "bikashroy123",
+          dismissal: 0,
+          email: "bikash@gmail.com",
+          emloyeer_name: "turik",
+          first_name: "bikash",
+          last_name: "roy",
+          major: 0,
+          minor: 0,
+          phone: "01773372120",
+          site_address: "dhaka",
+        },
       }),
     }),
     deleteUser: builder.mutation({
@@ -43,5 +61,12 @@ export const adminApi = apiSlice.injectEndpoints({
   }),
 });
 
-
-export const { useGetUserQuery,useGetAdminQuery,useGetWorkerQuery,useCreateUserMutation,useUpdateUserMutation,useDeleteUserMutation } = adminApi;
+export const {
+  useGetUserQuery,
+  useGetAdminQuery,
+  useGetWorkerQuery,
+  useCreateUserMutation,
+  useApproveUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = adminApi;

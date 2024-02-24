@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form";
 import CustomModal from "../../Shared/modal/CustomModal";
 import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
-import { useUpdateUserMutation } from "../../../redux/features/admin/adminApi";
+import { useApproveUserMutation, useUpdateUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 
 const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   const [active, setActive] = useState(0);
-  const [updateUser, { isLoading, isSuccess, error }] = useUpdateUserMutation();
+  const [approveUser, { isLoading, isSuccess, error }] = useApproveUserMutation();
   // console.log("modal Data=======", item);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   });
 
   const onSubmit = async(data) => {
-    const bodyData = {
+    const body = {
       username: item?.username,
       first_name: data.first_name,
       last_name: data.last_name,
@@ -59,13 +59,9 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       minor: Number(data.minor),
       major: Number(data.major),
       dismissal: Number(data.dismissal),
-    };
-    // const id = item?.userid;
-    const id = `${item?.userid}`;
-    await updateUser({id,bodyData});
-    console.log("update data=====", bodyData);
-
-    // setModalOpen(false);
+    }
+    const id = item?.userid;
+    await approveUser({id,body});
   };
 
   return (
