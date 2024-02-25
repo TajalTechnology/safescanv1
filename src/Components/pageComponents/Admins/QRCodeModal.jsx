@@ -2,11 +2,39 @@ import { Icon } from "@iconify/react";
 import { Modal, Tooltip } from "antd";
 import React, { useState } from "react";
 import QRCode from "qrcode.react";
+import html2canvas from "html2canvas";
+
 
 const QRCodeModal = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
 
-  console.log("hello row====",row)
+  console.log(row);
+
+  const downloadImage = () => {
+    const link = document.createElement("a");
+    link.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
+    link.download = "image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const captureAndDownload = () => {
+    const component = document.getElementById("pdf-component");
+
+    if (component) {
+      html2canvas(component).then(async (canvas) => {
+        const dataURL = canvas.toDataURL("image/jpeg");
+        const a = document.createElement("a");
+        a.href = dataURL;
+        a.download = `${row?.last_name}-certificate.jpg`;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    })
+  }};
+
 
   return (
     <>
@@ -41,28 +69,50 @@ const QRCodeModal = ({ row }) => {
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <div className="w-full flex items-center justify-center py-7">
-          <QRCode
-              size={250}
-              className=" "
-              value={row.email}
+          <div
+            id="pdf-component"
+            className="w-full flex items-center flex-col justify-center py-7"
+          >
+            <div className=" flex items-center gap-2 ">
+              <img src="/logo2.png" alt="logo" className="w-[35px]" />
+              <div>
+                <h3 className=" text-[18px] font-bold text-[rk-grey-900#1B2559] mb-[-6px]">
+                  Company Name
+                </h3>
+                <h4 className=" text-[#68769F] font-medium text-base">
+                  Employee : {row?.first_name} {row?.last_name}
+                </h4>
+              </div>
+            </div>
+            {/* <QRCode size={250} className=" " value={row.email} /> */}
+            <img
+              src={`https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`}
+              alt="qr-code"
+              className="w-[300px] h-[300px]"
             />
           </div>
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button className=" bg-primary hover:bg-primary/80 duration-300 px-4 h-[38px] rounded-[4px] text-[14px] font-medium text-white">
-                Add New
+              <button className=" bg-primary hover:bg-primary/80 flex items-center gap-2 duration-300 px-4 h-[38px] rounded-[4px] text-[14px] font-medium text-white">
+                <Icon icon="prime:print" className=" text-[25px]" />
+                Print QRC Code
               </button>
-              <button className=" bg-[#FF4D4D]/20 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white">
+              {/* <button className=" bg-[#FF4D4D]/20 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white">
                 <Icon icon="lucide:trash-2" className=" text-[20px]" />
-              </button>
+              </button> */}
             </div>
             <div className="flex items-center gap-3">
-              <button className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white">
-                <Icon icon="lucide:arrow-down-to-line" className=" text-[25px]" />
+              <button
+                onClick={captureAndDownload}
+                className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white"
+              >
+                <Icon
+                  icon="lucide:arrow-down-to-line"
+                  className=" text-[25px]"
+                />
               </button>
               <button className=" bg-primary/20 flex items-center justify-center hover:bg-primary/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-primary hover:text-white">
-                <Icon icon="lucide:share-2"  className=" text-[20px]" />
+                <Icon icon="lucide:share-2" className=" text-[20px]" />
               </button>
             </div>
           </div>

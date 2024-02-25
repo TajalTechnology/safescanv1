@@ -27,15 +27,18 @@ export const apiSlice = createApi({
         }),
         loadUser:builder.query({
             query:(data)=>({
-                url:"user",
+                url:`users`,
                 method:"GET",
             }),
             async onQueryStarted(arg,{queryFulfilled,dispatch}){
                 try {
                     const result = await queryFulfilled;
-                    console.log("hello",result)
                 } catch (error) {
-                    console.log(error)
+                    if(error?.error?.status){
+                        localStorage.removeItem("user")
+                        localStorage.removeItem("token")
+                    }
+                    console.log(error?.error?.status)
                 }
             }
         })
