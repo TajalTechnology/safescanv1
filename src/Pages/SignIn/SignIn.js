@@ -131,7 +131,7 @@ const SignIn = () => {
             </p>
             <div className="mt-6 w-full">
               <CustomButton className={"w-full"}>
-                {isLoading ? <p>Loading...</p> : <p>Sign In</p>}
+                {isLoading ? <><p>Loading...</p></> : <p>Sign In</p>}
               </CustomButton>
             </div>
           </form>

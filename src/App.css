@@ -203,12 +203,12 @@ body {
 
 
 /* ----------swiper button--------- */
-.swiper-button-next:after{
+.swiper-button-next:after {
   font-size: 16px !important;
   font-weight: 700 !important;
 }
 
-.swiper-button-next{
+.swiper-button-next {
   background-color: #654dff2a;
   border-radius: 11px !important;
   padding: 10px 1 !important;
@@ -216,12 +216,13 @@ body {
   width: 38px !important;
   margin-right: -10px;
 }
-.swiper-button-prev::after{
+
+.swiper-button-prev::after {
   font-size: 16px !important;
   font-weight: 700 !important;
 }
 
-.swiper-button-prev{
+.swiper-button-prev {
   background-color: #654dff2a;
   border-radius: 11px !important;
   padding: 10px 1 !important;
@@ -448,7 +449,7 @@ body {
 
 
 /* --------------loading----------------- */
-.loader {
+/* .loader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -472,14 +473,13 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 
 /* --------------second loading------------ */
-.second-loading {
+/* .second-loading {
   --clr: rgb(255, 255, 255);
   --gap: 6px;
-  /* gap between each circle */
   width: 100px;
   height: 100px;
   display: flex;
@@ -518,16 +518,15 @@ body {
   60% {
     opacity: 0;
   }
-}
+} */
 
 /* --------------------------adding loading---------------- */
-.adding {
+/* .adding {
   position: relative;
   width: 150px;
   height: 150px;
   background: transparent;
   border-radius: 50%;
-  /* box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.55); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -540,8 +539,6 @@ body {
   inset: 20px;
   background: transparent;
   border-radius: 50%;
-  /* box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25), */
-  /* inset 5px 5px 35px rgba(0, 0, 0, 0.25); */
 }
 
 .adding::after {
@@ -550,8 +547,6 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  /* box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25),
-    inset 5px 5px 35px rgba(0, 0, 0, 0.25); */
 }
 
 .adding span {
@@ -563,7 +558,6 @@ body {
   background: transparent;
   transform-origin: top left;
   animation: radar81 2s linear infinite;
-  /* border-top: 1px dashed #fff; */
 }
 
 .adding span::before {
@@ -574,11 +568,9 @@ body {
   width: 100%;
   height: 100%;
   background: #8f39ff81;
-  /* pink */
   transform-origin: top left;
   transform: rotate(-55deg);
   filter: blur(30px) drop-shadow(20px 20px 20px #8f39ff73);
-  /* pink */
 }
 
 @keyframes radar81 {
@@ -601,7 +593,7 @@ body {
 .ant-drawer-wrapper-body .ant-drawer-body {
   margin: 0 !important;
   padding: 0 !important;
-}
+} */
 
 
 /* -------------------ant slider style------------------------------ */
@@ -631,3 +623,189 @@ body {
     zoom: 90% !important;
   }
 }
+
+/* -------------loader------------ */
+.loader {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+}
+
+.loader div {
+  width: 10%;
+  height: 35%;
+  background: #664DFF;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  opacity: 0;
+  border-radius: 50px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  animation: fade458 1s linear infinite;
+}
+
+@keyframes fade458 {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.25;
+  }
+}
+
+.loader .bar1 {
+  transform: rotate(0deg) translate(0, -130%);
+  animation-delay: 0s;
+}
+
+.loader .bar2 {
+  transform: rotate(30deg) translate(0, -130%);
+  animation-delay: -1.1s;
+}
+
+.loader .bar3 {
+  transform: rotate(60deg) translate(0, -130%);
+  animation-delay: -1s;
+}
+
+.loader .bar4 {
+  transform: rotate(90deg) translate(0, -130%);
+  animation-delay: -0.9s;
+}
+
+.loader .bar5 {
+  transform: rotate(120deg) translate(0, -130%);
+  animation-delay: -0.8s;
+}
+
+.loader .bar6 {
+  transform: rotate(150deg) translate(0, -130%);
+  animation-delay: -0.7s;
+}
+
+.loader .bar7 {
+  transform: rotate(180deg) translate(0, -130%);
+  animation-delay: -0.6s;
+}
+
+.loader .bar8 {
+  transform: rotate(210deg) translate(0, -130%);
+  animation-delay: -0.5s;
+}
+
+.loader .bar9 {
+  transform: rotate(240deg) translate(0, -130%);
+  animation-delay: -0.4s;
+}
+
+.loader .bar10 {
+  transform: rotate(270deg) translate(0, -130%);
+  animation-delay: -0.3s;
+}
+
+.loader .bar11 {
+  transform: rotate(300deg) translate(0, -130%);
+  animation-delay: -0.2s;
+}
+
+.loader .bar12 {
+  transform: rotate(330deg) translate(0, -130%);
+  animation-delay: -0.1s;
+}
+
+/* -------------end loader------------ */
+
+/* -------------btn loader------------ */
+.btnloader {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+}
+
+.btnloader div {
+  width: 5%;
+  height: 10%;
+  background: #ffffff;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  opacity: 0;
+  border-radius: 50px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  animation: fade458 1s linear infinite;
+}
+
+@keyframes fade458 {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.25;
+  }
+}
+
+.btnloader .btnbar1 {
+  transform: rotate(0deg) translate(0, -130%);
+  animation-delay: 0s;
+}
+
+.btnloader .btnbar2 {
+  transform: rotate(30deg) translate(0, -130%);
+  animation-delay: -1.1s;
+}
+
+.btnloader .btnbar3 {
+  transform: rotate(60deg) translate(0, -130%);
+  animation-delay: -1s;
+}
+
+.btnloader .btnbar4 {
+  transform: rotate(90deg) translate(0, -130%);
+  animation-delay: -0.9s;
+}
+
+.btnloader .btnbar5 {
+  transform: rotate(120deg) translate(0, -130%);
+  animation-delay: -0.8s;
+}
+
+.btnloader .btnbar6 {
+  transform: rotate(150deg) translate(0, -130%);
+  animation-delay: -0.7s;
+}
+
+.btnloader .btnbar7 {
+  transform: rotate(180deg) translate(0, -130%);
+  animation-delay: -0.6s;
+}
+
+.btnloader .btnbar8 {
+  transform: rotate(210deg) translate(0, -130%);
+  animation-delay: -0.5s;
+}
+
+.btnloader .btnbar9 {
+  transform: rotate(240deg) translate(0, -130%);
+  animation-delay: -0.4s;
+}
+
+.btnloader .btnbar10 {
+  transform: rotate(270deg) translate(0, -130%);
+  animation-delay: -0.3s;
+}
+
+.btnloader .btnbar11 {
+  transform: rotate(300deg) translate(0, -130%);
+  animation-delay: -0.2s;
+}
+
+.btnloader .btnbar12 {
+  transform: rotate(330deg) translate(0, -130%);
+  animation-delay: -0.1s;
+}
+
+/* -------------end btn loader------------ */
