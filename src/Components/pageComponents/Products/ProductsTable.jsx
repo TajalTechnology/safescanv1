@@ -4,7 +4,10 @@ import { Icon } from "@iconify/react";
 import ProductsQRCode from "./ProductsQRCode";
 import ProductsTableAction from "./ProductsTableAction";
 import CardModal from "../../Shared/modal/CardModal";
-const ProductsTable = ({ tableData, rowSelection }) => {
+import { formattedDate } from "../../../helper/jwt";
+const ProductsTable = ({ tableData, rowSelection, refetch }) => {
+  // const getLastDate = formattedDate(item?.last_test_date)
+  // const getNextDate = formattedDate(item?.next_test_date)
   const columns = [
     {
       title: "Name & Number",
@@ -19,7 +22,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
           </span>
         </div>
       ),
-      sorter: (a, b) => a.number - b.number,
+      sorter: (a, b) => a.product_number - b.product_number,
     },
     {
       title: "Site Address",
@@ -44,7 +47,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
       key: "LastTestDate",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row?.last_test_date}
+          {formattedDate(row?.last_test_date)}
         </span>
       ),
       sorter: (a, b) => a.last_test_date - b.last_test_date,
@@ -54,7 +57,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
       key: "NextTestDate",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row?.next_test_date}
+          {formattedDate(row?.next_test_date)}
         </span>
       ),
       sorter: (a, b) => a.next_test_date - b.next_test_date,
@@ -85,7 +88,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
               {row?.status}
             </span>
           )}
-            {row?.status === "needs_attention" && (
+          {row?.status === "needs_attention" && (
             <span
               className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#FFC000]/10 text-[#FFC000]`}
             >
@@ -96,20 +99,20 @@ const ProductsTable = ({ tableData, rowSelection }) => {
       ),
       sorter: (a, b) => a.status - b.status,
     },
-    // {
-    //   title: "Image",
-    //   key: "id",
-    //   render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Attached Date'} row={row}/>),
-    // },
     {
-        title: "Note",
-        key: "id",
-        render: (row) => (
-          <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
-            {row?.note?.slice(0, 12)}<Icon icon="majesticons:clipboard-line" className=" text-[20px]" />
-          </span>
-        ),
-      },
+      title: "Image",
+      key: "id",
+      render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Attached Date'} row={row} />),
+    },
+    {
+      title: "Note",
+      key: "id",
+      render: (row) => (
+        <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
+          {row?.note?.slice(0, 12)}<Icon icon="majesticons:clipboard-line" className=" text-[20px]" />
+        </span>
+      ),
+    },
 
     {
       title: "QRC Code",
@@ -119,7 +122,7 @@ const ProductsTable = ({ tableData, rowSelection }) => {
     {
       title: "Actions",
       key: "id",
-      render: (row) => <ProductsTableAction row={row} />,
+      render: (row) => <ProductsTableAction refetch={refetch} row={row} />,
     },
   ];
 

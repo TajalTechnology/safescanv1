@@ -3,7 +3,6 @@ import BreadCrumb from '../../Components/Shared/BreadCrumb';
 import SectionHeading from '../../Components/Shared/SectionHeading';
 import SearchInput from '../../Components/Shared/input/SearchInput';
 import ProductsTable from '../../Components/pageComponents/Products/ProductsTable';
-import { ProductsData } from '../../assets/mockData';
 import { useGetProductsQuery } from '../../redux/features/admin/adminApi';
 import { useDebounce } from 'use-debounce';
 import Loader from '../../Components/Shared/Loader';
@@ -11,10 +10,31 @@ import Loader from '../../Components/Shared/Loader';
 const Products = () => {
   const [search, setSearch] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
   // -----------get all products-----------
-   const { data, isLoading, refetch } = useGetProductsQuery(searchValue);
+  //  const { data, isLoading, refetch } = useGetProductsQuery(`search=${searchValue}`);
+
+  const { data, isLoading, refetch } = useGetProductsQuery(searchQuery, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const generateQuery = (searchValue) => {
+    const queryParams = [];
+    if (searchValue) {
+      queryParams.push(`search=${searchValue}`);
+    }
+
+    return queryParams.join("&");
+  };
+
+  console.log(data);
+
+  useEffect(() => {
+    const query = generateQuery(searchValue);
+    sestSearchQuery(`${query}`);
+  }, [searchValue]);
 
 
   // ======table Select function=======
@@ -59,6 +79,7 @@ const Products = () => {
                 <ProductsTable
                   tableData={updateData}
                   rowSelection={rowSelection}
+                  refetch={refetch}
                 />
               </div>
             </div>

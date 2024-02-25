@@ -62,12 +62,12 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             site_name: data.site_name,
             emloyeer_name: data.emloyeer_name,
             major: Number(data.major),
-            // dismissal: Number(data.dismissal),
+            dismissal: Number(data.dismissal),
             last_Name: data.last_Name,
             password: item.password,
-            // fines_per_dismissal: Number(data.fines_per_dismissal),
-            // fines_per_mainor: Number(data.fines_per_mainor),
-            // fines_per_major: Number(data.fines_per_major),
+            fines_per_dismissal: Number(data.fines_per_dismissal),
+            fines_per_mainor: Number(data.fines_per_mainor),
+            fines_per_major: Number(data.fines_per_major),
         }
         const id = item?.userid;
         console.log(body)

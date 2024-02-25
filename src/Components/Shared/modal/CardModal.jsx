@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Modal, Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,13 +9,51 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "./DeleteModal";
+import { useUpdateProductMutation } from "../../../redux/features/admin/adminApi";
+import SuccessToast from "../Toast/SuccessToast";
+import ErrorToast from "../Toast/ErrorToast";
+import toast from "react-hot-toast";
 
 const CardModal = ({ row, date, dateTitle }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const [imgIndex, setImageIndex] = useState(0);
   const [deletModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const [file,setFile] = useState("")
+  const [updatedImages, setUpdatedImages] = useState([])
+  const [file, setFile] = useState("")
+  const [updateProduct, { isLoading, isSuccess, error }] = useUpdateProductMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Product Successfully Updated";
+      toast.custom(<SuccessToast message={message} />);
+      // refetch();
+      setModalOpen(false);
+    }
+    if (error) {
+      const errorMsg = error?.data.error || error?.data.message
+      toast.error(<ErrorToast message={errorMsg} />);
+    }
+  }, [isSuccess, error]);
+
+  useEffect(() => {
+    setUpdatedImages(row?.product_images)
+  }, [row]);
+
+  const img = `https://scansafes3.s3.amazonaws.com/${updatedImages[imgIndex]}`
+
+  console.log("images",updatedImages)
+  const handelDelete = async () => {
+    const images = updatedImages.filter((i) => i.index === imgIndex)
+    setUpdatedImages(images)
+    const formData = new FormData();
+    formData.append('product_images', updatedImages);
+    const id = row?.productid;
+    console.log(updatedImages)
+    await updateProduct({ id, body: formData });
+    // onSubmit()
+    // setModalOpen(false);
+  }
 
   return (
     <>
@@ -24,7 +62,7 @@ const CardModal = ({ row, date, dateTitle }) => {
           onClick={() => setModalOpen(true)}
           className=" text-[14px] font-normal text-info flex items-center gap-1 "
         >
-          <Icon icon="lucide:image" className=" text-[20px]" />0{row?.cartImage}
+          <Icon icon="lucide:image" className=" text-[20px]" />{updatedImages?.length}
         </button>
       </Tooltip>
       <Modal
@@ -54,9 +92,9 @@ const CardModal = ({ row, date, dateTitle }) => {
           </div>
           <div className="w-full flex items-center justify-center py-5">
             <img
-              src={row?.cardImages[imgIndex].img}
+              src={img}
               alt="card"
-              className="w-full"
+              className="w-full  h-[300px] md:h-[544px] object-container"
             />
           </div>
           <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
@@ -115,24 +153,23 @@ const CardModal = ({ row, date, dateTitle }) => {
                   },
                 }}
                 modules={[Navigation]}
-                className="mySwiper lg"
+                className="mySwiper"
               >
-                {row?.cardImages?.map((card, index) => (
+                {updatedImages?.map((card, index) => (
                   <SwiperSlide
                     className="flex items-center justify-center"
                     key={index}
                   >
                     <button
                       onClick={() => setImageIndex(index)}
-                      className={`${
-                        imgIndex === index
-                          ? "border-[3px] border-primary rounded-[18px]"
-                          : "border-2 border-transparent rounded-[18px]"
-                      }`}
+                      className={`${imgIndex === index
+                        ? "border-[3px] border-primary rounded-[18px]"
+                        : "border-2 border-transparent rounded-[18px]"
+                        }`}
                     >
-                      <div className="p-1.5 h-[106px] w-[185px]">
+                      <div className="h-[106px] w-[185px]">
                         <img
-                          src={card?.img}
+                          src={`https://scansafes3.s3.amazonaws.com/${card}`}
                           alt="card"
                           className="rounded-[14px] w-[185px]"
                         />
@@ -171,11 +208,11 @@ const CardModal = ({ row, date, dateTitle }) => {
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <div className="w-full flex relative h-[520px] items-center justify-center py-5">
+          <div className="w-full flex relative h-[520px] items-center justify-center ">
             <img
-              src={file ? URL.createObjectURL(file) : row.cardImages[imgIndex].img}
+              src={file ? URL.createObjectURL(file) : img}
               alt="card"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-container"
             />
 
             <label
@@ -224,6 +261,7 @@ const CardModal = ({ row, date, dateTitle }) => {
 
       <DeleteModal
         modalOPen={deletModal}
+        onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
