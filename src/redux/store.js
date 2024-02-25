@@ -3,6 +3,7 @@
 import { configureStore} from "@reduxjs/toolkit"
 import {apiSlice} from "./features/api/apiSlice"
 import authSlice from "./features/auth/authSlice"
+import { useSelector } from "react-redux"
 
 
 export const store = configureStore({

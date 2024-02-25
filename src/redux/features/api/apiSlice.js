@@ -4,7 +4,7 @@ import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 export const apiSlice = createApi({
     reducerPath:"api",
     baseQuery:fetchBaseQuery({
-        baseUrl:"/api/v1/",
+        baseUrl:"https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/",
         prepareHeaders: (headers) => {
             // Get the token from localStorage
             const tokenString = localStorage.getItem("token");
@@ -27,15 +27,18 @@ export const apiSlice = createApi({
         }),
         loadUser:builder.query({
             query:(data)=>({
-                url:"user",
+                url:`users`,
                 method:"GET",
             }),
             async onQueryStarted(arg,{queryFulfilled,dispatch}){
                 try {
                     const result = await queryFulfilled;
-                    console.log("hello",result)
                 } catch (error) {
-                    console.log(error)
+                    if(error?.error?.status){
+                        localStorage.removeItem("user")
+                        localStorage.removeItem("token")
+                    }
+                    console.log(error?.error?.status)
                 }
             }
         })
