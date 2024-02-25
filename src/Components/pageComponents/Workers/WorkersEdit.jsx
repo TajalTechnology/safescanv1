@@ -5,6 +5,8 @@ import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 import { useApproveUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
 
@@ -15,39 +17,38 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
   
     useEffect(() => {
       if (isSuccess) {
-        const message = "Update Admin success";
-        toast.success(message);
+        const message = "Update Worker success";
+        toast.custom(<SuccessToast message={message} />);
         refetch();
         setModalOpen(false);
       }
       if (error) {
-        toast.error(error?.data.error || error?.data.message);
+        toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
       }
     }, [isSuccess, error]);
 
-    useEffect(()=>{
-      if(item){
-        setActive(item?.fineStatus)
-      }
-    },[item])
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      first_name: item.first_name,
-      last_name: item.last_name,
-      email: item.email,
-      phone: item.phone,
-      site_address: item.site_address,
-      emloyeer_name: item.emloyeer_name,
-      minor: item.minor,
-      major: item.major,
-      dismissal: item.dismissal,
-    },
-  });
+    setValue
+  } = useForm();
+
+  useEffect(() => {
+    if (item) {
+      setActive(item?.outstanding_fines);
+      setValue('first_name', item?.username);
+      setValue('last_name', item?.last_name);
+      setValue('email', item?.email);
+      setValue('phone', item?.phone);
+      setValue('site_address', item?.site_address);
+      setValue('emloyeer_name', item?.emloyeer_name);
+      setValue('minor', item?.minor);
+      setValue('major', item?.major);
+      setValue('dismissal', item?.dismissal);
+    }
+  }, [item]);
 
   const onSubmit = async(data) => {
     const body = {

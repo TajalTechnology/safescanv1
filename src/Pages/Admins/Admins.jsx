@@ -8,6 +8,7 @@ import {
 } from "../../redux/features/admin/adminApi";
 import { useDebounce } from "use-debounce";
 import { useSelector } from "react-redux";
+import Loader from "../../Components/Shared/Loader";
 
 const Admins = () => {
   const [search, setSearch] = React.useState("");
@@ -79,7 +80,7 @@ const Admins = () => {
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
                 {" "}
-                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+                  <Loader />
               </div>
             ) : (
               <>
