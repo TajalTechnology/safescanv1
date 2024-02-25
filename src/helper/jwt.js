@@ -9,3 +9,13 @@
 //     return null;
 //   }
 // };
+export const formattedDate = (data) => {
+    const unixTimestamp = data;
+    const normalDate = new Date(unixTimestamp);
+    const year = normalDate.getFullYear();
+    const month = normalDate.getMonth() + 1; 
+    const date = normalDate.getDate();
+    const modifiedDate = `${year}-${month < 10 ? '0' + month : month}-${date < 10 ? '0' + date : date}`;
+    return modifiedDate;
+
+}

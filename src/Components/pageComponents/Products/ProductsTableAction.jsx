@@ -1,12 +1,36 @@
 import { Icon } from "@iconify/react";
 import { Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteModal from "../../Shared/modal/DeleteModal";
 import ProductsEdit from "./ProductsEdit";
+import toast from "react-hot-toast";
+import { useDeleteProductMutation } from "../../../redux/features/admin/adminApi";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
-const ProductsTableAction = ({ row }) => {
+const ProductsTableAction = ({ refetch, row }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [deleteProduct, { isSuccess, error }] = useDeleteProductMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Successfully Product Deleted";
+      toast.custom(<SuccessToast message={message} />);
+      refetch();
+      setDeleteModal(false)
+    }
+    if (error) {
+      const errorMgs = error?.data.error || error?.data.message
+      toast.custom(<ErrorToast message={errorMgs} />)
+    }
+  }, [isSuccess, error]);
+
+  const handelDelete = async () => {
+    const id = `${row?.productid}`;
+    await deleteProduct(id)
+
+  }
 
   return (
     <>
@@ -30,12 +54,12 @@ const ProductsTableAction = ({ row }) => {
       </div>
 
       {/* ============= Workers edit Modal============ */}
-      <ProductsEdit item={row} modalOPen={edit} setModalOpen={setEdit} />
+      <ProductsEdit item={row} modalOPen={edit} setModalOpen={setEdit} refetch={refetch} />
 
-     {/* ============= Workers delete Modal============ */}
+      {/* ============= Workers delete Modal============ */}
       <DeleteModal
         modalOPen={deleteModal}
-        onDelete={() => setDeleteModal(false)}
+        onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Product!"}
         title2={
