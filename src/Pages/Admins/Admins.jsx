@@ -16,8 +16,11 @@ const Admins = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
+
   // console.log(user);
   // console.log("query=======",searchQuery);
+
+
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetAdminQuery(searchQuery, {
@@ -32,6 +35,8 @@ const Admins = () => {
 
     return queryParams.join("&");
   };
+
+  console.log(data);
 
   useEffect(() => {
     const query = generateQuery(searchValue);

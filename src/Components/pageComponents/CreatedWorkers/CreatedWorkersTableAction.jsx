@@ -72,14 +72,14 @@ const CreatedWorkersTableAction = ({ row,refetch }) => {
             />
           </button>
         </Tooltip>
-        <Tooltip placement="topLeft" title="Edit">
+        {/* <Tooltip placement="topLeft" title="Edit">
           <button onClick={() => setEdit(true)}>
             <Icon
               icon="mingcute:pencil-line"
               className="text-[22px] hover:text-[#0070F0] text-[#8E9BBA]"
             />
           </button>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip placement="topLeft" title="Delete">
           <button onClick={() => setDeleteModal(true)}>
             <Icon
