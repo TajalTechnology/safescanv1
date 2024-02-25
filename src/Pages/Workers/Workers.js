@@ -54,6 +54,15 @@ const Workers = () => {
     ...item,
   }));
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+
+  console.log(selectedFile)
+
   return (
     <>
       <BreadCrumb
@@ -72,6 +81,7 @@ const Workers = () => {
               setSearch={setSearch}
               placeholder="Search Worker Profile"
             />
+            <input type="file" onChange={handleFileChange} />
           </div>
           <div className="w-full">
             {isLoading ? (
