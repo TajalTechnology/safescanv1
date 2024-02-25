@@ -3,6 +3,7 @@ import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import ApprovalTable from "./ApprovalTable";
 import { useDebounce } from "use-debounce";
+import Loader from "../../../Shared/Loader";
 
 
 const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
@@ -56,8 +57,7 @@ const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,
           <div>
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
-                {" "}
-                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+                  <Loader />
               </div>
             ) : (
               <>

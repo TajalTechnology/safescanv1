@@ -7,6 +7,8 @@ import CustomButton from "../../../Shared/CustomButton";
 import PasswordInput from "../../../Shared/input/PasswordInput";
 import { useCreateCustomerMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
 const CustomerCreate = ({ modalOPen, setModalOpen,refetch1 }) => {
   const {
@@ -21,13 +23,13 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1 }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Create Customer success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       setModalOpen(false)
       refetch1()
     }
     if (error) {
       console.log("===error====", error);
-      toast.error(error?.data.error);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 

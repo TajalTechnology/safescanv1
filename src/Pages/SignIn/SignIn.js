@@ -8,6 +8,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
+import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 
 const SignIn = () => {
   const { user } = useSelector((state) => state.auth);
@@ -28,13 +29,12 @@ const SignIn = () => {
   useEffect(() => {
     if (isSuccess) {
       const message = "login success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       reset()
     }
     if (error) {
       console.log("===error====", error);
-      toast.custom(<ErrorToast message={"this is message"} />,
-        { duration: 3000 });
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error, reset]);
 

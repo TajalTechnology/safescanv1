@@ -8,6 +8,7 @@ import CreatedAdminModal from "../../Components/pageComponents/CreatedAdmins/Cre
 import { useSelector } from "react-redux";
 import { useDebounce } from "use-debounce";
 import { useGetAdminQuery } from "../../redux/features/admin/adminApi";
+import Loader from "../../Components/Shared/Loader";
 
 const CreateAdmin = () => {
   const [search, setSearch] = React.useState("");
@@ -82,8 +83,7 @@ const CreateAdmin = () => {
           <div className="w-full">
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
-                {" "}
-                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+                  <Loader />
               </div>
             ) : (
               <>

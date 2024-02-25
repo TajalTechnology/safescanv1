@@ -8,6 +8,7 @@ import CreatedWorkersModal from "../../Components/pageComponents/CreatedWorkers/
 import { useDebounce } from "use-debounce";
 import { useSelector } from "react-redux";
 import { useGetWorkerQuery } from "../../redux/features/admin/adminApi";
+import Loader from "../../Components/Shared/Loader";
 
 const CreateWorker = () => {
   const [search, setSearch] = React.useState("");
@@ -17,15 +18,12 @@ const CreateWorker = () => {
   const [searchValue] = useDebounce(search, 1000);
   const { user } = useSelector((state) => state.auth);
 
-  console.log(searchQuery);
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
   });
 
-
-  console.log("worker=====",data)
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -82,8 +80,7 @@ const CreateWorker = () => {
           <div>
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
-                {" "}
-                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+                  <Loader />
               </div>
             ) : (
               <>

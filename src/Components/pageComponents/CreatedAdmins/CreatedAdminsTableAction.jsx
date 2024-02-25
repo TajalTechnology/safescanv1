@@ -6,6 +6,8 @@ import CreatedAdminsEdit from "./CreatedAdminsEdit";
 import ShareModal from "../../Shared/modal/ShareModal";
 import { useDeleteUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const CreatedAdminsTableAction = ({ row,refetch }) => {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -19,12 +21,12 @@ const CreatedAdminsTableAction = ({ row,refetch }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Admin Delete success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       refetch();
       setDeleteModal(false)
     }
     if (error) {
-      toast.error(error?.data.error || error?.data.message);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 

@@ -6,6 +6,8 @@ import { Icon } from "@iconify/react";
 import CustomButton from "../../Shared/CustomButton";
 import { useCreateUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
@@ -26,13 +28,13 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Create Admin success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       refetch()
       setModalOpen(false)
       setSuccess(true)
     }
     if (error) {
-      toast.error(error?.data.error);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 
