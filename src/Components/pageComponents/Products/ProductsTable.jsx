@@ -50,7 +50,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
           {formattedDate(row?.last_test_date)}
         </span>
       ),
-      sorter: (a, b) => a.last_test_date - b.last_test_date,
+      sorter: (a, b) => new Date(a.last_test_date) -new Date( b.last_test_date),
     },
     {
       title: "Next Test Date",
@@ -60,7 +60,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
           {formattedDate(row?.next_test_date)}
         </span>
       ),
-      sorter: (a, b) => a.next_test_date - b.next_test_date,
+      sorter: (a, b) => new Date(a.next_test_date) - new Date( b.next_test_date),
     },
     {
       title: "Location",
@@ -97,7 +97,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
           )}
         </div>
       ),
-      sorter: (a, b) => a.status - b.status,
+      sorter: (a, b) => a.status.localeCompare(b.status, 'en', { sensitivity: 'base' }),
     },
     {
       title: "Image",
