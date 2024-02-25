@@ -36,6 +36,7 @@ export const superApi = apiSlice.injectEndpoints({
         body: data,
       })
     }),
+    
   }),
 });
 

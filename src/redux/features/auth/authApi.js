@@ -1,7 +1,6 @@
 // import { decodeJWT } from "../../../helper/jwt";
 import { apiSlice } from "../api/apiSlice";
-import { userLoggedIn, userRegistration } from "./authSlice";
-
+import { addOtp, userLoggedIn, userRegistration } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -31,7 +30,7 @@ export const authApi = apiSlice.injectEndpoints({
         url: "user/signin",
         method: "POST",
         body: {
-          username, 
+          username,
           password,
         },
         credentials: "include",
@@ -39,14 +38,8 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          localStorage.setItem(
-            "token",
-            JSON.stringify(result?.data?.token)
-          );
-          localStorage.setItem(
-            "user",
-            JSON.stringify(result?.data?.user)
-          );
+          localStorage.setItem("token", JSON.stringify(result?.data?.token));
+          localStorage.setItem("user", JSON.stringify(result?.data?.user));
           dispatch(
             userLoggedIn({
               accessToken: result?.data?.token,
@@ -58,11 +51,35 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
-
+    otpSend: builder.mutation({
+      query: (data) => ({
+        url: "user/forgot-password",
+        method: "PATCH",
+        body: data,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          console.log("otp result",result)
+          dispatch(
+            addOtp({
+              otpData: result?.data,
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
+    updatePassword: builder.mutation({
+      query: (body) => ({
+        url: "user/update-password",
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const {
-  useRegisterMutation,
-  useLoginMutation
-} = authApi;
+export const { useRegisterMutation, useLoginMutation, useOtpSendMutation,useUpdatePasswordMutation } =
+  authApi;

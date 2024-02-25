@@ -4,7 +4,7 @@ const initialState = {
     token:localStorage.getItem("token") || "",
     user:  JSON.parse(localStorage.getItem("user")) || "",
     code:"",
-    category:"",
+    otpData:"",
     search:"",
     mobile:false,
 }
@@ -26,8 +26,8 @@ const authSlice = createSlice({
             state.token="";
             state.user=""; 
         },
-        addCategory:(state,action)=>{
-            state.category=action.payload;
+        addOtp:(state,action)=>{
+            state.otpData=action.payload.otpData;
         },
         addSearch:(state,action)=>{
             state.search=action.payload;
@@ -38,6 +38,6 @@ const authSlice = createSlice({
     }
 })
 
-export const {userRegistration,userLoggedOut,userLoggedIn,addCategory,addSearch,addMobile} = authSlice.actions;
+export const {userRegistration,userLoggedOut,userLoggedIn,addOtp,addSearch,addMobile} = authSlice.actions;
 
 export default authSlice.reducer
