@@ -33,6 +33,12 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getProducts: builder.query({
+      query: (query) => ({
+        url: `products?${query}`,
+        method: "GET",
+      }),
+    }),
     approveUser: builder.mutation({
       query: ({ id, body }) => ({
         url: `user/${id}`,
@@ -75,5 +81,6 @@ export const {
   useApproveUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
-  useGetProfileQuery
+  useGetProfileQuery,
+  useGetProductsQuery
 } = adminApi;
