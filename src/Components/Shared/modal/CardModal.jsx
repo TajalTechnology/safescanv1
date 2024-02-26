@@ -32,7 +32,7 @@ const CardModal = ({ row, date, dateTitle }) => {
     }
     if (error) {
       const errorMsg = error?.data.error || error?.data.message
-      toast.error(<ErrorToast message={errorMsg} />);
+      toast.custom(<ErrorToast message={errorMsg} />);
     }
   }, [isSuccess, error]);
 

@@ -15,6 +15,8 @@ export const adminApi = apiSlice.injectEndpoints({
         body: userInfo,
       }),
     }),
+
+
     getAdmin: builder.query({
       query: (query) => ({
         url: `users?usertype=admin&${query}`,
