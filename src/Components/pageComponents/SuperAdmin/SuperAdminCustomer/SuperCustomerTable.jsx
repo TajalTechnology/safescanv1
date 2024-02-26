@@ -6,6 +6,7 @@ import SuperCustomerTableData from "./SuperCustomerTableData";
 import CustomerCreate from "./CustomerCreate";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 import { useDebounce } from "use-debounce";
+import Loader from "../../../Shared/Loader";
 
 const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
 
@@ -68,8 +69,7 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
           <div>
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
-                {" "}
-                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+                  <Loader />
               </div>
             ) : (
               <>

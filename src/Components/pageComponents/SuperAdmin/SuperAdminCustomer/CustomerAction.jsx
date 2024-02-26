@@ -3,6 +3,8 @@ import ApprovalModal from "../../../Shared/modal/ApprovalModal";
 import { Icon } from "@iconify/react";
 import { useApproveMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
 const CustomerAction = ({ row,refetch,refetch1 }) => {
   const [reject, setReject] = useState(false);
@@ -11,14 +13,14 @@ const CustomerAction = ({ row,refetch,refetch1 }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Customer Rejects success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       setReject(false);
       refetch()
       refetch1()
     }
     if (error) {
       console.log("===error====", error);
-      toast.error(error?.data.error || error?.data.message);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 

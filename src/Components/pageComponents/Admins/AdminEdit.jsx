@@ -5,47 +5,48 @@ import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 import { useApproveUserMutation} from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   const [active, setActive] = useState(0);
   const [approveUser, { isLoading, isSuccess, error }] = useApproveUserMutation();
-  // console.log("modal Data=======", item);
 
   useEffect(() => {
     if (isSuccess) {
       const message = "Update Admin success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       refetch();
       setModalOpen(false);
     }
     if (error) {
-      toast.error(error?.data.error || error?.data.message);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 
-  useEffect(() => {
-    if (item) {
-      setActive(item?.fine_status);
-    }
-  }, [item]);
+
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      first_name: item.first_name,
-      last_name: item.last_name,
-      email: item.email,
-      phone: item.phone,
-      site_address: item.site_address,
-      emloyeer_name: item.emloyeer_name,
-      minor: item.minor,
-      major: item.major,
-      dismissal: item.dismissal,
-    },
-  });
+  } = useForm();
+
+  useEffect(() => {
+    if (item) {
+      setActive(item?.outstanding_fines);
+      setValue('first_name', item?.username);
+      setValue('last_name', item?.last_name);
+      setValue('email', item?.email);
+      setValue('phone', item?.phone);
+      setValue('site_address', item?.site_address);
+      setValue('emloyeer_name', item?.emloyeer_name);
+      setValue('minor', item?.minor);
+      setValue('major', item?.major);
+      setValue('dismissal', item?.dismissal);
+    }
+  }, [item]);
 
   const onSubmit = async(data) => {
     const body = {
@@ -55,6 +56,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       email: data.email,
       phone: data.phone,
       site_address: data.site_address,
+      outstanding_fines:active,
       emloyeer_name: data.emloyeer_name,
       minor: Number(data.minor),
       major: Number(data.major),
@@ -70,7 +72,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       setModalOpen={setModalOpen}
       handleSubmit={handleSubmit(onSubmit)}
       width={590}
-      title="Edit Worker"
+      title="Edit Admin"
       buttonText={isLoading ? "Loading..." : "Save Changes"}
     >
       <div className="flex items-center gap-4">
@@ -167,10 +169,10 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         </h3>
         <div className="w-full flex item-center justify-center gap-5">
           <button
-            onClick={() => setActive(0)}
+            onClick={() => setActive(1)}
             type="button"
             className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${
-              active === 0
+              active === 1
                 ? "bg-[#4CC800] text-white"
                 : " bg-transparent text-[#4CC800]"
             }`}
@@ -178,17 +180,17 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
             <Icon
               icon="material-symbols:check"
               className={`text-[18px] ${
-                active === 0 ? " text-white" : "text-[#4CC800]/30 "
+                active === 1 ? " text-white" : "text-[#4CC800]/30 "
               }`}
             />
             Fines Paid
           </button>
 
           <button
-            onClick={() => setActive(1)}
+            onClick={() => setActive(0)}
             type="button"
             className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${
-              active === 1
+              active === 0
                 ? "bg-[#F40909] text-white"
                 : " bg-transparent text-[#F40909]"
             }`}
@@ -196,7 +198,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
             <Icon
               icon="material-symbols:check"
               className={`text-[18px] ${
-                active === 1 ? " text-white" : "text-[#F40909]/30 "
+                active === 0 ? " text-white" : "text-[#F40909]/30 "
               }`}
             />
             Fines Due

@@ -6,6 +6,7 @@ import WorkersTable from "../../Components/pageComponents/Workers/WorkersTable";
 import { useDebounce } from "use-debounce";
 import { useGetWorkerQuery } from "../../redux/features/admin/adminApi";
 import { useSelector } from "react-redux";
+import Loader from "../../Components/Shared/Loader";
 
 const Workers = () => {
   const [search, setSearch] = React.useState("");
@@ -53,6 +54,15 @@ const Workers = () => {
     ...item,
   }));
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+
+  console.log(selectedFile)
+
   return (
     <>
       <BreadCrumb
@@ -71,12 +81,12 @@ const Workers = () => {
               setSearch={setSearch}
               placeholder="Search Worker Profile"
             />
+            <input type="file" onChange={handleFileChange} />
           </div>
           <div className="w-full">
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
-                {" "}
-                <h2 className=" text-[25px] font-semibold">Loading...</h2>
+                  <Loader />
               </div>
             ) : (
               <>

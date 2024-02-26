@@ -1,4 +1,5 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import { authMiddleware } from "./authMiddleware";
 
 
 export const apiSlice = createApi({
@@ -42,7 +43,9 @@ export const apiSlice = createApi({
                 }
             }
         })
-    })
+    }),
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authMiddleware),
 })
 
 export const {useRefreshTokenQuery,useLoadUserQuery} = apiSlice
