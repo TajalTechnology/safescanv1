@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomInput = ({ label, type, register, error, placeholder }) => {
+const CustomInput = ({ label, type, register, error, placeholder,required=true }) => {
   return (
     <div className="flex flex-col items-start w-full mt-3">
       <label
@@ -12,7 +12,7 @@ const CustomInput = ({ label, type, register, error, placeholder }) => {
       <input
         className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
         type={type}
-        required
+        required={required}
         placeholder={placeholder}
         id="otp"
         {...register}
