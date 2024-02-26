@@ -66,7 +66,7 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
         const whatsappMessage = `  Hi, I want to talk about this : `
 
         // const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
-        const whatsappLink = `https://wa.me/+8801961967706/?text=${encodeURIComponent(whatsappMessage)}`;
+        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
 
         // Open WhatsApp
         window.open(whatsappLink, '_blank');
