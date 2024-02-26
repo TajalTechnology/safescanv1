@@ -4,6 +4,7 @@ import WorkersTableAction from "./WorkersTableAction";
 import WorkersQRCode from "./WorkersQRCode";
 import CardModal from "../../Shared/modal/CardModal";
 import QRCodeModal from "../Admins/QRCodeModal";
+import AllCard from "../../Shared/modal/AllCard";
 
 const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
@@ -82,7 +83,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
       {
         title: "Card Image",
         key: "id",
-        // render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
+        render: (row) => (<AllCard date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
       },
       {
         title: "Minor",

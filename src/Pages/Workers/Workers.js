@@ -31,7 +31,7 @@ const Workers = () => {
     return queryParams.join("&");
   };
 
-  console.log("=====",data)
+  console.log("=====worker======",data)
 
   useEffect(() => {
     const query = generateQuery(searchValue);
