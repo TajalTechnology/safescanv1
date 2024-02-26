@@ -188,11 +188,11 @@ const ProfileSettings = () => {
                                 <div className='border-b py-5 border-gray-100 grid md:grid-cols-2 grid-cols-1 gap-2.5'>
                                     <div>
                                         <p className='text-xs font-medium'>1 Major For</p>
-                                        <h1 className='text-lg font-medium text-[#485585]'>{data?.minor} Minor</h1>
+                                        <h1 className='text-lg font-medium text-[#485585]'>{data?.minor_to_major} Minor</h1>
                                     </div>
                                     <div>
                                         <p className='text-xs font-medium'>1 Dismissal  For</p>
-                                        <h1 className='text-lg font-medium text-[#485585]'>{data?.major} Major </h1>
+                                        <h1 className='text-lg font-medium text-[#485585]'>{data?.major_to_dismissal} Major </h1>
                                     </div>
                                 </div>
                                 <div className='border-b py-5 border-gray-100 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2.5'>

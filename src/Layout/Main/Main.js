@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const Main = () => {
     const { user } = useSelector((state) => state.auth);
 
-    console.log("======user======",user)
+    // console.log("======user======",user)
 
     const navigate = useNavigate();
     useEffect(()=>{
