@@ -43,9 +43,8 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             site_address: item.site_address,
             site_name: item.site_name,
             emloyeer_name: item.emloyeer_name,
-            minor: item.minor,
-            major: item.major,
-            dismissal: item.dismissal,
+            minor_to_major: item.minor_to_major,
+            major_to_dismissal: item.major_to_dismissal,
             fines_per_dismissal: item.fines_per_dismissal,
             fines_per_mainor: item.fines_per_mainor,
             fines_per_major: item.fines_per_major,
@@ -61,10 +60,10 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             site_address: data.site_address,
             site_name: data.site_name,
             emloyeer_name: data.emloyeer_name,
-            major: Number(data.major),
-            dismissal: Number(data.dismissal),
+            major_to_dismissal: Number(data.major_to_dismissal),
+            minor_to_major: Number(data.minor_to_major),
             last_Name: data.last_Name,
-            password: item.password,
+            // password: item.password,
             fines_per_dismissal: Number(data.fines_per_dismissal),
             fines_per_mainor: Number(data.fines_per_mainor),
             fines_per_major: Number(data.fines_per_major),
@@ -81,7 +80,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             handleSubmit={handleSubmit(onSubmit)}
             width={600}
             title={'Edit Information'}
-            buttonText={'Save Changes'}
+            buttonText={isLoading?'Loading...':'Save Changes'}
         >
 
             <div>
@@ -250,7 +249,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         <CustomInput
                             label={'1 Major For'}
                             type={'text'}
-                            register={register("major", {
+                            register={register("minor_to_major", {
                                 required: {
                                     value: true,
                                     message: "Please enter major",
@@ -263,7 +262,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         <CustomInput
                             label={'1 Dismissal For'}
                             type={'number'}
-                            register={register("dismissal", {
+                            register={register("major_to_dismissal", {
                                 required: {
                                     value: true,
                                     message: "Please enter dismissal",
