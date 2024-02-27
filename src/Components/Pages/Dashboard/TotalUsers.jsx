@@ -8,7 +8,6 @@ const TotalUsers = ({ workers, admins }) => {
     const [selected, setSelected] = useState('Monthly');
     const [getSlice, setGetSlice] = useState(7);
     const dataDay = ["Weekly", "Monthly"];
-
     useEffect(() => {
         if (selected === 'Weekly') {
             setGetSlice(7)

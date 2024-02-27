@@ -9,7 +9,7 @@ const ErrorToast = ({ message }) => {
                 <div className="flex items-center gap-2 justify-between">
                     <div className='flex items-center gap-2'>
                         <Icon className='text-error text-2xl '  icon="zondicons:minus-solid" />
-                        <h1 className="text-2xl font-bold text-white">Error Toast</h1>
+                        <h1 className="text-2xl font-bold text-white">Error</h1>
                     </div>
                     <div className='bg-white/30 flex items-center justify-center w-6 h-6 rounded-full'>
                         <button onClick={() => toast.remove()}>

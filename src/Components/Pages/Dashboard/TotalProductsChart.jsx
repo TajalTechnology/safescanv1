@@ -18,7 +18,7 @@ const TotalProductsChart = ({data}) => {
                 },
             },
         },
-        minColumnWidth: 10,
+        minColumnWidth: 5,
         maxColumnWidth: 25,
         columnStyle: {
             fill: '#664DFF',

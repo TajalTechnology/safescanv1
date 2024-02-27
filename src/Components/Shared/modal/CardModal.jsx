@@ -13,15 +13,19 @@ import { useUpdateProductMutation } from "../../../redux/features/admin/adminApi
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
-const CardModal = ({ row, date, dateTitle }) => {
+const CardModal = ({ row, date, dateTitle, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
+  const { token } = useSelector((state) => state.auth)
   const [imgIndex, setImageIndex] = useState(0);
   const [deletModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [updatedImages, setUpdatedImages] = useState([])
   const [file, setFile] = useState("")
-  const [updateProduct, { isLoading, isSuccess, error }] = useUpdateProductMutation();
+  const [isSuccess, setIsSuccess] = useState("")
+  const [error, setError] = useState("")
 
   useEffect(() => {
     if (isSuccess) {
@@ -42,17 +46,37 @@ const CardModal = ({ row, date, dateTitle }) => {
 
   const img = `https://scansafes3.s3.amazonaws.com/${updatedImages[imgIndex]}`
 
-  console.log("images",updatedImages)
-  const handelDelete = async () => {
-    const images = updatedImages.filter((i) => i.index === imgIndex)
-    setUpdatedImages(images)
-    const formData = new FormData();
-    formData.append('product_images', updatedImages);
-    const id = row?.productid;
-    console.log(updatedImages)
-    await updateProduct({ id, body: formData });
-    // onSubmit()
-    // setModalOpen(false);
+
+
+  const saveChange = async () => {
+
+    if (file) {
+      const newImages = [...updatedImages];
+      newImages[imgIndex] = file;
+
+      const formData = new FormData();
+      newImages.forEach((image, index) => {
+        formData.append(`files[${index}]`, image);
+      });
+
+      const id = row?.productid;
+      try {
+        const response = await axios.patch(`/api/v1/products/${id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        refetch();
+        setIsSuccess("Profile Updated")
+        console.log(response.data)
+      } catch (error) {
+        console.log('error', error)
+        setError(error)
+      }
+
+    }
+
   }
 
   return (
@@ -243,7 +267,7 @@ const CardModal = ({ row, date, dateTitle }) => {
               />
             </div>
             <div className="flex items-center gap-3">
-              <CustomButton onClick={() => setEditModal(false)}>
+              <CustomButton onClick={() => { setEditModal(false); saveChange(); }}>
                 <span className="flex items-center text-white gap-2">
                   <span>Save Changes</span>
                 </span>
@@ -261,7 +285,7 @@ const CardModal = ({ row, date, dateTitle }) => {
 
       <DeleteModal
         modalOPen={deletModal}
-        onDelete={() => handelDelete()}
+        // onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
