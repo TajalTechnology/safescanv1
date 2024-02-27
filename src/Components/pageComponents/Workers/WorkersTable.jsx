@@ -83,7 +83,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
       {
         title: "Card Image",
         key: "id",
-        render: (row) => (<AllCard date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
+        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
       },
       {
         title: "Minor",

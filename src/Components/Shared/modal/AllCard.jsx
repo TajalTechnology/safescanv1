@@ -14,8 +14,9 @@ import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import toast from "react-hot-toast";
 import axios from "axios";
+import CardEdit from "./CardEdit";
 
-const AllCard = ({ row, date, dateTitle }) => {
+const AllCard = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const [imageItem,setImageItame] = useState()
   const [imgIndex, setImageIndex] = useState(0);
@@ -70,27 +71,6 @@ const AllCard = ({ row, date, dateTitle }) => {
 
   }
 
-  const uploadImage = async (token, data) => {
-    try {
-      const formData = new FormData()
-      formData.append('files', data.image)
-      formData.append('image_type', data.type)
-      if (data.type === 'cards') formData.append('expiry_date', data.expiry_date)
-  
-      const response = await axios.post(`${"UPLOAD_URL"}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-  
-      return response.data
-    } catch (error) {
-      console.log('error', error)
-      return error
-   }
-  }
-
 
   return (
     <>
@@ -137,7 +117,7 @@ const AllCard = ({ row, date, dateTitle }) => {
           <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
             <div className="">
               <p className="text-[20px] font-bold text-dark-gray">
-                {dateTitle}:<span className="text-lg font-medium"> {date}</span>
+                {"Expire Date"}:<span className="text-lg font-medium"> {imageItem?.expiry_date}</span>
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -221,7 +201,7 @@ const AllCard = ({ row, date, dateTitle }) => {
       </Modal>
 
       {/* Edit Modal */}
-      <Modal
+      {/* <Modal
         centered
         cancelText
         cancelButtonProps
@@ -294,7 +274,9 @@ const AllCard = ({ row, date, dateTitle }) => {
             </div>
           </div>
         </div>
-      </Modal>
+      </Modal> */}
+
+      <CardEdit refetch={refetch} editModal={editModal} setEditModal={setEditModal} imageItem={imageItem} row={row} imgIndex={imgIndex}/>
 
       <DeleteModal
         modalOPen={deletModal}
