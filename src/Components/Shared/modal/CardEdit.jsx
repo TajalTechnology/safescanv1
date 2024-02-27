@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
 import { Modal } from "antd";
 import { Icon } from "@iconify/react";
-import { formattedDate } from "../../../helper/jwt";
+import { dateChange, formattedDate } from "../../../helper/jwt";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import SuccessToast from "../Toast/SuccessToast";
+import ErrorToast from "../Toast/ErrorToast";
 
-const CardEdit = ({refetch, editModal, setEditModal, imageItem, row, imgIndex }) => {
+const CardEdit = ({setModalOpen,refetch, editModal, setEditModal, imageItem, row, imgIndex }) => {
   const { token } = useSelector((state) => state.auth);
-  const getNextDate = formattedDate(imageItem?.expiry_date);
+  // const getNextDate = formattedDate(imageItem?.expiry_date);
   const [file, setFile] = useState();
-  const [nextDate, setNextDate] = useState(getNextDate);
+  const [nextDate, setNextDate] = useState();
 
-  console.log("========", getNextDate);
+  useEffect(()=>{
+    setNextDate(imageItem?.expiry_date)
+  },[imageItem])
+
+  // console.log("update date",dateChange(nextDate))
+  // function convertToDateObject(dateString) {
+  //   return new Date(dateString);
+  // }
+
+  // const dateString = "2024-02-29";
+  // const dateObject = convertToDateObject(dateString);
+
+   console.log("========", nextDate);
 
   const uploadImage = async () => {
     const data = {
       image: file,
       type: "cards",
       index: imgIndex,
-      expiry_date: nextDate,
+      expiry_date: nextDate ? nextDate :imageItem?.expiry_date,
       username: row?.username,
     };
     try {
@@ -45,13 +59,12 @@ const CardEdit = ({refetch, editModal, setEditModal, imageItem, row, imgIndex })
 
       if(response?.status===200){
         refetch()
-        
+        setModalOpen(true)
+        setEditModal(false)
+        toast.custom(<SuccessToast message={"card update"} />);
       }
-
-      console.log("response", response);
     } catch (error) {
-      console.log("error", error);
-      return error;
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />)
     }
   };
 
@@ -115,7 +128,7 @@ const CardEdit = ({refetch, editModal, setEditModal, imageItem, row, imgIndex })
 
               <input
                 type={"date"}
-                defaultValue={nextDate}
+                defaultValue={imageItem?.expiry_date}
                 value={nextDate}
                 onChange={(e) => setNextDate(e.target.value)}
                 className="w-full border-none outline-none py-2 px-4"

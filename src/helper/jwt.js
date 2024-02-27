@@ -19,3 +19,21 @@ export const formattedDate = (data) => {
     return modifiedDate;
 
 }
+
+export const dateChange = (dateString)=>{
+    const parts = dateString.split('/');
+    // Ensure parts contain day, month, and year
+    if (parts.length !== 3) return null;
+    
+    const [month, day, year] = parts.map(Number);
+    // Ensure the month and day are valid
+    if (isNaN(month) || isNaN(day) || isNaN(year)) return null;
+
+    // Check if it's a valid date
+    const date = new Date(year, month - 1, day);
+    if (isNaN(date.getTime())) return null;
+
+    // Convert to the desired format
+    const formattedDate = date.toISOString().split('T')[0];
+    return formattedDate;
+}

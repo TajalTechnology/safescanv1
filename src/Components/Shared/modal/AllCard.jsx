@@ -62,13 +62,19 @@ const AllCard = ({ row, refetch }) => {
   console.log("====imageItem======",imageItem)
 
   useEffect(()=>{
-     setImageItame(row?.cards[0])
-  },[row])
+     setImageItame(row?.cards[imgIndex])
+  },[row,imgIndex])
 
-  const img = `https://scansafes3.s3.amazonaws.com/${imageItem?.image}`
 
-  const handelDelete = ()=>{
+  const handelDelete = async()=>{
+    const data = {
+      index:imgIndex,
+      username:row?.username
+    }
 
+    console.log(data)
+
+    await imageDelete(data)
   }
 
 
@@ -276,11 +282,11 @@ const AllCard = ({ row, refetch }) => {
         </div>
       </Modal> */}
 
-      <CardEdit refetch={refetch} editModal={editModal} setEditModal={setEditModal} imageItem={imageItem} row={row} imgIndex={imgIndex}/>
+      <CardEdit setModalOpen={setModalOpen} refetch={refetch} editModal={editModal} setEditModal={setEditModal} imageItem={imageItem} row={row} imgIndex={imgIndex}/>
 
       <DeleteModal
         modalOPen={deletModal}
-        onDelete={() => {}}
+        onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}

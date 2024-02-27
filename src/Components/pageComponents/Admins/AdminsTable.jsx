@@ -3,6 +3,7 @@ import CustomTable from "../../Shared/table/CustomTable";
 import QRCode from "./QRCodeModal";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
+import AllCard from "../../Shared/modal/AllCard";
 
 const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
@@ -82,7 +83,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
       {
         title: "Card Image",
         key: "id",
-        // render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
+        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
       },
       {
         title: "Minor",
