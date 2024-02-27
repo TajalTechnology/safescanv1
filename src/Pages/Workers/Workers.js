@@ -31,7 +31,7 @@ const Workers = () => {
     return queryParams.join("&");
   };
 
-  console.log("=====",data)
+  console.log("=====worker======",data)
 
   useEffect(() => {
     const query = generateQuery(searchValue);
@@ -54,14 +54,6 @@ const Workers = () => {
     ...item,
   }));
 
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
-
-  console.log(selectedFile)
 
   return (
     <>
@@ -81,7 +73,6 @@ const Workers = () => {
               setSearch={setSearch}
               placeholder="Search Worker Profile"
             />
-            <input type="file" onChange={handleFileChange} />
           </div>
           <div className="w-full">
             {isLoading ? (

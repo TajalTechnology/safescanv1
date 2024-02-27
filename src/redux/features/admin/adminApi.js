@@ -99,6 +99,13 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    imageDelete: builder.mutation({
+      query: ( body ) => ({
+        url: `users/delete-cards`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -116,4 +123,5 @@ export const {
   useUpdateProductMutation,
   useGetCountersQuery,
   useGetNotificationsQuery,
+  useImageDeleteMutation,
 } = adminApi;

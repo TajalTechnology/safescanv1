@@ -4,6 +4,7 @@ import WorkersTableAction from "./WorkersTableAction";
 import WorkersQRCode from "./WorkersQRCode";
 import CardModal from "../../Shared/modal/CardModal";
 import QRCodeModal from "../Admins/QRCodeModal";
+import AllCard from "../../Shared/modal/AllCard";
 
 const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
@@ -52,10 +53,37 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
           </span>
         ),
       },
+            {
+        title: "ICE Name",
+        key: "id",
+        render: (row) => (
+          <span className=" text-[14px] font-normal text-info">
+            {row?.ice_name}
+          </span>
+        ),
+      },
+      {
+        title: "ICE Number",
+        key: "id",
+        render: (row) => (
+          <span className=" text-[14px] font-normal text-info">
+            {row?.ice_number}
+          </span>
+        ),
+      },
+      {
+        title: "Medical Condition",
+        key: "id",
+        render: (row) => (
+          <span className=" text-[14px] font-normal text-info">
+            {row?.medical_condition}
+          </span>
+        ),
+      },
       {
         title: "Card Image",
         key: "id",
-        // render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
+        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
       },
       {
         title: "Minor",
@@ -91,7 +119,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
         title: "Fine Status",
         key: "fine",
         render: (row) => (
-          <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.outstanding_fines ===0 ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
+          <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.outstanding_fines !==row.fine_status ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
             €{row.fine_status}
           </span>
         ),

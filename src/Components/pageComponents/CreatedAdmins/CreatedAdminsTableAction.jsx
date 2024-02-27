@@ -52,7 +52,12 @@ const CreatedAdminsTableAction = ({ row,refetch }) => {
     if (type === 'Whatsapp') {
       if (shareText.trim() !== '') {
 
-        const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+        const whatsappMessage = `Hi, this is your : 
+          - userName = ${row?.username} 
+          - password = ${row?.password} 
+        `
+        // const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
 
         // Open WhatsApp
         window.open(whatsappLink, '_blank');
