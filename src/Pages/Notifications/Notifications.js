@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SectionWrapper from '../../Components/Shared/SectionWrapper';
 import Notification from '../../Components/Pages/Notifications/Notification';
 import BreadCrumb from '../../Components/Shared/BreadCrumb';
-// import { NotificationsData } from "../../assets/mockData";
+import { NotificationsData } from "../../assets/mockData";
 import { useGetNotificationsQuery } from '../../redux/features/admin/adminApi';
 import { useDebounce } from 'use-debounce';
 import Loader from '../../Components/Shared/Loader';
@@ -68,11 +68,11 @@ const Notifications = () => {
                             {/* ----------tabs section------------ */}
                             <div className='mb-7 flex items-center gap-10'>
                                 {
-                                    tabs.map((tab) => <button key={tab.id} onClick={() => { setActiveTab(tab.title); setSearch(tab?.status) }} className={`text-sm px-1 pb-2 ${activeTab === tab.title ? 'text-primary border-b-[3px] border-primary' : 'text-info/80 border-b border-transparent'}`}>{tab.title}</button>)
+                                    tabs?.map((tab) => <button key={tab.id} onClick={() => { setActiveTab(tab.title); setSearch(tab?.status) }} className={`text-sm px-1 pb-2 ${activeTab === tab.title ? 'text-primary border-b-[3px] border-primary' : 'text-info/80 border-b border-transparent'}`}>{tab.title}</button>)
                                 }
                             </div>
                             <div>
-                                <Notification data={data} />
+                                <Notification data={NotificationsData} />
                                 {/* {
                                 activeTab === 'All Notifications' && <Notification data={data} />
                             }
