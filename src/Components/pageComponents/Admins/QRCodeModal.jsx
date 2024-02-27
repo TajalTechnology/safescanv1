@@ -1,40 +1,40 @@
 import { Icon } from "@iconify/react";
 import { Modal, Tooltip } from "antd";
-import React, { useState } from "react";
-import QRCode from "qrcode.react";
-import html2canvas from "html2canvas";
-
+import React, { useRef, useState } from "react";
+// import QRCode from "qrcode.react";
+// import html2canvas from "html2canvas";
+import ReactToPrint from "react-to-print";
 
 const QRCodeModal = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
+  const componentRef = useRef();
 
   console.log(row);
 
-  const downloadImage = () => {
-    const link = document.createElement("a");
-    link.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
-    link.download = "image.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // const downloadImage = () => {
+  //   const link = document.createElement("a");
+  //   link.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
+  //   link.download = "image.png";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   const captureAndDownload = () => {
-    const component = document.getElementById("pdf-component");
-
-    if (component) {
-      html2canvas(component).then(async (canvas) => {
-        const dataURL = canvas.toDataURL("image/jpeg");
-        const a = document.createElement("a");
-        a.href = dataURL;
-        a.download = `${row?.last_name}-certificate.jpg`;
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    })
-  }};
-
+    // const component = document.getElementById("pdf-component");
+    // if (component) {
+    //   html2canvas(component).then(async (canvas) => {
+    const dataURL = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.download = `${row?.last_name}-qrCode.jpg`;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    // })
+    // }
+  };
 
   return (
     <>
@@ -70,6 +70,7 @@ const QRCodeModal = ({ row }) => {
             </button>
           </div>
           <div
+            ref={componentRef}
             id="pdf-component"
             className="w-full flex items-center flex-col justify-center py-7"
           >
@@ -93,10 +94,16 @@ const QRCodeModal = ({ row }) => {
           </div>
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button className=" bg-primary hover:bg-primary/80 flex items-center gap-2 duration-300 px-4 h-[38px] rounded-[4px] text-[14px] font-medium text-white">
-                <Icon icon="prime:print" className=" text-[25px]" />
-                Print QRC Code
-              </button>
+              <ReactToPrint
+                trigger={() => (
+                  <button className=" bg-primary hover:bg-primary/80 flex items-center gap-2 duration-300 px-4 h-[38px] rounded-[4px] text-[14px] font-medium text-white">
+                    <Icon icon="prime:print" className=" text-[25px]" />
+                    Print QRC Code
+                  </button>
+                )}
+                content={() => componentRef.current}
+              />
+
               {/* <button className=" bg-[#FF4D4D]/20 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white">
                 <Icon icon="lucide:trash-2" className=" text-[20px]" />
               </button> */}

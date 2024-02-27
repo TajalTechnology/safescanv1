@@ -4,8 +4,10 @@ import ApprovalModal from "../../../Shared/modal/ApprovalModal";
 import toast from "react-hot-toast";
 import { usePlanMutation } from "../../../../redux/features/superAdmin/superApi";
 import { Icon } from "@iconify/react";
+import ErrorToast from "../../../Shared/Toast/ErrorToast";
+import SuccessToast from "../../../Shared/Toast/SuccessToast";
 
-const Plan = ({ row,refetch }) => {
+const Plan = ({ row,refetch,refetch1 }) => {
   const [value, setValue] = useState("");
   const [modal, setModal] = useState(false);
   const [popupShow, setPopupShow] = useState(false);
@@ -15,13 +17,14 @@ const Plan = ({ row,refetch }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Plan Update success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       refetch()
+      refetch1()
       setModal(false)
     }
     if (error) {
       console.log("===error====", error);
-      toast.error(error?.data.error || error?.data.message);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 

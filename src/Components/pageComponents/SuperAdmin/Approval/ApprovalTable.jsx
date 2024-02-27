@@ -1,6 +1,7 @@
 import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
 import ApprovalAction from "./ApprovalAction";
+import { formattedDate } from "../../../../helper/jwt";
 
 const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
   const columns = [
@@ -60,9 +61,9 @@ const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
       title: "Request Date",
       key: "id",
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{row.RequestDate}</span>
+        <span className=" text-[14px] font-normal text-info">{formattedDate(row.updated_at)}</span>
       ),
-      sorter: (a, b) => a.RequestDate - b.RequestDate,
+      sorter: (a, b) => new Date(a.updated_at) - new Date(b.updated_at),
     },
     {
         title: "Action",

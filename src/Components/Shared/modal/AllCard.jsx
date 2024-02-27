@@ -9,84 +9,73 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "./DeleteModal";
-import { useUpdateProductMutation } from "../../../redux/features/admin/adminApi";
+import { useImageDeleteMutation, useUpdateProductMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import CardEdit from "./CardEdit";
 
-const CardModal = ({ row, date, dateTitle, refetch }) => {
+const AllCard = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
-  const { token } = useSelector((state) => state.auth)
+  const [imageItem,setImageItame] = useState()
   const [imgIndex, setImageIndex] = useState(0);
   const [deletModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [updatedImages, setUpdatedImages] = useState([])
-  const [file, setFile] = useState("")
-  const [isSuccess, setIsSuccess] = useState("")
-  const [error, setError] = useState("")
 
+  const [imageDelete,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}] = useImageDeleteMutation()
+
+
+
+// ===============delete message==========
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess1) {
       const message = "Product Successfully Updated";
       toast.custom(<SuccessToast message={message} />);
       // refetch();
       setModalOpen(false);
     }
-    if (error) {
-      const errorMsg = error?.data.error || error?.data.message
+    if (error1) {
+      const errorMsg = error1?.data.error || error1?.data.message
       toast.custom(<ErrorToast message={errorMsg} />);
     }
-  }, [isSuccess, error]);
+  }, [isSuccess1, error1]);
 
   useEffect(() => {
-    setUpdatedImages(row?.product_images)
+    setUpdatedImages(row?.cards)
   }, [row]);
 
-  const img = `https://scansafes3.s3.amazonaws.com/${updatedImages[imgIndex]}`
+  console.log("====imageItem======",imageItem)
+
+  useEffect(()=>{
+    if(row?.cards){
+      setImageItame(row?.cards[imgIndex])
+    }
+  },[row,imgIndex])
 
 
-
-  const saveChange = async () => {
-
-    if (file) {
-      const newImages = [...updatedImages];
-      newImages[imgIndex] = file;
-
-      const formData = new FormData();
-      newImages.forEach((image, index) => {
-        formData.append(`files[${index}]`, image);
-      });
-
-      const id = row?.productid;
-      try {
-        const response = await axios.patch(`/api/v1/products/${id}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        refetch();
-        setIsSuccess("Profile Updated")
-        console.log(response.data)
-      } catch (error) {
-        console.log('error', error)
-        setError(error)
-      }
-
+  const handelDelete = async()=>{
+    const data = {
+      index:imgIndex,
+      username:row?.username
     }
 
+    console.log(data)
+
+    await imageDelete(data)
   }
+
 
   return (
     <>
       <Tooltip placement="topLeft" title="View Images">
         <button
+          disabled={row?.cards?.length? false : true}
           onClick={() => setModalOpen(true)}
           className=" text-[14px] font-normal text-info flex items-center gap-1 "
         >
-          <Icon icon="lucide:image" className=" text-[20px]" />{updatedImages?.length}
+          <Icon icon="lucide:image" className=" text-[20px]" />{row?.cards?.length? updatedImages?.length : "0"}
         </button>
       </Tooltip>
       <Modal
@@ -114,17 +103,17 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <div className="w-full flex items-center justify-center py-5">
+          <div className="w-full flex h-[300px] rounded-lg overflow-hidden md:h-[544px] items-center justify-center py-5">
             <img
-              src={img}
+              src={`https://scansafes3.s3.amazonaws.com/${imageItem?.image}`}
               alt="card"
-              className="w-full  h-[300px] md:h-[544px] object-container"
+              className="w-full h-full rounded-2xl object-fill"
             />
           </div>
           <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
             <div className="">
               <p className="text-[20px] font-bold text-dark-gray">
-                {dateTitle}:<span className="text-lg font-medium"> {date}</span>
+                {"Expire Date"}:<span className="text-lg font-medium"> {imageItem?.expiry_date}</span>
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -185,7 +174,7 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
                     key={index}
                   >
                     <button
-                      onClick={() => setImageIndex(index)}
+                      onClick={() => {setImageIndex(index);setImageItame(card)}}
                       className={`${imgIndex === index
                         ? "border-[3px] border-primary rounded-[18px]"
                         : "border-2 border-transparent rounded-[18px]"
@@ -193,7 +182,7 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
                     >
                       <div className="h-[106px] w-[185px]">
                         <img
-                          src={`https://scansafes3.s3.amazonaws.com/${card}`}
+                          src={`https://scansafes3.s3.amazonaws.com/${card?.image}`}
                           alt="card"
                           className="rounded-[14px] w-[185px]"
                         />
@@ -208,7 +197,7 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
       </Modal>
 
       {/* Edit Modal */}
-      <Modal
+      {/* <Modal
         centered
         cancelText
         cancelButtonProps
@@ -267,7 +256,7 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
               />
             </div>
             <div className="flex items-center gap-3">
-              <CustomButton onClick={() => { setEditModal(false); saveChange(); }}>
+              <CustomButton onClick={() => setEditModal(false)}>
                 <span className="flex items-center text-white gap-2">
                   <span>Save Changes</span>
                 </span>
@@ -281,11 +270,13 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
             </div>
           </div>
         </div>
-      </Modal>
+      </Modal> */}
+
+      <CardEdit setModalOpen={setModalOpen} refetch={refetch} editModal={editModal} setEditModal={setEditModal} imageItem={imageItem} row={row} imgIndex={imgIndex}/>
 
       <DeleteModal
         modalOPen={deletModal}
-        // onDelete={() => handelDelete()}
+        onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
@@ -294,4 +285,4 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
   );
 };
 
-export default CardModal;
+export default AllCard;

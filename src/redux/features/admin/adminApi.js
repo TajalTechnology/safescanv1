@@ -15,9 +15,23 @@ export const adminApi = apiSlice.injectEndpoints({
         body: userInfo,
       }),
     }),
+
+
     getAdmin: builder.query({
       query: (query) => ({
         url: `users?usertype=admin&${query}`,
+        method: "GET",
+      }),
+    }),
+    getCounters: builder.query({
+      query: (query) => ({
+        url: `counters`,
+        method: "GET",
+      }),
+    }),
+    getNotifications: builder.query({
+      query: (query) => ({
+        url: `notifications?${query}`,
         method: "GET",
       }),
     }),
@@ -27,6 +41,33 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getProfile: builder.query({
+      query: (id) => ({
+        url: `user/${id}`,
+        method: "GET",
+      }),
+    }),
+    getProducts: builder.query({
+      query: (query) => ({
+        url: `products?${query}`,
+        method: "GET",
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `products/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    updateProduct: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `products/${id}`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
+
     approveUser: builder.mutation({
       query: ({ id, body }) => ({
         url: `user/${id}`,
@@ -58,6 +99,13 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    imageDelete: builder.mutation({
+      query: ( body ) => ({
+        url: `users/delete-cards`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -69,4 +117,11 @@ export const {
   useApproveUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetProfileQuery,
+  useGetProductsQuery,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+  useGetCountersQuery,
+  useGetNotificationsQuery,
+  useImageDeleteMutation,
 } = adminApi;

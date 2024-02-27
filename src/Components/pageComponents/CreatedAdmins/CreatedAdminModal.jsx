@@ -6,12 +6,14 @@ import { Icon } from "@iconify/react";
 import CustomButton from "../../Shared/CustomButton";
 import { useCreateUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
-const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
+const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
   const [success, setSuccess] = useState(false);
   const [type, setType] = useState("email")
   const [shareText, setShareText] = useState("");
-
+  const [shareMsg, setShareMsg] = useState(null);
   const {
     register,
     handleSubmit,
@@ -26,18 +28,17 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Create Admin success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message} />);
       refetch()
       setModalOpen(false)
       setSuccess(true)
     }
     if (error) {
-      toast.error(error?.data.error);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 
   const onSubmit = (data) => {
-
     const bodyData = {
       username: data?.username,
       password: data?.Password,
@@ -45,26 +46,43 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
       usertype: "admin",
     }
     createUser(bodyData);
+    if(isSuccess){
+      setShareMsg(bodyData)
+    }
   };
 
   const handleShare = () => {
     if (type === 'email') {
       if (shareText.trim() !== '') {
         console.log(shareText)
-        // Create a mailto link with the email address
-        const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
+        const mailtoLink = `mailto:${encodeURIComponent(shareText)}?body=${encodeURIComponent(
+          `
+          Hello, I am from Logoipsum. Here is your username and password:
 
-        // Open the default email client
+          Username : ${shareMsg?.username}
+          Password : ${shareMsg?.password}
+          Confirm Password : ${shareMsg?.confirm_password}
+
+          `
+        )
+          }
+
+          `;
         window.location.href = mailtoLink;
         setSuccess(false)
       }
     }
     if (type === 'Whatsapp') {
       if (shareText.trim() !== '') {
+        const whatsappMessage = `
+        Hi, I am from Logoipsum. Here is your username and password:
 
-        const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+        Username : ${shareMsg?.username}
+        Password : ${shareMsg?.password}
+        Confirm_Password : ${shareMsg?.confirm_password}
 
-        // Open WhatsApp
+         `
+        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
         window.open(whatsappLink, '_blank');
         setSuccess(false)
       }
@@ -74,9 +92,14 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
 
   };
 
+
+
+
   const modalStyle = {
     padding: 0, // Set padding to 0 for the Modal component
   };
+
+
   return (
     <div>
       {/* -----create admin------------- */}
@@ -137,7 +160,7 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
                 />
               </div>
               <div className="mt-[20px] flex items-center gap-5">
-                <CustomButton className={" w-full"}>{isLoading ? "Loading...": "Create New"}</CustomButton>
+                <CustomButton className={" w-full"}>{isLoading ? "Loading..." : "Create New"}</CustomButton>
               </div>
             </form>
           </div>
@@ -175,7 +198,9 @@ const CreatedAdminModal = ({ modalOPen,refetch, setModalOpen }) => {
             <div className=" pt-4">
               <div className="w-full flex items-center justify-between">
                 <button onClick={() => setType("email")} className={`text-base font-medium ${type === "email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button>
+
                 <button onClick={() => setType("Whatsapp")} className={`text-base font-medium ${type === "Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
+
               </div>
               <input
                 className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"

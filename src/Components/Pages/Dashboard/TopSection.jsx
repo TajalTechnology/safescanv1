@@ -2,7 +2,8 @@ import React from 'react';
 import SectionWrapper from '../../Shared/SectionWrapper';
 import { Icon } from '@iconify/react';
 
-const TopSection = () => {
+const TopSection = ({workers,admins,counters}) => {
+    const counter=counters?.Items[0]
     return (
         <>
             <div className='lg:flex items-center gap-5 justify-between mb-5'>
@@ -15,18 +16,18 @@ const TopSection = () => {
                                 </div>
                                 <div className='h-10 -mt-2'>
                                     <p className='text-xs font-medium text-info/50'>Users</p>
-                                    <h1 className='text-2xl font-bold text-dark-gray' >245</h1>
+                                    <h1 className='text-2xl font-bold text-dark-gray' >{workers?.length+admins?.length}</h1>
                                 </div>
                             </div>
 
                             <div className='flex items-center h-10 w-full  md:w-[65%]  justify-between mt-10 md:mt-0'>
                                 <div className='w-[50%]'>
                                     <p className='text-xs font-medium text-info/50'>Workers</p>
-                                    <h1 className='text-2xl font-bold text-dark-gray' >45</h1>
+                                    <h1 className='text-2xl font-bold text-dark-gray' >{workers?.length}</h1>
                                 </div>
                                 <div className='w-[50%]'>
                                     <p className='text-xs font-medium text-info/50'>Admins</p>
-                                    <h1 className='text-2xl font-bold text-dark-gray' >200</h1>
+                                    <h1 className='text-2xl font-bold text-dark-gray' >{admins?.length}</h1>
                                 </div>
                             </div>
                         </div>
@@ -41,18 +42,18 @@ const TopSection = () => {
                                 </div>
                                 <div className='h-10 -mt-2'>
                                     <p className='text-xs font-medium text-white/70'>Warning Issued</p>
-                                    <h1 className='text-2xl font-bold ' >346</h1>
+                                    <h1 className='text-2xl font-bold ' >{counter?.warning_issues}</h1>
                                 </div>
                             </div>
 
                             <div className='flex items-center h-10 w-full  md:w-[65%]  justify-between mt-10 md:mt-0'>
                                 <div className='w-[50%]'>
                                     <p className='text-xs font-medium text-white/70'>Total Fines</p>
-                                    <h1 className='text-2xl font-bold ' >$133</h1>
+                                    <h1 className='text-2xl font-bold ' >€{counter?.total_fines}</h1>
                                 </div>
                                 <div className='w-[50%]'>
                                     <p className='text-xs font-medium text-white/70'>Fines Outstanding</p>
-                                    <h1 className='text-2xl font-bold ' >$34</h1>
+                                    <h1 className='text-2xl font-bold ' >€{counter?.outstanding_fines}</h1>
                                 </div>
                             </div>
                         </div>

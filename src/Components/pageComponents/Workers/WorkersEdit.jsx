@@ -5,49 +5,56 @@ import CustomInput from "../../Shared/input/CustomInput";
 import { Icon } from "@iconify/react";
 import { useApproveUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
+import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
 
     const [active,setActive]=useState("due")
+
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      setValue,
+      reset
+    } = useForm();
 
     const [approveUser, { isLoading, isSuccess, error }] = useApproveUserMutation();
     // console.log("modal Data=======", item);
   
     useEffect(() => {
       if (isSuccess) {
-        const message = "Update Admin success";
-        toast.success(message);
+        const message = "Update Worker success";
+        toast.custom(<SuccessToast message={message} />);
         refetch();
         setModalOpen(false);
+        reset()
       }
       if (error) {
-        toast.error(error?.data.error || error?.data.message);
+        toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
       }
     }, [isSuccess, error]);
 
-    useEffect(()=>{
-      if(item){
-        setActive(item?.fineStatus)
-      }
-    },[item])
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      first_name: item.first_name,
-      last_name: item.last_name,
-      email: item.email,
-      phone: item.phone,
-      site_address: item.site_address,
-      emloyeer_name: item.emloyeer_name,
-      minor: item.minor,
-      major: item.major,
-      dismissal: item.dismissal,
-    },
-  });
+
+  useEffect(() => {
+    if (item) {
+      setActive(item?.outstanding_fines);
+      setValue('first_name', item?.first_name);
+      setValue('last_name', item?.last_name);
+      setValue('email', item?.email);
+      setValue('phone', item?.phone);
+      setValue('site_address', item?.site_address);
+      setValue('emloyeer_name', item?.emloyeer_name);
+      setValue("ice_name", item?.ice_name);
+      setValue("ice_number", item?.ice_number);
+      setValue("medical_condition", item?.medical_condition);
+      // setValue('minor', item?.minor);
+      // setValue('major', item?.major);
+      // setValue('dismissal', item?.dismissal);
+    }
+  }, [item]);
 
   const onSubmit = async(data) => {
     const body = {
@@ -55,9 +62,13 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
       first_name: data.first_name,
       last_name: data.last_name,
       email: data.email,
-      phone: data.phone,
+      // phone: data.phone,
       site_address: data.site_address,
       emloyeer_name: data.emloyeer_name,
+      ice_name: data.ice_name,
+      ice_number: data.ice_number,
+      medical_condition: data.medical_condition,
+      outstanding_fines:Number(data.outstanding_fines),
       minor: Number(data.minor),
       major: Number(data.major),
       dismissal: Number(data.dismissal),
@@ -102,7 +113,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         />
       </div>
 
-      <CustomInput
+      {/* <CustomInput
         label={"Mobile Number"}
         type={"text"}
         register={register("phone", {
@@ -113,7 +124,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         })}
         error={errors.phone}
         placeholder={"Mobile Number"}
-      />
+      /> */}
 
       <CustomInput
         label={"Email Address"}
@@ -140,37 +151,71 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         register={register("emloyeer_name")}
         placeholder={"Enter Employers Name"}
       />
+      <CustomInput
+        label={"ICE Name"}
+        type={"text"}
+        register={register("ice_name")}
+        placeholder={"Enter ICE Name"}
+      />
+      <CustomInput
+        label={"ICE Number"}
+        type={"text"}
+        register={register("ice_number")}
+        placeholder={"Enter ICE Number"}
+      />
+      <CustomInput
+        label={"Medical Condition"}
+        type={"text"}
+        register={register("medical_condition")}
+        placeholder={"Enter Medical Condition"}
+      />
 
       <div className=" flex items-center gap-4 justify-between">
         <CustomInput
-          label={"level 1"}
+          label={"Minor"}
           type={"text"}
           register={register("minor")}
-          placeholder={"Enter level 1"}
+          placeholder={item?.minor}
+          required={false}
         />
         <CustomInput
-          label={"level 2"}
+          label={"Major"}
           type={"text"}
           register={register("major")}
-          placeholder={"Enter level 2 "}
+          placeholder={item?.major}
+          required={false}
         />
         <CustomInput
-          label={"level 3"}
+          label={"Dismissal"}
           type={"text"}
           register={register("dismissal")}
-          placeholder={"Enter level 3"}
+          placeholder={item?.dismissal}
+          required={false}
         />
       </div>
 
-
       <div className=" mt-5">
-           <h3 className="mb-1.5 font-medium text-base text-dark-gray">Fine Status</h3> 
-           <div className="w-full flex item-center justify-center gap-5">
-                <button onClick={()=>setActive("paid")} type="button" className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${active==="paid" ? "bg-[#4CC800] text-white" : " bg-transparent text-[#4CC800]"}`}><Icon icon="material-symbols:check" className={`text-[18px] ${active==="paid" ? " text-white" : "text-[#4CC800]/30 "}`}/>Fines Paid</button>
-
-                <button onClick={()=>setActive("due")} type="button" className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${active==="due" ? "bg-[#F40909] text-white" : " bg-transparent text-[#F40909]"}`}><Icon icon="material-symbols:check" className={`text-[18px] ${active==="due" ? " text-white" : "text-[#F40909]/30 "}`}/>Fines Due</button>
-           </div>
+        <h3 className="mb-1.5 font-medium text-base text-dark-gray">
+          Paid Amount
+        </h3>
+        <div className="w-full relative flex item-center justify-center overflow-hidden  gap-0 border-[1px] rounded-[10px]">
+          <div className=" flex items-center h-[44px] px-[14px] w-[250px] rounded-l-[10px] border-[1px] border-[#F40909]/30 ">
+            <h2 className=" font-medium text-[14px] text-[#F40909]">Fines Due: €{item.fine_status} </h2>
+          </div>
+          <input
+            className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0] rounded-[10px]  w-full text-sm font-medium outline-none border-none "
+            type={"number"}
+            placeholder={item?.outstanding_fines}
+            id="otp"
+            {...register("outstanding_fines")}
+          />
+          <span className=" absolute top-[10px] right-[10px] text-[#2D396B] text-[14px] font-bold">€</span>
+        </div>
       </div>
+
+
+
+
     </CustomModal>
   );
 };

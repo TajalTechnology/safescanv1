@@ -9,7 +9,7 @@ const InfoToast = ({ message }) => {
                 <div className="flex items-center gap-2 justify-between">
                     <div className='flex items-center gap-2'>
                         <Icon className='text-white text-2xl -rotate-2' icon="mdi:error" />
-                        <h1 className="text-2xl font-bold text-white">Info Toast</h1>
+                        <h1 className="text-2xl font-bold text-white">Info</h1>
                     </div>
                     <div className='bg-white/30 flex items-center justify-center w-6 h-6 rounded-full'>
                         <button onClick={() => toast.remove()}>

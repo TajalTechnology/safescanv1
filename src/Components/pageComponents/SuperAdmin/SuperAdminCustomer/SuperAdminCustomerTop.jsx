@@ -1,8 +1,64 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useState } from "react";
 import SectionWrapper from "../../../Shared/SectionWrapper";
+import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
+import { formattedDate } from "../../../../helper/jwt";
 
 const SuperAdminCustomerTop = () => {
+  const [searchQuery, sestSearchQuery] = useState("");
+  const { data, isLoading, refetch } = useCustomersQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const approved = data?.filter((item)=>item.is_approved===true)
+  const notApproved = data?.filter((item)=>item.is_approved===false)
+
+  let currentDate = new Date();
+  var sevenDaysAgo = new Date(currentDate);
+  sevenDaysAgo.setDate(currentDate.getDate() - 7);
+
+// Get the timestamp
+let timestamp = currentDate.getTime();
+const firstDate = sevenDaysAgo.getTime();
+
+console.log("fsdfdsfdfdfdfdf===========dsfsdff",timestamp)
+
+  const { data:data1, } = useCustomersQuery(`is_approved=true&`, {
+    refetchOnMountOrArgChange: true,
+  });
+
+
+  const countSameDateOccurrences = (products) => {
+    const dateCounts = {};
+    products?.forEach(product => {
+        const date = formattedDate(product.created_at);
+        if (dateCounts[date]) {
+            dateCounts[date]++;
+        } else {
+            dateCounts[date] = 1;
+        }
+    });
+
+    return dateCounts;
+}
+
+const convertToObjectArray = (dateCounts) => {
+  return Object.keys(dateCounts)?.map(date => ({
+      day: date,
+      value: dateCounts[date]
+  }));
+}
+
+const dateOccurrencesWorkers = countSameDateOccurrences(data);
+
+const arrayOfObjectsWorkers = convertToObjectArray(dateOccurrencesWorkers);
+
+
+console.log("============",arrayOfObjectsWorkers)
+
+
+
+
   return (
     <>
       <div className="lg:flex items-center gap-5 justify-between mb-5">
@@ -18,7 +74,7 @@ const SuperAdminCustomerTop = () => {
                 </div>
                 <div className="h-10 -mt-2">
                   <p className="text-xs font-medium text-info/50">Total Customers</p>
-                  <h1 className="text-2xl font-bold text-dark-gray">245</h1>
+                  <h1 className="text-2xl font-bold text-dark-gray">{data?.length}</h1>
                 </div>
               </div>
 
@@ -46,16 +102,16 @@ const SuperAdminCustomerTop = () => {
                   <p className="text-xs font-medium text-white/70">
                   Total Pending
                   </p>
-                  <h1 className="text-2xl font-bold ">13</h1>
+                  <h1 className="text-2xl font-bold ">{notApproved?.length}</h1>
                 </div>
               </div>
 
               <div className="flex items-center h-10 w-full  md:w-[65%]  justify-between mt-10 md:mt-0">
                 <div className="w-[50%]">
                   <p className="text-xs font-medium text-white/70">
-                  Today Approved 
+                  Total Approved 
                   </p>
-                  <h1 className="text-2xl font-bold ">02</h1>
+                  <h1 className="text-2xl font-bold ">{approved?.length}</h1>
                 </div>
                 <div className="w-[50%]">
                   <p className="text-xs font-medium text-white/70">

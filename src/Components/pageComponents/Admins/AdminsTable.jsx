@@ -3,6 +3,7 @@ import CustomTable from "../../Shared/table/CustomTable";
 import QRCode from "./QRCodeModal";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
+import AllCard from "../../Shared/modal/AllCard";
 
 const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
@@ -11,7 +12,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-bold text-[#485585]">
-          {row?.first_name} {row?.last_name}
+          {row?.username} {row?.last_name}
         </span>
       ),
     },
@@ -52,9 +53,37 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         ),
       },
       {
+        title: "ICE Name",
+        key: "id",
+        render: (row) => (
+          <span className=" text-[14px] font-normal text-info">
+            {row?.ice_name}
+          </span>
+        ),
+      },
+      {
+        title: "ICE Number",
+        key: "id",
+        render: (row) => (
+          <span className=" text-[14px] font-normal text-info">
+            {row?.ice_number}
+          </span>
+        ),
+      },
+      {
+        title: "Medical Condition",
+        key: "id",
+        render: (row) => (
+          <span className=" text-[14px] font-normal text-info">
+            {row?.medical_condition}
+          </span>
+        ),
+      },
+
+      {
         title: "Card Image",
         key: "id",
-        // render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Expire Date'} row={row}/>),
+        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
       },
       {
         title: "Minor",
@@ -90,11 +119,11 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         title: "Fine Status",
         key: "fine",
         render: (row) => (
-          <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.fineStatus ==="due" ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
-            €{row.outstanding_fines}
+          <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.outstanding_fines !==row.fine_status ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
+            €{row.fine_status}
           </span>
         ),
-        sorter: (a, b) => a?.outstanding_fines - b?.outstanding_fines,
+        sorter: (a, b) => a?.fine_status - b?.fine_status,
       },
     {
       title: "QRC Code",

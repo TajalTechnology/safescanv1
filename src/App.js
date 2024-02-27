@@ -17,6 +17,7 @@ import ForgotPass from "./Pages/ForgotPass/ForgotPass";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SuperAdmin from "./Layout/SuperAdmin/SuperAdmin";
 import Customer from "./Pages/SuperAdmin/Customer/Customer";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
 

@@ -4,9 +4,12 @@ import TimePickerButton from '../../Shared/TimePickerButton';
 import SectionHeading from '../../Shared/SectionHeading';
 import FinesAmountChart from './FinesAmountChart';
 
-const FinesAmount = () => {
+const FinesAmount = ({counters}) => {
     const [selected, setSelected] = useState('This Month');
     const dataDay = ["This Week", "This Month"];
+
+    const counter=counters?.Items[0]
+    
     const monthlyData = [
         { type: "Due", value: 30, amount:'$5,626.22' },
         { type: "Collected ", value: 70, amount:'$732.00' },

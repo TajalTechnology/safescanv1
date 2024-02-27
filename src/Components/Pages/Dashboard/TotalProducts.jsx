@@ -2,43 +2,50 @@ import React, { useEffect, useState } from 'react';
 import SectionWrapper from '../../Shared/SectionWrapper';
 import TimePickerButton from '../../Shared/TimePickerButton';
 import TotalProductsChart from './TotalProductsChart';
+import { formattedDate } from '../../../helper/jwt';
 
-const TotalProducts = () => {
+const TotalProducts = ({ products }) => {
     const [selected, setSelected] = useState('Weekly');
-    const dataDay = ["Weekly", "Monthly"];
-    const monthlyData = [
-        { day: "Jan 2023 ", value: 25 },
-        { day: "Feb 2023", value: 30 },
-        { day: "Mar 2023", value: 25 },
-        { day: "Apr 2023", value: 30 },
-        { day: "May 2023", value: 25 },
-        { day: "Jun 2023", value: 30 },
-        { day: "Jul 2023", value: 25 },
-        { day: "Aug 2023", value: 29 },
-        { day: "Sep 2023", value: 30 },
-        { day: "Oct 2023", value: 25 },
-        { day: "Nov 2023", value: 30 },
-        { day: "Dec 2023", value: 25 },
-    ]
-    const weeklyData = [
-        { day: "sun", value: 5, },
-        { day: "Mon", value: 6 },
-        { day: "Tue", value: 7 },
-        { day: "Wed", value: 8 },
-        { day: "Thu", value: 4 },
-        { day: "Fri", value: 2 },
-        { day: "sat", value: 7 }
-    ]
+    const [getSlice, setGetSlice] = useState(7);
+    const allProducts = products?.Items
 
-    const [data, setData] = useState(weeklyData);
     useEffect(() => {
-        if (selected === "Weekly") {
-            setData(weeklyData)
+        if (selected === 'Weekly') {
+            setGetSlice(7)
         }
-        if (selected === "Monthly") {
-            setData(monthlyData)
+        if (selected === 'Monthly') {
+            setGetSlice(31)
         }
     }, [selected])
+
+    const countSameDateOccurrences = (products) => {
+        const dateCounts = {};
+        products?.forEach(product => {
+            const date = formattedDate(product.created_at);
+            if (dateCounts[date]) {
+                dateCounts[date]++;
+            } else {
+                dateCounts[date] = 1;
+            }
+        });
+
+        return dateCounts;
+    }
+
+    const convertToObjectArray = (dateCounts) => {
+        return Object.keys(dateCounts)?.map(date => ({
+            day: date,
+            value: dateCounts[date]
+        }));
+    }
+
+    const dateOccurrences = countSameDateOccurrences(allProducts);
+    const arrayOfObjects = convertToObjectArray(dateOccurrences);
+
+    const dataDay = ["Weekly", "Monthly"];
+
+    const data = arrayOfObjects?.slice(0, getSlice)
+
     return (
         <div>
             <SectionWrapper>
@@ -46,7 +53,7 @@ const TotalProducts = () => {
                     <div className='mb-10 flex items-center gap-5 justify-between flex-wrap'>
                         <div >
                             <p className={`text-sm text-info`}>Total Products</p>
-                            <h1 className={`text-[28px] font-bold text-dark-gray`}>136</h1>
+                            <h1 className={`text-[28px] font-bold text-dark-gray`}>{allProducts?.length}</h1>
                         </div>
                         <TimePickerButton
                             className="font-bold"
