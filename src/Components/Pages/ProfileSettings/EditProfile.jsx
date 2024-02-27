@@ -154,7 +154,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         }
                     </button>
                 </div> */}
-                <div>
+                {/* <div>
                     <div className="flex flex-col items-start w-full mt-3">
                         <label
                             htmlFor="otp"
@@ -178,7 +178,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
 
                     </div>
 
-                </div>
+                </div> */}
                 <div>
                     <CustomInput
                         label={'Email Address'}
@@ -284,7 +284,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                 },
                             })}
                         />
-                        <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>$</p>
+                        <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>€</p>
                     </div>
                     <div className=' relative'>
                         <CustomInput
@@ -297,7 +297,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                 },
                             })}
                         />
-                        <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>$</p>
+                        <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>€</p>
                     </div>
                     <div className=' relative'>
                         <CustomInput
@@ -310,7 +310,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                 },
                             })}
                         />
-                        <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>$</p>
+                        <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>€</p>
                     </div>
                 </div>
                 <CustomModal

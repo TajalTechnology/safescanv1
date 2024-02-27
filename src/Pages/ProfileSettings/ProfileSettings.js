@@ -126,8 +126,13 @@ const ProfileSettings = () => {
                                         <p className='text-lg font-medium -mt-1'>{data?.email}</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <CustomButton onClick={() => setOpenModal(true)}>
+                                <div className='flex items-center gap-[14px] flex-wrap'>
+                                    <CustomButton className={'bg-primary/10'} >
+                                        <span className='flex text-primary'>
+                                            <span>Change Phone Number</span>
+                                        </span>
+                                    </CustomButton>
+                                    <CustomButton  onClick={() => setOpenModal(true)}>
                                         <span className='flex items-center text-white gap-2'>
                                             <Icon className='text-lg text-white rotate-180' icon="tabler:edit-circle" />
                                             <span>Edit Information</span>
@@ -198,15 +203,15 @@ const ProfileSettings = () => {
                                 <div className='border-b py-5 border-gray-100 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2.5'>
                                     <div>
                                         <p className='text-xs font-medium'>Fines Per Minor</p>
-                                        <h1 className='text-lg font-medium text-[#485585]'>$ {data?.fines_per_mainor}</h1>
+                                        <h1 className='text-lg font-medium text-[#485585]'>€ {data?.fines_per_mainor}</h1>
                                     </div>
                                     <div>
                                         <p className='text-xs font-medium'>Fines Per Major</p>
-                                        <h1 className='text-lg font-medium text-[#485585]'>$ {data?.fines_per_major}</h1>
+                                        <h1 className='text-lg font-medium text-[#485585]'>€ {data?.fines_per_major}</h1>
                                     </div>
                                     <div>
                                         <p className='text-xs font-medium'>Fines Per Dismissal</p>
-                                        <h1 className='text-lg font-medium text-[#485585]'>$ {data?.fines_per_dismissal}</h1>
+                                        <h1 className='text-lg font-medium text-[#485585]'>€ {data?.fines_per_dismissal}</h1>
                                     </div>
 
                                 </div>

@@ -102,7 +102,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
     {
       title: "Image",
       key: "id",
-      render: (row) => (<CardModal date={'2024-04-01'} dateTitle={'Attached Date'} row={row} />),
+      render: (row) => (<CardModal refetch={refetch} date={'2024-04-01'} dateTitle={'Attached Date'} row={row} />),
     },
     {
       title: "Note",
