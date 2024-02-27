@@ -37,7 +37,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   useEffect(() => {
     if (item) {
       setActive(item?.outstanding_fines);
-      setValue("first_name", item?.username);
+      setValue("first_name", item?.first_name);
       setValue("last_name", item?.last_name);
       setValue("email", item?.email);
       setValue("phone", item?.phone);
@@ -58,7 +58,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       first_name: data.first_name,
       last_name: data.last_name,
       email: data.email,
-      phone: data.phone,
+      // phone: data.phone,
       site_address: data.site_address,
       outstanding_fines: active,
       emloyeer_name: data.emloyeer_name,
@@ -111,7 +111,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         />
       </div>
 
-      <CustomInput
+      {/* <CustomInput
         label={"Mobile Number"}
         type={"text"}
         register={register("phone", {
@@ -122,7 +122,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         })}
         error={errors.phone}
         placeholder={"Mobile Number"}
-      />
+      /> */}
 
       <CustomInput
         label={"Email Address"}

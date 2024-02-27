@@ -62,7 +62,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) =>
       title: "Plan",
       render: (row) => (
         // <span className=" text-[14px] font-normal text-info">{row?.plan}</span>
-        <Plan row={row} refetch={refetch}/>
+        <Plan row={row} refetch={refetch} refetch1={refetch1}/>
       ),
       sorter: (a, b) => a?.plan - b?.plan,
       width:"100px"
@@ -71,7 +71,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) =>
       title: "Expire Date",
 
       render: (row) => (
-        <ExpiryDate row={row} refetch={refetch}/>
+        <ExpiryDate row={row} refetch={refetch} refetch1={refetch1}/>
       ),
       sorter: (a, b) => a?.expiry_date - b?.expiry_date,
     },

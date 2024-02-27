@@ -15,6 +15,7 @@ const CardEdit = ({setModalOpen,refetch, editModal, setEditModal, imageItem, row
   // const getNextDate = formattedDate(imageItem?.expiry_date);
   const [file, setFile] = useState();
   const [nextDate, setNextDate] = useState();
+  const [loading,setLoading] = useState(false)
 
   useEffect(()=>{
     setNextDate(imageItem?.expiry_date)
@@ -31,6 +32,7 @@ const CardEdit = ({setModalOpen,refetch, editModal, setEditModal, imageItem, row
    console.log("========", nextDate);
 
   const uploadImage = async () => {
+    setLoading(true)
     const data = {
       image: file,
       type: "cards",
@@ -62,9 +64,11 @@ const CardEdit = ({setModalOpen,refetch, editModal, setEditModal, imageItem, row
         setModalOpen(true)
         setEditModal(false)
         toast.custom(<SuccessToast message={"card update"} />);
+        setLoading(false)
       }
     } catch (error) {
       toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />)
+      setLoading(false)
     }
   };
 
@@ -144,7 +148,7 @@ const CardEdit = ({setModalOpen,refetch, editModal, setEditModal, imageItem, row
             <div className="flex items-center gap-3">
               <CustomButton onClick={() => uploadImage()}>
                 <span className="flex items-center text-white gap-2">
-                  <span>Save Changes</span>
+                {loading? <span>Loading...</span> : <span>Save Changes</span>}
                 </span>
               </CustomButton>
               <button

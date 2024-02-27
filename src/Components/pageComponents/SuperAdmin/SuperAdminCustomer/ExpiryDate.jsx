@@ -8,7 +8,7 @@ import { formattedDate } from "../../../../helper/jwt";
 import { usePlanMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
 
-const ExpiryDate = ({ row,refetch }) => {
+const ExpiryDate = ({ row,refetch,refetch1 }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const [value, onChange] = useState(new Date());
 
@@ -23,6 +23,7 @@ const ExpiryDate = ({ row,refetch }) => {
       const message = "Plan Update success";
       toast.success(message);
       refetch()
+      refetch1()
       setModalOpen(false)
     }
     if (error) {

@@ -23,22 +23,9 @@ const AllCard = ({ row, refetch }) => {
   const [deletModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [updatedImages, setUpdatedImages] = useState([])
-  const [file, setFile] = useState("")
-  const [updateProduct, { isLoading, isSuccess, error }] = useUpdateProductMutation();
+
   const [imageDelete,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}] = useImageDeleteMutation()
 
-  useEffect(() => {
-    if (isSuccess) {
-      const message = "Product Successfully Updated";
-      toast.custom(<SuccessToast message={message} />);
-      // refetch();
-      setModalOpen(false);
-    }
-    if (error) {
-      const errorMsg = error?.data.error || error?.data.message
-      toast.custom(<ErrorToast message={errorMsg} />);
-    }
-  }, [isSuccess, error]);
 
 
 // ===============delete message==========
@@ -62,7 +49,9 @@ const AllCard = ({ row, refetch }) => {
   console.log("====imageItem======",imageItem)
 
   useEffect(()=>{
-     setImageItame(row?.cards[imgIndex])
+    if(row?.cards){
+      setImageItame(row?.cards[imgIndex])
+    }
   },[row,imgIndex])
 
 
@@ -82,10 +71,11 @@ const AllCard = ({ row, refetch }) => {
     <>
       <Tooltip placement="topLeft" title="View Images">
         <button
+          disabled={row?.cards?.length? false : true}
           onClick={() => setModalOpen(true)}
           className=" text-[14px] font-normal text-info flex items-center gap-1 "
         >
-          <Icon icon="lucide:image" className=" text-[20px]" />{updatedImages?.length}
+          <Icon icon="lucide:image" className=" text-[20px]" />{row?.cards?.length? updatedImages?.length : "0"}
         </button>
       </Tooltip>
       <Modal

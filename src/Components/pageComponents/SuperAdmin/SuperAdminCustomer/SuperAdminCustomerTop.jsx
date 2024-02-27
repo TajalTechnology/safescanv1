@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import SectionWrapper from "../../../Shared/SectionWrapper";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
+import { formattedDate } from "../../../../helper/jwt";
 
 const SuperAdminCustomerTop = () => {
   const [searchQuery, sestSearchQuery] = useState("");
@@ -25,6 +26,35 @@ console.log("fsdfdsfdfdfdfdf===========dsfsdff",timestamp)
   const { data:data1, } = useCustomersQuery(`is_approved=true&`, {
     refetchOnMountOrArgChange: true,
   });
+
+
+  const countSameDateOccurrences = (products) => {
+    const dateCounts = {};
+    products?.forEach(product => {
+        const date = formattedDate(product.created_at);
+        if (dateCounts[date]) {
+            dateCounts[date]++;
+        } else {
+            dateCounts[date] = 1;
+        }
+    });
+
+    return dateCounts;
+}
+
+const convertToObjectArray = (dateCounts) => {
+  return Object.keys(dateCounts)?.map(date => ({
+      day: date,
+      value: dateCounts[date]
+  }));
+}
+
+const dateOccurrencesWorkers = countSameDateOccurrences(data);
+
+const arrayOfObjectsWorkers = convertToObjectArray(dateOccurrencesWorkers);
+
+
+console.log("============",arrayOfObjectsWorkers)
 
 
 

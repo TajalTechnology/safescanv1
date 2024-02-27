@@ -41,7 +41,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
   useEffect(() => {
     if (item) {
       setActive(item?.outstanding_fines);
-      setValue('first_name', item?.username);
+      setValue('first_name', item?.first_name);
       setValue('last_name', item?.last_name);
       setValue('email', item?.email);
       setValue('phone', item?.phone);
@@ -62,7 +62,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
       first_name: data.first_name,
       last_name: data.last_name,
       email: data.email,
-      phone: data.phone,
+      // phone: data.phone,
       site_address: data.site_address,
       emloyeer_name: data.emloyeer_name,
       ice_name: data.ice_name,
@@ -113,7 +113,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         />
       </div>
 
-      <CustomInput
+      {/* <CustomInput
         label={"Mobile Number"}
         type={"text"}
         register={register("phone", {
@@ -124,7 +124,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         })}
         error={errors.phone}
         placeholder={"Mobile Number"}
-      />
+      /> */}
 
       <CustomInput
         label={"Email Address"}
@@ -151,7 +151,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         register={register("emloyeer_name")}
         placeholder={"Enter Employers Name"}
       />
-            <CustomInput
+      <CustomInput
         label={"ICE Name"}
         type={"text"}
         register={register("ice_name")}
