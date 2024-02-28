@@ -13,9 +13,10 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-bold text-[#485585]">
-          {row?.username} {row?.last_name}
+          {row?.first_name} {row?.last_name}
         </span>
       ),
+      width:"100px"
     },
     {
         title: "Mobile Number",
@@ -139,7 +140,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
   ];
 
   return (
-    <div>
+    <div className="w-full">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}

@@ -73,7 +73,7 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1 }) => {
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full mt-[0px] px-9 pb-9"
+            className="w-full mt-[0px] px-9 pb-9 h-[75vh] overflow-y-scroll"
           >
             <div className=" flex items-center gap-5 justify-between">
               <CustomInput

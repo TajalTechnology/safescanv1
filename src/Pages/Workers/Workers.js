@@ -80,13 +80,13 @@ const Workers = () => {
                   <Loader />
               </div>
             ) : (
-              <>
+              <div className="w-full">
                 <WorkersTable
                   tableData={updateData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />
-              </>
+              </div>
             )}
           </div>
         </div>
