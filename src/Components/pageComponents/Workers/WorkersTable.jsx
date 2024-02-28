@@ -13,7 +13,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-bold text-[#485585]">
-          {row?.first_name} {row?.last_name}
+          {row?.frist_name} {row?.last_name}
         </span>
       ),
       width:"100px"

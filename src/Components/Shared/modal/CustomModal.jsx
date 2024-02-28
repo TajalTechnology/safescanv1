@@ -44,7 +44,7 @@ const CustomModal = ({
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="w-full mt-[0px] px-9 pb-9">
+          <form onSubmit={handleSubmit} className="w-full mt-[0px] h-[75vh] overflow-y-scroll px-9 pb-9">
             <div className="">{children}</div>
             <div className="mt-[30px] flex items-center gap-5">
               <CustomButton  className={" w-full"}>{buttonText}</CustomButton>

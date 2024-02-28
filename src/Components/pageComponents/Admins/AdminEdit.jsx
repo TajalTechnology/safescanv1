@@ -37,7 +37,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   useEffect(() => {
     if (item) {
       setActive(item?.outstanding_fines);
-      setValue("first_name", item?.first_name);
+      setValue("frist_name", item?.frist_name);
       setValue("last_name", item?.last_name);
       setValue("email", item?.email);
       setValue("phone", item?.phone);
@@ -55,7 +55,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   const onSubmit = async (data) => {
     const body = {
       username: item?.username,
-      first_name: data.first_name,
+      frist_name: data.frist_name,
       last_name: data.last_name,
       email: data.email,
       // phone: data.phone,
@@ -87,13 +87,13 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         <CustomInput
           label={"First Name"}
           type={"text"}
-          register={register("first_name", {
+          register={register("frist_name", {
             required: {
               value: true,
               message: "Please enter first name",
             },
           })}
-          error={errors.first_name}
+          error={errors.frist_name}
           placeholder={"Enter First Name"}
         />
 

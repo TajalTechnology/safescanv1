@@ -41,7 +41,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
   useEffect(() => {
     if (item) {
       setActive(item?.outstanding_fines);
-      setValue('first_name', item?.first_name);
+      setValue('first_name', item?.frist_name);
       setValue('last_name', item?.last_name);
       setValue('email', item?.email);
       setValue('phone', item?.phone);
@@ -59,7 +59,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
   const onSubmit = async(data) => {
     const body = {
       username: item?.username,
-      first_name: data.first_name,
+      frist_name: data.first_name,
       last_name: data.last_name,
       email: data.email,
       // phone: data.phone,
