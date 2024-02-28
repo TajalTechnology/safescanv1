@@ -72,6 +72,7 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
       minor: Number(data.minor),
       major: Number(data.major),
       dismissal: Number(data.dismissal),
+      is_active:true
     }
     const id = item?.userid;
     await approveUser({id,body});
@@ -200,12 +201,12 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         </h3>
         <div className="w-full relative flex item-center justify-center overflow-hidden  gap-0 border-[1px] rounded-[10px]">
           <div className=" flex items-center h-[44px] px-[14px] w-[250px] rounded-l-[10px] border-[1px] border-[#F40909]/30 ">
-            <h2 className=" font-medium text-[14px] text-[#F40909]">Fines Due: €{item.fine_status} </h2>
+            <h2 className=" font-medium text-[14px] text-[#F40909]">Fines Due: €{item.fine_status-item?.outstanding_fines} </h2>
           </div>
           <input
             className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0] rounded-[10px]  w-full text-sm font-medium outline-none border-none "
             type={"number"}
-            placeholder={item?.outstanding_fines}
+            placeholder={"Enter Amount"}
             id="otp"
             {...register("outstanding_fines")}
           />

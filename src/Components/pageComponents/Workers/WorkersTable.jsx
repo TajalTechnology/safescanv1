@@ -121,10 +121,10 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
         key: "fine",
         render: (row) => (
           <span className={`text-[14px] font-medium py-1 px-3 rounded-full ${row?.outstanding_fines !==row.fine_status ? "bg-[#F40909]/10 text-[#F40909]" : "bg-[#4CC800]/10 text-[#4CC800]"}`}>
-            €{row.fine_status}
+            €{row.fine_status-row?.outstanding_fines}
           </span>
         ),
-        sorter: (a, b) => a?.fine_status - b?.fine_status,
+        sorter: (a, b) => (a?.fine_status-a.outstanding_fines) - (b?.fine_status-b.outstanding_fines),
       },
       {
         title: "QRC Code",
