@@ -9,30 +9,31 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "./DeleteModal";
-import { useUpdateProductMutation } from "../../../redux/features/admin/adminApi";
+import { useDeleteProductCardImageMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { formattedDate } from "../../../helper/jwt";
 
-const CardModal = ({ row, date, dateTitle, refetch }) => {
+const CardModal = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const { token } = useSelector((state) => state.auth)
   const [imgIndex, setImageIndex] = useState(0);
   const [deletModal, setDeleteModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
+  // const [editModal, setEditModal] = useState(false);
   const [updatedImages, setUpdatedImages] = useState([])
-  const [file, setFile] = useState("")
+  // const [file, setFile] = useState("")
   const [isSuccess, setIsSuccess] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+
+  const [deleteProductCardImage, { isSuccess:deletImageSuccess, error:deleteImageError }] = useDeleteProductCardImageMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Product Successfully Updated";
-      toast.custom(<SuccessToast message={message} />);
-      // refetch();
-      setModalOpen(false);
+      toast.custom(<SuccessToast message={isSuccess} />);
     }
     if (error) {
       const errorMsg = error?.data.error || error?.data.message
@@ -41,24 +42,31 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
   }, [isSuccess, error]);
 
   useEffect(() => {
+    if (deletImageSuccess) {
+      toast.custom(<SuccessToast message={'Image Successfully Deleted.'} />);
+      refetch();
+      setDeleteModal(false)
+    }
+    if (deleteImageError) {
+      const errorMsg = deleteImageError?.data.error || deleteImageError?.data.message
+      toast.custom(<ErrorToast message={errorMsg} />);
+    }
+  }, [deletImageSuccess, deleteImageError]);
+
+  useEffect(() => {
     setUpdatedImages(row?.product_images)
   }, [row]);
 
   const img = `https://scansafes3.s3.amazonaws.com/${updatedImages[imgIndex]}`
 
 
-
-  const saveChange = async () => {
-
-    if (file) {
-      const newImages = [...updatedImages];
-      newImages[imgIndex] = file;
-
+  const addImage = async (e) => {
+    setIsLoading(true)
+    const getImage = e.target.files[0]
+    if (getImage) {
+ 
       const formData = new FormData();
-      newImages.forEach((image, index) => {
-        formData.append(`files[${index}]`, image);
-      });
-
+      formData.append(`files`,getImage)
       const id = row?.productid;
       try {
         const response = await axios.patch(`/api/v1/products/${id}`, formData, {
@@ -68,7 +76,8 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
           },
         })
         refetch();
-        setIsSuccess("Profile Updated")
+        setIsLoading(false)
+        setIsSuccess("Successfully Image Added.")
         console.log(response.data)
       } catch (error) {
         console.log('error', error)
@@ -77,6 +86,15 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
 
     }
 
+  }
+
+  const handelDelete=async()=>{
+    const id = `${row?.productid}`;
+    const body={
+      index:imgIndex
+    }
+    console.log(id, "------",body)
+    await deleteProductCardImage({id,body});
   }
 
   return (
@@ -124,24 +142,22 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
           <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
             <div className="">
               <p className="text-[20px] font-bold text-dark-gray">
-                {dateTitle}:<span className="text-lg font-medium"> {date}</span>
+                Attached Date:<span className="text-lg font-medium"> {formattedDate(row?.created_at)}</span>
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <CustomButton
-                onClick={() => {
-                  setEditModal(true);
-                  setModalOpen(false);
-                }}
-              >
-                <span className="flex items-center text-white gap-2">
-                  <Icon
-                    className="text-lg text-white rotate-180"
-                    icon="tabler:edit-circle"
-                  />
-                  <span>Edit</span>
-                </span>
-              </CustomButton>
+
+              <div className=' px-3.5 h-10 bg-primary/10  duration-300 rounded-[4px]  font-medium text-sm text-primary  flex items-center justify-center'>
+                <label for="file-input" className="cursor-pointer" >
+                  {isLoading?'Loading...':'Add Image'}
+                </label>
+                <input
+                  type="file"
+                  id="file-input"
+                  className='hidden'
+                onChange={addImage}
+                />
+              </div>
               <button
                 onClick={() => setDeleteModal(true)}
                 className=" bg-error/10 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white"
@@ -208,7 +224,7 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
       </Modal>
 
       {/* Edit Modal */}
-      <Modal
+      {/* <Modal
         centered
         cancelText
         cancelButtonProps
@@ -281,11 +297,11 @@ const CardModal = ({ row, date, dateTitle, refetch }) => {
             </div>
           </div>
         </div>
-      </Modal>
+      </Modal> */}
 
       <DeleteModal
         modalOPen={deletModal}
-        // onDelete={() => handelDelete()}
+        onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
