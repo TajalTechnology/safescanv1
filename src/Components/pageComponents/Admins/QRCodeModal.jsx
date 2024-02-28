@@ -160,7 +160,7 @@ const QRCodeModal = ({ row }) => {
             </div>
             <div className="flex items-center gap-3">
               <button
-                onClick={downloadImage}
+                onClick={captureAndDownload}
                 className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white"
               >
                 <Icon
