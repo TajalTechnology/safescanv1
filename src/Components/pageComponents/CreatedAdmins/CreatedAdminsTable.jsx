@@ -28,7 +28,7 @@ const CreatedAdminsTable = ({ tableData, rowSelection, refetch }) => {
       width: "100px",
       render: (row) => (
           <div>
-            {row.is_verified ? (
+            {row.is_active ? (
               <span
                 className={`text-[14px] font-medium py-1 px-3 rounded-full bg-[#4CC800]/10 text-[#4CC800]`}
               >

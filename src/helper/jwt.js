@@ -37,3 +37,37 @@ export const dateChange = (dateString)=>{
     const formattedDate = date.toISOString().split('T')[0];
     return formattedDate;
 }
+
+
+export const fetchDataAndCalculateValues = (Data) => {
+
+    // Filter out invalid dates and get the last 7 days including today
+    const validDates = Data.filter(entry => entry.day !== "NaN-NaN-NaN");
+    const last7Days = validDates.slice(-7);
+  
+    // Extract values for the last 7 days
+    const valuesLast7Days = last7Days.map(entry => entry.value);
+  
+    // Sum up the values
+    const totalValueLast7Days = valuesLast7Days.reduce((acc, cur) => acc + cur, 0);
+  
+    return totalValueLast7Days;
+  };
+
+
+  export const todayDataGet = (Data) => {
+    
+    // Filter out invalid dates and get the last 7 days including today
+    const validDates = Data.filter(entry => entry?.day !== "NaN-NaN-NaN");
+    const todayData = validDates?.find(entry => entry?.day === getCurrentDate());
+    return todayData?.value ;
+  };
+  
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  

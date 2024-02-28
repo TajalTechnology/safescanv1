@@ -28,6 +28,8 @@ const Admins = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const filterData = data?.filter((item)=>item?.is_active === true)
+
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
@@ -55,7 +57,7 @@ const Admins = () => {
   };
 
   // ======add a key for selected=======
-  const updateData = data?.map((item) => ({ key: item?.userid, ...item }));
+  const updateData = filterData?.map((item) => ({ key: item?.userid, ...item }));
 
   return (
     <>

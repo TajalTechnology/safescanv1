@@ -4,7 +4,7 @@ import React from 'react';
 const Notification = ({ data }) => {
     return (
         <div className='h-[80vh]  overflow-y-auto'>
-            {data.map((notifi, index) => <div key={index} className='flex  gap-2 items-center border-b border-gray-100 py-[18px] w-full '>
+            {data?.map((notifi, index) => <div key={index} className='flex  gap-2 items-center border-b border-gray-100 py-[18px] w-full '>
                 <div className={` flex items-center justify-center rounded-[10px] p-2 ${notifi.position === 'warning' ? 'text-Warning bg-Warning/10' : ' text-error bg-error/10'}`}>
 
                     {notifi.position === 'warning' ? <Icon className='text-lg' icon="ph:warning-bold" /> : <Icon className='text-lg' icon="mingcute:warning-line" />}

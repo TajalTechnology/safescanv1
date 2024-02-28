@@ -22,6 +22,8 @@ const Workers = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const filterData = data?.filter((item)=>item?.is_active === true)
+
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
@@ -49,7 +51,7 @@ const Workers = () => {
   };
 
   // ======add a key for selected=======
-  const updateData = data?.map((item, index) => ({
+  const updateData = filterData?.map((item, index) => ({
     key: index + 1,
     ...item,
   }));
@@ -80,13 +82,13 @@ const Workers = () => {
                   <Loader />
               </div>
             ) : (
-              <>
+              <div className="w-full">
                 <WorkersTable
                   tableData={updateData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />
-              </>
+              </div>
             )}
           </div>
         </div>
