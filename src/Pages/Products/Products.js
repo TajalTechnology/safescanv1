@@ -14,7 +14,6 @@ const Products = () => {
   const [searchValue] = useDebounce(search, 1000);
 
   // -----------get all products-----------
-  //  const { data, isLoading, refetch } = useGetProductsQuery(`search=${searchValue}`);
 
   const { data, isLoading, refetch } = useGetProductsQuery(searchQuery, {
     refetchOnMountOrArgChange: true,

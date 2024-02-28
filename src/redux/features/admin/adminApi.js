@@ -59,6 +59,13 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    deleteProductCardImage: builder.mutation({
+      query: ({id,body}) => ({
+        url: `products/delete-product-image/${id}`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
 
     updateProduct: builder.mutation({
       query: ({ id, body }) => ({
@@ -124,4 +131,5 @@ export const {
   useGetCountersQuery,
   useGetNotificationsQuery,
   useImageDeleteMutation,
+  useDeleteProductCardImageMutation
 } = adminApi;
