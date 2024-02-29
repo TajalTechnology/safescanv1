@@ -4,6 +4,7 @@ import QRCode from "./QRCodeModal";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 import AllCard from "../../Shared/modal/AllCard";
+import Note from "./Note";
 
 const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
@@ -78,6 +79,13 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
             {row?.medical_condition}
           </span>
         ),
+      },
+
+      {
+        title: "Notes",
+        key: "id",
+        render: (row) => (<Note  row={row} refetch={refetch}/>),
+        width:"80px"
       },
 
       {
