@@ -11,7 +11,7 @@ const Notification = ({ data }) => {
                 <div className={` flex items-center justify-center rounded-[10px] p-2 ${notifi?.is_read ===true ? 'text-Warning bg-Warning/10' : ' text-error bg-error/10'}`}>
 
                     {notifi?.is_read ===true ? <Icon className='text-lg' icon="ph:warning-bold" /> : <Icon className='text-lg' icon="mingcute:warning-line" />}
-
+                    {/* <img src={`https://scansafes3.s3.amazonaws.com/icone.png`} alt='dkdjfds'/> */}
 
                 </div>
                 <div className='flex justify-between w-full flex-wrap gap-3'>

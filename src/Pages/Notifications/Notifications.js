@@ -62,7 +62,7 @@ const Notifications = () => {
                     { title: "Notifications", url: "/admin/notifications" },
                 ]}
             />
-            {/* <img src='https://scansafes3.s3.amazonaws.com/icone.png' alt='dkdjfds'/> */}
+            <img src='https://scansafes3.s3.amazonaws.com/icone.png' alt='dkdjfds'/>
             <div className='mb-10'>
                 <SectionWrapper>
                     <div className=' px-[25px] py-7'>
