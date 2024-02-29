@@ -77,7 +77,7 @@ const Profile = () => {
         }
 
     }
-
+console.log(data?.profile_image)
     return (
         <div className='-mt-10 relative'>
             {

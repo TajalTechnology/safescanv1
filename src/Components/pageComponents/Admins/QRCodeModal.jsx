@@ -12,73 +12,78 @@ const QRCodeModal = ({ row }) => {
   const componentRef = useRef();
   const [share, setShare] = useState(false);
   const [shareText, setShareText] = useState("");
-  const [type, setType] = useState("email");
+  const [type, setType] = useState("Whatsapp");
 
-  const imageUrl = `https://static-01.daraz.com.bd/p/b4ebb81a42342a8b2c88343797a93baa.jpg_750x750.jpg_.webp`;
-
-  console.log(row);
-
-  const downloadImage = () => {
-    const imageFileName = 'downloaded_image.jpg';
-
-    // Create an anchor element
-    const anchor = document.createElement('a');
-    anchor.href = imageUrl;
-    anchor.download = imageFileName;
-    document.body.appendChild(anchor);
-    
-    // Trigger the download
-    anchor.click();
-
-    // Cleanup
-    document.body.removeChild(anchor);
-  };
 
   // ========download funcation===========
-  const captureAndDownload = () => {
-    // const component = document.getElementById("pdf-component");
-    // if (component) {
-    //   html2canvas(component).then(async (canvas) => {
-        // const dataURL = canvas.toDataURL("image/jpeg");
-        const dataURL = `https://static-01.daraz.com.bd/p/b4ebb81a42342a8b2c88343797a93baa.jpg_750x750.jpg_.webp`;
-        const a = document.createElement("a");
-        a.href = dataURL;
-        a.download = `${row?.last_name}-qrCode.jpg`;
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    //   });
-    // }
-  };
 
-  // ======Share funcation=========
-  const handleShare = () => {
-    if (type === "email") {
-      if (shareText.trim() !== "") {
-        console.log(shareText);
-        // Create a mailto link with the email address
-        const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
 
-        // Open the default email client
-        window.location.href = mailtoLink;
-        setShare(false);
+  const handleDownload = async () => {
+
+    const qrCode = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
+    try {
+      // Check if the qrCode URI is available
+      if (!qrCode) {
+        throw new Error('QR code URI is not available');
       }
-    }
-    if (type === "Whatsapp") {
-      if (shareText.trim() !== "") {
-        const whatsappMessage = `Hi, this is your : 
-          - userName = ${row?.username} 
-          - password = ${row?.password} 
-        `;
-        // const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
-        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(
-          `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
-        )}`;
 
-        // Open WhatsApp
-        window.open(whatsappLink, "_blank");
-        setShare(false);
+      const response = await fetch(qrCode);
+      const blob = await response.blob();
+
+      // Create a temporary anchor element to download the file
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'qrcode.png';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading QR code:', error);
+      // Show an error message if the download fails
+      alert('Failed to download QR code. Please try again.');
+    }
+  }
+
+  // const captureAndDownload = () => {
+  //   const component = document.getElementById("pdf-component");
+
+  //   if (component) {
+  //     // const originalWidth = component.scrollWidth;
+  //     // const originalHeight = component.scrollHeight;
+
+  //     // // Set the element's size to cover the entire content
+  //     // component.style.width = `${originalWidth}px`;
+  //     // component.style.height = `${originalHeight}px`;
+
+  //     html2canvas(component).then(async (canvas) => {
+  //       const dataURL = canvas.toDataURL("image/jpeg");
+  //       const a = document.createElement("a");
+  //       a.href = dataURL;
+  //       a.download = `image.png`;
+  //       //only here download as pdf
+  //       a.style.display = "none";
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //     });
+  //   }
+  // };
+  console.log(row?.qrc_image)
+  // ======Share funcation=========
+  const handleShare = async () => {
+
+    if (type === 'Whatsapp') {
+      if (shareText.trim() !== '') {
+        const whatsappMessage = `
+        Hi, I am from Logoipsum.
+
+        https://scansafes3.s3.amazonaws.com/${row?.qrc_image}
+
+         `
+        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(whatsappLink, '_blank');
+        setShare(false)
       }
     }
   };
@@ -93,6 +98,7 @@ const QRCodeModal = ({ row }) => {
           <img src="/Images/QR_Code.png" alt="QR" />
         </button>
       </Tooltip>
+
       <Modal
         centered
         cancelText
@@ -133,9 +139,11 @@ const QRCodeModal = ({ row }) => {
             </div>
             {/* <QRCode size={250} className=" " value={row.email} /> */}
             <div
-              id="pdf-component"
+
             >
               <img
+
+                // src={`https://scansafes3.s3.amazonaws.com/1708928709838-Screenshot_23.png`}
                 src={`https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`}
                 alt="qr-code"
                 className="w-[300px] h-[300px]"
@@ -160,7 +168,7 @@ const QRCodeModal = ({ row }) => {
             </div>
             <div className="flex items-center gap-3">
               <button
-                onClick={captureAndDownload}
+                onClick={handleDownload}
                 className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white"
               >
                 <Icon
@@ -169,7 +177,7 @@ const QRCodeModal = ({ row }) => {
                 />
               </button>
               <button
-                onClick={() => setShare(true)}
+                onClick={() => { setShare(true); setModalOpen(false) }}
                 className=" bg-primary/20 flex items-center justify-center hover:bg-primary/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-primary hover:text-white"
               >
                 <Icon icon="lucide:share-2" className=" text-[20px]" />
