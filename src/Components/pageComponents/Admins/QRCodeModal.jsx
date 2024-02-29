@@ -4,36 +4,83 @@ import React, { useRef, useState } from "react";
 // import QRCode from "qrcode.react";
 // import html2canvas from "html2canvas";
 import ReactToPrint from "react-to-print";
+import ShareModal from "../../Shared/modal/ShareModal";
+import html2canvas from "html2canvas";
 
 const QRCodeModal = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const componentRef = useRef();
+  const [share, setShare] = useState(false);
+  const [shareText, setShareText] = useState("");
+  const [type, setType] = useState("email");
+
+  const imageUrl = `https://static-01.daraz.com.bd/p/b4ebb81a42342a8b2c88343797a93baa.jpg_750x750.jpg_.webp`;
 
   console.log(row);
 
-  // const downloadImage = () => {
-  //   const link = document.createElement("a");
-  //   link.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
-  //   link.download = "image.png";
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
+  const downloadImage = () => {
+    const imageFileName = 'downloaded_image.jpg';
 
+    // Create an anchor element
+    const anchor = document.createElement('a');
+    anchor.href = imageUrl;
+    anchor.download = imageFileName;
+    document.body.appendChild(anchor);
+    
+    // Trigger the download
+    anchor.click();
+
+    // Cleanup
+    document.body.removeChild(anchor);
+  };
+
+  // ========download funcation===========
   const captureAndDownload = () => {
     // const component = document.getElementById("pdf-component");
     // if (component) {
     //   html2canvas(component).then(async (canvas) => {
-    const dataURL = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
-    const a = document.createElement("a");
-    a.href = dataURL;
-    a.download = `${row?.last_name}-qrCode.jpg`;
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    // })
+        // const dataURL = canvas.toDataURL("image/jpeg");
+        const dataURL = `https://static-01.daraz.com.bd/p/b4ebb81a42342a8b2c88343797a93baa.jpg_750x750.jpg_.webp`;
+        const a = document.createElement("a");
+        a.href = dataURL;
+        a.download = `${row?.last_name}-qrCode.jpg`;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    //   });
     // }
+  };
+
+  // ======Share funcation=========
+  const handleShare = () => {
+    if (type === "email") {
+      if (shareText.trim() !== "") {
+        console.log(shareText);
+        // Create a mailto link with the email address
+        const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
+
+        // Open the default email client
+        window.location.href = mailtoLink;
+        setShare(false);
+      }
+    }
+    if (type === "Whatsapp") {
+      if (shareText.trim() !== "") {
+        const whatsappMessage = `Hi, this is your : 
+          - userName = ${row?.username} 
+          - password = ${row?.password} 
+        `;
+        // const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(shareText)}`;
+        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(
+          `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
+        )}`;
+
+        // Open WhatsApp
+        window.open(whatsappLink, "_blank");
+        setShare(false);
+      }
+    }
   };
 
   return (
@@ -71,7 +118,6 @@ const QRCodeModal = ({ row }) => {
           </div>
           <div
             ref={componentRef}
-            id="pdf-component"
             className="w-full flex items-center flex-col justify-center py-7"
           >
             <div className=" flex items-center gap-2 ">
@@ -81,16 +127,20 @@ const QRCodeModal = ({ row }) => {
                   Company Name
                 </h3>
                 <h4 className=" text-[#68769F] font-medium text-base">
-                  Employee : {row?.first_name} {row?.last_name}
+                  Employee : {row?.frist_name} {row?.last_name}
                 </h4>
               </div>
             </div>
             {/* <QRCode size={250} className=" " value={row.email} /> */}
-            <img
-              src={`https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`}
-              alt="qr-code"
-              className="w-[300px] h-[300px]"
-            />
+            <div
+              id="pdf-component"
+            >
+              <img
+                src={`https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`}
+                alt="qr-code"
+                className="w-[300px] h-[300px]"
+              />
+            </div>
           </div>
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -118,13 +168,27 @@ const QRCodeModal = ({ row }) => {
                   className=" text-[25px]"
                 />
               </button>
-              <button className=" bg-primary/20 flex items-center justify-center hover:bg-primary/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-primary hover:text-white">
+              <button
+                onClick={() => setShare(true)}
+                className=" bg-primary/20 flex items-center justify-center hover:bg-primary/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-primary hover:text-white"
+              >
                 <Icon icon="lucide:share-2" className=" text-[20px]" />
               </button>
             </div>
           </div>
         </div>
       </Modal>
+
+      <ShareModal
+        type={type}
+        setType={setType}
+        item={row}
+        modalOPen={share}
+        setModalOpen={setShare}
+        shareText={shareText}
+        setShareText={setShareText}
+        handleShare={handleShare}
+      />
     </>
   );
 };

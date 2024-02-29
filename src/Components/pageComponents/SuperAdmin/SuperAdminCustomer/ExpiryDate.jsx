@@ -7,10 +7,12 @@ import CustomButton from "../../../Shared/CustomButton";
 import { formattedDate } from "../../../../helper/jwt";
 import { usePlanMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
+import ErrorToast from "../../../Shared/Toast/ErrorToast";
+import SuccessToast from "../../../Shared/Toast/SuccessToast";
 
 const ExpiryDate = ({ row,refetch,refetch1 }) => {
   const [modalOPen, setModalOpen] = useState(false);
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState(new Date(row?.expiry_date));
 
   const formattedNextDate = formattedDate(value)
 
@@ -20,15 +22,15 @@ const ExpiryDate = ({ row,refetch,refetch1 }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Plan Update success";
-      toast.success(message);
+      const message = "Expiry Date Update success";
+      toast.custom(<SuccessToast message={message} />);
       refetch()
       refetch1()
       setModalOpen(false)
     }
     if (error) {
       console.log("===error====", error);
-      toast.error(error?.data.error || error?.data.message);
+      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
 
@@ -46,7 +48,7 @@ const ExpiryDate = ({ row,refetch,refetch1 }) => {
     <>
       <div className="flex items-center justify-between">
         <span className=" text-[14px] font-normal text-info">
-          {row?.expiry_date === " " ? "set date" : row?.expiry_date}
+          {row?.expiry_date ?  row?.expiry_date : "set date"}
         </span>
         <button onClick={() => setModalOpen(true)}>
           <Icon
@@ -65,7 +67,7 @@ const ExpiryDate = ({ row,refetch,refetch1 }) => {
         styles={{ borderRadius: 30 }}
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
-        width={550}
+        width={600}
         className={` bg-red-500 pt-3 rounded-[30px]`}
       >
         <div className="p-7">
@@ -81,11 +83,11 @@ const ExpiryDate = ({ row,refetch,refetch1 }) => {
             </button>
           </div>
           <div className=" w-full flex items-center justify-center mt-5">
-            <div>
+            <div className="w-[330px]">
               <Calendar onChange={onChange} value={value} />
             </div>
           </div>
-          <div className="mt-[30px] flex items-center gap-5">
+          <div className="mt-[70px] flex items-center gap-5">
             <button
               type="button"
               onClick={() => setModalOpen(false)}

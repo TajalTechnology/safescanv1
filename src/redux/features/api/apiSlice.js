@@ -42,10 +42,27 @@ export const apiSlice = createApi({
                     console.log(error?.error?.status)
                 }
             }
+        }),
+        loadMe:builder.query({
+            query:(query)=>({
+                url:`users`,
+                method:"GET",
+            }),
+            async onQueryStarted(arg,{queryFulfilled,dispatch}){
+                try {
+                    const result = await queryFulfilled;
+                } catch (error) {
+                    if(error?.error?.status){
+                        localStorage.removeItem("user")
+                        localStorage.removeItem("token")
+                    }
+                    console.log(error?.error?.status)
+                }
+            }
         })
     }),
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),
 })
 
-export const {useRefreshTokenQuery,useLoadUserQuery} = apiSlice
+export const {useRefreshTokenQuery,useLoadUserQuery,useLoadMeQuery} = apiSlice

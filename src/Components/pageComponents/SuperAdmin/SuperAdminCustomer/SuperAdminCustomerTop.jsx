@@ -2,11 +2,11 @@ import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import SectionWrapper from "../../../Shared/SectionWrapper";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
-import { formattedDate } from "../../../../helper/jwt";
+import { fetchDataAndCalculateValues, formattedDate, todayDataGet } from "../../../../helper/jwt";
 
 const SuperAdminCustomerTop = () => {
   const [searchQuery, sestSearchQuery] = useState("");
-  const { data, isLoading, refetch } = useCustomersQuery("", {
+  const { data, isLoading } = useCustomersQuery("", {
     refetchOnMountOrArgChange: true,
   });
 
@@ -17,18 +17,12 @@ const SuperAdminCustomerTop = () => {
   var sevenDaysAgo = new Date(currentDate);
   sevenDaysAgo.setDate(currentDate.getDate() - 7);
 
-// Get the timestamp
-let timestamp = currentDate.getTime();
-const firstDate = sevenDaysAgo.getTime();
-
-console.log("fsdfdsfdfdfdfdf===========dsfsdff",timestamp)
-
   const { data:data1, } = useCustomersQuery(`is_approved=true&`, {
     refetchOnMountOrArgChange: true,
   });
 
 
-  const countSameDateOccurrences = (products) => {
+const countSameDateOccurrences = (products) => {
     const dateCounts = {};
     products?.forEach(product => {
         const date = formattedDate(product.created_at);
@@ -49,12 +43,17 @@ const convertToObjectArray = (dateCounts) => {
   }));
 }
 
-const dateOccurrencesWorkers = countSameDateOccurrences(data);
+// =====get total user data=======
+const  totalUser = countSameDateOccurrences(data);
+const totalData = convertToObjectArray(totalUser);
 
-const arrayOfObjectsWorkers = convertToObjectArray(dateOccurrencesWorkers);
+
+// =====get approved  user data=======
+const  approvedData = countSameDateOccurrences(data1);
+const approvedUser = convertToObjectArray(approvedData);
 
 
-console.log("============",arrayOfObjectsWorkers)
+
 
 
 
@@ -74,18 +73,18 @@ console.log("============",arrayOfObjectsWorkers)
                 </div>
                 <div className="h-10 -mt-2">
                   <p className="text-xs font-medium text-info/50">Total Customers</p>
-                  <h1 className="text-2xl font-bold text-dark-gray">{data?.length}</h1>
+                  <h1 className="text-2xl font-bold text-dark-gray">{isLoading? "...":data?.length}</h1>
                 </div>
               </div>
 
               <div className="flex items-center h-10 w-full  md:w-[65%]  justify-between mt-10 md:mt-0">
                 <div className="w-[50%]">
                   <p className="text-xs font-medium text-info/50">Today</p>
-                  <h1 className="text-2xl font-bold text-dark-gray">02</h1>
+                  <h1 className="text-2xl font-bold text-dark-gray">{isLoading ? "..." :todayDataGet(totalData)}</h1>
                 </div>
                 <div className="w-[50%]">
                   <p className="text-xs font-medium text-info/50">Last Week</p>
-                  <h1 className="text-2xl font-bold text-dark-gray">16</h1>
+                  <h1 className="text-2xl font-bold text-dark-gray">{isLoading ? "..." : fetchDataAndCalculateValues(totalData)}</h1>
                 </div>
               </div>
             </div>
@@ -102,7 +101,7 @@ console.log("============",arrayOfObjectsWorkers)
                   <p className="text-xs font-medium text-white/70">
                   Total Pending
                   </p>
-                  <h1 className="text-2xl font-bold ">{notApproved?.length}</h1>
+                  <h1 className="text-2xl font-bold ">{isLoading ? "..." : notApproved?.length}</h1>
                 </div>
               </div>
 
@@ -111,13 +110,13 @@ console.log("============",arrayOfObjectsWorkers)
                   <p className="text-xs font-medium text-white/70">
                   Total Approved 
                   </p>
-                  <h1 className="text-2xl font-bold ">{approved?.length}</h1>
+                  <h1 className="text-2xl font-bold ">{isLoading ? "..." : approved?.length}</h1>
                 </div>
                 <div className="w-[50%]">
                   <p className="text-xs font-medium text-white/70">
                   Last Week Approved 
                   </p>
-                  <h1 className="text-2xl font-bold ">23</h1>
+                  <h1 className="text-2xl font-bold ">{isLoading ? "..." : fetchDataAndCalculateValues(approvedUser)}</h1>
                 </div>
               </div>
             </div>

@@ -86,25 +86,9 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
         setLoading(false)
       }
 
-      // if (shareText.trim() !== '') {
-      //   console.log(shareText)
-      //   const mailtoLink = `mailto:${encodeURIComponent(shareText)}?body=${encodeURIComponent(
-      //     `
-      //     Hello, I am from Logoipsum. Here is your username and password:
 
-      //     Username : ${shareMsg?.username}
-      //     Password : ${shareMsg?.password}
-      //     Confirm Password : ${shareMsg?.confirm_password}
-
-      //     `
-      //   )
-      //     }
-
-      //     `;
-      //   window.location.href = mailtoLink;
-      //   setSuccess(false)
-      // }
     }
+
     if (type === 'Whatsapp') {
       if (shareText.trim() !== '') {
         const whatsappMessage = `

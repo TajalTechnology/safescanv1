@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 const Main = () => {
     const { user } = useSelector((state) => state.auth);
 
+
+
     // console.log("======user======",user)
 
     const navigate = useNavigate();
@@ -22,10 +24,10 @@ const Main = () => {
                 {/* ----------------admin Dashboard sidebar here----------------- */}
                 <Sidebar />
             </div>
-            <div className='bg-[#F4F7FE] xl:px-[20px] px-4 w-full min-h-[100vh]'>
+            <div className='bg-[#F4F7FE] xl:px-[20px] w-full px-4 min-h-[100vh]'>
                 {/* Admin dashboard outlet create */}
                 <DashboardNav />
-                <div className=''>
+                <div className=' w-full'>
                     <Outlet></Outlet>
                 </div>
             </div>

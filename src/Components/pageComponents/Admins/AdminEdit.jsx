@@ -10,6 +10,15 @@ import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   const [active, setActive] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   const [approveUser, { isLoading, isSuccess, error }] =
     useApproveUserMutation();
 
@@ -19,6 +28,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       toast.custom(<SuccessToast message={message} />);
       refetch();
       setModalOpen(false);
+      reset()
     }
     if (error) {
       toast.custom(
@@ -27,17 +37,11 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
     }
   }, [isSuccess, error]);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
 
   useEffect(() => {
     if (item) {
       setActive(item?.outstanding_fines);
-      setValue("first_name", item?.first_name);
+      setValue("frist_name", item?.frist_name);
       setValue("last_name", item?.last_name);
       setValue("email", item?.email);
       setValue("phone", item?.phone);
@@ -55,7 +59,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   const onSubmit = async (data) => {
     const body = {
       username: item?.username,
-      first_name: data.first_name,
+      frist_name: data.frist_name,
       last_name: data.last_name,
       email: data.email,
       // phone: data.phone,
@@ -69,7 +73,11 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       minor: Number(data.minor),
       major: Number(data.major),
       dismissal: Number(data.dismissal),
+      is_active:true
     };
+
+    console.log("body is======",body)
+
     const id = item?.userid;
     await approveUser({ id, body });
   };
@@ -87,13 +95,13 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         <CustomInput
           label={"First Name"}
           type={"text"}
-          register={register("first_name", {
+          register={register("frist_name", {
             required: {
               value: true,
               message: "Please enter first name",
             },
           })}
-          error={errors.first_name}
+          error={errors.frist_name}
           placeholder={"Enter First Name"}
         />
 
@@ -198,12 +206,12 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         </h3>
         <div className="w-full relative flex item-center justify-center overflow-hidden  gap-0 border-[1px] rounded-[10px]">
           <div className=" flex items-center h-[44px] px-[14px] w-[250px] rounded-l-[10px] border-[1px] border-[#F40909]/30 ">
-            <h2 className=" font-medium text-[14px] text-[#F40909]">Fines Due: €{item.fine_status} </h2>
+            <h2 className=" font-medium text-[14px] text-[#F40909]">Fines Due: €{item.fine_status-item?.outstanding_fines} </h2>
           </div>
           <input
             className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0] rounded-[10px]  w-full text-sm font-medium outline-none border-none "
             type={"number"}
-            placeholder={item?.outstanding_fines}
+            placeholder={"Enter Amount"}
             id="otp"
             {...register("outstanding_fines")}
           />
