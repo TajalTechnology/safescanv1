@@ -66,6 +66,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       setLoading(true)
       try {
         const response = await axios.get(`/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`, {
+          // mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,

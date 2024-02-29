@@ -16,9 +16,10 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
 
     useEffect(() => {
         if (isSuccess) {
-            const message = "Update Admin success";
+            const message = "Successfully Profile Updated";
             toast.custom(<SuccessToast message={message} />);
             refetch();
+            reset()
             setOpenModal(false);
         }
         if (error) {
@@ -32,10 +33,11 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm({
         defaultValues: {
-            first_name: item.first_name,
-            last_Name: item.last_Name,
+            frist_name: item.frist_name,
+            last_name: item.last_name,
             username: item.username,
             // password: item.password,
             email: item.email,
@@ -54,7 +56,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
     const onSubmit = async (data) => {
         const body = {
             username: item?.username,
-            first_name: data.first_name,
+            frist_name: data.frist_name,
             email: data.email,
             // phone: data.phone,
             site_address: data.site_address,
@@ -62,7 +64,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             emloyeer_name: data.emloyeer_name,
             major_to_dismissal: Number(data.major_to_dismissal),
             minor_to_major: Number(data.minor_to_major),
-            last_Name: data.last_Name,
+            last_name: data.last_name,
             // password: item.password,
             fines_per_dismissal: Number(data.fines_per_dismissal),
             fines_per_mainor: Number(data.fines_per_mainor),
@@ -89,7 +91,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         <CustomInput
                             label={"First Name"}
                             type={"text"}
-                            register={register("first_name", {
+                            register={register("frist_name", {
                                 required: {
                                     value: true,
                                     message: "Please enter first name",
@@ -103,7 +105,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         <CustomInput
                             label={'Last Name'}
                             type={'text'}
-                            register={register("last_Name", {
+                            register={register("last_name", {
                                 required: {
                                     value: true,
                                     message: "Please enter last name",
