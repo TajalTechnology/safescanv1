@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import SuperSidbar from "../../Components/Sidebar/SuperSidbar";
-import DashboardNav from "../Main/DashboardNav";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import SuperAdminNav from "./SuperAdminNav";
 
 const SuperAdmin = () => {
   const { user } = useSelector((state) => state.auth);
@@ -23,7 +23,7 @@ const SuperAdmin = () => {
       </div>
       <div className="bg-[#F4F7FE] xl:px-[30px] px-4 w-full min-h-[100vh]">
         {/* Admin dashboard outlet create */}
-        <DashboardNav />
+        <SuperAdminNav />
         <div className="">
           <Outlet></Outlet>
         </div>
