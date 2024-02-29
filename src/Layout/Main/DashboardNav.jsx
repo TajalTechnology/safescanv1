@@ -3,9 +3,14 @@ import { NotificationsData } from "../../assets/mockData";
 import { Popover } from "antd";
 import Notification from "../../Components/Shared/Notification";
 import { useNavigate } from "react-router-dom";
+import { useGetNotificationsQuery } from "../../redux/features/admin/adminApi";
 
 const DashboardNav = () => {
   const navigate = useNavigate()
+
+  const { data, isLoading, refetch } = useGetNotificationsQuery('', {
+    refetchOnMountOrArgChange: true,
+});
   const handleSeeAll = () => {
     navigate('/admin/notifications')
   }
@@ -20,7 +25,7 @@ const DashboardNav = () => {
         </div>
         {/* -------------------------here notification ------- */}
         <div className="mt-9 ">
-          <Notification handleSeeAll={handleSeeAll} data={NotificationsData} />
+          <Notification handleSeeAll={handleSeeAll} data={data?.Items} />
         </div>
       </div>
     </div>

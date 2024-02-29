@@ -47,6 +47,7 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
     getProducts: builder.query({
       query: (query) => ({
         url: `products?${query}`,
@@ -131,5 +132,5 @@ export const {
   useGetCountersQuery,
   useGetNotificationsQuery,
   useImageDeleteMutation,
-  useDeleteProductCardImageMutation
+  useDeleteProductCardImageMutation,
 } = adminApi;
