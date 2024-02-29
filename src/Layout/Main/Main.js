@@ -24,7 +24,7 @@ const Main = () => {
                 {/* ----------------admin Dashboard sidebar here----------------- */}
                 <Sidebar />
             </div>
-            <div className='bg-[#F4F7FE] xl:px-[20px] w-full px-4 lg:w-[77%] lg2:w-[90%] min-h-[100vh]'>
+            <div className='bg-[#F4F7FE] xl:px-[20px] w-full px-4 min-h-[100vh]'>
                 {/* Admin dashboard outlet create */}
                 <DashboardNav />
                 <div className=' w-full'>

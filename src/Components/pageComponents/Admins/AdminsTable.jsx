@@ -139,12 +139,12 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full grid grid-cols-1">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "750px" }}
+        scroll={{ x: "1850px" }}
       />
       
     </div>
