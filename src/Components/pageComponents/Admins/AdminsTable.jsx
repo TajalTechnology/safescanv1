@@ -152,7 +152,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "1850px" }}
+        scroll={{ x: "1700px" }}
       />
       
     </div>

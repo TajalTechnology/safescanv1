@@ -16,7 +16,6 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
           {row?.frist_name} {row?.last_name}
         </span>
       ),
-      width:"100px"
     },
     {
         title: "Mobile Number",
@@ -140,12 +139,12 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full grid grid-cols-1">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "750px" }}
+        scroll={{ x: "1700px" }}
       />
     </div>
   );
