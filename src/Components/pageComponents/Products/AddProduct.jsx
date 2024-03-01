@@ -120,7 +120,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
         >
           Product Image
         </label>
-        <div className=" w-full cursor-pointer h-[175px] relative flex items-center justify-center rounded-2xl bg-[#2D2D2D]/10 border border-dashed border-[#2D2D2D]">
+        <div className=" w-full cursor-pointer h-[175px] relative flex items-center justify-center rounded-2xl bg-[#2D2D2D]/5 border border-dashed border-[#2D2D2D]">
           <div className=" flex items-center justify-center flex-col">
             <Icon
               icon="mynaui:cloud-upload"
