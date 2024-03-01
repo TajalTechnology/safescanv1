@@ -70,7 +70,7 @@ const Note = ({ row, refetch }) => {
           onClick={() => setModalOpen(true)}
           className=" text-[14px]  font-normal text-info flex items-center w-full justify-between gap-1 "
         >
-          <span>{row?.notes?.length}</span>
+          <span>{row?.notes?.length ? row?.notes?.length : "0"}</span>
           <Icon
             icon="material-symbols:edit-document-outline-rounded"
             className=" text-[20px]"
