@@ -128,7 +128,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
   ];
 
   return (
-    <div>
+    <div className=" grid grid-cols-1">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}
