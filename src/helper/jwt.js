@@ -51,7 +51,7 @@ export const fetchDataAndCalculateValues = (Data) => {
     // Sum up the values
     const totalValueLast7Days = valuesLast7Days.reduce((acc, cur) => acc + cur, 0);
   
-    return totalValueLast7Days;
+    return totalValueLast7Days?totalValueLast7Days:0;
   };
 
 
@@ -60,7 +60,7 @@ export const fetchDataAndCalculateValues = (Data) => {
     // Filter out invalid dates and get the last 7 days including today
     const validDates = Data.filter(entry => entry?.day !== "NaN-NaN-NaN");
     const todayData = validDates?.find(entry => entry?.day === getCurrentDate());
-    return todayData?.value ;
+    return todayData?.value ? todayData?.value : 0;
   };
   
   const getCurrentDate = () => {

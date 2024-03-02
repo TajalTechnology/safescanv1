@@ -32,7 +32,7 @@ const CustomTable2 = ({ tableData, columns, scroll,rowSelection }) => {
 
       />
       <div className="lg:block text-light-black font-medium text-[14px] text-[#68769F] lg:absolute bottom-[25px] left-6 hidden ">
-        Showing {start} {tableData?.length < 5 ?tableData?.length : end} of {tableData?.length}
+        Showing {start} - {tableData?.length < 5 ?tableData?.length : end} of {tableData?.length}
       </div>
     </div>
   );

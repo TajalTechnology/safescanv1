@@ -24,6 +24,7 @@ const SuperSidbar = () => {
   const path = useLocation();
   // logout modal show--------------
   const [show, setShow] = useState(false);
+  const [loading,setLoading]=useState(false)
 
   // sidebar open--------------
   const [open, setOpen] = useState(true);
@@ -60,6 +61,7 @@ const SuperSidbar = () => {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     window.location.reload();
+    setLoading(true)
   }
 
   const activeStyle = {
@@ -180,7 +182,7 @@ const SuperSidbar = () => {
                   !open && "opacity-0 translate-x-28 overflow-hidden"
                 }`}
               >
-                Log out
+               {loading ? "Loading..." : "Log out"} 
               </h2>
               <span className=" w-[40px] flex items-center justify-center h-[24px]">
                 <Icon icon="humbleicons:logout" className=" text-[24px]" />
