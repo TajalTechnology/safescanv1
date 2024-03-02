@@ -30,7 +30,7 @@ const ShareModal = ({type,setType,modalOPen,setModalOpen,shareText,setShareText,
           <form  className="w-full mt-[0px] px-9 pb-9">
           <div className=" pt-4">
               <div className="w-full flex items-center justify-between">
-                <button type="button" onClick={()=>setType("email")} className={`text-base font-medium ${type==="email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button>
+                {/* <button type="button" onClick={()=>setType("email")} className={`text-base font-medium ${type==="email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button> */}
                 <button type="button" onClick={()=>setType("Whatsapp")} className={`text-base font-medium ${type==="Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
               </div>
               <input
