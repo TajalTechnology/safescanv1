@@ -69,7 +69,7 @@ const Products = () => {
         </>
       ) : (
         <>
-          <div className=" mb-8">
+          <div className="grid grid-cols-1 mb-8">
             <div className=" bg-white rounded-[20px] ">
               <div className=" flex items-center justify-between px-[22px] py-[20px] w-full">
                 <SectionHeading>Products List </SectionHeading>

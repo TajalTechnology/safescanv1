@@ -29,7 +29,7 @@ const CardModal = ({ row, refetch }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const [deleteProductCardImage, { isSuccess:deletImageSuccess, error:deleteImageError }] = useDeleteProductCardImageMutation();
+  const [deleteProductCardImage, { isSuccess: deletImageSuccess, error: deleteImageError, isLoading: deleteLoading }] = useDeleteProductCardImageMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,6 +46,7 @@ const CardModal = ({ row, refetch }) => {
       toast.custom(<SuccessToast message={'Image Successfully Deleted.'} />);
       refetch();
       setDeleteModal(false)
+      setImageIndex(0)
     }
     if (deleteImageError) {
       const errorMsg = deleteImageError?.data.error || deleteImageError?.data.message
@@ -64,9 +65,9 @@ const CardModal = ({ row, refetch }) => {
     setIsLoading(true)
     const getImage = e.target.files[0]
     if (getImage) {
- 
+
       const formData = new FormData();
-      formData.append(`files`,getImage)
+      formData.append(`files`, getImage)
       const id = row?.productid;
       try {
         const response = await axios.patch(`/api/v1/products/${id}`, formData, {
@@ -88,21 +89,27 @@ const CardModal = ({ row, refetch }) => {
 
   }
 
-  const handelDelete=async()=>{
+  const handelDelete = async () => {
     const id = `${row?.productid}`;
-    const body={
-      index:imgIndex
+    const body = {
+      index: imgIndex
     }
-    console.log(id, "------",body)
-    await deleteProductCardImage({id,body});
+    await deleteProductCardImage({ id, body });
   }
+
+  useEffect(() => {
+    if (updatedImages?.length < 1) {
+      setModalOpen(false)
+    }
+  }, [updatedImages?.length])
 
   return (
     <>
       <Tooltip placement="topLeft" title="View Images">
         <button
+          disabled={updatedImages?.length < 1}
           onClick={() => setModalOpen(true)}
-          className=" text-[14px] font-normal text-info flex items-center gap-1 "
+          className={`text-[14px] font-normal text-info flex items-center gap-1 ${updatedImages?.length < 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         >
           <Icon icon="lucide:image" className=" text-[20px]" />{updatedImages?.length}
         </button>
@@ -149,13 +156,13 @@ const CardModal = ({ row, refetch }) => {
 
               <div className=' px-3.5 h-10 bg-primary/10  duration-300 rounded-[4px]  font-medium text-sm text-primary  flex items-center justify-center'>
                 <label for="file-input" className="cursor-pointer" >
-                  {isLoading?'Loading...':'Add Image'}
+                  {isLoading ? 'Loading...' : 'Add Image'}
                 </label>
                 <input
                   type="file"
                   id="file-input"
                   className='hidden'
-                onChange={addImage}
+                  onChange={addImage}
                 />
               </div>
               <button
@@ -305,6 +312,7 @@ const CardModal = ({ row, refetch }) => {
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
+        isLoading={deleteLoading}
       />
     </>
   );

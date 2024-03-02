@@ -22,7 +22,7 @@ const NoteEdit = ({ editModal, setEditModal, setModalOpen }) => {
       setModalOpen={setEditModal}
       handleSubmit={handleSubmit(onSubmit)}
       width={590}
-      title="Edit Admin"
+      title="Edit Note"
       buttonText={isLoading ? "Loading..." : "Save Changes"}
     >
       <div className="w-full">

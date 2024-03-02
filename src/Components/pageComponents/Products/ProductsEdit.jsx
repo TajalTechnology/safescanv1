@@ -216,7 +216,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
           htmlFor="otp"
           className="mb-1.5 font-medium text-base text-dark-gray"
         >
-          Last Test Date
+          Note
         </label>
         <textarea
           className="py-[15px] h-[74px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
