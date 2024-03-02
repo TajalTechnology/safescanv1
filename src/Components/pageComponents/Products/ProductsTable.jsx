@@ -77,26 +77,27 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
       render: (row) => (
         <div>
           {row?.status === "passed" && (
-            <span className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#4CC800]/10 text-[#4CC800]`}>
-              {row?.status}
-            </span>
+            <div className={`text-[14px] w-[75px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#4CC800]/10 text-[#4CC800]`}>
+               Passed
+            </div>
           )}
           {row?.status === "failed" && (
             <span
-              className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#F40909]/10 text-[#F40909]`}
+              className={`text-[14px] w-[70px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#F40909]/10 text-[#F40909]`}
             >
-              {row?.status}
+             Failed
             </span>
           )}
-          {row?.status === "needs_attention" && (
+          {row?.status === "attention" && (
             <span
               className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#FFC000]/10 text-[#FFC000]`}
             >
-              {row?.status}
+              Needs Attention
             </span>
           )}
         </div>
       ),
+      width:"180px",
       sorter: (a, b) => a.status.localeCompare(b.status, 'en', { sensitivity: 'base' }),
     },
     {

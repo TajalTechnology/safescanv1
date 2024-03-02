@@ -75,9 +75,6 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       dismissal: Number(data.dismissal),
       is_active:true
     };
-
-    console.log("body is======",body)
-
     const id = item?.userid;
     await approveUser({ id, body });
   };

@@ -4,11 +4,11 @@ import { formattedDate } from '../../helper/jwt';
 
 const Notification = ({ data, handleSeeAll }) => {
     return (
-        <div className='w-full'>
+        <div className='w-full max-h-[400px] overflow-y-scroll'>
             <button className='w-full' onClick={handleSeeAll}>
                 {
                     data?.length > 0 ? <>
-                        {data.slice(0, 4).map((notifi, index) => <div key={index} className='flex  gap-2 border-b border-gray-100 py-[18px] w-full '>
+                        {data?.map((notifi, index) => <div key={index} className='flex  gap-2 border-b border-gray-100 py-[18px] w-full '>
                             <div className={`flex items-center justify-center h-[34px] w-[34px] rounded-[10px] p-2 ${notifi?.is_read === true ? 'text-Warning bg-Warning/10' : ' text-error bg-error/10'}`}>
 
                                 {notifi?.is_read === true ? <Icon className='text-lg' icon="ph:warning-bold" /> : <Icon className='text-lg' icon="mingcute:warning-line" />}

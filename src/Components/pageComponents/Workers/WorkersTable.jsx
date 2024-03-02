@@ -5,6 +5,7 @@ import WorkersQRCode from "./WorkersQRCode";
 import CardModal from "../../Shared/modal/CardModal";
 import QRCodeModal from "../Admins/QRCodeModal";
 import AllCard from "../../Shared/modal/AllCard";
+import Note from "../Admins/Note";
 
 const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
@@ -79,6 +80,12 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
             {row?.medical_condition}
           </span>
         ),
+      },
+      {
+        title: "Notes",
+        key: "id",
+        render: (row) => (<Note  row={row} refetch={refetch}/>),
+        width:"80px"
       },
       {
         title: "Card Image",
