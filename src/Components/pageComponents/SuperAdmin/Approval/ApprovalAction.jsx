@@ -60,8 +60,8 @@ const ApprovalAction = ({ row,refetch,refetch1 }) => {
         <Tooltip placement="topLeft" title="Approve">
           <button onClick={() => setApproval(true)}>
             <Icon
-              icon="game-icons:check-mark"
-              className="text-[20px] hover:text-green-500 text-[#46B900]"
+              icon="material-symbols:done" 
+              className="text-[22px] hover:text-green-500 text-[#46B900]"
             />
           </button>
         </Tooltip>

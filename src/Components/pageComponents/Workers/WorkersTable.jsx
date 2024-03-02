@@ -5,6 +5,7 @@ import WorkersQRCode from "./WorkersQRCode";
 import CardModal from "../../Shared/modal/CardModal";
 import QRCodeModal from "../Admins/QRCodeModal";
 import AllCard from "../../Shared/modal/AllCard";
+import Note from "../Admins/Note";
 
 const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
@@ -16,7 +17,6 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
           {row?.frist_name} {row?.last_name}
         </span>
       ),
-      width:"100px"
     },
     {
         title: "Mobile Number",
@@ -82,6 +82,12 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
         ),
       },
       {
+        title: "Notes",
+        key: "id",
+        render: (row) => (<Note  row={row} refetch={refetch}/>),
+        width:"80px"
+      },
+      {
         title: "Card Image",
         key: "id",
         render: (row) => (<AllCard  row={row} refetch={refetch}/>),
@@ -140,12 +146,12 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full grid grid-cols-1">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "750px" }}
+        scroll={{ x: "1700px" }}
       />
     </div>
   );

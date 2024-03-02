@@ -47,6 +47,7 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
     getProducts: builder.query({
       query: (query) => ({
         url: `products?${query}`,
@@ -113,6 +114,17 @@ export const adminApi = apiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    addProduct: builder.mutation({
+      query: (body) => ({
+        url: `products`,
+        method: "POST",
+        body: body,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }),
+    }),
+
   }),
 });
 
@@ -131,5 +143,6 @@ export const {
   useGetCountersQuery,
   useGetNotificationsQuery,
   useImageDeleteMutation,
-  useDeleteProductCardImageMutation
+  useDeleteProductCardImageMutation,
+  useAddProductMutation,
 } = adminApi;

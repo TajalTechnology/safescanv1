@@ -11,8 +11,8 @@ import Loader from '../../Components/Shared/Loader';
 const Dashboard = () => {
     const { data: admins, isLoading: adminsLoading, refetch: adminsRefetch } = useGetAdminQuery('');
     const { data: workers, isLoading: workersLoading, refetch: workersRefetch } = useGetWorkerQuery('');
-    const { data: counters, isLoading:counterLoading} = useGetCountersQuery();
-     const { data:products, isLoading} = useGetProductsQuery('');
+    const { data: counters, isLoading: counterLoading } = useGetCountersQuery();
+    const { data: products, isLoading } = useGetProductsQuery('');
     // console.log( workers)
     return (
         <>
@@ -24,9 +24,9 @@ const Dashboard = () => {
                 ]}
             />
             {
-                adminsLoading && workersLoading && isLoading && counterLoading ? <><Loader/></> : <>
+                adminsLoading ? <><Loader /></> : <>
                     <div className='grid grid-cols-1 mb-10'>
-                        <TopSection admins={admins} workers={workers} counters={counters}/>
+                        <TopSection admins={admins} workers={workers} counters={counters} />
                         <div className='lg:flex gap-5 mb-5'>
                             <div className='w-full lg:w-2/3'>
                                 <FinesOverview />
@@ -37,7 +37,7 @@ const Dashboard = () => {
                         </div>
                         <div className='lg:flex gap-5'>
                             <div className='w-full lg:w-2/3'>
-                                <TotalUsers admins={admins} workers={workers}  />
+                                <TotalUsers admins={admins} workers={workers} />
                             </div>
                             <div className='w-full lg:w-1/3 mt-5 lg:mt-0'>
                                 <FinesAmount counters={counters} />

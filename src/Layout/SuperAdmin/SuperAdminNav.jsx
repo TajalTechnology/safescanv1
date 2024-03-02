@@ -5,14 +5,14 @@ import Notification from "../../Components/Shared/Notification";
 import { useNavigate } from "react-router-dom";
 import { useGetNotificationsQuery } from "../../redux/features/admin/adminApi";
 
-const DashboardNav = () => {
+const SuperAdminNav = () => {
   const navigate = useNavigate()
 
   const { data, isLoading, refetch } = useGetNotificationsQuery('', {
     refetchOnMountOrArgChange: true,
 });
   const handleSeeAll = () => {
-    navigate('/admin/notifications')
+    navigate('/super-admin/notifications')
   }
   const content = (
     <div className=" ">
@@ -71,4 +71,4 @@ const DashboardNav = () => {
   );
 };
 
-export default DashboardNav;
+export default SuperAdminNav;

@@ -1,10 +1,10 @@
 import React from "react";
 import CustomTable from "../../Shared/table/CustomTable";
 import { Icon } from "@iconify/react";
-import ProductsQRCode from "./ProductsQRCode";
 import ProductsTableAction from "./ProductsTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 import { formattedDate } from "../../../helper/jwt";
+import QRCodeModal from "../Admins/QRCodeModal";
 const ProductsTable = ({ tableData, rowSelection, refetch }) => {
   // const getLastDate = formattedDate(item?.last_test_date)
   // const getNextDate = formattedDate(item?.next_test_date)
@@ -50,7 +50,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
           {formattedDate(row?.last_test_date)}
         </span>
       ),
-      sorter: (a, b) => new Date(a.last_test_date) -new Date( b.last_test_date),
+      sorter: (a, b) => new Date(a.last_test_date) - new Date(b.last_test_date),
     },
     {
       title: "Next Test Date",
@@ -60,7 +60,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
           {formattedDate(row?.next_test_date)}
         </span>
       ),
-      sorter: (a, b) => new Date(a.next_test_date) - new Date( b.next_test_date),
+      sorter: (a, b) => new Date(a.next_test_date) - new Date(b.next_test_date),
     },
     {
       title: "Location",
@@ -77,26 +77,27 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
       render: (row) => (
         <div>
           {row?.status === "passed" && (
-            <span className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#4CC800]/10 text-[#4CC800]`}>
-              {row?.status}
-            </span>
+            <div className={`text-[14px] w-[75px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#4CC800]/10 text-[#4CC800]`}>
+              Passed
+            </div>
           )}
           {row?.status === "failed" && (
             <span
-              className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#F40909]/10 text-[#F40909]`}
+              className={`text-[14px] w-[70px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#F40909]/10 text-[#F40909]`}
             >
-              {row?.status}
+              Failed
             </span>
           )}
-          {row?.status === "needs_attention" && (
+          {row?.status === "attention" && (
             <span
               className={`text-[14px] font-medium py-1 px-3 flex items-center justify-center rounded-full bg-[#FFC000]/10 text-[#FFC000]`}
             >
-              {row?.status}
+              Needs Attention
             </span>
           )}
         </div>
       ),
+      width: "180px",
       sorter: (a, b) => a.status.localeCompare(b.status, 'en', { sensitivity: 'base' }),
     },
     {
@@ -109,7 +110,8 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
-          {row?.note?.slice(0, 12)}<Icon icon="majesticons:clipboard-line" className=" text-[20px]" />
+          {row?.note?.slice(0, 12)}
+          {/* <Icon icon="majesticons:clipboard-line" className=" text-[20px]" /> */}
         </span>
       ),
     },
@@ -117,7 +119,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
     {
       title: "QRC Code",
       key: "id",
-      render: (row) => <ProductsQRCode row={row} />,
+      render: (row) => <QRCodeModal row={row} />,
     },
     {
       title: "Actions",
@@ -127,7 +129,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
   ];
 
   return (
-    <div>
+    <div className=" grid grid-cols-1">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}

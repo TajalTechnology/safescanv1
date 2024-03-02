@@ -4,6 +4,7 @@ import QRCode from "./QRCodeModal";
 import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 import AllCard from "../../Shared/modal/AllCard";
+import Note from "./Note";
 
 const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
@@ -81,6 +82,13 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
       },
 
       {
+        title: "Notes",
+        key: "id",
+        render: (row) => (<Note  row={row} refetch={refetch}/>),
+        width:"80px"
+      },
+
+      {
         title: "Card Image",
         key: "id",
         render: (row) => (<AllCard  row={row} refetch={refetch}/>),
@@ -139,12 +147,12 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full grid grid-cols-1">
       <CustomTable
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "750px" }}
+        scroll={{ x: "1700px" }}
       />
       
     </div>

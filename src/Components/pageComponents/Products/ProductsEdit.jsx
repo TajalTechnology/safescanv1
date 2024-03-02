@@ -178,16 +178,16 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
           </button>
 
           <button
-            onClick={() => setActive("needs_attention")}
+            onClick={() => setActive("attention")}
             type="button"
-            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#FFC000] ${active === "needs_attention"
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#FFC000] ${active === "attention"
               ? "bg-[#FFC000] text-white"
               : " bg-transparent text-[#FFC000]"
               }`}
           >
             <Icon
               icon="material-symbols:check"
-              className={`text-[18px] ${active === "needs_attention" ? " text-white" : "text-[#FFC000]/30 "
+              className={`text-[18px] ${active === "attention" ? " text-white" : "text-[#FFC000]/30 "
                 }`}
             />
             Needs Attention
@@ -216,7 +216,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
           htmlFor="otp"
           className="mb-1.5 font-medium text-base text-dark-gray"
         >
-          Last Test Date
+          Note
         </label>
         <textarea
           className="py-[15px] h-[74px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"

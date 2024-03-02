@@ -12,11 +12,17 @@ import SuccessToast from "../../../Shared/Toast/SuccessToast";
 
 const ExpiryDate = ({ row,refetch,refetch1 }) => {
   const [modalOPen, setModalOpen] = useState(false);
-  const [value, onChange] = useState(new Date(row?.expiry_date));
+  const [value, onChange] = useState();
 
   const formattedNextDate = formattedDate(value)
 
   const [plan, { isLoading, error, isSuccess }] = usePlanMutation();
+
+    useEffect(()=>{
+      if(row?.expiry_date){
+        onChange(new Date(row?.expiry_date))
+      }
+    },[row])
 
   console.log(formattedNextDate)
 

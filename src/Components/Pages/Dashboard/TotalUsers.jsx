@@ -5,6 +5,8 @@ import TotalUserChart from './TotalUserChart';
 import { formattedDate } from '../../../helper/jwt';
 
 const TotalUsers = ({ workers, admins }) => {
+    const filterAdmin = admins?.filter((item)=>item?.is_active === true)
+    const filterWorker = workers?.filter((item)=>item?.is_active === true)
     const [selected, setSelected] = useState('Monthly');
     const [getSlice, setGetSlice] = useState(7);
     const dataDay = ["Weekly", "Monthly"];
@@ -39,8 +41,8 @@ const TotalUsers = ({ workers, admins }) => {
         }));
     }
 
-    const dateOccurrencesWorkers = countSameDateOccurrences(workers);
-    const dateOccurrencesAdmins = countSameDateOccurrences(admins);
+    const dateOccurrencesWorkers = countSameDateOccurrences(filterWorker);
+    const dateOccurrencesAdmins = countSameDateOccurrences(filterAdmin);
 
     const arrayOfObjectsWorkers = convertToObjectArray(dateOccurrencesWorkers, "Workers");
     const arrayOfObjectsAdmins = convertToObjectArray(dateOccurrencesAdmins, "Admins");
@@ -55,7 +57,7 @@ console.log(workers,admins)
                     <div className='mb-10 flex items-center gap-5 justify-between flex-wrap'>
                         <div >
                             <p className={`text-sm text-info`}>Total Users</p>
-                            <h1 className={`text-[28px] font-bold text-dark-gray`}>{workers?.length+admins?.length}</h1>
+                            <h1 className={`text-[28px] font-bold text-dark-gray`}>{filterWorker?.length+filterAdmin?.length}</h1>
                         </div>
                         <TimePickerButton
                             className="font-bold"

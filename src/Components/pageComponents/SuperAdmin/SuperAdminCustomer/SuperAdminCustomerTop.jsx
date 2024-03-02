@@ -53,7 +53,7 @@ const  approvedData = countSameDateOccurrences(data1);
 const approvedUser = convertToObjectArray(approvedData);
 
 
-
+console.log("today data======",todayDataGet(totalData))
 
 
 

@@ -8,16 +8,23 @@ import { useCreateUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
+  const { token } = useSelector((state) => state.auth)
   const [success, setSuccess] = useState(false);
   const [type, setType] = useState("email")
   const [shareText, setShareText] = useState("");
-  const [shareMsg, setShareMsg] = useState(null);
+  const [shareMsg, setShareMsg] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  console.log('', shareMsg)
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const [
@@ -25,18 +32,22 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     { isLoading, error, isSuccess },
   ] = useCreateUserMutation();
 
+
+
   useEffect(() => {
     if (isSuccess) {
       const message = "Create Admin success";
       toast.custom(<SuccessToast message={message} />);
       refetch()
       setModalOpen(false)
+      reset()
       setSuccess(true)
     }
     if (error) {
       toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);
+
 
   const onSubmit = (data) => {
     const bodyData = {
@@ -46,32 +57,38 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
       usertype: "admin",
     }
     createUser(bodyData);
-    if(isSuccess){
-      setShareMsg(bodyData)
-    }
+    setShareMsg(bodyData)
   };
 
-  const handleShare = () => {
-    if (type === 'email') {
-      if (shareText.trim() !== '') {
-        console.log(shareText)
-        const mailtoLink = `mailto:${encodeURIComponent(shareText)}?body=${encodeURIComponent(
-          `
-          Hello, I am from Logoipsum. Here is your username and password:
 
-          Username : ${shareMsg?.username}
-          Password : ${shareMsg?.password}
-          Confirm Password : ${shareMsg?.confirm_password}
+  const handleShare = async () => {
 
-          `
-        )
-          }
+    if (type === 'email' && shareText && shareMsg?.username && shareMsg?.password) {
+      setLoading(true)
+      try {
+        const response = await axios.get(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        if (response?.status === 200) {
+          toast.custom(<SuccessToast message={response?.data?.message} />)
 
-          `;
-        window.location.href = mailtoLink;
+        } else {
+          toast.custom(<ErrorToast message={response?.data?.message} />)
+        }
+        setLoading(false)
         setSuccess(false)
+        console.log(response)
+      } catch (error) {
+        console.log('error', error)
+        setLoading(false)
       }
+
+
     }
+
     if (type === 'Whatsapp') {
       if (shareText.trim() !== '') {
         const whatsappMessage = `
@@ -79,8 +96,6 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
-        Confirm_Password : ${shareMsg?.confirm_password}
-
          `
         const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
         window.open(whatsappLink, '_blank');
@@ -215,17 +230,17 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
           </div>
 
           <div className=" flex items-center justify-center gap-5 pt-[20px]">
-            <button
+            {/* <button
               onClick={() => setSuccess(false)}
               className="font-bold w-full  h-[40px] px-6 hover:text-red-500 hover:border-red-500 duration-300 rounded-[10px] bg-transparent text-secondary border border-secondary"
             >
               Skip For Now
-            </button>
+            </button> */}
             <button
               onClick={handleShare}
               className="font-bold w-full  h-[40px] px-6 rounded-[10px] bg-primary hover:bg-primary/80 duration-300 border border-primary text-white "
             >
-              Share
+              {loading ? 'Loading...' : ' Share'}
             </button>
           </div>
         </div>

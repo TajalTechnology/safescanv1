@@ -11,7 +11,7 @@ import ErrorToast from "../../Shared/Toast/ErrorToast";
 const ProductsTableAction = ({ refetch, row }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [deleteProduct, { isSuccess, error }] = useDeleteProductMutation();
+  const [deleteProduct, { isSuccess, error,isLoading }] = useDeleteProductMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -65,6 +65,7 @@ const ProductsTableAction = ({ refetch, row }) => {
         title2={
           "Are you sure you want to delete this product? This action cannot be undone."
         }
+        isLoading={isLoading}
       />
     </>
   );
