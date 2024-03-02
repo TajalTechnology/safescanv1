@@ -18,7 +18,6 @@ const CreateAdmin = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
-  console.log(user);
   console.log("query", searchQuery);
 
   // ========data fecthing=========
@@ -39,7 +38,7 @@ const CreateAdmin = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`${query}`);
+    sestSearchQuery(`company_serial=${user?.company_serial}${query}`);
     refetch();
   }, [searchValue, refetch, user]);
 

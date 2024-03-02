@@ -27,28 +27,21 @@ const CustomTable = ({ tableData, columns, scroll, rowSelection }) => {
 
   return (
     <div className="lg:relative text-secondary text-base w-full">
-      {tableData?.length === 0 ? (
-        <>
-          <div className="w-full h-[200px] flex items-center justify-center">
-              <h2 className=" font-semibold text-[25px]">No Data </h2>
-          </div>
-        </>
-      ) : (
-        <div className="w-full">
-          <Table
-            columns={columns}
-            // id="admin__support__agent"
-            className="admin__Table"
-            dataSource={tableData}
-            pagination={paginationOptions}
-            scroll={scroll}
-            rowSelection={rowSelection}
-          />
-          <div className="lg:block text-light-black font-medium text-[14px] text-[#68769F] lg:absolute bottom-[25px] left-6 hidden ">
-            Showing {start} - {tableData?.length < 10 ? tableData?.length : end} of {tableData?.length}
-          </div>
+      <div className="w-full">
+        <Table
+          columns={columns}
+          // id="admin__support__agent"
+          className="admin__Table"
+          dataSource={tableData}
+          pagination={paginationOptions}
+          scroll={scroll}
+          rowSelection={rowSelection}
+        />
+        <div className="lg:block text-light-black font-medium text-[14px] text-[#68769F] lg:absolute bottom-[25px] left-6 hidden ">
+          Showing {start} - {tableData?.length < 10 ? tableData?.length : end}{" "}
+          of {tableData?.length}
         </div>
-      )}
+      </div>
     </div>
   );
 };

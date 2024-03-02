@@ -85,7 +85,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) =>
   ];
 
   return (
-    <div>
+    <div className=" grid grid-cols-1">
       <CustomTable2
         tableData={tableData}
         rowSelection={rowSelection}

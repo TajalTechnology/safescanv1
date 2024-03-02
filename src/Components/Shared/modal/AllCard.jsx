@@ -116,7 +116,7 @@ const AllCard = ({ row, refetch }) => {
                 {"Expire Date"}:<span className="text-lg font-medium"> {imageItem?.expiry_date}</span>
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <CustomButton
                 onClick={() => {
                   setEditModal(true);
@@ -137,7 +137,7 @@ const AllCard = ({ row, refetch }) => {
               >
                 <Icon icon="lucide:trash-2" className=" text-[20px]" />
               </button>
-            </div>
+            </div> */}
           </div>
           <div>
             <>
