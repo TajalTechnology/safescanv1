@@ -5,7 +5,7 @@ import { authMiddleware } from "./authMiddleware";
 export const apiSlice = createApi({
     reducerPath:"api",
     baseQuery:fetchBaseQuery({
-        baseUrl:"/api/v1/",
+        baseUrl:"https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/",
         prepareHeaders: (headers) => {
             // Get the token from localStorage
             const tokenString = localStorage.getItem("token");

@@ -13,7 +13,6 @@ import { useImageDeleteMutation, useUpdateProductMutation } from "../../../redux
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import toast from "react-hot-toast";
-import axios from "axios";
 import CardEdit from "./CardEdit";
 
 const AllCard = ({ row, refetch }) => {

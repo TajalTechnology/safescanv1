@@ -70,7 +70,7 @@ const CardModal = ({ row, refetch }) => {
       formData.append(`files`, getImage)
       const id = row?.productid;
       try {
-        const response = await axios.patch(`/api/v1/products/${id}`, formData, {
+        const response = await axios.patch(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/products/${id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,

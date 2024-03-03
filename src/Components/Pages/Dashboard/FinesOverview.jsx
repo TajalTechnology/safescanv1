@@ -3,10 +3,30 @@ import SectionWrapper from '../../Shared/SectionWrapper';
 import SectionHeading from '../../Shared/SectionHeading';
 import TimePickerButton from '../../Shared/TimePickerButton';
 import FinesOverViewChart from './FinesOverViewChart';
+import { useGetFinesQuery } from '../../../redux/features/admin/adminApi';
 
 const FinesOverview = () => {
     const [selected, setSelected] = useState('Monthly');
     const dataDay = ["Weekly", "Monthly"];
+    const today = new Date()
+
+    const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    const oneMonthAgo = new Date(today);
+    oneMonthAgo.setMonth(today.getMonth() - 1);
+    if (today.getMonth() === 0) {
+        oneMonthAgo.setFullYear(today.getFullYear() - 1);
+        oneMonthAgo.setMonth(11);
+    }
+    const [endDate, setEndDate] = useState(oneMonthAgo.getTime());
+    if (selected === 'Weekly') {
+        setEndDate(oneWeekAgo.getTime())
+    }
+
+    // console.log(today,oneWeekAgo,oneMonthAgo)
+   
+    const { data: finesData, isLoading, refetch } = useGetFinesQuery(`start_date=${today.getTime()}&end_date=${endDate}`);
+    console.log("finesData",finesData?.Items)
     const monthlyData = [
         { day: "Jan 2023 ", value: 25 },
         { day: "Feb 2023", value: 30 },
@@ -55,7 +75,7 @@ const FinesOverview = () => {
                         />
                     </div>
                     <div >
-                        <FinesOverViewChart chartData={data}/>
+                        <FinesOverViewChart chartData={data} />
                     </div>
                 </div>
 
