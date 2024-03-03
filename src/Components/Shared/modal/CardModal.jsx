@@ -21,7 +21,7 @@ const CardModal = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const { token } = useSelector((state) => state.auth)
   const [imgIndex, setImageIndex] = useState(0);
-  const [deletModal, setDeleteModal] = useState(false);
+  // const [deletModal, setDeleteModal] = useState(false);
   // const [editModal, setEditModal] = useState(false);
   const [updatedImages, setUpdatedImages] = useState([])
   // const [file, setFile] = useState("")
@@ -29,7 +29,7 @@ const CardModal = ({ row, refetch }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const [deleteProductCardImage, { isSuccess: deletImageSuccess, error: deleteImageError, isLoading: deleteLoading }] = useDeleteProductCardImageMutation();
+  // const [deleteProductCardImage, { isSuccess: deletImageSuccess, error: deleteImageError, isLoading: deleteLoading }] = useDeleteProductCardImageMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -41,18 +41,17 @@ const CardModal = ({ row, refetch }) => {
     }
   }, [isSuccess, error]);
 
-  useEffect(() => {
-    if (deletImageSuccess) {
-      toast.custom(<SuccessToast message={'Image Successfully Deleted.'} />);
-      refetch();
-      setDeleteModal(false)
-      setImageIndex(0)
-    }
-    if (deleteImageError) {
-      const errorMsg = deleteImageError?.data.error || deleteImageError?.data.message
-      toast.custom(<ErrorToast message={errorMsg} />);
-    }
-  }, [deletImageSuccess, deleteImageError]);
+  // useEffect(() => {
+  //   if (deletImageSuccess) {
+  //     toast.custom(<SuccessToast message={'Image Successfully Deleted.'} />);
+  //     refetch();
+  //     setImageIndex(0)
+  //   }
+  //   if (deleteImageError) {
+  //     const errorMsg = deleteImageError?.data.error || deleteImageError?.data.message
+  //     toast.custom(<ErrorToast message={errorMsg} />);
+  //   }
+  // }, [deletImageSuccess, deleteImageError]);
 
   useEffect(() => {
     setUpdatedImages(row?.product_images)
@@ -89,19 +88,19 @@ const CardModal = ({ row, refetch }) => {
 
   }
 
-  const handelDelete = async () => {
-    const id = `${row?.productid}`;
-    const body = {
-      index: imgIndex
-    }
-    await deleteProductCardImage({ id, body });
-  }
+  // const handelDelete = async () => {
+  //   const id = `${row?.productid}`;
+  //   const body = {
+  //     index: imgIndex
+  //   }
+  //   await deleteProductCardImage({ id, body });
+  // }
 
-  useEffect(() => {
-    if (updatedImages?.length < 1) {
-      setModalOpen(false)
-    }
-  }, [updatedImages?.length])
+  // useEffect(() => {
+  //   if (updatedImages?.length < 1) {
+  //     setModalOpen(false)
+  //   }
+  // }, [updatedImages?.length])
 
   return (
     <>
@@ -146,7 +145,7 @@ const CardModal = ({ row, refetch }) => {
               className="w-full  h-[300px] md:h-[544px] object-container"
             />
           </div>
-          <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
+          {/* <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
             <div className="">
               <p className="text-[20px] font-bold text-dark-gray">
                 Attached Date:<span className="text-lg font-medium"> {formattedDate(row?.created_at)}</span>
@@ -172,7 +171,7 @@ const CardModal = ({ row, refetch }) => {
                 <Icon icon="lucide:trash-2" className=" text-[20px]" />
               </button>
             </div>
-          </div>
+          </div> */}
           <div>
             <>
               <Swiper
@@ -306,14 +305,14 @@ const CardModal = ({ row, refetch }) => {
         </div>
       </Modal> */}
 
-      <DeleteModal
+      {/* <DeleteModal
         modalOPen={deletModal}
         onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
         isLoading={deleteLoading}
-      />
+      /> */}
     </>
   );
 };

@@ -29,7 +29,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    
+
     const formData = new FormData();
     formData.append("product_name", data?.product_name);
     formData.append("location", data?.location);
@@ -37,12 +37,12 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
     formData.append("note", data?.note);
     formData.append("next_test_date", formattedNextDate);
     formData.append("status", active);
-  
+
     // Append image files to the FormData object
     imageFiles.forEach((image, index) => {
       formData.append(`files`, image);
     });
-  
+
     try {
       const response = await axios.post(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/products`, formData, {
         headers: {
@@ -50,7 +50,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (response.status === 201) {
         // Handle success
         handleSuccess();
@@ -65,7 +65,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
       setLoading(false);
     }
   };
-  
+
   const handleSuccess = () => {
     setModalOpen(false);
     setImageFiles([]);
@@ -74,11 +74,11 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
     const message = "Product added successfully.";
     toast.custom(<SuccessToast message={message} />);
   };
-  
+
   const handleUnexpectedStatus = () => {
     toast.custom(<ErrorToast message={"Unexpected response status. Please try again."} />);
   };
-  
+
   const handleError = (error) => {
     console.error("Error:", error);
     toast.custom(<ErrorToast message={"An error occurred. Please try again."} />);
@@ -120,7 +120,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
         >
           Product Image
         </label>
-        <div className=" w-full cursor-pointer h-[175px] relative flex items-center justify-center rounded-2xl bg-[#2D2D2D]/5 border border-dashed border-[#2D2D2D]">
+        <div className=" w-full cursor-pointer h-[175px] relative flex items-center justify-center rounded-2xl bg-[#2D2D2D]/5 border-2 border-dashed border-[#2D2D2D]">
           <div className=" flex items-center justify-center flex-col">
             <Icon
               icon="mynaui:cloud-upload"
@@ -151,7 +151,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
                       alt=""
                       className=" w-full h-full object-fill"
                     />
-                    <button type="button" onClick={()=>handleImageDelete(index)} className=" absolute group-hover:flex hidden top-0 left-0 w-full h-full bg-black/50  items-center justify-center">
+                    <button type="button" onClick={() => handleImageDelete(index)} className=" absolute group-hover:flex hidden top-0 left-0 w-full h-full bg-black/50  items-center justify-center">
                       <Icon
                         icon="gg:trash-empty"
                         className="text-[22px] text-white"
@@ -207,23 +207,24 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
         placeholder={"Enter tester Name"}
       /> */}
 
-      <div className=" flex items-center gap-4 justify-between">
-        <div className="flex flex-col items-start w-full mt-3">
+      <div id="date" className="grid  grid-cols-1 lg:grid-cols-2 gap-5 ">
+        <div  className="flex flex-col items-start  mt-3">
           <label
-            htmlFor="otp"
+            htmlFor="last"
             className="mb-1.5 font-medium text-base text-dark-gray"
           >
             Last Test Date
           </label>
           <DatePicker
+
             selected={lastDate}
             onChange={(date) => setLastDate(date)}
             disabled
             placeholderText="Select Date"
-            className="w-full border border-gray-300 rounded-md pl-2 pr-8 py-2.5 "
+            className=" border w-full  border-gray-300 rounded-[10px] focus:border-primary outline-none text-[#A3AED0] pl-2 pr-8 py-2.5 "
           />
         </div>
-        <div className="flex flex-col items-start w-full mt-3">
+        <div  className="flex flex-col items-start mt-3">
           <label
             htmlFor="otp"
             className="mb-1.5 font-medium text-base text-dark-gray"
@@ -231,11 +232,12 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
             Next Test Date
           </label>
           <DatePicker
+
             selected={nextDate}
             onChange={(date) => setNextDate(date)}
             required
             placeholderText="Select Date"
-            className="w-full border border-gray-300 rounded-md pl-2 pr-8 py-2.5 "
+            className="w-full border border-gray-300 rounded-[10px] pl-2 pr-8 py-2.5 "
           />
         </div>
       </div>
@@ -255,17 +257,15 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           <button
             onClick={() => setActive("passed")}
             type="button"
-            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${
-              active === "passed"
-                ? "bg-[#4CC800] text-white"
-                : " bg-transparent text-[#4CC800]"
-            }`}
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#4CC800] ${active === "passed"
+              ? "bg-[#4CC800] text-white"
+              : " bg-transparent text-[#4CC800]"
+              }`}
           >
             <Icon
               icon="material-symbols:check"
-              className={`text-[18px] ${
-                active === "passed" ? " text-white" : "text-[#4CC800]/30 "
-              }`}
+              className={`text-[18px] ${active === "passed" ? " text-white" : "text-[#4CC800]/30 "
+                }`}
             />
             Passed
           </button>
@@ -273,19 +273,17 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           <button
             onClick={() => setActive("attention")}
             type="button"
-            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#FFC000] ${
-              active === "attention"
-                ? "bg-[#FFC000] text-white"
-                : " bg-transparent text-[#FFC000]"
-            }`}
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#FFC000] ${active === "attention"
+              ? "bg-[#FFC000] text-white"
+              : " bg-transparent text-[#FFC000]"
+              }`}
           >
             <Icon
               icon="material-symbols:check"
-              className={`text-[18px] ${
-                active === "attention"
-                  ? " text-white"
-                  : "text-[#FFC000]/30 "
-              }`}
+              className={`text-[18px] ${active === "attention"
+                ? " text-white"
+                : "text-[#FFC000]/30 "
+                }`}
             />
             Needs Attention
           </button>
@@ -293,17 +291,15 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           <button
             onClick={() => setActive("failed")}
             type="button"
-            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${
-              active === "failed"
-                ? "bg-[#F40909] text-white"
-                : " bg-transparent text-[#F40909]"
-            }`}
+            className={`py-1 px-3 h-[30px] rounded-full text-[12px] font-medium flex items-center gap-2  border border-[#F40909] ${active === "failed"
+              ? "bg-[#F40909] text-white"
+              : " bg-transparent text-[#F40909]"
+              }`}
           >
             <Icon
               icon="material-symbols:check"
-              className={`text-[18px] ${
-                active === "failed" ? " text-white" : "text-[#F40909]/30 "
-              }`}
+              className={`text-[18px] ${active === "failed" ? " text-white" : "text-[#F40909]/30 "
+                }`}
             />
             Failed
           </button>
