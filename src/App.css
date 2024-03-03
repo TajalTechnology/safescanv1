@@ -840,3 +840,9 @@ body {
   background-color:#E9F1FF !important;
   color: #664DFF !important;
 }
+
+/* -----------date picker---------- */
+#date .react-datepicker-wrapper{
+width: 100% !important;
+}
+/* -----------end date picker---------- */

@@ -139,8 +139,8 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
         placeholder={"Enter tester Name"}
       /> */}
 
-      <div className=" flex items-center gap-4 justify-between">
-        <div className="flex flex-col items-start w-full mt-3">
+      <div id="date" className="grid  grid-cols-1 lg:grid-cols-2 gap-5 ">
+        <div className="flex flex-col items-start mt-3">
           <label
             htmlFor="otp"
             className="mb-1.5 font-medium text-base text-dark-gray"
@@ -155,7 +155,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
             className="w-full border border-gray-300 rounded-[10px] pl-2 pr-8 py-2.5 text-[#A3AED0] "
           />
         </div>
-        <div className="flex flex-col items-start w-full mt-3">
+        <div className="flex flex-col items-start  mt-3">
           <label
             htmlFor="otp"
             className="mb-1.5 font-medium text-base text-dark-gray"

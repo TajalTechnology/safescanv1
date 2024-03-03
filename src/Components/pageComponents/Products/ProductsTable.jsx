@@ -5,6 +5,7 @@ import ProductsTableAction from "./ProductsTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 import { formattedDate } from "../../../helper/jwt";
 import QRCodeModal from "../Admins/QRCodeModal";
+import ProductNote from "./ProductNote";
 const ProductsTable = ({ tableData, rowSelection, refetch }) => {
   // const getLastDate = formattedDate(item?.last_test_date)
   // const getNextDate = formattedDate(item?.next_test_date)
@@ -23,6 +24,15 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
         </div>
       ),
       sorter: (a, b) => a.product_number - b.product_number,
+    },
+    {
+      title: "Location",
+      key: "id",
+      render: (row) => (
+        <span className=" text-[14px] font-normal text-info">
+          {row?.location?.slice(0, 16)}...
+        </span>
+      ),
     },
     {
       title: "Site Address",
@@ -62,15 +72,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
       ),
       sorter: (a, b) => new Date(a.next_test_date) - new Date(b.next_test_date),
     },
-    {
-      title: "Location",
-      key: "id",
-      render: (row) => (
-        <span className=" text-[14px] font-normal text-info">
-          {row?.location?.slice(0, 16)}...
-        </span>
-      ),
-    },
+   
     {
       title: "Status",
       key: "Status",
@@ -108,12 +110,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
     {
       title: "Note",
       key: "id",
-      render: (row) => (
-        <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
-          {row?.note?.slice(0, 12)}
-          {/* <Icon icon="majesticons:clipboard-line" className=" text-[20px]" /> */}
-        </span>
-      ),
+      render: (row) => (<ProductNote row={row}/>),
     },
 
     {
