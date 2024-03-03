@@ -16,7 +16,6 @@ export const adminApi = apiSlice.injectEndpoints({
       }),
     }),
 
-
     getAdmin: builder.query({
       query: (query) => ({
         url: `users?usertype=admin&${query}`,
@@ -51,6 +50,12 @@ export const adminApi = apiSlice.injectEndpoints({
     getProducts: builder.query({
       query: (query) => ({
         url: `products?${query}`,
+        method: "GET",
+      }),
+    }),
+    getFines: builder.query({
+      query: (query) => ({
+        url: `fines?${query}`,
         method: "GET",
       }),
     }),
@@ -145,4 +150,5 @@ export const {
   useImageDeleteMutation,
   useDeleteProductCardImageMutation,
   useAddProductMutation,
+  useGetFinesQuery, 
 } = adminApi;

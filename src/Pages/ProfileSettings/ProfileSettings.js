@@ -47,6 +47,8 @@ const ProfileSettings = () => {
     }, [updateSuccess, updateError]);
 
 
+    console.log("data is=======",data)
+
 
     const uploadeCover = async (e) => {
         const getImage = e.target.files[0]

@@ -14,9 +14,8 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
   const [active, setActive] = useState(item?.status);
   const getLastDate = formattedDate(item?.last_test_date)
   const getNextDate = formattedDate(item?.next_test_date)
-  const [lastDate, setLastDate] = useState(getLastDate);
+  // const [lastDate, setLastDate] = useState(getLastDate);
   const [nextDate, setNextDate] = useState(getNextDate);
-  const formattedLastDate = formattedDate(lastDate)
   const formattedNextDate = formattedDate(nextDate)
 
   const [updateProduct, { isLoading, isSuccess, error }] = useUpdateProductMutation();
@@ -24,16 +23,16 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Product Successfully Updated";
-      toast.custom(<SuccessToast message={message}/>);
+      toast.custom(<SuccessToast message={message} />);
       refetch();
       setModalOpen(false);
     }
     if (error) {
-      const errorMsg=error?.data.error || error?.data.message
-      toast.custom(<ErrorToast message={errorMsg}/>);
+      const errorMsg = error?.data.error || error?.data.message
+      toast.custom(<ErrorToast message={errorMsg} />);
     }
   }, [isSuccess, error]);
- 
+
   const {
     register,
     handleSubmit,
@@ -42,10 +41,10 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
     defaultValues: {
       product_name: item.product_name,
       // product_number: item.product_number,
-      // tester_name: item.tester_name,
+      tester_name: item.tester_name,
       location: item.location,
       site_address: item.site_address,
-      note: item.note,
+      // note: item.note,
       // last_test_date: item.last_test_date,
       // next_test_date: formattedDate(item.next_test_date),
     },
@@ -56,8 +55,8 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
     formData.append('product_name', data?.product_name);
     formData.append('location', data?.location);
     formData.append('site_address', data?.site_address);
-    formData.append('note', data?.note);
-    formData.append('last_test_date', formattedLastDate);
+    // formData.append('note', data?.note);
+    // formData.append('last_test_date', formattedLastDate);
     formData.append('next_test_date', formattedNextDate);
     formData.append('status', active);
     const id = item?.productid;
@@ -73,7 +72,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
       handleSubmit={handleSubmit(onSubmit)}
       width={590}
       title="Edit Product"
-      buttonText={isLoading?<><p>Loading...</p></>:"Save Changes"}
+      buttonText={isLoading ? <><p>Loading...</p></> : "Save Changes"}
     >
       <div className="flex items-center gap-4">
         <CustomInput
@@ -109,6 +108,30 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
         register={register("site_address")}
         placeholder={"Enter Site Address"}
       />
+      <div>
+        <div className="flex flex-col items-start w-full mt-3">
+          <label
+            htmlFor="tester"
+            className="mb-1.5 font-medium text-base text-dark-gray"
+          >
+            {'Testers Name'}
+          </label>
+          <input
+            className="py-[15px] h-[44px] px-[14px]  text-[#A3AED0] placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+            type={'text'}
+            required
+            disabled
+            id="tester"
+            {...register("tester_name", {
+              required: {
+                value: true,
+                message: "",
+              },
+            })}
+          />
+
+        </div>
+      </div>
       {/* <CustomInput
         label={"Testers Name"}
         type={"text"}
@@ -116,8 +139,8 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
         placeholder={"Enter tester Name"}
       /> */}
 
-      <div className=" flex items-center gap-4 justify-between">
-        <div className="flex flex-col items-start w-full mt-3">
+      <div id="date" className="grid  grid-cols-1 lg:grid-cols-2 gap-5 ">
+        <div className="flex flex-col items-start mt-3">
           <label
             htmlFor="otp"
             className="mb-1.5 font-medium text-base text-dark-gray"
@@ -125,14 +148,14 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
             Last Test Date
           </label>
           <DatePicker
-            selected={lastDate}
-            onChange={(date) => setLastDate(date)}
+            selected={getLastDate}
+            disabled
             required
             placeholderText="Select Date"
-            className="w-full border border-gray-300 rounded-md pl-2 pr-8 py-2.5 "
+            className="w-full border border-gray-300 rounded-[10px] pl-2 pr-8 py-2.5 text-[#A3AED0] "
           />
         </div>
-        <div className="flex flex-col items-start w-full mt-3">
+        <div className="flex flex-col items-start  mt-3">
           <label
             htmlFor="otp"
             className="mb-1.5 font-medium text-base text-dark-gray"
@@ -144,7 +167,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
             onChange={(date) => setNextDate(date)}
             required
             placeholderText="Select Date"
-            className="w-full border border-gray-300 rounded-md pl-2 pr-8 py-2.5 "
+            className="w-full border border-gray-300 rounded-[10px] pl-2 pr-8 py-2.5 text-dark-gray "
           />
         </div>
       </div>
@@ -211,7 +234,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
         </div>
       </div>
 
-      <div className="flex flex-col items-start w-full mt-3">
+      {/* <div className="flex flex-col items-start w-full mt-3">
         <label
           htmlFor="otp"
           className="mb-1.5 font-medium text-base text-dark-gray"
@@ -223,7 +246,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
           name=""
           {...register("note")}
         ></textarea>
-      </div>
+      </div> */}
     </CustomModal>
   );
 };

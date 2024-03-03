@@ -64,7 +64,7 @@ const Note = ({ row, refetch }) => {
 
   return (
     <>
-      <Tooltip placement="topLeft" title="View Images">
+      <Tooltip placement="topLeft" title="View Notes">
         <button
           disabled={row?.cards?.length ? false : true}
           onClick={() => setModalOpen(true)}

@@ -123,7 +123,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                             {'Username'}
                         </label>
                         <input
-                            className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+                            className="py-[15px] h-[44px] px-[14px]  text-[#A3AED0] placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
                             type={'text'}
                             required
                             disabled

@@ -87,7 +87,11 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         render: (row) => (<Note  row={row} refetch={refetch}/>),
         width:"80px"
       },
-
+      {
+        title: "Strike Image",
+        key: "id",
+        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
+      },
       {
         title: "Card Image",
         key: "id",
@@ -152,7 +156,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "1700px" }}
+        scroll={{ x: "1850px" }}
       />
       
     </div>

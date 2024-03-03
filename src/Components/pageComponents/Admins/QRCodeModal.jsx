@@ -18,57 +18,32 @@ const QRCodeModal = ({ row }) => {
   // ========download funcation===========
 
 
-  const handleDownload = async () => {
 
-    const qrCode = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
-    try {
-      // Check if the qrCode URI is available
-      if (!qrCode) {
-        throw new Error('QR code URI is not available');
-      }
 
-      const response = await fetch(qrCode);
-      const blob = await response.blob();
+  const captureAndDownload = () => {
+    const component = document.getElementById("pdf-component");
 
-      // Create a temporary anchor element to download the file
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'qrcode.png';
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Error downloading QR code:', error);
-      // Show an error message if the download fails
-      alert('Failed to download QR code. Please try again.');
+    if (component) {
+      // const originalWidth = component.scrollWidth;
+      // const originalHeight = component.scrollHeight;
+
+      // // Set the element's size to cover the entire content
+      // component.style.width = `${originalWidth}px`;
+      // component.style.height = `${originalHeight}px`;
+
+      html2canvas(component).then(async (canvas) => {
+        const dataURL = canvas.toDataURL("image/jpeg");
+        const a = document.createElement("a");
+        a.href = dataURL;
+        a.download = `image.png`;
+        //only here download as pdf
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
     }
-  }
-
-  // const captureAndDownload = () => {
-  //   const component = document.getElementById("pdf-component");
-
-  //   if (component) {
-  //     // const originalWidth = component.scrollWidth;
-  //     // const originalHeight = component.scrollHeight;
-
-  //     // // Set the element's size to cover the entire content
-  //     // component.style.width = `${originalWidth}px`;
-  //     // component.style.height = `${originalHeight}px`;
-
-  //     html2canvas(component).then(async (canvas) => {
-  //       const dataURL = canvas.toDataURL("image/jpeg");
-  //       const a = document.createElement("a");
-  //       a.href = dataURL;
-  //       a.download = `image.png`;
-  //       //only here download as pdf
-  //       a.style.display = "none";
-  //       document.body.appendChild(a);
-  //       a.click();
-  //       document.body.removeChild(a);
-  //     });
-  //   }
-  // };
+  };
   console.log(row?.qrc_image)
   // ======Share funcation=========
   const handleShare = async () => {
@@ -114,7 +89,7 @@ const QRCodeModal = ({ row }) => {
       >
         <div className="p-7">
           <div className=" flex items-center justify-between">
-            <h2 className=" text-[28px] font-[700] text-dark-gray">QRC Code</h2>
+            <h2 className=" text-[28px] font-[700] text-dark-gray">QRC dCode</h2>
             <button
               onClick={() => setModalOpen(false)}
               className=" w-[40px] text-[30px] h-[40px] rounded-lg flex items-center justify-center hover:bg-[#FDEEEE] hover:text-[#FF5959] text-[#969BB3]"
@@ -139,7 +114,7 @@ const QRCodeModal = ({ row }) => {
             </div>
             {/* <QRCode size={250} className=" " value={row.email} /> */}
             <div
-
+              id="pdf-component"
             >
               <img
 
@@ -168,7 +143,7 @@ const QRCodeModal = ({ row }) => {
             </div>
             <div className="flex items-center gap-3">
               <button
-                onClick={handleDownload}
+                onClick={captureAndDownload}
                 className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white"
               >
                 <Icon
