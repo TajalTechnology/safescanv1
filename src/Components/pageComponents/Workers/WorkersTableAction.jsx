@@ -7,10 +7,12 @@ import { useDeleteUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
+import StrikeModal from "../../Shared/StrikeModal";
 
 const WorkersTableAction = ({ row,refetch }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [strike,setStrike] = useState(false)
 
   const [deleteUser, { isSuccess, isLoading, error }] = useDeleteUserMutation();
 
@@ -34,7 +36,15 @@ const WorkersTableAction = ({ row,refetch }) => {
 
   return (
     <>
-      <div className=" flex items-center gap-1">
+      <div className=" flex items-center gap-2">
+      <Tooltip placement="topLeft" title="Strike">
+          <button onClick={() => setStrike(true)}>
+            <Icon
+               icon="lucide:stamp"
+              className="text-[22px] hover:text-[#0070F0] text-[#8E9BBA]"
+            />
+          </button>
+        </Tooltip>
         <Tooltip placement="topLeft" title="Edit">
           <button onClick={() => setEdit(true)}>
             <Icon
@@ -55,6 +65,8 @@ const WorkersTableAction = ({ row,refetch }) => {
 
       {/* ============= Workers edit Modal============ */}
       <WorkersEdit item={row} modalOPen={edit} setModalOpen={setEdit} refetch={refetch}/>
+
+      <StrikeModal modalOPen={strike} setModalOpen={setStrike} item={row} refetch={refetch}/>
 
      {/* ============= Workers delete Modal============ */}
       <DeleteModal

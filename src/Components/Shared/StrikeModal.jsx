@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -8,11 +8,10 @@ import axios from "axios";
 import SuccessToast from "./Toast/SuccessToast";
 import toast from "react-hot-toast";
 import ErrorToast from "./Toast/ErrorToast";
+import { useApproveUserMutation } from "../../redux/features/admin/adminApi";
 
-const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
+const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
   const [active, setActive] = useState("minor");
-  const [lastDate, setLastDate] = useState(new Date());
-  const [nextDate, setNextDate] = useState();
   const [imageFiles, setImageFiles] = useState([]);
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
@@ -24,7 +23,37 @@ const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
     reset,
   } = useForm();
 
+  const [approveUser, { isLoading, isSuccess, error }] =
+    useApproveUserMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = "Strike Add success";
+      toast.custom(<SuccessToast message={message} />);
+      refetch();
+      setModalOpen(false);
+      reset();
+    }
+    if (error) {
+      toast.custom(
+        <ErrorToast message={error?.data.error || error?.data.message} />
+      );
+    }
+  }, [isSuccess, error]);
+
   const onSubmit = async (data) => {
+    const body = {
+      username: item?.username,
+      note: data?.note,
+      minor: Number(active === "minor" ? 1 : 0),
+      major: Number(active === "major" ? 1 : 0),
+      dismissal: Number(active === "dismissal" ? 1 : 0),
+      is_active: true,
+    };
+    const id = item?.userid;
+    await approveUser({ id, body });
+
+
     // setLoading(true);
     // const formData = new FormData();
     // formData.append("product_name", data?.product_name);
@@ -120,9 +149,9 @@ const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
           className="w-full mt-[0px] max-h-[75vh] overflow-y-scroll px-9 pb-9"
         >
           <div className="">
-            <div className=" mt-5">
+            <div className=" mt-5 mb-4">
               <h3 className="mb-1.5 font-medium text-base text-dark-gray">
-              Select Strike Option
+                Select Strike Option
               </h3>
               <div className="w-full flex item-center justify-center gap-5">
                 <button
@@ -155,9 +184,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
                   <Icon
                     icon="material-symbols:check"
                     className={`text-[18px] ${
-                      active === "major"
-                        ? " text-white"
-                        : "text-[#FFC000]/30 "
+                      active === "major" ? " text-white" : "text-[#FFC000]/30 "
                     }`}
                   />
                   Major
@@ -175,14 +202,16 @@ const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
                   <Icon
                     icon="material-symbols:check"
                     className={`text-[18px] ${
-                      active === "dismissal" ? " text-white" : "text-[#F40909]/30 "
+                      active === "dismissal"
+                        ? " text-white"
+                        : "text-[#F40909]/30 "
                     }`}
                   />
                   Dismissal
                 </button>
               </div>
             </div>
-            <div className="flex flex-col items-start w-full mt-3">
+            <div className="flex flex-col items-start w-full mt-5">
               <label
                 htmlFor="otp"
                 className="mb-1.5 font-medium text-base text-dark-gray"
@@ -190,65 +219,81 @@ const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
                 Write Note
               </label>
               <textarea
-                className="py-[15px] h-[74px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+                className="py-[15px] h-[85px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
                 name=""
-                {...register("note")}
+                {...register("note",{
+                  required: {
+                    value: true,
+                    message: "Please Enter Note",
+                  },
+                })}
                 placeholder="Some Note Here..."
               ></textarea>
+              <label className="label">
+                {errors.last_name?.type === "required" && (
+                  <span className=" text-sm mt-1 text-red-500">
+                    {errors.last_name.message}
+                  </span>
+                )}
+              </label>
             </div>
             <div className="flex flex-col items-start w-full mt-3">
-        <label
-          htmlFor="otp"
-          className="mb-1.5 font-medium text-base text-dark-gray"
-        >
-          Attach Image
-        </label>
-        <div className=" w-full cursor-pointer h-[175px] relative flex items-center justify-center rounded-2xl bg-[#2D2D2D]/5 border border-dashed border-[#2D2D2D]">
-          <div className=" flex items-center justify-center flex-col">
-            <Icon
-              icon="mynaui:cloud-upload"
-              className="text-[#2D2D2D] text-[50px]"
-            />
-            <h3 className=" text-[14px] font-bold text-[#2D2D2D]">
-              Upload Image
-            </h3>
-          </div>
-          <input
-            type="file"
-            multiple
-            onChange={handleFileSelect}
-            className=" absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-          />
-        </div>
-        <div>
-          {imageFiles ? (
-            <>
-              <div className=" flex flex-wrap gap-2 items-center py-2">
-                {imageFiles?.map((file, index) => (
-                  <div
-                    key={index}
-                    className=" w-[100px] relative h-[70px] group rounded-md overflow-hidden"
-                  >
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt=""
-                      className=" w-full h-full object-fill"
-                    />
-                    <button type="button" onClick={()=>handleImageDelete(index)} className=" absolute group-hover:flex hidden top-0 left-0 w-full h-full bg-black/50  items-center justify-center">
-                      <Icon
-                        icon="gg:trash-empty"
-                        className="text-[22px] text-white"
-                      />
-                    </button>
-                  </div>
-                ))}
+              <label
+                htmlFor="otp"
+                className="mb-1.5 font-medium text-base text-dark-gray"
+              >
+                Attach Image
+              </label>
+              <div className=" w-full cursor-pointer h-[175px] relative flex items-center justify-center rounded-2xl bg-[#2D2D2D]/5 border-[2px] border-spacing-8 border-dashed border-[#2D2D2D]">
+                <div className=" flex items-center justify-center flex-col">
+                  <Icon
+                    icon="mynaui:cloud-upload"
+                    className="text-[#2D2D2D] text-[50px]"
+                  />
+                  <h3 className=" text-[14px] font-bold text-[#2D2D2D]">
+                    Upload Image
+                  </h3>
+                </div>
+                <input
+                  type="file"
+                  multiple
+                  onChange={handleFileSelect}
+                  className=" absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
+                />
               </div>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
-      </div>
+              <div>
+                {imageFiles ? (
+                  <>
+                    <div className=" flex flex-wrap gap-2 items-center py-2">
+                      {imageFiles?.map((file, index) => (
+                        <div
+                          key={index}
+                          className=" w-[100px] relative h-[70px] group rounded-md overflow-hidden"
+                        >
+                          <img
+                            src={URL.createObjectURL(file)}
+                            alt=""
+                            className=" w-full h-full object-fill"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleImageDelete(index)}
+                            className=" absolute group-hover:flex hidden top-0 left-0 w-full h-full bg-black/50  items-center justify-center"
+                          >
+                            <Icon
+                              icon="gg:trash-empty"
+                              className="text-[22px] text-white"
+                            />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
           </div>
           <div className="mt-[30px] flex items-center gap-5">
             <button
@@ -258,7 +303,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, refetch }) => {
             >
               Cancel
             </button>
-            <CustomButton className={" w-full"}>Strike</CustomButton>
+            <CustomButton className={" w-full"}>{isLoading ? "Loading..." : "Strike"}</CustomButton>
           </div>
         </form>
       </div>
