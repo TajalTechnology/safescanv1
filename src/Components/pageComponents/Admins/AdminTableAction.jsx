@@ -7,10 +7,12 @@ import { useDeleteUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
+import StrikeModal from "../../Shared/StrikeModal";
 
 const AdminTableAction = ({ row, refetch }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [strike,setStrike] = useState(false)
   const [deleteUser, { isSuccess, isLoading, error }] = useDeleteUserMutation();
 
   useEffect(() => {
@@ -33,7 +35,15 @@ const AdminTableAction = ({ row, refetch }) => {
 
   return (
     <>
-      <div className=" flex items-center gap-1">
+      <div className=" flex items-center gap-2">
+      <Tooltip placement="topLeft" title="Strike">
+          <button onClick={() => setStrike(true)}>
+            <Icon
+               icon="lucide:stamp"
+              className="text-[22px] hover:text-[#0070F0] text-[#8E9BBA]"
+            />
+          </button>
+        </Tooltip>
         <Tooltip placement="topLeft" title="Edit">
           <button onClick={() => setEdit(true)}>
             <Icon
@@ -59,6 +69,8 @@ const AdminTableAction = ({ row, refetch }) => {
         refetch={refetch}
         setModalOpen={setEdit}
       />
+
+      <StrikeModal modalOPen={strike} setModalOpen={setStrike} />
 
       <DeleteModal
         modalOPen={deleteModal}
