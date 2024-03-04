@@ -129,7 +129,13 @@ export const adminApi = apiSlice.injectEndpoints({
         },
       }),
     }),
-
+    updateNote: builder.mutation({
+      query: ({id,body}) => ({
+        url: `users/update-notes/${id}`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -151,4 +157,5 @@ export const {
   useDeleteProductCardImageMutation,
   useAddProductMutation,
   useGetFinesQuery, 
+  useUpdateNoteMutation
 } = adminApi;

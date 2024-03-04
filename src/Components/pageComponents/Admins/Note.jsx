@@ -21,6 +21,7 @@ const Note = ({ row, refetch }) => {
   const [editModal, setEditModal] = useState(false);
   const [note, setNote] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeNote,setActiveNote]= useState()
 
   const [approveUser, { isLoading, isSuccess, error }] =
     useApproveUserMutation();
@@ -155,6 +156,8 @@ const Note = ({ row, refetch }) => {
                                 <button
                                   onClick={() => {
                                     setEditModal(true);
+                                    setActiveNote(card);
+                                    setItemIndex(index);
                                   }}
                                   className=" w-[30px] h-[30px] flex items-center justify-center rounded-lg border border-primary/40"
                                 >
@@ -167,6 +170,7 @@ const Note = ({ row, refetch }) => {
                                   onClick={() => {
                                     setItemIndex(index);
                                     setDeleteModal(true);
+                                    setActiveNote(card)
                                   }}
                                   className=" w-[30px] h-[30px] flex items-center justify-center rounded-lg border border-[#F40909]/40"
                                 >
@@ -230,6 +234,8 @@ const Note = ({ row, refetch }) => {
         editModal={editModal}
         setEditModal={setEditModal}
         row={row}
+        activeNote={activeNote}
+        activeIndex={activeIndex}
       />
 
       <DeleteModal
