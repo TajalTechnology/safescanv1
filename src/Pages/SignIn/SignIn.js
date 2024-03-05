@@ -34,7 +34,7 @@ const SignIn = () => {
     }
     if (error) {
       console.log("===error====", error);
-      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
+      toast.custom(<ErrorToast message={error?.data?.error || error?.data?.message} />);
     }
   }, [isSuccess, error, reset]);
 

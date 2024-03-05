@@ -18,9 +18,7 @@ const Workers = () => {
   console.log(searchQuery);
 
   // ========data fecthing=========
-  const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery);
 
   const filterData = data?.filter((item)=>item?.is_active === true)
 
@@ -33,7 +31,7 @@ const Workers = () => {
     return queryParams.join("&");
   };
 
-  console.log("=====worker======",data)
+  console.log("=====worker======",filterData)
 
   useEffect(() => {
     const query = generateQuery(searchValue);

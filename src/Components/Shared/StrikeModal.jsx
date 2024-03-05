@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import ErrorToast from "./Toast/ErrorToast";
 import { useApproveUserMutation } from "../../redux/features/admin/adminApi";
 
-const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
+const StrikeModal = ({ modalOPen, setModalOpen, item, refetch,title }) => {
   const [active, setActive] = useState("minor");
   const [imageFiles, setImageFiles] = useState([]);
   const { token } = useSelector((state) => state.auth);
@@ -52,44 +52,39 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
     };
     const id = item?.userid;
     await approveUser({ id, body });
-
-
-    // setLoading(true);
-    // const formData = new FormData();
-    // formData.append("product_name", data?.product_name);
-    // formData.append("location", data?.location);
-    // formData.append("site_address", data?.site_address);
-    // formData.append("note", data?.note);
-    // formData.append("status", active);
-    // imageFiles.forEach((image, index) => {
-    //   formData.append(`files`, image);
-    // });
-    // try {
-    //   const response = await axios.post(`/api/v1/products`, formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
-    //   if (response.status === 201) {
-    //     handleSuccess();
-    //   } else {
-    //     handleUnexpectedStatus();
-    //   }
-    // } catch (error) {
-    //   handleError(error);
-    // } finally {
-    //   setLoading(false);
-    // }
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("username", item?.username);
+    formData.append("image_type", "strike");
+    imageFiles.forEach((image, index) => {
+      formData.append(`files`, image);
+    });
+    try {
+      const response = await axios.post(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/users/image-upload/${item?.userid}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        handleSuccess();
+      } else {
+        handleUnexpectedStatus();
+      }
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSuccess = () => {
     setModalOpen(false);
     setImageFiles([]);
     refetch();
-    reset();
-    const message = "Product added successfully.";
-    toast.custom(<SuccessToast message={message} />);
+    // reset();
+    // const message = "Product added successfully.";
+    // toast.custom(<SuccessToast message={message} />);
   };
 
   const handleUnexpectedStatus = () => {
@@ -135,7 +130,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
       <div className="z-[50000000] rounded-[20px] bg-white">
         <div className=" flex items-center justify-between px-9 pt-6 pb-4">
           <h2 className=" text-[28px] font-bold text-dark-gray">
-            {"Strike Admin"}
+            {title}
           </h2>
           <button
             onClick={() => setModalOpen(false)}
@@ -275,7 +270,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
                             alt=""
                             className=" w-full h-full object-fill"
                           />
-                          <button
+                          {/* <button
                             type="button"
                             onClick={() => handleImageDelete(index)}
                             className=" absolute group-hover:flex hidden top-0 left-0 w-full h-full bg-black/50  items-center justify-center"
@@ -284,7 +279,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
                               icon="gg:trash-empty"
                               className="text-[22px] text-white"
                             />
-                          </button>
+                          </button> */}
                         </div>
                       ))}
                     </div>
