@@ -84,9 +84,9 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
     setModalOpen(false);
     setImageFiles([]);
     refetch();
-    reset();
-    const message = "Product added successfully.";
-    toast.custom(<SuccessToast message={message} />);
+    // reset();
+    // const message = "Product added successfully.";
+    // toast.custom(<SuccessToast message={message} />);
   };
 
   const handleUnexpectedStatus = () => {

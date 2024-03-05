@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "../../Shared/modal/DeleteModal";
-import { useApproveUserMutation } from "../../../redux/features/admin/adminApi";
+import { useApproveUserMutation, useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import toast from "react-hot-toast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
@@ -25,6 +25,40 @@ const Note = ({ row, refetch }) => {
 
   const [approveUser, { isLoading, isSuccess, error }] =
     useApproveUserMutation();
+
+    const [updateNote,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}]=useUpdateNoteMutation()
+
+    useEffect(() => {
+      if (isSuccess1) {
+        const message = "Note Delete success";
+        toast.custom(<SuccessToast message={message} />);
+        refetch();
+        setDeleteModal(false)
+        setModalOpen(true);
+      }
+      if (error1) {
+        console.log(error1)
+        toast.custom(<ErrorToast message={error1?.data?.error || error1?.data?.message} />);
+      }
+    }, [isSuccess1, error1]);
+  
+    useEffect(()=>{
+      setNote(activeNote?.note)
+    },[activeNote])
+  
+    console.log(activeNote)
+  
+    const deleteNote = async(e) => {
+        const body = {
+            username: row.username,
+            is_delete:false,
+            index:activeIndex,
+            note:note
+        }
+  
+        const id = row.userid;
+        await updateNote({id,body})
+    };
 
   useEffect(() => {
     if (isSuccess) {
@@ -240,7 +274,8 @@ const Note = ({ row, refetch }) => {
 
       <DeleteModal
         modalOPen={deletModal}
-        onDelete={() => {}}
+        isLoading={isLoading1}
+        onDelete={() => deleteNote()}
         setModalOpen={setDeleteModal}
         title={"Delete Note!"}
         title2={
