@@ -2,7 +2,7 @@ import React from 'react';
 
 const SectionWrapper = ({children}) => {
     return (
-        <div className={`rounded-[20px] bg-white`}>
+        <div className={`rounded-[20px] bg-white overflow-hidden`}>
             {children}
         </div>
     );
