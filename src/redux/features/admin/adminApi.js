@@ -131,9 +131,22 @@ export const adminApi = apiSlice.injectEndpoints({
     }),
     updateNote: builder.mutation({
       query: ({id,body}) => ({
-        url: `users/update-notes/${id}`,
+        url: `users/update-notes-2/${id}`,
         method: "PATCH",
         body: body,
+      }),
+    }),
+    newnote: builder.mutation({
+      query: ({id,body}) => ({
+        url: `note/${id}`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
+    getHel: builder.query({
+      query: (query) => ({
+        url: `get-hello`,
+        method: "GET",
       }),
     }),
   }),
@@ -157,5 +170,7 @@ export const {
   useDeleteProductCardImageMutation,
   useAddProductMutation,
   useGetFinesQuery, 
-  useUpdateNoteMutation
+  useUpdateNoteMutation,
+  useNewnoteMutation,
+  useGetHelQuery,
 } = adminApi;
