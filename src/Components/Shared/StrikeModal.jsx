@@ -42,18 +42,16 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch,title }) => {
   }, [isSuccess, error]);
 
   const onSubmit = async (data) => {
-    // const body = {
-    //   username: item?.username,
-    //   note: data?.note,
-    //   minor: Number(active === "minor" ? 1 : 0),
-    //   major: Number(active === "major" ? 1 : 0),
-    //   dismissal: Number(active === "dismissal" ? 1 : 0),
-    //   is_active: true,
-    // };
-    // const id = item?.userid;
-    // await approveUser({ id, body });
-
-
+    const body = {
+      username: item?.username,
+      note: data?.note,
+      minor: Number(active === "minor" ? 1 : 0),
+      major: Number(active === "major" ? 1 : 0),
+      dismissal: Number(active === "dismissal" ? 1 : 0),
+      is_active: true,
+    };
+    const id = item?.userid;
+    await approveUser({ id, body });
     setLoading(true);
     const formData = new FormData();
     formData.append("username", item?.username);
@@ -68,7 +66,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch,title }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         handleSuccess();
       } else {
         handleUnexpectedStatus();

@@ -101,7 +101,7 @@ const Note = ({ row, refetch }) => {
     <>
       <Tooltip placement="topLeft" title="View Notes">
         <button
-          disabled={row?.cards?.length ? false : true}
+          disabled={row?.notes?.length ? false : true}
           onClick={() => setModalOpen(true)}
           className=" text-[14px]  font-normal text-info flex items-center w-full justify-between gap-1 "
         >

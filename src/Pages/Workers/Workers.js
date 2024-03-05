@@ -31,7 +31,7 @@ const Workers = () => {
     return queryParams.join("&");
   };
 
-  console.log("=====worker======",data)
+  console.log("=====worker======",filterData)
 
   useEffect(() => {
     const query = generateQuery(searchValue);
