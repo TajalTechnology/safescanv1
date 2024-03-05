@@ -48,6 +48,27 @@ const TotalUsers = ({ workers, admins }) => {
     const arrayOfObjectsAdmins = convertToObjectArray(dateOccurrencesAdmins, "Admins");
     const allUserData = arrayOfObjectsAdmins.concat(arrayOfObjectsWorkers);
 
+    
+
+    const newData = [];
+
+    // Generate new data array with default values
+    for (let i = 0; i < 30; i++) {
+        const today = new Date();
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+        const formattedDate = date.toISOString().split('T')[0];
+        newData.unshift({ day: formattedDate, value: 0 });
+    }
+    
+    // Update values in the new data array based on existing data
+    newData.forEach(newEntry => {
+        const existingEntry = allUserData.find(entry => entry.day === newEntry.day);
+        if (existingEntry) {
+            newEntry.value += existingEntry.value;
+        }
+    });
+
     const data =allUserData?.slice(0,getSlice);
 console.log(workers,admins)
     return (

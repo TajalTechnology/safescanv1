@@ -66,7 +66,7 @@ const WorkersTableAction = ({ row,refetch }) => {
       {/* ============= Workers edit Modal============ */}
       <WorkersEdit item={row} modalOPen={edit} setModalOpen={setEdit} refetch={refetch}/>
 
-      <StrikeModal modalOPen={strike} setModalOpen={setStrike} item={row} refetch={refetch}/>
+      <StrikeModal modalOPen={strike} setModalOpen={setStrike} item={row} refetch={refetch} title="Strike Worker"/>
 
      {/* ============= Workers delete Modal============ */}
       <DeleteModal

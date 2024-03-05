@@ -5,6 +5,7 @@ import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 import AllCard from "../../Shared/modal/AllCard";
 import Note from "./Note";
+import StrikeCard from "../../Shared/modal/StrikeCard";
 
 const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
@@ -90,7 +91,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
       {
         title: "Strike Image",
         key: "id",
-        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
+        render: (row) => (<StrikeCard  row={row} refetch={refetch}/>),
       },
       {
         title: "Card Image",

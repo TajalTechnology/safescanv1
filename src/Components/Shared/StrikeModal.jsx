@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import ErrorToast from "./Toast/ErrorToast";
 import { useApproveUserMutation } from "../../redux/features/admin/adminApi";
 
-const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
+const StrikeModal = ({ modalOPen, setModalOpen, item, refetch,title }) => {
   const [active, setActive] = useState("minor");
   const [imageFiles, setImageFiles] = useState([]);
   const { token } = useSelector((state) => state.auth);
@@ -132,7 +132,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
       <div className="z-[50000000] rounded-[20px] bg-white">
         <div className=" flex items-center justify-between px-9 pt-6 pb-4">
           <h2 className=" text-[28px] font-bold text-dark-gray">
-            {"Strike Admin"}
+            {title}
           </h2>
           <button
             onClick={() => setModalOpen(false)}

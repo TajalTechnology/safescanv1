@@ -20,7 +20,10 @@ const ProfileSettings = () => {
     const [error, setError] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const { user, token } = useSelector((state) => state.auth)
-    const { data, isLoading, refetch } = useGetProfileQuery(`${user?.userid}?username=${user?.username}`);
+
+    const queryitem =`${user?.userid}?username=${user?.username}`
+
+    const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
     const [approveUser, { isLoading: updateLoading, isSuccess: updateSuccess, error: updateError }] = useApproveUserMutation();
 
     useEffect(() => {

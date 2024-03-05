@@ -6,6 +6,7 @@ import CardModal from "../../Shared/modal/CardModal";
 import QRCodeModal from "../Admins/QRCodeModal";
 import AllCard from "../../Shared/modal/AllCard";
 import Note from "../Admins/Note";
+import StrikeCard from "../../Shared/modal/StrikeCard";
 
 const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
@@ -90,7 +91,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
       {
         title: "Strike Image",
         key: "id",
-        render: (row) => (<AllCard  row={row} refetch={refetch}/>),
+        render: (row) => (<StrikeCard  row={row} refetch={refetch}/>),
       },
       {
         title: "Card Image",

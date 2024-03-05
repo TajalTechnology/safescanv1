@@ -70,7 +70,7 @@ const AdminTableAction = ({ row, refetch }) => {
         setModalOpen={setEdit}
       />
 
-      <StrikeModal modalOPen={strike} setModalOpen={setStrike} item={row} refetch={refetch}/>
+      <StrikeModal modalOPen={strike} setModalOpen={setStrike} item={row} refetch={refetch} title="Strike Admin"/>
 
       <DeleteModal
         modalOPen={deleteModal}
