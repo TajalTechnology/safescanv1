@@ -42,45 +42,42 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
   }, [isSuccess, error]);
 
   const onSubmit = async (data) => {
-    const body = {
-      username: item?.username,
-      note: data?.note,
-      minor: Number(active === "minor" ? 1 : 0),
-      major: Number(active === "major" ? 1 : 0),
-      dismissal: Number(active === "dismissal" ? 1 : 0),
-      is_active: true,
-    };
-    const id = item?.userid;
-    await approveUser({ id, body });
+    // const body = {
+    //   username: item?.username,
+    //   note: data?.note,
+    //   minor: Number(active === "minor" ? 1 : 0),
+    //   major: Number(active === "major" ? 1 : 0),
+    //   dismissal: Number(active === "dismissal" ? 1 : 0),
+    //   is_active: true,
+    // };
+    // const id = item?.userid;
+    // await approveUser({ id, body });
 
 
-    // setLoading(true);
-    // const formData = new FormData();
-    // formData.append("product_name", data?.product_name);
-    // formData.append("location", data?.location);
-    // formData.append("site_address", data?.site_address);
-    // formData.append("note", data?.note);
-    // formData.append("status", active);
-    // imageFiles.forEach((image, index) => {
-    //   formData.append(`files`, image);
-    // });
-    // try {
-    //   const response = await axios.post(`/api/v1/products`, formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
-    //   if (response.status === 201) {
-    //     handleSuccess();
-    //   } else {
-    //     handleUnexpectedStatus();
-    //   }
-    // } catch (error) {
-    //   handleError(error);
-    // } finally {
-    //   setLoading(false);
-    // }
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("username", item?.username);
+    formData.append("image_type", "strike");
+    imageFiles.forEach((image, index) => {
+      formData.append(`files`, image);
+    });
+    try {
+      const response = await axios.post(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/users/image-upload/${item?.userid}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 201) {
+        handleSuccess();
+      } else {
+        handleUnexpectedStatus();
+      }
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSuccess = () => {
@@ -275,7 +272,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
                             alt=""
                             className=" w-full h-full object-fill"
                           />
-                          <button
+                          {/* <button
                             type="button"
                             onClick={() => handleImageDelete(index)}
                             className=" absolute group-hover:flex hidden top-0 left-0 w-full h-full bg-black/50  items-center justify-center"
@@ -284,7 +281,7 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch }) => {
                               icon="gg:trash-empty"
                               className="text-[22px] text-white"
                             />
-                          </button>
+                          </button> */}
                         </div>
                       ))}
                     </div>
