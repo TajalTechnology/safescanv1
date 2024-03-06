@@ -67,7 +67,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     if (type === 'email' && shareText && shareMsg?.username && shareMsg?.password) {
       setLoading(true)
       try {
-        const response = await axios.get(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`, {
+        const response = await axios.get(`https://i27wftvuok.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,

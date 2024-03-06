@@ -37,7 +37,7 @@ const ProfileSettings = () => {
       formData.append("username", data?.username);
 
       const response = await axios.post(
-        `https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/users/image-upload/${data?.userid}`,
+        `https://i27wftvuok.execute-api.us-east-1.amazonaws.com/api/v1/users/image-upload/${data?.userid}`,
         formData,
         {
           headers: {
