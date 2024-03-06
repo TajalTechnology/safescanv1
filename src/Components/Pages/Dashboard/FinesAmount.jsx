@@ -13,13 +13,13 @@ const FinesAmount = ({counters}) => {
     console.log("====count====",counter)
     
     const monthlyData = [
-        { type: "Due", value: counter?.fines_due ? counter?.fines_due : 1060, amount:counter?.fines_due ? counter?.fines_due : 1060 },
-        { type: "Collected ", value: counter?.outstanding_fines ? counter?.outstanding_fines : 360, amount:counter?.outstanding_fines ? counter?.outstanding_fines : 360 },
+        { type: "Due", value: counter?.fines_due ? counter?.fines_due : 0, amount:counter?.fines_due ? counter?.fines_due : 0 },
+        { type: "Collected ", value: counter?.outstanding_fines ? counter?.outstanding_fines : 0, amount:counter?.outstanding_fines ? counter?.outstanding_fines : 0 },
     ]
     const weeklyData = [
 
-        { type: "Due", value: counter?.fines_due ? counter?.fines_due : 1060, amount:counter?.fines_due ? counter?.fines_due : 1060 },
-        { type: "Collected ", value: counter?.outstanding_fines ? counter?.outstanding_fines : 360, amount:counter?.outstanding_fines ? counter?.outstanding_fines : 360 },
+        { type: "Due", value: counter?.fines_due ? counter?.fines_due : 0, amount:counter?.fines_due ? counter?.fines_due : 0 },
+        { type: "Collected ", value: counter?.outstanding_fines ? counter?.outstanding_fines : 0, amount:counter?.outstanding_fines ? counter?.outstanding_fines :0 },
 
     ]
 

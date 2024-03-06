@@ -114,14 +114,14 @@ const Sidebar = () => {
               style={{
                 transitionDelay: `600ms`,
               }}
-              src="/logo (2).png"
+              src="/Images/logonew2.png"
               alt="logo"
               className={`max-w-[143px] mx-auto duration-500 ${
                 open ? "" : "hidden "
               }`}
             />
             <img
-              src="/logo2.png"
+              src="/Images/logonewSort.png"
               alt="logo"
               className={`max-w-[143px] mx-auto ${
                 open ? " hidden duration-500" : ""

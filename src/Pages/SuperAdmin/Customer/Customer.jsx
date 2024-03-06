@@ -4,6 +4,7 @@ import SuperAdminCustomerTop from "../../../Components/pageComponents/SuperAdmin
 import SuperCustomerTable from "../../../Components/pageComponents/SuperAdmin/SuperAdminCustomer/SuperCustomerTable";
 import Approval from "../../../Components/pageComponents/SuperAdmin/Approval/Approval";
 import { useApproveCustomersQuery, useCustomersQuery } from "../../../redux/features/superAdmin/superApi";
+import Rejects from "../../../Components/pageComponents/SuperAdmin/Reject/Rejects";
 
 const Customer = () => {
   const [search, setSearch] = React.useState("");
@@ -47,6 +48,18 @@ const Customer = () => {
       </div>
       <div className=" mt-5">
         <Approval
+          search={search}
+          setSearch={setSearch}
+          searchQuery={searchQuery1}
+          sestSearchQuery={sestSearchQuery1}
+          data={data1}
+          isLoading={isLoading1}
+          refetch={refetch}
+          refetch1={refetch1}
+        />
+      </div>
+      <div className=" mt-5">
+        <Rejects
           search={search}
           setSearch={setSearch}
           searchQuery={searchQuery1}

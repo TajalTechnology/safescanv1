@@ -5,9 +5,7 @@ import { Icon } from "@iconify/react";
 import EditProfile from "../../Components/Pages/ProfileSettings/EditProfile";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import { useSelector } from "react-redux";
-import {
-  useGetProfileQuery,
-} from "../../redux/features/admin/adminApi";
+import { useGetProfileQuery } from "../../redux/features/admin/adminApi";
 import Loader from "../../Components/Shared/Loader";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
@@ -15,11 +13,13 @@ import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import Profile from "../../Components/Pages/ProfileSettings/Profile";
 import axios from "axios";
 import Loader2 from "../../Components/Shared/Loader2";
+import ChangePhone from "../../Components/Pages/ProfileSettings/ChangePhone";
 
 const ProfileSettings = () => {
   const [openModal, setOpenModal] = useState(false);
   const { user, token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
+  const [phoneOpen,setPhoneOpen] = useState(false)
   const queryitem = `${user?.userid}?username=${user?.username}`;
 
   const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
@@ -80,10 +80,10 @@ const ProfileSettings = () => {
             <SectionWrapper>
               {/* -------cover image---------- */}
               <div className=" border-b relative">
-                <div >
+                <div>
                   {loading ? (
                     <div className="w-full flex items-center justify-center h-[196px]">
-                        <Loader2 />
+                      <Loader2 />
                     </div>
                   ) : (
                     <>
@@ -123,16 +123,16 @@ const ProfileSettings = () => {
               </div>
               <div className="flex flex-wrap gap-4 items-center justify-between mt-[14px] mx-5 md:mx-0  md:pl-[46px] md:pr-[25px] ">
                 <div className="md:flex items-center gap-5">
-                  <Profile data={data} refetch={refetch}/>
+                  <Profile data={data} refetch={refetch} />
                   <div>
                     <h1 className="font-bold text-2xl text-dark-gray">
-                      {data?.username}
+                      {data?.first_name} {data?.last_Name}
                     </h1>
                     <p className="text-lg font-medium -mt-1">{data?.email}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-[14px] flex-wrap">
-                  <CustomButton className={"bg-primary/10"}>
+                  <CustomButton onClick={()=>setPhoneOpen(true)} className={"bg-primary/10"}>
                     <span className="flex text-primary">
                       <span>Change Phone Number</span>
                     </span>
@@ -251,6 +251,12 @@ const ProfileSettings = () => {
             refetch={refetch}
             modalOPen={openModal}
             setOpenModal={setOpenModal}
+          />
+
+          <ChangePhone
+            refetch={refetch}
+            modalOPen={phoneOpen}
+            setModalOpen={setPhoneOpen}
           />
         </>
       )}

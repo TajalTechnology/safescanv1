@@ -51,7 +51,7 @@ const Plan = ({ row,refetch,refetch1 }) => {
           setValue("basic");
           setPopupShow(false);
         }}
-        className=" text-sm w-full items-start rounded-[10px] font-medium text-light-black hover:bg-primary/10 hover:text-[#252F67] flex  py-3 px-5"
+        className=" text-sm w-full capitalize items-start rounded-[10px] font-medium text-light-black hover:bg-primary/10 hover:text-[#252F67] flex  py-3 px-5"
       >
         basic
       </button>
@@ -61,7 +61,7 @@ const Plan = ({ row,refetch,refetch1 }) => {
           setValue("premium");
           setPopupShow(false);
         }}
-        className=" text-sm flex  w-full items-start rounded-[10px] font-medium text-light-black hover:bg-primary/10 hover:text-[#252F67] py-3 px-5"
+        className=" text-sm flex capitalize  w-full items-start rounded-[10px] font-medium text-light-black hover:bg-primary/10 hover:text-[#252F67] py-3 px-5"
       >
         premium
       </button>
@@ -71,7 +71,7 @@ const Plan = ({ row,refetch,refetch1 }) => {
           setValue("platinum");
           setPopupShow(false);
         }}
-        className=" text-sm flex  w-full items-start rounded-[10px] font-medium text-light-black hover:bg-primary/10 hover:text-[#252F67] py-3 px-5"
+        className=" text-sm flex capitalize  w-full items-start rounded-[10px] font-medium text-light-black hover:bg-primary/10 hover:text-[#252F67] py-3 px-5"
       >
         platinum
       </button>
@@ -87,7 +87,7 @@ const Plan = ({ row,refetch,refetch1 }) => {
         placement="bottom"
         trigger="click"
       >
-        <button className=" w-full flex items-center justify-between">{row?.plan} <Icon className=" text-[20px] mt-1" icon="ri:arrow-down-s-line" /></button>
+        <button className=" w-full flex items-center justify-between capitalize">{row?.plan} <Icon className=" text-[20px] mt-1" icon="ri:arrow-down-s-line" /></button>
       </Popover>
       <ApprovalModal
         modalOPen={modal}

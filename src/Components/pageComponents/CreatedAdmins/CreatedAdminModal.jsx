@@ -10,6 +10,7 @@ import SuccessToast from "../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import PasswordInput from "../../Shared/input/PasswordInput";
 
 const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
   const { token } = useSelector((state) => state.auth)
@@ -161,7 +162,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
                   error={errors.username}
                   placeholder={"Create username"}
                 />
-                <CustomInput
+                <PasswordInput
                   label={"Password"}
                   type={"password"}
                   register={register("Password", {
@@ -197,8 +198,14 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
       >
         <div className=" p-6 ">
           <div className=" rounded-[30px]">
-            <div className=" mb-3">
+            <div className=" mb-3 flex items-center justify-between w-full">
               <img src="/Images/success.svg" alt="" />
+              <button
+                onClick={() => setSuccess(false)}
+                className="  text-[30px] h-[14px] rounded-lg flex items-center justify-center hover:text-[#FF5959] text-[#68769F]"
+              >
+                <Icon icon="material-symbols:close" />
+              </button>
             </div>
             <div>
               <h2 className=" text-[24px] font-[700] text-[#1B2559]">

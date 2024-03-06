@@ -6,8 +6,9 @@ import React, { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
 import ShareModal from "../../Shared/modal/ShareModal";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
-const QRCodeModal = ({ row }) => {
+const QRCodeModal = ({ row,product=false }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const componentRef = useRef();
   const [share, setShare] = useState(false);
@@ -34,13 +35,14 @@ const QRCodeModal = ({ row }) => {
       html2canvas(component).then(async (canvas) => {
         const dataURL = canvas.toDataURL("image/jpeg");
         const a = document.createElement("a");
-        a.href = dataURL;
+        a.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
         a.download = `image.png`;
         //only here download as pdf
         a.style.display = "none";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+
       });
     }
   };
@@ -102,13 +104,13 @@ const QRCodeModal = ({ row }) => {
             className="w-full flex items-center flex-col justify-center py-7"
           >
             <div className=" flex items-center gap-2 ">
-              <img src="/logo2.png" alt="logo" className="w-[35px]" />
+              <img src="/Images/logonewSort.png" alt="logo" className="w-[35px]" />
               <div>
                 <h3 className=" text-[18px] font-bold text-[rk-grey-900#1B2559] mb-[-6px]">
                   Company Name
                 </h3>
                 <h4 className=" text-[#68769F] font-medium text-base">
-                  Employee : {row?.frist_name} {row?.last_name}
+                   {product ? `${row.product_name}` :`Employee : ${row?.frist_name} ${row?.last_name}`}
                 </h4>
               </div>
             </div>

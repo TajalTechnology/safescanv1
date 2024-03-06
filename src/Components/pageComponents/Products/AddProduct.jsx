@@ -37,7 +37,15 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
     formData.append("note", data?.note);
     formData.append("next_test_date", formattedNextDate);
     formData.append("status", active);
-    formData.append("passed", "true");
+    if(active==="passed"){
+      formData.append("passed", "true");
+    }
+    if(active==="attention"){
+      formData.append("attention", "true");
+    }
+    if(active==="failed"){
+      formData.append("failed", "true");
+    }
 
     // Append image files to the FormData object
     imageFiles.forEach((image, index) => {

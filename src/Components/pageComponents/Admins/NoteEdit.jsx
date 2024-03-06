@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CustomModal from "../../Shared/modal/CustomModal";
-import { useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
+import { useNewnoteMutation, useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 const NoteEdit = ({ editModal,refetch, setEditModal, setModalOpen,row,activeNote,activeIndex }) => {
   const [note,setNote] = useState()
 
-  const [updateNote,{isLoading,isSuccess,error}]=useUpdateNoteMutation()
+  const [newnote,{isLoading,isSuccess,error}]=useNewnoteMutation()
   const {
     handleSubmit,
   } = useForm();
@@ -43,7 +43,7 @@ const NoteEdit = ({ editModal,refetch, setEditModal, setModalOpen,row,activeNote
       }
 
       const id = row.userid;
-      await updateNote({id,body})
+      await newnote({id,body})
   };
 
   return (

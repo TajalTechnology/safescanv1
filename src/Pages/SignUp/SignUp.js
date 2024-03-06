@@ -52,6 +52,32 @@ const SignUp = () => {
             </p>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
+          <div className=" flex items-center gap-5 justify-between">
+              <CustomInput
+                label={"First Name"}
+                type={"text"}
+                register={register("first_name", {
+                  required: {
+                    value: true,
+                    message: "Enter First Name",
+                  },
+                })}
+                error={errors.first_name}
+                placeholder={"Create username"}
+              />
+              <CustomInput
+                label={"Last Name"}
+                type={"text"}
+                register={register("last_Name", {
+                  required: {
+                    value: true,
+                    message: "Please enter Password",
+                  },
+                })}
+                error={errors.last_Name}
+                placeholder={"Enter Last Name"}
+              />
+            </div>
             <div className="mb-2">
               <CustomInput
                 label={"Username"}
@@ -242,7 +268,7 @@ const SignUp = () => {
             className=" absolute bottom-0 right-0 "
           />
           <img
-            src="/Images/mainLogo.svg"
+            src="/Images/logonew.png"
             alt=""
             className=" absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
           />

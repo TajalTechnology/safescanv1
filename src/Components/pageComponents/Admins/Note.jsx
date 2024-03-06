@@ -8,11 +8,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "../../Shared/modal/DeleteModal";
-import { useApproveUserMutation, useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
+import { useApproveUserMutation, useGetHelQuery, useNewnoteMutation, useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import toast from "react-hot-toast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
 import { formattedDate } from "../../../helper/jwt";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Note = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
@@ -22,11 +24,16 @@ const Note = ({ row, refetch }) => {
   const [note, setNote] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeNote,setActiveNote]= useState()
+  const { user, token } = useSelector((state) => state.auth);
 
   const [approveUser, { isLoading, isSuccess, error }] =
     useApproveUserMutation();
 
-    const [updateNote,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}]=useUpdateNoteMutation()
+    const [newnote,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}]=useNewnoteMutation()
+    const {data} = useGetHelQuery()
+
+
+    console.log("====test api====",data)
 
     useEffect(() => {
       if (isSuccess1) {
@@ -50,14 +57,14 @@ const Note = ({ row, refetch }) => {
   
     const deleteNote = async(e) => {
         const body = {
-            username: row.username,
-            is_delete:false,
+            username: row?.username,
+            is_delete:true,
             index:activeIndex,
             note:note
         }
   
-        const id = row.userid;
-        await updateNote({id,body})
+        const id = row?.userid;
+        await newnote({id,body})
     };
 
   useEffect(() => {
