@@ -1,23 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import CustomInput from "../../Components/Shared/input/CustomInput";
-import PasswordInput from "../../Components/Shared/input/PasswordInput";
 import { useForm } from "react-hook-form";
 import CustomButton from "../../Components/Shared/CustomButton";
-import { Link, useNavigate } from "react-router-dom";
-import Password from "antd/es/input/Password";
+import { useNavigate } from "react-router-dom";
 import CreateNewPass from "../../Components/Shared/CreateNewPass";
-import InputForOtp from "../../Components/InputForOtp";
 import { useOtpSendMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import { useSelector } from "react-redux";
+import { Icon } from "@iconify/react";
 
 const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
   const [test, setTest] = useState(false);
   const [getUserPass, setGetUserPass] = useState(false);
-  const {otpData} = useSelector((state)=>state.auth)
-
+  const { otpData } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
   // ------------otp------------
 
   const [otp, setOtp] = useState(new Array(length).fill(""));
@@ -31,10 +29,10 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
 
   const [
     otpSend,
-    { isLoading: isLoading1, isSuccess:isSuccess1, error: error1 },
+    { isLoading: isLoading1, isSuccess: isSuccess1, error: error1 },
   ] = useOtpSendMutation();
 
-  console.log("response data======",otpData)
+  console.log("response data======", otpData);
 
   useEffect(() => {
     if (isSuccess1) {
@@ -47,10 +45,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
         <ErrorToast message={error1?.data.error || error1?.data.message} />
       );
     }
-  }, [isSuccess1, error1,]);
-
-
-
+  }, [isSuccess1, error1]);
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -99,25 +94,27 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
   };
   // --------end otp-------------
 
-
-
   const onSubmit = () => {
     const verifyNumberData = Object.values(otp).join("");
-    if(verifyNumberData !== otpData?.otp){
-        toast.custom(
-            <ErrorToast message={"otp not match"} />
-          );
-    }else{
-        setTest(true)
+    if (verifyNumberData !== otpData?.otp) {
+      toast.custom(<ErrorToast message={"otp not match"} />);
+    } else {
+      setTest(true);
     }
   };
 
-  const handleUserPass = async(data) => {
-    await otpSend(data)
+  const handleUserPass = async (data) => {
+    await otpSend(data);
   };
 
   return (
     <>
+      <div className=" absolute top-[50px] left-[50px]">
+        <button onClick={()=>navigate("/")} className=" flex items-center gap-2 py-1 px-3 bg-primary rounded-md text-white">
+          <Icon icon="humbleicons:arrow-left" className=" text-[25px]" /> Back
+        </button>
+      </div>
+
       {!getUserPass ? (
         <>
           <div className="flex  ">
@@ -161,7 +158,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                   </div>
                   <div className="mt-6 w-full">
                     <CustomButton className={"w-full"}>
-                      {isLoading1 ?   <p>Loading...</p> :  <p>Send</p>}
+                      {isLoading1 ? <p>Loading...</p> : <p>Send</p>}
                     </CustomButton>
                   </div>
                 </form>
