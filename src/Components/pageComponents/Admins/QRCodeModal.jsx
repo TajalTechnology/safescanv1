@@ -6,6 +6,7 @@ import React, { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
 import ShareModal from "../../Shared/modal/ShareModal";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const QRCodeModal = ({ row }) => {
   const [modalOPen, setModalOpen] = useState(false);
@@ -34,13 +35,14 @@ const QRCodeModal = ({ row }) => {
       html2canvas(component).then(async (canvas) => {
         const dataURL = canvas.toDataURL("image/jpeg");
         const a = document.createElement("a");
-        a.href = dataURL;
+        a.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
         a.download = `image.png`;
         //only here download as pdf
         a.style.display = "none";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+
       });
     }
   };

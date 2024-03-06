@@ -149,6 +149,13 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    phoneChange: builder.mutation({
+      query: (body) => ({
+        url: `number`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -173,4 +180,5 @@ export const {
   useUpdateNoteMutation,
   useNewnoteMutation,
   useGetHelQuery,
+  usePhoneChangeMutation,
 } = adminApi;
