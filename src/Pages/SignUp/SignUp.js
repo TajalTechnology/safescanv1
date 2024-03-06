@@ -52,6 +52,32 @@ const SignUp = () => {
             </p>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
+          <div className=" flex items-center gap-5 justify-between">
+              <CustomInput
+                label={"First Name"}
+                type={"text"}
+                register={register("first_name", {
+                  required: {
+                    value: true,
+                    message: "Enter First Name",
+                  },
+                })}
+                error={errors.first_name}
+                placeholder={"Create username"}
+              />
+              <CustomInput
+                label={"Last Name"}
+                type={"text"}
+                register={register("last_Name", {
+                  required: {
+                    value: true,
+                    message: "Please enter Password",
+                  },
+                })}
+                error={errors.last_Name}
+                placeholder={"Enter Last Name"}
+              />
+            </div>
             <div className="mb-2">
               <CustomInput
                 label={"Username"}

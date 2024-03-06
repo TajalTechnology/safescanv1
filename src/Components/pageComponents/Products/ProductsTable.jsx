@@ -24,6 +24,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
         </div>
       ),
       sorter: (a, b) => a.product_number - b.product_number,
+      width:"200px"
     },
     {
       title: "Location",
@@ -116,7 +117,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
     {
       title: "QRC Code",
       key: "id",
-      render: (row) => <QRCodeModal row={row} />,
+      render: (row) => <QRCodeModal row={row} product={true}/>,
     },
     {
       title: "Actions",

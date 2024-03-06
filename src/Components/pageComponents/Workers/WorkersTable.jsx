@@ -18,6 +18,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
           {row?.frist_name} {row?.last_name}
         </span>
       ),
+      width:"200px"
     },
     {
         title: "Mobile Number",

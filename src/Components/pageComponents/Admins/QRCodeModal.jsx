@@ -8,7 +8,7 @@ import ShareModal from "../../Shared/modal/ShareModal";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-const QRCodeModal = ({ row }) => {
+const QRCodeModal = ({ row,product=false }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const componentRef = useRef();
   const [share, setShare] = useState(false);
@@ -110,7 +110,7 @@ const QRCodeModal = ({ row }) => {
                   Company Name
                 </h3>
                 <h4 className=" text-[#68769F] font-medium text-base">
-                  Employee : {row?.frist_name} {row?.last_name}
+                   {product ? `${row.product_name}` :`Employee : ${row?.frist_name} ${row?.last_name}`}
                 </h4>
               </div>
             </div>

@@ -126,7 +126,7 @@ const ProfileSettings = () => {
                   <Profile data={data} refetch={refetch} />
                   <div>
                     <h1 className="font-bold text-2xl text-dark-gray">
-                      {data?.username}
+                      {data?.first_name} {data?.last_Name}
                     </h1>
                     <p className="text-lg font-medium -mt-1">{data?.email}</p>
                   </div>
