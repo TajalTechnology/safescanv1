@@ -104,7 +104,7 @@ const QRCodeModal = ({ row,product=false }) => {
             className="w-full flex items-center flex-col justify-center py-7"
           >
             <div className=" flex items-center gap-2 ">
-              <img src="/logo2.png" alt="logo" className="w-[35px]" />
+              <img src="/Images/logonewSort.png" alt="logo" className="w-[35px]" />
               <div>
                 <h3 className=" text-[18px] font-bold text-[rk-grey-900#1B2559] mb-[-6px]">
                   Company Name

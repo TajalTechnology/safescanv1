@@ -21,6 +21,8 @@ const ExpiryDate = ({ row,refetch,refetch1 }) => {
     useEffect(()=>{
       if(row?.expiry_date){
         onChange(new Date(row?.expiry_date))
+      }else{
+        onChange(new Date())
       }
     },[row])
 
@@ -90,7 +92,7 @@ const ExpiryDate = ({ row,refetch,refetch1 }) => {
           </div>
           <div className=" w-full flex items-center justify-center mt-5">
             <div className="w-[330px]">
-              <Calendar onChange={onChange} value={value} />
+              <Calendar onChange={onChange} value={value} minDate={new Date()}/>
             </div>
           </div>
           <div className="mt-[70px] flex items-center gap-5">
