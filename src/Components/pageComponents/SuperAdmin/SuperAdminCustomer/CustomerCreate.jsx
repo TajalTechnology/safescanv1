@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../../Shared/input/CustomInput";
 import CustomButton from "../../../Shared/CustomButton";
@@ -10,11 +10,20 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
-const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }) => {
+const CustomerCreate = ({
+  modalOPen,
+  setModalOpen,
+  refetch1,
+  refetch2,
+  allrefecth,
+}) => {
+  const [showrepass, setShowrepass] = useState(false);
+  const [showpass, setShowpass] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
 
   const [createCustomer, { isSuccess, isLoading, error }] =
@@ -24,14 +33,16 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }
     if (isSuccess) {
       const message = "Create Customer success";
       toast.custom(<SuccessToast message={message} />);
-      setModalOpen(false)
-      refetch1()
-      refetch2()
-      allrefecth()
+      setModalOpen(false);
+      refetch1();
+      refetch2();
+      allrefecth();
     }
     if (error) {
       console.log("===error====", error);
-      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
+      toast.custom(
+        <ErrorToast message={error?.data.error || error?.data.message} />
+      );
     }
   }, [isSuccess, error]);
 
@@ -40,7 +51,7 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }
       ...data,
       usertype: "super_admin",
     };
-    createCustomer(updateData)
+    createCustomer(updateData);
   };
 
   const modalStyle = {
@@ -129,7 +140,7 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }
             />
             <CustomInput
               label={"Email Address"}
-              type={"text"}
+              type={"email"}
               register={register("email", {
                 required: {
                   value: true,
@@ -139,6 +150,20 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }
               error={errors.email}
               placeholder={"Enter Email Address"}
             />
+            <div className="mb-2 w-full">
+              <CustomInput
+                label={"Site Name"}
+                type={"text"}
+                register={register("site_name", {
+                  required: {
+                    value: true,
+                    message: "Please enter site name ",
+                  },
+                })}
+                error={errors.site_name}
+                placeholder={"Enter Site Name"}
+              />
+            </div>
             <CustomInput
               label={"Site Address"}
               type={"text"}
@@ -164,30 +189,90 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }
               placeholder={"Enter  Employers Name"}
             />
 
-            <PasswordInput
-              label={"Create Password "}
-              register={register("password", {
-                required: {
-                  value: true,
-                  message: "Please enter Create Password ",
-                },
-              })}
-              error={errors.password}
-              placeholder={"Enter Password "}
-            />
-            <PasswordInput
-              label={"Re-enter Password "}
-              register={register("confirm_password", {
-                required: {
-                  value: true,
-                  message: "Please enter Enter Password ",
-                },
-              })}
-              error={errors.confirm_password}
-              placeholder={"Enter Enter Password "}
-            />
+            <div className="mb-2">
+              <div className="flex flex-col items-start w-full mt-5 relative">
+                <label
+                  htmlFor="otp"
+                  className="mb-1.5 font-medium text-base text-dark-gray"
+                >
+                  {"Create Password"}
+                </label>
+                <input
+                  className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+                  type={showpass ? "text" : "password"}
+                  {...register("password", {
+                    required: true,
+                  })}
+                  placeholder={"Enter password"}
+                />
+                <div className=" absolute top-[58%] right-[10px]">
+                  <button
+                    type="button"
+                    onClick={() => setShowpass((pre) => !pre)}
+                  >
+                    {showpass ? (
+                      <Icon
+                        icon="ic:outline-visibility"
+                        className="text-[20px] text-black"
+                      />
+                    ) : (
+                      <Icon
+                        icon="mdi:visibility-off-outline"
+                        className="text-[20px] text-black"
+                      />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="mb-2">
+              <div className="flex flex-col items-start w-full mt-5 relative">
+                <label
+                  htmlFor="otp"
+                  className="mb-1.5 font-medium text-base text-dark-gray"
+                >
+                  {"Re-enter Password"}
+                </label>
+                <input
+                  className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+                  type={showrepass ? "text" : "password"}
+                  placeholder={"Enter Password"}
+                  {...register("confirm_password", {
+                    required: true,
+                    validate: (val) => {
+                      if (watch("password") !== val) {
+                        return "Your passwords do no match";
+                      }
+                    },
+                  })}
+                />
+                <div className=" absolute top-[58%] right-[10px]">
+                  <button
+                    type="button"
+                    onClick={() => setShowrepass((pre) => !pre)}
+                  >
+                    {showrepass ? (
+                      <Icon
+                        icon="ic:outline-visibility"
+                        className="text-[20px] text-black"
+                      />
+                    ) : (
+                      <Icon
+                        icon="mdi:visibility-off-outline"
+                        className="text-[20px] text-black"
+                      />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+            {errors?.confirm_password?.message && (
+              <p className="text-error mt-1">Your passwords does not match!</p>
+            )}
             <div className="mt-[20px] flex items-center gap-5">
-              <CustomButton className={" w-full"}>{isLoading ? "Loading..." : "Create New"}</CustomButton>
+              <CustomButton className={" w-full"}>
+                {isLoading ? "Loading..." : "Create New"}
+              </CustomButton>
             </div>
           </form>
         </div>

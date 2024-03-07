@@ -13,6 +13,7 @@ const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
           {row.username}
         </span>
       ),
+      width:"200px"
     },
     {
       title: "Mobile Number",
