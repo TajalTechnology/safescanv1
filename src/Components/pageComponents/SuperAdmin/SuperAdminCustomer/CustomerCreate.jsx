@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
-const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2 }) => {
+const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2,allrefecth }) => {
   const {
     register,
     handleSubmit,
@@ -27,6 +27,7 @@ const CustomerCreate = ({ modalOPen, setModalOpen,refetch1,refetch2 }) => {
       setModalOpen(false)
       refetch1()
       refetch2()
+      allrefecth()
     }
     if (error) {
       console.log("===error====", error);

@@ -7,13 +7,22 @@ import CustomerCreate from "./CustomerCreate";
 import { useDebounce } from "use-debounce";
 import Loader from "../../../Shared/Loader";
 
-const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,refetch2}) => {
-
+const SuperCustomerTable = ({
+  search,
+  setSearch,
+  sestSearchQuery,
+  searchQuery,
+  data,
+  isLoading,
+  refetch,
+  refetch1,
+  refetch2,
+  allrefecth,
+}) => {
   const [create, setCreate] = useState(false);
   const [searchValue] = useDebounce(search, 1000);
 
-  console.log(searchQuery)
-
+  console.log(searchQuery);
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -28,7 +37,6 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
     const query = generateQuery(searchValue);
     sestSearchQuery(`account_status=approved${query}`);
   }, [searchValue]);
-
 
   return (
     <div>
@@ -50,7 +58,7 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
           <div>
             {isLoading ? (
               <div className=" w-full h-[450px] flex items-center justify-center">
-                  <Loader />
+                <Loader />
               </div>
             ) : (
               <>
@@ -64,7 +72,13 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
           </div>
         </div>
       </div>
-      <CustomerCreate modalOPen={create} setModalOpen={setCreate} refetch1={refetch1} refetch2={refetch2}/>
+      <CustomerCreate
+        modalOPen={create}
+        setModalOpen={setCreate}
+        refetch1={refetch1}
+        refetch2={refetch2}
+        allrefecth={allrefecth}
+      />
     </div>
   );
 };

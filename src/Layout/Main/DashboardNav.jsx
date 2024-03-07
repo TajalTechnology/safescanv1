@@ -35,7 +35,7 @@ const DashboardNav = () => {
   return (
     <>
       <div className="w-full Notification h-[100px] mr-20 gap-5  flex items-center justify-end z-50">
-        <div className=" bg-white  h-[48px] lg:w-[350px] w-full p-[5px] flex items-center justify-between gap-5 rounded-md">
+        {/* <div className=" bg-white  h-[48px] lg:w-[350px] w-full p-[5px] flex items-center justify-between gap-5 rounded-md">
           <div className=" relative w-[100%]">
             <Icon
               icon="iconamoon:search-bold"
@@ -47,7 +47,7 @@ const DashboardNav = () => {
               className=" placeholder-[#8F9BBA] text-dark-gray  text-[14px] pl-10 outline-none font-[400] w-full bg-transparent py-3 px-5 rounded-full"
             />
           </div>
-        </div>
+        </div> */}
         <div>
           <Popover content={content} placement="bottomRight" trigger="click">
             {/* <button className=" text-sm flex  w-full items-center gap-2 rounded-[10px] font-medium text-light-black py-2 md:px-0 px-5">

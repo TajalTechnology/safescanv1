@@ -13,6 +13,11 @@ const Customer = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchQuery1, sestSearchQuery1] = useState("");
   const [searchQuery2, sestSearchQuery2] = useState("");
+
+  const { data:all, isLoading:allLoad,refetch:allrefecth } = useCustomersQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
   // ========data fecthing approve=========
   const { data, isLoading, refetch } = useCustomersQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
@@ -44,7 +49,7 @@ const Customer = () => {
           { title: "Customers", url: "/super-admin/customers" },
         ]}
       />
-      <SuperAdminCustomerTop />
+      <SuperAdminCustomerTop approved={data} notApproved={data1} data={all} isLoading={allLoad}/>
 
       <div>
         <SuperCustomerTable
@@ -57,6 +62,7 @@ const Customer = () => {
           refetch={refetch}
           refetch1={refetch1}
           refetch2={refetch2}
+          allrefecth={allrefecth}
         />
       </div>
       <div className=" mt-5">
