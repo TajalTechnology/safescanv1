@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import DashboardNav from "./DashboardNav";
-import { useSelector } from "react-redux";
-import Loader from "../../Components/Shared/Loader";
 
 const Main = () => {
   // const { user } = useSelector((state) => state.auth);

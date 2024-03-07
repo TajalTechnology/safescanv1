@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import SuperSidbar from "../../Components/Sidebar/SuperSidbar";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import SuperAdminNav from "./SuperAdminNav";
 import Loader from "../../Components/Shared/Loader";
 

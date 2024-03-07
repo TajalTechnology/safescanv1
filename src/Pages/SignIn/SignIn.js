@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 
