@@ -21,6 +21,7 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
       setApproval(false)
       refetch()
       refetch1()
+      refetch2()
     }
     if (error) {
       console.log("===error====", error);

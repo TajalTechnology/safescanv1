@@ -79,7 +79,7 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
             <div className="">
               <CustomInput
                 label={"New Number"}
-                type={"number"}
+                type={"text"}
                 register={register("phone", {
                   required: {
                     value: true,

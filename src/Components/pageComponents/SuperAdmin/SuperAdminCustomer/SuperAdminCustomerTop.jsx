@@ -4,22 +4,17 @@ import SectionWrapper from "../../../Shared/SectionWrapper";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 import { fetchDataAndCalculateValues, formattedDate, todayDataGet } from "../../../../helper/jwt";
 
-const SuperAdminCustomerTop = () => {
-  const [searchQuery, sestSearchQuery] = useState("");
-  const { data, isLoading } = useCustomersQuery("", {
-    refetchOnMountOrArgChange: true,
-  });
+const SuperAdminCustomerTop = ({approved,notApproved,data,isLoading}) => {
 
-  const approved = data?.filter((item)=>item.is_approved===true)
-  const notApproved = data?.filter((item)=>item.is_approved===false)
+
 
   let currentDate = new Date();
   var sevenDaysAgo = new Date(currentDate);
   sevenDaysAgo.setDate(currentDate.getDate() - 7);
 
-  const { data:data1, } = useCustomersQuery(`is_approved=true&`, {
-    refetchOnMountOrArgChange: true,
-  });
+  // const { data:data1, } = useCustomersQuery(`is_approved=true&`, {
+  //   refetchOnMountOrArgChange: true,
+  // });
 
 
 const countSameDateOccurrences = (products) => {
@@ -49,7 +44,7 @@ const totalData = convertToObjectArray(totalUser);
 
 
 // =====get approved  user data=======
-const  approvedData = countSameDateOccurrences(data1);
+const  approvedData = countSameDateOccurrences(approved);
 const approvedUser = convertToObjectArray(approvedData);
 
 
