@@ -8,22 +8,22 @@ import Loader from "../../Components/Shared/Loader";
 const Main = () => {
   const { user } = useSelector((state) => state.auth);
 
-  // console.log("======user======",user)
+  console.log("======user======",user)
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) {
+    if (!user || user?.admin_serial === 1) {
       navigate("/");
     }
   }, [user]);
 
   return (
     <>
-      {!user ? (
+      {/* {!user ? (
         <>
             <Loader></Loader>
         </>
-      ) : (
+      ) : ( */}
         <>
           <div className=" flex bg-[#F4F7FE]">
             <div className=" bg-white">
@@ -39,7 +39,7 @@ const Main = () => {
             </div>
           </div>
         </>
-      )}
+      {/* )} */}
     </>
   );
 };
