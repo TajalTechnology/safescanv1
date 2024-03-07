@@ -4,13 +4,11 @@ import SearchInput from "../../../Shared/input/SearchInput";
 import CustomButton from "../../../Shared/CustomButton";
 import SuperCustomerTableData from "./SuperCustomerTableData";
 import CustomerCreate from "./CustomerCreate";
-import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 import { useDebounce } from "use-debounce";
 import Loader from "../../../Shared/Loader";
 
-const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
+const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,refetch2}) => {
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [create, setCreate] = useState(false);
   const [searchValue] = useDebounce(search, 1000);
 
@@ -20,7 +18,7 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
-      queryParams.push(`search=${searchValue}`);
+      queryParams.push(`&search=${searchValue}`);
     }
 
     return queryParams.join("&");
@@ -28,27 +26,10 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`${query}&is_approved=true`);
+    sestSearchQuery(`account_status=approved${query}`);
   }, [searchValue]);
 
-  // ======table Select function=======
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
 
-
-  console.log("all data=====",data)
-
-  // ======add a key for selected=======
-  const updateData = data?.map((item) => ({
-    key: item?.userid,
-    ...item,
-  }));
   return (
     <div>
       <div className=" mb-8">
@@ -74,17 +55,16 @@ const SuperCustomerTable = ({search,setSearch,sestSearchQuery,searchQuery,data, 
             ) : (
               <>
                 <SuperCustomerTableData
-                  tableData={updateData}
-                  rowSelection={rowSelection}
+                  tableData={data}
                   refetch={refetch}
-                  refetch1={refetch1}
+                  refetch1={refetch2}
                 />
               </>
             )}
           </div>
         </div>
       </div>
-      <CustomerCreate modalOPen={create} setModalOpen={setCreate} refetch1={refetch1}/>
+      <CustomerCreate modalOPen={create} setModalOpen={setCreate} refetch1={refetch1} refetch2={refetch2}/>
     </div>
   );
 };

@@ -35,7 +35,7 @@ const QRCodeModal = ({ row,product=false }) => {
       html2canvas(component).then(async (canvas) => {
         const dataURL = canvas.toDataURL("image/jpeg");
         const a = document.createElement("a");
-        a.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`
+        a.href = dataURL
         a.download = `image.png`;
         //only here download as pdf
         a.style.display = "none";

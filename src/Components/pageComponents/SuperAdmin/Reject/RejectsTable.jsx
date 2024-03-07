@@ -3,7 +3,7 @@ import CustomTable2 from "../../../Shared/table/CustomTable2";
 import { formattedDate } from "../../../../helper/jwt";
 import RejectsTableAction from "./RejectsTableAction";
 
-const RejectsTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
+const RejectsTable = ({ tableData,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
@@ -78,7 +78,6 @@ const RejectsTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
     <div className=" grid grid-cols-1">
       <CustomTable2
         tableData={tableData}
-        rowSelection={rowSelection}
         columns={columns}
         scroll={{ x: "750px" }}
       />

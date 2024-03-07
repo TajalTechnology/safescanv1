@@ -6,12 +6,8 @@ import { useDebounce } from "use-debounce";
 import Loader from "../../../Shared/Loader";
 
 
-const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,refetch2}) => {
   const [searchValue] = useDebounce(search, 1000);
-
-
   const generateQuery = (searchValue) => {
     const queryParams = [];
     if (searchValue) {
@@ -22,24 +18,12 @@ const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`is_approved=false${query}`);
+    sestSearchQuery(`account_status=pending${query}`);
   }, [searchValue]);
 
-  // ======table Select function=======
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
 
-  // ======add a key for selected=======
-  const updateData = data?.map((item, index) => ({
-    key: item?.userid,
-    ...item,
-  }));
+  console.log(data)
+
   return (
     <div>
       <div className=" mb-8">
@@ -62,10 +46,10 @@ const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,
             ) : (
               <>
                 <ApprovalTable
-                  tableData={updateData}
-                  rowSelection={rowSelection}
+                  tableData={data}
                   refetch={refetch}
                   refetch1={refetch1}
+                  refetch2={refetch2}
                 />
               </>
             )}

@@ -3,7 +3,7 @@ import CustomTable2 from "../../../Shared/table/CustomTable2";
 import ApprovalAction from "./ApprovalAction";
 import { formattedDate } from "../../../../helper/jwt";
 
-const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
+const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
   const columns = [
     {
       title: "Username",
@@ -69,7 +69,7 @@ const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
         title: "Action",
         key: "id",
         render: (row) => (
-          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} />
+          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} refetch2={refetch2}/>
         ),
       },
   ];
@@ -78,7 +78,6 @@ const ApprovalTable = ({ tableData, rowSelection,refetch,refetch1 }) => {
     <div className=" grid grid-cols-1">
       <CustomTable2
         tableData={tableData}
-        rowSelection={rowSelection}
         columns={columns}
         scroll={{ x: "750px" }}
       />

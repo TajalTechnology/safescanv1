@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import React from "react";
 
-const CustomTable2 = ({ tableData, columns, scroll,rowSelection }) => {
+const CustomTable2 = ({ tableData, columns, scroll }) => {
   const [start, setStart] = React.useState(1);
   const [end, setend] = React.useState(5);
 

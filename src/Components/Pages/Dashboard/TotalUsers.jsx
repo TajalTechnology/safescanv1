@@ -8,14 +8,14 @@ const TotalUsers = ({ workers, admins }) => {
   const filterAdmin = admins?.filter((item) => item?.is_active === true);
   const filterWorker = workers?.filter((item) => item?.is_active === true);
   const [selected, setSelected] = useState("Monthly");
-  const [getSlice, setGetSlice] = useState(7);
+  const [getSlice, setGetSlice] = useState(14);
   const dataDay = ["Weekly", "Monthly"];
   useEffect(() => {
     if (selected === "Weekly") {
-      setGetSlice(7);
+      setGetSlice(14);
     }
     if (selected === "Monthly") {
-      setGetSlice(31);
+      setGetSlice(40);
     }
   }, [selected]);
 
@@ -54,9 +54,6 @@ const TotalUsers = ({ workers, admins }) => {
   );
   const allUserData = arrayOfObjectsAdmins.concat(arrayOfObjectsWorkers);
 
-  const data = allUserData?.slice(0, getSlice);
-  console.log("all data", data);
-
 
   const newData = [];
   for (let i = 0; i < 30; i++) {
@@ -64,21 +61,33 @@ const TotalUsers = ({ workers, admins }) => {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = date.toISOString().split('T')[0];
-    newData.unshift({ day: formattedDate,name:"", value: 0, });
-}
-
-// Update values in the new data array based on existing data
-newData.forEach(newEntry => {
-    const existingEntry = allUserData.find(entry => entry.day === newEntry.day);
-    if (existingEntry) {
-        newEntry.value += existingEntry.value;
-        newEntry.name = existingEntry.name
+    newData.unshift({ day: formattedDate, name: "", value: 0 });
+  }
+  
+  // Update values in the new data array based on existing data
+  newData.forEach(newEntry => {
+    const existingEntries = allUserData.filter(entry => entry.day === newEntry.day);
+    if (existingEntries.length === 2) {
+      newData.push(existingEntries[0]);
+      newData.push(existingEntries[1]);
+    } else if (existingEntries.length === 1) {
+      newData.push(existingEntries[0]);
+      newData.push({ ...existingEntries[0], name: existingEntries[0].name === "admin" ? "worker" : "admin" });
+    } else {
+      // If no existing data for a date, assign "admin" and "worker"
+      newData.push({ ...newEntry, name: "admin" });
+      newData.push({ ...newEntry, name: "worker" });
     }
-});
+  });
 
 
-console.log("======",newData)
 
+
+
+
+// const data = newData?.slice(0, getSlice);
+const data = newData?.slice(-getSlice);
+console.log("======",data)
 
   return (
     <div className="w-full">
@@ -99,7 +108,7 @@ console.log("======",newData)
             />
           </div>
           <div>
-            <TotalUserChart data={newData} />
+            <TotalUserChart data={data} />
           </div>
         </div>
       </SectionWrapper>
