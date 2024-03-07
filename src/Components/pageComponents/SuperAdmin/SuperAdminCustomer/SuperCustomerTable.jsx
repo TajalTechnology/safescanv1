@@ -38,6 +38,9 @@ const SuperCustomerTable = ({
     sestSearchQuery(`account_status=approved${query}`);
   }, [searchValue]);
 
+
+  console.log(data)
+
   return (
     <div>
       <div className=" mb-8">
