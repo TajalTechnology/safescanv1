@@ -15,6 +15,7 @@ import axios from "axios";
 import Loader2 from "../../Components/Shared/Loader2";
 import ChangePhone from "../../Components/Pages/ProfileSettings/ChangePhone";
 
+
 const ProfileSettings = () => {
   const [openModal, setOpenModal] = useState(false);
   const { user, token } = useSelector((state) => state.auth);
@@ -95,7 +96,7 @@ const ProfileSettings = () => {
                         />
                       ) : (
                         <img
-                          src="/images/coverPhoto.svg"
+                          src="/Images/Hexagon 1.png"
                           alt="cover"
                           className=" object-cover w-[100%] h-[196px]"
                         />

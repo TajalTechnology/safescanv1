@@ -66,7 +66,7 @@ const Profile = ({data,refetch}) => {
             />
           ) : (
             <img
-              src="/images/profile.svg"
+              src="/Images/Group 48.png"
               alt="profile"
               className=" w-[100px] h-[100px] rounded-full object-cover"
             />
