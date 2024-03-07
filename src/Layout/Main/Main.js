@@ -2,20 +2,21 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import DashboardNav from "./DashboardNav";
-import { useSelector } from "react-redux";
-import Loader from "../../Components/Shared/Loader";
 
 const Main = () => {
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
 
-  console.log("======user======",user)
+  const tokenString = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  
+  console.log("======tokenString======",user)
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user || user?.admin_serial === 1) {
+    if (!user || !tokenString || user?.admin_serial === 1) {
       navigate("/");
     }
-  }, [user]);
+  }, [user,tokenString]);
 
   return (
     <>

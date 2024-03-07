@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import SuperSidbar from "../../Components/Sidebar/SuperSidbar";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import SuperAdminNav from "./SuperAdminNav";
 import Loader from "../../Components/Shared/Loader";
 
 const SuperAdmin = () => {
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   useEffect(() => {
     if (user?.usertype === "super_admin" && user?.admin_serial === 1) {

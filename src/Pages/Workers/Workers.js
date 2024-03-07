@@ -31,8 +31,6 @@ const Workers = () => {
     return queryParams.join("&");
   };
 
-  console.log("=====worker======",filterData)
-
   useEffect(() => {
     const query = generateQuery(searchValue);
     sestSearchQuery(`${query}`);
