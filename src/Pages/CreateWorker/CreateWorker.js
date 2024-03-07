@@ -49,7 +49,7 @@ const CreateWorker = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-console.log(data)
+
   // ======add a key for selected=======
   const updateData = data?.map((item, index) => ({ key: index + 1, ...item }));
 

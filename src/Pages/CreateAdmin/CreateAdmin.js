@@ -18,14 +18,12 @@ const CreateAdmin = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
 
-  console.log("query", searchQuery);
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetAdminQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
   });
 
-  console.log(data);
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
