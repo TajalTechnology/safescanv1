@@ -49,7 +49,7 @@ const CardEdit = ({setModalOpen,refetch, editModal, setEditModal, imageItem, row
       formData.append("username", data.username);
 
       const response = await axios.patch(
-        `https://i27wftvuok.execute-api.us-east-1.amazonaws.com/api/v1/users/edit-cards/${row?.userid}`,
+        `https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/users/edit-cards/${row?.userid}`,
         formData,
         {
           headers: {

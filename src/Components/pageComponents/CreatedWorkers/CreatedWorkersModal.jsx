@@ -69,7 +69,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://i27wftvuok.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`,
+          `https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`,
           {
             // mode: 'no-cors',
             headers: {

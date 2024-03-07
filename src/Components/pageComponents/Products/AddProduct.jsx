@@ -53,7 +53,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
     });
 
     try {
-      const response = await axios.post(`https://i27wftvuok.execute-api.us-east-1.amazonaws.com/api/v1/products`, formData, {
+      const response = await axios.post(`https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/products`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

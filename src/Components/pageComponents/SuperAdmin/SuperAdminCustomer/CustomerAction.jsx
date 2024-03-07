@@ -27,7 +27,7 @@ const CustomerAction = ({ row,refetch,refetch1 }) => {
   const handleApprove = async()=>{
       const data={
         username:row?.username,
-        is_approved: false,
+        account_status: "rejected",
       }
 
       const id=row?.userid

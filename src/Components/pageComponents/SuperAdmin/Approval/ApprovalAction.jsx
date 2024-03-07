@@ -7,16 +7,16 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
-const ApprovalAction = ({ row,refetch,refetch1 }) => {
+const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
   const [approval, setApproval] = useState(false);
   const [reject, setReject] = useState(false);
+  const [type,settype] = useState("Customer Approve success")
 
   const [approve, { isLoading, error, isSuccess }] = useApproveMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Customer Approve success";
-      toast.custom(<SuccessToast message={message} />);
+      toast.custom(<SuccessToast message={type} />);
       setReject(false);
       setApproval(false)
       refetch()
@@ -28,22 +28,24 @@ const ApprovalAction = ({ row,refetch,refetch1 }) => {
     }
   }, [isSuccess, error]);
 
-  // const handleREject = async()=>{
-  //     const data={
-  //       username:row?.username,
-  //       is_approved: false,
-  //     }
-  //     const id=row?.userid;
-  //    await approve({id,data})
-  // }
+  const handleREject = async()=>{
+      const data={
+        username:row?.username,
+        account_status: "rejected",
+      }
+      const id=row?.userid;
+     await approve({id,data})
+     settype("Customer Rejects success")
+  }
 
   const handleApprove = async()=>{
     const data={
       username:row?.username,
-      is_approved: true,
+      account_status: "approved",
     }
     const id=row?.userid;
     await approve({id,data})
+    settype("Customer Approve success")
 }
 
   return (
@@ -82,7 +84,7 @@ const ApprovalAction = ({ row,refetch,refetch1 }) => {
       {/* Reject modal */}
       <ApprovalModal
         modalOPen={reject}
-        onDelete={() => setReject(false)}
+        onDelete={() => handleREject()}
         setModalOpen={setReject}
         title={"Reject Approval!"}
         title2={

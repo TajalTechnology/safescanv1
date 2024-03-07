@@ -1,5 +1,4 @@
-import { Icon } from "@iconify/react";
-import { Tooltip } from "antd";
+
 import React, { useEffect, useState } from "react";
 import ApprovalModal from "../../../Shared/modal/ApprovalModal";
 import { useApproveMutation } from "../../../../redux/features/superAdmin/superApi";
@@ -40,7 +39,7 @@ const RejectsTableAction = ({ row,refetch,refetch1 }) => {
   const handleApprove = async()=>{
     const data={
       username:row?.username,
-      is_approved: true,
+      account_status: "approved",
     }
     const id=row?.userid;
     await approve({id,data})

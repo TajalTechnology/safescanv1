@@ -8,7 +8,6 @@ import RejectsTable from "./RejectsTable";
 
 const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [searchValue] = useDebounce(search, 1000);
 
 
@@ -22,24 +21,10 @@ const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,r
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`is_approved=false${query}`);
+    sestSearchQuery(`account_status=rejected${query}`);
   }, [searchValue]);
 
-  // ======table Select function=======
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
 
-  // ======add a key for selected=======
-  const updateData = data?.map((item, index) => ({
-    key: item?.userid,
-    ...item,
-  }));
   return (
     <div>
       <div className=" mb-8">
@@ -62,8 +47,7 @@ const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,r
             ) : (
               <>
                 <RejectsTable
-                  tableData={updateData}
-                  rowSelection={rowSelection}
+                  tableData={data}
                   refetch={refetch}
                   refetch1={refetch1}
                 />
