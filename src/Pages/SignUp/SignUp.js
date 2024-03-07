@@ -198,6 +198,7 @@ const SignUp = () => {
                     )}
                   </button>
                 </div>
+
               </div>
             </div>
             <div className="mb-2">

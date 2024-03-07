@@ -14,6 +14,7 @@ const SuperCustomerTableData = ({ tableData,refetch,refetch1 }) => {
           {row.username}
         </span>
       ),
+      width:"200px"
     },
     {
       title: "Mobile Number",

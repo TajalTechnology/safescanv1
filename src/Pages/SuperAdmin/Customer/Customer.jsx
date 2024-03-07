@@ -49,7 +49,7 @@ const Customer = () => {
           { title: "Customers", url: "/super-admin/customers" },
         ]}
       />
-      <SuperAdminCustomerTop approved={data} notApproved={data1} data={all} isLoading={allLoad}/>
+      <SuperAdminCustomerTop approved={data} notApproved={data1} data={all} isLoading={allLoad} data2={data2}/>
 
       <div>
         <SuperCustomerTable

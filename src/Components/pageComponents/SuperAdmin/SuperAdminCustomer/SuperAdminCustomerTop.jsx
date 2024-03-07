@@ -4,7 +4,7 @@ import SectionWrapper from "../../../Shared/SectionWrapper";
 import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 import { fetchDataAndCalculateValues, formattedDate, todayDataGet } from "../../../../helper/jwt";
 
-const SuperAdminCustomerTop = ({approved,notApproved,data,isLoading}) => {
+const SuperAdminCustomerTop = ({approved,notApproved,data,isLoading,data2}) => {
 
 
 
@@ -109,9 +109,9 @@ console.log("today data======",todayDataGet(totalData))
                 </div>
                 <div className="w-[50%]">
                   <p className="text-xs font-medium text-white/70">
-                  Last Week Approved 
+                    Total Rejected
                   </p>
-                  <h1 className="text-2xl font-bold ">{isLoading ? "..." : fetchDataAndCalculateValues(approvedUser)}</h1>
+                  <h1 className="text-2xl font-bold ">{isLoading ? "..." : data2?.length}</h1>
                 </div>
               </div>
             </div>
