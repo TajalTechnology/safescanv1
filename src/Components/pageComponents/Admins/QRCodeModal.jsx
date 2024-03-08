@@ -32,7 +32,7 @@ const QRCodeModal = ({ row }) => {
       // component.style.height = `${originalHeight}px`;
 
       html2canvas(component).then(async (canvas) => {
-        const dataURL = canvas.toDataURL("image/jpeg");
+        const dataURL = canvas.toDataURL("image/png");
         const a = document.createElement("a");
         a.href = dataURL;
         a.download = `image.png`;
