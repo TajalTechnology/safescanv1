@@ -6,7 +6,7 @@ import { useDebounce } from "use-debounce";
 import Loader from "../../../Shared/Loader";
 
 
-const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,refetch2}) => {
+const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,refetch2,allrefecth}) => {
   const [searchValue] = useDebounce(search, 1000);
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -50,6 +50,7 @@ const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,
                   refetch={refetch}
                   refetch1={refetch1}
                   refetch2={refetch2}
+                  allrefecth={allrefecth}
                 />
               </>
             )}

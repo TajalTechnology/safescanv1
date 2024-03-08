@@ -143,31 +143,61 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
       <CustomInput
         label={"Site Address"}
         type={"text"}
-        register={register("site_address")}
+        register={register("site_address", {
+          required: {
+            value: true,
+            message: "Please enter first name",
+          },
+        })}
+        error={errors.site_address}
         placeholder={"Enter Site Address"}
       />
       <CustomInput
         label={"Employers Name"}
         type={"text"}
-        register={register("emloyeer_name")}
+        register={register("emloyeer_name", {
+          required: {
+            value: true,
+            message: "Please enter first name",
+          },
+        })}
+        error={errors.emloyeer_name}
         placeholder={"Enter Employers Name"}
       />
       <CustomInput
         label={"ICE Name"}
         type={"text"}
-        register={register("ice_name")}
+        register={register("ice_name", {
+          required: {
+            value: true,
+            message: "Please enter first name",
+          },
+        })}
+        error={errors.ice_name}
         placeholder={"Enter ICE Name"}
       />
       <CustomInput
         label={"ICE Number"}
-        type={"text"}
-        register={register("ice_number")}
+        type={"number"}
+        register={register("ice_number", {
+          required: {
+            value: true,
+            message: "Please enter first name",
+          },
+        })}
+        error={errors.ice_number}
         placeholder={"Enter ICE Number"}
       />
       <CustomInput
         label={"Medical Condition"}
         type={"text"}
-        register={register("medical_condition")}
+        register={register("medical_condition", {
+          required: {
+            value: true,
+            message: "Please enter first name",
+          },
+        })}
+        error={errors.medical_condition}
         placeholder={"Enter Medical Condition"}
       />
 

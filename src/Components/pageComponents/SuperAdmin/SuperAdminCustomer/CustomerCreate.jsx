@@ -24,6 +24,7 @@ const CustomerCreate = ({
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm();
 
   const [createCustomer, { isSuccess, isLoading, error }] =
@@ -37,6 +38,7 @@ const CustomerCreate = ({
       refetch1();
       refetch2();
       allrefecth();
+      reset()
     }
     if (error) {
       console.log("===error====", error);
@@ -128,7 +130,7 @@ const CustomerCreate = ({
             />
             <CustomInput
               label={"Mobile Number"}
-              type={"text"}
+              type={"number"}
               register={register("phone", {
                 required: {
                   value: true,

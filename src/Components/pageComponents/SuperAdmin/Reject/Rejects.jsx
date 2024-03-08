@@ -6,7 +6,7 @@ import Loader from "../../../Shared/Loader";
 import RejectsTable from "./RejectsTable";
 
 
-const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1}) => {
+const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,allrefecth}) => {
 
   const [searchValue] = useDebounce(search, 1000);
 
@@ -50,6 +50,7 @@ const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,r
                   tableData={data}
                   refetch={refetch}
                   refetch1={refetch1}
+                  allrefecth={allrefecth}
                 />
               </>
             )}

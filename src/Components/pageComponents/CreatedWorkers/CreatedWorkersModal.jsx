@@ -36,6 +36,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       setModalOpen(false);
       reset();
       setSuccess(true);
+      setShareText("")
     }
     if (error) {
       toast.custom(

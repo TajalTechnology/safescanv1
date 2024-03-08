@@ -25,7 +25,7 @@ const SignUp = () => {
     if (isSuccess) {
       const message = "Create Customer success";
       toast.success(message);
-      navigate("/")
+      navigate("/");
     }
     if (error) {
       toast.error(error?.data.error);
@@ -52,7 +52,7 @@ const SignUp = () => {
             </p>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-          <div className=" flex items-center gap-5 justify-between">
+            <div className=" flex items-center gap-5 justify-between">
               <CustomInput
                 label={"First Name"}
                 type={"text"}
@@ -109,7 +109,7 @@ const SignUp = () => {
             <div className="mb-2">
               <CustomInput
                 label={"Phone Number"}
-                type={"text"}
+                type={"number"}
                 register={register("phone", {
                   required: {
                     value: true,
@@ -125,12 +125,12 @@ const SignUp = () => {
                 label={"Site Address"}
                 type={"text"}
                 register={register("site_address", {
-                    required: {
-                      value: true,
-                      message: "Please enter site address ",
-                    },
-                  })}
-                  error={errors.site_address}
+                  required: {
+                    value: true,
+                    message: "Please enter site address ",
+                  },
+                })}
+                error={errors.site_address}
                 placeholder={"Enter Site Address"}
               />
             </div>
@@ -198,9 +198,16 @@ const SignUp = () => {
                     )}
                   </button>
                 </div>
-
+                <label className="label">
+                  {error?.password?.type === "required" && (
+                    <span className=" text-sm mt-1 text-red-500">
+                      {error?.password?.message}
+                    </span>
+                  )}
+                </label>
               </div>
             </div>
+
             <div className="mb-2">
               <div className="flex flex-col items-start w-full mt-5 relative">
                 <label
