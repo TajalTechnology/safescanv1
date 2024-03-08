@@ -3,7 +3,7 @@ import CustomTable2 from "../../../Shared/table/CustomTable2";
 import ApprovalAction from "./ApprovalAction";
 import { formattedDate } from "../../../../helper/jwt";
 
-const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
+const ApprovalTable = ({ tableData,refetch,refetch1,refetch2,allrefecth }) => {
   const columns = [
     {
       title: "Username",
@@ -62,15 +62,15 @@ const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
       title: "Request Date",
       key: "id",
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{formattedDate(row.updated_at)}</span>
+        <span className=" text-[14px] font-normal text-info">{formattedDate(row.created_at)}</span>
       ),
-      sorter: (a, b) => new Date(a.updated_at) - new Date(b.updated_at),
+      sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at),
     },
     {
         title: "Action",
         key: "id",
         render: (row) => (
-          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} refetch2={refetch2}/>
+          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} refetch2={refetch2} allrefecth={allrefecth}/>
         ),
       },
   ];

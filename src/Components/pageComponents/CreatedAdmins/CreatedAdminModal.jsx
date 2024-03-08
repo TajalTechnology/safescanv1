@@ -43,6 +43,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
       setModalOpen(false)
       reset()
       setSuccess(true)
+      setShareText("")
     }
     if (error) {
       toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
@@ -226,7 +227,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
               </div>
               <input
                 className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
-                type={type === "email" ? "email" : "text"}
+                type={type === "email" ? "email" : "number"}
                 required
                 placeholder={type === "email" ? "Enter Email Address" : "Enter Whatsapp Number"}
                 id="otp"

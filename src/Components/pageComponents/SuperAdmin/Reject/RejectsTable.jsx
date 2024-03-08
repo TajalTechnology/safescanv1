@@ -3,7 +3,7 @@ import CustomTable2 from "../../../Shared/table/CustomTable2";
 import { formattedDate } from "../../../../helper/jwt";
 import RejectsTableAction from "./RejectsTableAction";
 
-const RejectsTable = ({ tableData,refetch,refetch1 }) => {
+const RejectsTable = ({ tableData,refetch,refetch1,allrefecth }) => {
   const columns = [
     {
       title: "Username",
@@ -62,15 +62,15 @@ const RejectsTable = ({ tableData,refetch,refetch1 }) => {
       title: "Request Date",
       key: "id",
       render: (row) => (
-        <span className=" text-[14px] font-normal text-info">{formattedDate(row.updated_at)}</span>
+        <span className=" text-[14px] font-normal text-info">{formattedDate(row.created_at)}</span>
       ),
-      sorter: (a, b) => new Date(a.updated_at) - new Date(b.updated_at),
+      sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at),
     },
     {
         title: "Action",
         key: "id",
         render: (row) => (
-          <RejectsTableAction row={row} refetch={refetch} refetch1={refetch1} />
+          <RejectsTableAction row={row} refetch={refetch} refetch1={refetch1} allrefecth={allrefecth}/>
         ),
       },
   ];

@@ -79,14 +79,14 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
             <div className="">
               <CustomInput
                 label={"New Number"}
-                type={"text"}
+                type={"number"}
                 register={register("phone", {
                   required: {
                     value: true,
                     message: "Please enter phone",
                   },
                 })}
-                error={errors.username}
+                error={errors.phone}
                 placeholder={"Enter Your New Phone Number"}
               />
               <PasswordInput
@@ -98,7 +98,7 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
                     message: "Please enter Password",
                   },
                 })}
-                error={errors.Password}
+                error={errors.password}
                 placeholder={"Enter Your Password"}
               />
             </div>

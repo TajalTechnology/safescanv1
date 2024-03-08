@@ -4,7 +4,7 @@ import CustomerAction from "./CustomerAction";
 import Plan from "./Plan";
 import ExpiryDate from "./ExpiryDate";
 
-const SuperCustomerTableData = ({ tableData,refetch,refetch1 }) => {
+const SuperCustomerTableData = ({ tableData,refetch,refetch1,allrefecth }) => {
   const columns = [
     {
       title: "Username",
@@ -80,7 +80,7 @@ const SuperCustomerTableData = ({ tableData,refetch,refetch1 }) => {
       title: "Action",
       key: "id",
       render: (row) => (
-       <CustomerAction row={row} refetch={refetch} refetch1={refetch1}/>
+       <CustomerAction row={row} refetch={refetch} refetch1={refetch1} allrefecth={allrefecth}/>
       )
     },
   ];

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 
-const PasswordInput = ({ label, label2, register, placeholder }) => {
+const PasswordInput = ({ label, error, register, placeholder }) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -17,7 +17,6 @@ const PasswordInput = ({ label, label2, register, placeholder }) => {
         type={show ? "text" : "password"}
         placeholder={placeholder}
         id="otp"
-        required
         {...register}
       />
       <div className=" absolute top-[58%] right-[10px]">
@@ -35,9 +34,11 @@ const PasswordInput = ({ label, label2, register, placeholder }) => {
           )}
         </button>
       </div>
-      {/* <label className="label mt-2">
-                {"label2"}
-            </label> */}
+      <label className="label">
+        {error?.type === "required" && (
+          <span className=" text-sm mt-1 text-red-500">{error.message}</span>
+        )}
+      </label>
     </div>
   );
 };

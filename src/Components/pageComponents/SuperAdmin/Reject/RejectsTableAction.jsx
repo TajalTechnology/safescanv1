@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
-const RejectsTableAction = ({ row,refetch,refetch1 }) => {
+const RejectsTableAction = ({ row,refetch,refetch1,allrefecth }) => {
   const [approval, setApproval] = useState(false);
   const [reject, setReject] = useState(false);
 
@@ -20,6 +20,7 @@ const RejectsTableAction = ({ row,refetch,refetch1 }) => {
       setApproval(false)
       refetch()
       refetch1()
+      allrefecth()
     }
     if (error) {
       console.log("===error====", error);

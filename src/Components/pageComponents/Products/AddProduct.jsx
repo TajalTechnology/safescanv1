@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
   const [active, setActive] = useState("passed");
   const [lastDate, setLastDate] = useState(new Date());
-  const [nextDate, setNextDate] = useState();
+  const [nextDate, setNextDate] = useState(new Date());
   const formattedNextDate = formattedDate(nextDate);
   const [imageFiles, setImageFiles] = useState([]);
   const { token } = useSelector((state) => state.auth);
@@ -185,7 +185,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
               message: "Please enter product name",
             },
           })}
-          error={errors.firstName}
+          error={errors.product_name}
           placeholder={"Enter product Name"}
         />
 
@@ -206,7 +206,13 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
       <CustomInput
         label={"Site Address"}
         type={"text"}
-        register={register("site_address")}
+        register={register("site_address", {
+          required: {
+            value: true,
+            message: "Please enter site address",
+          },
+        })}
+        error={errors.site_address}
         placeholder={"Enter Site Address"}
       />
       {/* <CustomInput
@@ -244,7 +250,6 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
 
             selected={nextDate}
             onChange={(date) => setNextDate(date)}
-            required
             placeholderText="Select Date"
             className="w-full border border-gray-300 rounded-[10px] pl-2 pr-8 py-2.5 "
           />
@@ -254,7 +259,13 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
       <CustomInput
         label={"Location"}
         type={"text"}
-        register={register("location")}
+        register={register("location", {
+          required: {
+            value: true,
+            message: "Please enter location",
+          },
+        })}
+        error={errors.location}
         placeholder={"Enter level 3"}
       />
 
