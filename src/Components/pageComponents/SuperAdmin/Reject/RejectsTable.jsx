@@ -1,9 +1,9 @@
 import React from "react";
 import CustomTable2 from "../../../Shared/table/CustomTable2";
-import ApprovalAction from "./ApprovalAction";
 import { formattedDate } from "../../../../helper/jwt";
+import RejectsTableAction from "./RejectsTableAction";
 
-const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
+const RejectsTable = ({ tableData,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
@@ -70,7 +70,7 @@ const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
         title: "Action",
         key: "id",
         render: (row) => (
-          <ApprovalAction row={row} refetch={refetch} refetch1={refetch1} refetch2={refetch2}/>
+          <RejectsTableAction row={row} refetch={refetch} refetch1={refetch1} />
         ),
       },
   ];
@@ -86,4 +86,4 @@ const ApprovalTable = ({ tableData,refetch,refetch1,refetch2 }) => {
   );
 };
 
-export default ApprovalTable;
+export default RejectsTable;

@@ -1,79 +1,151 @@
-import React, { useEffect, useState } from 'react';
-import SectionWrapper from '../../Shared/SectionWrapper';
-import TimePickerButton from '../../Shared/TimePickerButton';
-import TotalUserChart from './TotalUserChart';
-import { formattedDate } from '../../../helper/jwt';
+import React, { useEffect, useState } from "react";
+import SectionWrapper from "../../Shared/SectionWrapper";
+import TimePickerButton from "../../Shared/TimePickerButton";
+import TotalUserChart from "./TotalUserChart";
+import { formattedDate } from "../../../helper/jwt";
 
 const TotalUsers = ({ workers, admins }) => {
-    const filterAdmin = admins?.filter((item)=>item?.is_active === true)
-    const filterWorker = workers?.filter((item)=>item?.is_active === true)
-    const [selected, setSelected] = useState('Monthly');
-    const [getSlice, setGetSlice] = useState(7);
-    const dataDay = ["Weekly", "Monthly"];
-    useEffect(() => {
-        if (selected === 'Weekly') {
-            setGetSlice(7)
-        }
-        if (selected === 'Monthly') {
-            setGetSlice(31)
-        }
-    }, [selected])
-
-    const countSameDateOccurrences = (products) => {
-        const dateCounts = {};
-        products?.forEach(product => {
-            const date = formattedDate(product.created_at);
-            if (dateCounts[date]) {
-                dateCounts[date]++;
-            } else {
-                dateCounts[date] = 1;
-            }
-        });
-
-        return dateCounts;
+  const filterAdmin = admins?.filter((item) => item?.is_active === true);
+  const filterWorker = workers?.filter((item) => item?.is_active === true);
+  const [selected, setSelected] = useState("Monthly");
+  const [getSlice, setGetSlice] = useState(14);
+  const dataDay = ["Weekly", "Monthly"];
+  useEffect(() => {
+    if (selected === "Weekly") {
+      setGetSlice(14);
     }
-
-    const convertToObjectArray = (dateCounts, usertype) => {
-        return Object.keys(dateCounts)?.map(date => ({
-            day: date,
-            name: usertype,
-            value: dateCounts[date]
-        }));
+    if (selected === "Monthly") {
+      setGetSlice(40);
     }
+  }, [selected]);
 
-    const dateOccurrencesWorkers = countSameDateOccurrences(filterWorker);
-    const dateOccurrencesAdmins = countSameDateOccurrences(filterAdmin);
+  const countSameDateOccurrences = (products) => {
+    const dateCounts = {};
+    products?.forEach((product) => {
+      const date = formattedDate(product.created_at);
+      if (dateCounts[date]) {
+        dateCounts[date]++;
+      } else {
+        dateCounts[date] = 1;
+      }
+    });
 
-    const arrayOfObjectsWorkers = convertToObjectArray(dateOccurrencesWorkers, "Workers");
-    const arrayOfObjectsAdmins = convertToObjectArray(dateOccurrencesAdmins, "Admins");
-    const allUserData = arrayOfObjectsAdmins.concat(arrayOfObjectsWorkers);
+    return dateCounts;
+  };
 
-    const data =allUserData?.slice(0,getSlice);
-console.log(workers,admins)
-    return (
-        <div className='w-full'>
-            <SectionWrapper>
-                <div className='py-7 px-[25px]'>
-                    <div className='mb-10 flex items-center gap-5 justify-between flex-wrap'>
-                        <div >
-                            <p className={`text-sm text-info`}>Total Users</p>
-                            <h1 className={`text-[28px] font-bold text-dark-gray`}>{filterWorker?.length+filterAdmin?.length}</h1>
-                        </div>
-                        <TimePickerButton
-                            className="font-bold"
-                            selected={selected}
-                            setSelected={setSelected}
-                            data={dataDay}
-                        />
-                    </div>
-                    <div >
-                        <TotalUserChart data={data} />
-                    </div>
-                </div>
+  const convertToObjectArray = (dateCounts, usertype) => {
+    return Object.keys(dateCounts)?.map((date) => ({
+      day: date,
+      name: usertype,
+      value: dateCounts[date],
+    }));
+  };
 
-            </SectionWrapper>
+  const dateOccurrencesWorkers = countSameDateOccurrences(filterWorker);
+  const dateOccurrencesAdmins = countSameDateOccurrences(filterAdmin);
+
+  const arrayOfObjectsWorkers = convertToObjectArray(
+    dateOccurrencesWorkers,
+    "Workers"
+  );
+  const arrayOfObjectsAdmins = convertToObjectArray(
+    dateOccurrencesAdmins,
+    "Admins"
+  );
+  const allUserData = arrayOfObjectsAdmins.concat(arrayOfObjectsWorkers);
+
+  const dffata = [
+    {
+      day:"2024-03-04",
+      value:5,
+      name:"worker"
+    },
+    {
+      day:"2024-03-04",
+      value:0,
+      name:"admin"
+    },
+    {
+      day:"2024-03-05",
+      value:5,
+      name:"worker"
+    },
+    {
+      day:"2024-03-05",
+      value:5,
+      name:"admin"
+    },
+    {
+      day:"2024-03-06",
+      value:5,
+      name:"worker"
+    },
+    {
+      day:"2024-03-06",
+      value:3,
+      name:"admin"
+    },
+  ];
+
+  const newData = [];
+  for (let i = 0; i < 30; i++) {
+    const today = new Date();
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const formattedDate = date.toISOString().split('T')[0];
+    newData.unshift({ day: formattedDate, name: "", value: 0 });
+  }
+  
+  // Update values in the new data array based on existing data
+  newData.forEach(newEntry => {
+    const existingEntries = allUserData.filter(entry => entry.day === newEntry.day);
+    if (existingEntries.length === 2) {
+      newData.push(existingEntries[0]);
+      newData.push(existingEntries[1]);
+    } else if (existingEntries.length === 1) {
+      newData.push(existingEntries[0]);
+      newData.push({ ...existingEntries[0], name: existingEntries[0].name === "admin" ? "worker" : "admin" });
+    } else {
+      // If no existing data for a date, assign "admin" and "worker"
+      newData.push({ ...newEntry, name: "admin" });
+      newData.push({ ...newEntry, name: "worker" });
+    }
+  });
+
+
+
+
+
+
+// const data = newData?.slice(0, getSlice);
+const data = newData?.slice(-getSlice);
+console.log("======",data)
+
+  return (
+    <div className="w-full">
+      <SectionWrapper>
+        <div className="py-7 px-[25px]">
+          <div className="mb-10 flex items-center gap-5 justify-between flex-wrap">
+            <div>
+              <p className={`text-sm text-info`}>Total Users</p>
+              <h1 className={`text-[28px] font-bold text-dark-gray`}>
+                {filterWorker?.length + filterAdmin?.length}
+              </h1>
+            </div>
+            <TimePickerButton
+              className="font-bold"
+              selected={selected}
+              setSelected={setSelected}
+              data={dataDay}
+            />
+          </div>
+          <div>
+            <TotalUserChart data={data} />
+          </div>
         </div>
-    );
+      </SectionWrapper>
+    </div>
+  );
 };
 
 export default TotalUsers;

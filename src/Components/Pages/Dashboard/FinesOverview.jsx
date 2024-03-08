@@ -1,87 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import SectionWrapper from '../../Shared/SectionWrapper';
-import SectionHeading from '../../Shared/SectionHeading';
-import TimePickerButton from '../../Shared/TimePickerButton';
-import FinesOverViewChart from './FinesOverViewChart';
-import { useGetFinesQuery } from '../../../redux/features/admin/adminApi';
+import React, { useEffect, useState } from "react";
+import SectionWrapper from "../../Shared/SectionWrapper";
+import SectionHeading from "../../Shared/SectionHeading";
+import TimePickerButton from "../../Shared/TimePickerButton";
+import FinesOverViewChart from "./FinesOverViewChart";
+import { useGetFinesQuery } from "../../../redux/features/admin/adminApi";
+import { formattedDate } from "../../../helper/jwt";
 
 const FinesOverview = () => {
-    const [selected, setSelected] = useState('Monthly');
-    const dataDay = ["Weekly", "Monthly"];
-    const today = new Date()
+  const [selected, setSelected] = useState("Monthly");
 
-    const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-    const oneMonthAgo = new Date(today);
-    oneMonthAgo.setMonth(today.getMonth() - 1);
-    if (today.getMonth() === 0) {
-        oneMonthAgo.setFullYear(today.getFullYear() - 1);
-        oneMonthAgo.setMonth(11);
+  const [getSlice, setGetSlice] = useState(7);
+  const dataDay = ["Weekly", "Monthly"];
+  useEffect(() => {
+    if (selected === "Weekly") {
+      setGetSlice(7);
     }
-    const [endDate, setEndDate] = useState(oneMonthAgo.getTime());
-    if (selected === 'Weekly') {
-        setEndDate(oneWeekAgo.getTime())
+    if (selected === "Monthly") {
+      setGetSlice(31);
     }
+  }, [selected]);
 
-    // console.log(today,oneWeekAgo,oneMonthAgo)
-   
-    const { data: finesData, isLoading, refetch } = useGetFinesQuery(`start_date=${today.getTime()}&end_date=${endDate}`);
-    console.log("finesData",finesData?.Items)
-    const monthlyData = [
-        { day: "Jan 2023 ", value: 25 },
-        { day: "Feb 2023", value: 30 },
-        { day: "Mar 2023", value: 25 },
-        { day: "Apr 2023", value: 30 },
-        { day: "May 2023", value: 25 },
-        { day: "Jun 2023", value: 30 },
-        { day: "Jul 2023", value: 25 },
-        { day: "Aug 2023", value: 29 },
-        { day: "Sep 2023", value: 30 },
-        { day: "Oct 2023", value: 25 },
-        { day: "Nov 2023", value: 30 },
-        { day: "Dec 2023", value: 25 },
-    ]
-    const weeklyData = [
-        { day: "sun", value: 5, },
-        { day: "Mon", value: 6 },
-        { day: "Tue", value: 7 },
-        { day: "Wed", value: 8 },
-        { day: "Thu", value: 4 },
-        { day: "Fri", value: 2 },
-        { day: "sat", value: 7 }
-    ]
+  const { data: finesData, isLoading, refetch } = useGetFinesQuery("");
 
-    const [data, setData] = useState(weeklyData);
-    useEffect(() => {
-        if (selected === "Weekly") {
-            setData(weeklyData)
-        }
-        if (selected === "Monthly") {
-            setData(monthlyData)
-        }
-    }, [selected])
+  const countSameDateOccurrences = (products) => {
+    const dateCounts = {};
+    products?.forEach((product) => {
+      const date = formattedDate(product.created_at);
+      if (dateCounts[date]) {
+        dateCounts[date] += product.outstanding_fines;
+      } else {
+        dateCounts[date] = product.outstanding_fines;
+      }
+    });
 
-    return (
-        <div className=''>
-            <SectionWrapper>
-                <div className='py-7 px-[25px]'>
-                    <div className='mb-8 flex items-center gap-5 justify-between flex-wrap'>
-                        <SectionHeading><p>Fines Overview</p></SectionHeading>
-                        <TimePickerButton
-                            className="font-bold"
-                            selected={selected}
-                            setSelected={setSelected}
-                            data={dataDay}
-                        />
-                    </div>
-                    <div >
-                        <FinesOverViewChart chartData={data} />
-                    </div>
-                </div>
+    return dateCounts;
+  };
 
-            </SectionWrapper>
+  const convertToObjectArray = (dateCounts) => {
+    return Object.keys(dateCounts)?.map((date) => ({
+      day: date,
+      value: dateCounts[date],
+    }));
+  };
+
+  const dateOccurrences = countSameDateOccurrences(finesData?.Items);
+  const arrayOfObjects = convertToObjectArray(dateOccurrences);
+
+  console.log("finesData====", dateOccurrences);
+
+
+  const newData = [];
+
+  // Generate new data array with default values
+  for (let i = 0; i < 30; i++) {
+      const today = new Date();
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      const formattedDate = date.toISOString().split('T')[0];
+      newData.unshift({ day: formattedDate, value: 0 });
+  }
+  
+  // Update values in the new data array based on existing data
+  newData.forEach(newEntry => {
+      const existingEntry = arrayOfObjects.find(entry => entry.day === newEntry.day);
+      if (existingEntry) {
+          newEntry.value += existingEntry.value;
+      }
+  });
+  
+  console.log(newData);
+  const data = newData?.slice(-getSlice);
+
+  return (
+    <div className="">
+      <SectionWrapper>
+        <div className="py-7 px-[25px]">
+          <div className="mb-8 flex items-center gap-5 justify-between flex-wrap">
+            <SectionHeading>
+              <p>Fines Overview</p>
+            </SectionHeading>
+            <TimePickerButton
+              className="font-bold"
+              selected={selected}
+              setSelected={setSelected}
+              data={dataDay}
+            />
+          </div>
+          <div>
+            <FinesOverViewChart chartData={data} />
+          </div>
         </div>
-    );
+      </SectionWrapper>
+    </div>
+  );
 };
 
 export default FinesOverview;

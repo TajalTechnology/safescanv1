@@ -4,7 +4,7 @@ import CustomerAction from "./CustomerAction";
 import Plan from "./Plan";
 import ExpiryDate from "./ExpiryDate";
 
-const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) => {
+const SuperCustomerTableData = ({ tableData,refetch,refetch1 }) => {
   const columns = [
     {
       title: "Username",
@@ -14,6 +14,7 @@ const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) =>
           {row.username}
         </span>
       ),
+      width:"200px"
     },
     {
       title: "Mobile Number",
@@ -88,7 +89,6 @@ const SuperCustomerTableData = ({ tableData, rowSelection,refetch,refetch1 }) =>
     <div className=" grid grid-cols-1">
       <CustomTable2
         tableData={tableData}
-        rowSelection={rowSelection}
         columns={columns}
         scroll={{ x: "750px" }}
       />

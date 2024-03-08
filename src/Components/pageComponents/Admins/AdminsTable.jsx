@@ -5,6 +5,7 @@ import AdminTableAction from "./AdminTableAction";
 import CardModal from "../../Shared/modal/CardModal";
 import AllCard from "../../Shared/modal/AllCard";
 import Note from "./Note";
+import StrikeCard from "../../Shared/modal/StrikeCard";
 
 const AdminsTable = ({ tableData, rowSelection,refetch }) => {
   const columns = [
@@ -16,6 +17,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
           {row?.frist_name} {row?.last_name}
         </span>
       ),
+      width:"200px"
     },
     {
         title: "Mobile Number",
@@ -87,7 +89,11 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         render: (row) => (<Note  row={row} refetch={refetch}/>),
         width:"80px"
       },
-
+      {
+        title: "Strike Image",
+        key: "id",
+        render: (row) => (<StrikeCard  row={row} refetch={refetch}/>),
+      },
       {
         title: "Card Image",
         key: "id",
@@ -152,7 +158,7 @@ const AdminsTable = ({ tableData, rowSelection,refetch }) => {
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "1700px" }}
+        scroll={{ x: "1850px" }}
       />
       
     </div>

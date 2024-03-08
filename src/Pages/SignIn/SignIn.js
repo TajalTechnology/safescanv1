@@ -6,15 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 
 const SignIn = () => {
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const [showpass, setShowpass] = useState(false);
-
+  const tokenString = localStorage.getItem("token");
 
 
   const {
@@ -34,12 +33,12 @@ const SignIn = () => {
     }
     if (error) {
       console.log("===error====", error);
-      toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
+      toast.custom(<ErrorToast message={error?.data?.error || error?.data?.message} />);
     }
   }, [isSuccess, error, reset]);
 
   useEffect(() => {
-    if (user?.usertype === "super_admin") {
+    if (user?.usertype === "super_admin" && tokenString) {
       if (user?.admin_serial === 1) {
         navigate("/super-admin/customers");
       } else {
@@ -153,7 +152,7 @@ const SignIn = () => {
             className=" absolute bottom-0 right-0 "
           />
           <img
-            src="/Images/mainLogo.svg"
+            src="/Images/logonew.png"
             alt=""
             className=" absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
           />

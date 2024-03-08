@@ -8,11 +8,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "../../Shared/modal/DeleteModal";
-import { useApproveUserMutation } from "../../../redux/features/admin/adminApi";
+import { useApproveUserMutation, useGetHelQuery, useNewnoteMutation, useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import toast from "react-hot-toast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
 import { formattedDate } from "../../../helper/jwt";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Note = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
@@ -21,9 +23,49 @@ const Note = ({ row, refetch }) => {
   const [editModal, setEditModal] = useState(false);
   const [note, setNote] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeNote,setActiveNote]= useState()
+  const { user, token } = useSelector((state) => state.auth);
 
   const [approveUser, { isLoading, isSuccess, error }] =
     useApproveUserMutation();
+
+    const [newnote,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}]=useNewnoteMutation()
+    const {data} = useGetHelQuery()
+
+
+    console.log("====test api====",data)
+
+    useEffect(() => {
+      if (isSuccess1) {
+        const message = "Note Delete success";
+        toast.custom(<SuccessToast message={message} />);
+        refetch();
+        setDeleteModal(false)
+        setModalOpen(true);
+      }
+      if (error1) {
+        console.log(error1)
+        toast.custom(<ErrorToast message={error1?.data?.error || error1?.data?.message} />);
+      }
+    }, [isSuccess1, error1]);
+  
+    useEffect(()=>{
+      setNote(activeNote?.note)
+    },[activeNote])
+  
+    console.log(activeNote)
+  
+    const deleteNote = async(e) => {
+        const body = {
+            username: row?.username,
+            is_delete:true,
+            index:activeIndex,
+            note:note
+        }
+  
+        const id = row?.userid;
+        await newnote({id,body})
+    };
 
   useEffect(() => {
     if (isSuccess) {
@@ -64,9 +106,9 @@ const Note = ({ row, refetch }) => {
 
   return (
     <>
-      <Tooltip placement="topLeft" title="View Images">
+      <Tooltip placement="topLeft" title="View Notes">
         <button
-          disabled={row?.cards?.length ? false : true}
+          disabled={row?.notes?.length ? false : true}
           onClick={() => setModalOpen(true)}
           className=" text-[14px]  font-normal text-info flex items-center w-full justify-between gap-1 "
         >
@@ -155,6 +197,8 @@ const Note = ({ row, refetch }) => {
                                 <button
                                   onClick={() => {
                                     setEditModal(true);
+                                    setActiveNote(card);
+                                    setItemIndex(index);
                                   }}
                                   className=" w-[30px] h-[30px] flex items-center justify-center rounded-lg border border-primary/40"
                                 >
@@ -167,6 +211,7 @@ const Note = ({ row, refetch }) => {
                                   onClick={() => {
                                     setItemIndex(index);
                                     setDeleteModal(true);
+                                    setActiveNote(card)
                                   }}
                                   className=" w-[30px] h-[30px] flex items-center justify-center rounded-lg border border-[#F40909]/40"
                                 >
@@ -230,11 +275,14 @@ const Note = ({ row, refetch }) => {
         editModal={editModal}
         setEditModal={setEditModal}
         row={row}
+        activeNote={activeNote}
+        activeIndex={activeIndex}
       />
 
       <DeleteModal
         modalOPen={deletModal}
-        onDelete={() => {}}
+        isLoading={isLoading1}
+        onDelete={() => deleteNote()}
         setModalOpen={setDeleteModal}
         title={"Delete Note!"}
         title2={

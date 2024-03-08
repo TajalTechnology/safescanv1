@@ -36,8 +36,8 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
         reset,
     } = useForm({
         defaultValues: {
-            frist_name: item.frist_name,
-            last_name: item.last_name,
+            frist_name: item.first_name,
+            last_name: item.last_Name,
             username: item.username,
             // password: item.password,
             email: item.email,
@@ -56,7 +56,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
     const onSubmit = async (data) => {
         const body = {
             username: item?.username,
-            frist_name: data.frist_name,
+            first_name: data.frist_name,
             email: data.email,
             // phone: data.phone,
             site_address: data.site_address,
@@ -64,7 +64,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             emloyeer_name: data.emloyeer_name,
             major_to_dismissal: Number(data.major_to_dismissal),
             minor_to_major: Number(data.minor_to_major),
-            last_name: data.last_name,
+            last_Name: data.last_name,
             // password: item.password,
             fines_per_dismissal: Number(data.fines_per_dismissal),
             fines_per_mainor: Number(data.fines_per_mainor),

@@ -1,5 +1,4 @@
-import { Icon } from "@iconify/react";
-import { Tooltip } from "antd";
+
 import React, { useEffect, useState } from "react";
 import ApprovalModal from "../../../Shared/modal/ApprovalModal";
 import { useApproveMutation } from "../../../../redux/features/superAdmin/superApi";
@@ -7,21 +6,20 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
-const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
+const RejectsTableAction = ({ row,refetch,refetch1 }) => {
   const [approval, setApproval] = useState(false);
   const [reject, setReject] = useState(false);
-  const [type,settype] = useState("Customer Approve success")
 
   const [approve, { isLoading, error, isSuccess }] = useApproveMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      toast.custom(<SuccessToast message={type} />);
+      const message = "Customer Approve success";
+      toast.custom(<SuccessToast message={message} />);
       setReject(false);
       setApproval(false)
       refetch()
       refetch1()
-      refetch2()
     }
     if (error) {
       console.log("===error====", error);
@@ -29,15 +27,14 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
     }
   }, [isSuccess, error]);
 
-  const handleREject = async()=>{
-      const data={
-        username:row?.username,
-        account_status: "rejected",
-      }
-      const id=row?.userid;
-     await approve({id,data})
-     settype("Customer Rejects success")
-  }
+  // const handleREject = async()=>{
+  //     const data={
+  //       username:row?.username,
+  //       is_approved: false,
+  //     }
+  //     const id=row?.userid;
+  //    await approve({id,data})
+  // }
 
   const handleApprove = async()=>{
     const data={
@@ -46,29 +43,16 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
     }
     const id=row?.userid;
     await approve({id,data})
-    settype("Customer Approve success")
 }
 
   return (
     <>
-      <div className=" flex items-center gap-1">
-        <Tooltip placement="topLeft" title="Reject">
-          <button onClick={() => setReject(true)}>
-            <Icon
-              icon="ic:round-close"
-              className="text-[22px] hover:text-red-500 text-[#8E9BBA]"
-            />
-          </button>
-        </Tooltip>
-        <Tooltip placement="topLeft" title="Approve">
-          <button onClick={() => setApproval(true)}>
-            <Icon
-              icon="material-symbols:done" 
-              className="text-[22px] hover:text-green-500 text-[#46B900]"
-            />
-          </button>
-        </Tooltip>
-      </div>
+      <button
+        onClick={() => setApproval(true)}
+        className=" text-primary flex items-center gap-1 justify-center py-1 bg-primary/10 hover:bg-primary hover:text-white duration-300 px-3 rounded-md text-[16px] font-medium"
+      >
+        Re-Admit
+      </button>
 
       {/* approval modal */}
       <ApprovalModal
@@ -85,7 +69,7 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
       {/* Reject modal */}
       <ApprovalModal
         modalOPen={reject}
-        onDelete={() => handleREject()}
+        onDelete={() => setReject(false)}
         setModalOpen={setReject}
         title={"Reject Approval!"}
         title2={
@@ -98,4 +82,4 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2 }) => {
   );
 };
 
-export default ApprovalAction;
+export default RejectsTableAction;

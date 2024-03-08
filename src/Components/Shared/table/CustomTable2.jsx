@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import React from "react";
 
-const CustomTable2 = ({ tableData, columns, scroll,rowSelection }) => {
+const CustomTable2 = ({ tableData, columns, scroll }) => {
   const [start, setStart] = React.useState(1);
   const [end, setend] = React.useState(5);
 
@@ -28,7 +28,7 @@ const CustomTable2 = ({ tableData, columns, scroll,rowSelection }) => {
         dataSource={tableData}
         pagination={paginationOptions}
         scroll={scroll}
-        rowSelection={rowSelection}
+        // rowSelection={rowSelection}
 
       />
       <div className="lg:block text-light-black font-medium text-[14px] text-[#68769F] lg:absolute bottom-[25px] left-6 hidden ">

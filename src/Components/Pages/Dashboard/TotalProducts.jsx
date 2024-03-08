@@ -10,6 +10,9 @@ const TotalProducts = ({ products }) => {
     const allProducts = products?.Items
 
     useEffect(() => {
+        if (selected === 'Daily') {
+            setGetSlice(7)
+        }
         if (selected === 'Weekly') {
             setGetSlice(7)
         }
@@ -42,7 +45,7 @@ const TotalProducts = ({ products }) => {
     const dateOccurrences = countSameDateOccurrences(allProducts);
     const arrayOfObjects = convertToObjectArray(dateOccurrences);
 
-    const dataDay = ["Weekly", "Monthly"];
+    const dataDay = ["Daily","Weekly", "Monthly"];
 
     const data = arrayOfObjects?.slice(0, getSlice)
 

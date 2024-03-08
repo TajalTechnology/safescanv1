@@ -6,6 +6,7 @@ import CardModal from "../../Shared/modal/CardModal";
 import QRCodeModal from "../Admins/QRCodeModal";
 import AllCard from "../../Shared/modal/AllCard";
 import Note from "../Admins/Note";
+import StrikeCard from "../../Shared/modal/StrikeCard";
 
 const WorkersTable = ({tableData,rowSelection,refetch}) => {
   const columns = [
@@ -17,6 +18,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
           {row?.frist_name} {row?.last_name}
         </span>
       ),
+      width:"200px"
     },
     {
         title: "Mobile Number",
@@ -88,6 +90,11 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
         width:"80px"
       },
       {
+        title: "Strike Image",
+        key: "id",
+        render: (row) => (<StrikeCard  row={row} refetch={refetch}/>),
+      },
+      {
         title: "Card Image",
         key: "id",
         render: (row) => (<AllCard  row={row} refetch={refetch}/>),
@@ -151,7 +158,7 @@ const WorkersTable = ({tableData,rowSelection,refetch}) => {
         tableData={tableData}
         rowSelection={rowSelection}
         columns={columns}
-        scroll={{ x: "1700px" }}
+        scroll={{ x: "1850px" }}
       />
     </div>
   );

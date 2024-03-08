@@ -9,108 +9,72 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "./DeleteModal";
-import { useDeleteProductCardImageMutation } from "../../../redux/features/admin/adminApi";
+import { useImageDeleteMutation, useUpdateProductMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { formattedDate } from "../../../helper/jwt";
+import CardEdit from "./CardEdit";
 
-const CardModal = ({ row, refetch }) => {
+const StrikeCard = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
-  const { token } = useSelector((state) => state.auth)
+  const [imageItem,setImageItame] = useState()
   const [imgIndex, setImageIndex] = useState(0);
-  // const [deletModal, setDeleteModal] = useState(false);
-  // const [editModal, setEditModal] = useState(false);
+  const [deletModal, setDeleteModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [updatedImages, setUpdatedImages] = useState([])
-  // const [file, setFile] = useState("")
-  const [isSuccess, setIsSuccess] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
 
-  // const [deleteProductCardImage, { isSuccess: deletImageSuccess, error: deleteImageError, isLoading: deleteLoading }] = useDeleteProductCardImageMutation();
+  const [imageDelete,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}] = useImageDeleteMutation()
 
+
+
+// ===============delete message==========
   useEffect(() => {
-    if (isSuccess) {
-      toast.custom(<SuccessToast message={isSuccess} />);
+    if (isSuccess1) {
+      const message = "Product Successfully Updated";
+      toast.custom(<SuccessToast message={message} />);
+      // refetch();
+      setModalOpen(false);
     }
-    if (error) {
-      const errorMsg = error?.data.error || error?.data.message
+    if (error1) {
+      const errorMsg = error1?.data.error || error1?.data.message
       toast.custom(<ErrorToast message={errorMsg} />);
     }
-  }, [isSuccess, error]);
-
-  // useEffect(() => {
-  //   if (deletImageSuccess) {
-  //     toast.custom(<SuccessToast message={'Image Successfully Deleted.'} />);
-  //     refetch();
-  //     setImageIndex(0)
-  //   }
-  //   if (deleteImageError) {
-  //     const errorMsg = deleteImageError?.data.error || deleteImageError?.data.message
-  //     toast.custom(<ErrorToast message={errorMsg} />);
-  //   }
-  // }, [deletImageSuccess, deleteImageError]);
+  }, [isSuccess1, error1]);
 
   useEffect(() => {
-    setUpdatedImages(row?.product_images)
+    setUpdatedImages(row?.strike_images)
   }, [row]);
 
-  const img = `https://scansafes3.s3.amazonaws.com/${updatedImages[imgIndex]}`
+  console.log("====imageItem======",imageItem)
+
+  useEffect(()=>{
+    if(row?.strike_images){
+      setImageItame(row?.strike_images[imgIndex])
+    }
+  },[row,imgIndex])
 
 
-  const addImage = async (e) => {
-    setIsLoading(true)
-    const getImage = e.target.files[0]
-    if (getImage) {
-
-      const formData = new FormData();
-      formData.append(`files`, getImage)
-      const id = row?.productid;
-      try {
-        const response = await axios.patch(`https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/products/${id}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        refetch();
-        setIsLoading(false)
-        setIsSuccess("Successfully Image Added.")
-        console.log(response.data)
-      } catch (error) {
-        console.log('error', error)
-        setError(error)
-      }
-
+  const handelDelete = async()=>{
+    const data = {
+      index:imgIndex,
+      username:row?.username
     }
 
+    console.log(data)
+
+    await imageDelete(data)
   }
 
-  // const handelDelete = async () => {
-  //   const id = `${row?.productid}`;
-  //   const body = {
-  //     index: imgIndex
-  //   }
-  //   await deleteProductCardImage({ id, body });
-  // }
-
-  // useEffect(() => {
-  //   if (updatedImages?.length < 1) {
-  //     setModalOpen(false)
-  //   }
-  // }, [updatedImages?.length])
 
   return (
     <>
       <Tooltip placement="topLeft" title="View Images">
         <button
-          disabled={updatedImages?.length < 1}
+          disabled={row?.strike_images?.length? false : true}
           onClick={() => setModalOpen(true)}
-          className={`text-[14px] font-normal text-info flex items-center gap-1 ${updatedImages?.length < 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          className=" text-[14px] font-normal text-info flex items-center gap-1 "
         >
-          <Icon icon="lucide:image" className=" text-[20px]" />{updatedImages?.length}
+          <Icon icon="lucide:image" className=" text-[20px]" />{row?.strike_images?.length? row?.strike_images?.length : "0"}
         </button>
       </Tooltip>
       <Modal
@@ -129,7 +93,7 @@ const CardModal = ({ row, refetch }) => {
         <div className="p-7">
           <div className=" flex items-center justify-between">
             <h2 className=" text-[28px] font-[700] text-dark-gray">
-              Card Images
+                Strike Image	
             </h2>
             <button
               onClick={() => setModalOpen(false)}
@@ -138,40 +102,42 @@ const CardModal = ({ row, refetch }) => {
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <div className="w-full flex items-center justify-center py-5">
+          <div className="w-full flex h-[300px] rounded-lg overflow-hidden md:h-[544px] items-center justify-center py-5">
             <img
-              src={img}
+              src={`https://scansafes3.s3.amazonaws.com/${imageItem}`}
               alt="card"
-              className="w-full  h-[300px] md:h-[544px] object-container"
+              className="w-full h-full rounded-2xl object-fill"
             />
           </div>
-          {/* <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
+          <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
             <div className="">
-              <p className="text-[20px] font-bold text-dark-gray">
-                Attached Date:<span className="text-lg font-medium"> {formattedDate(row?.created_at)}</span>
-              </p>
+              {/* <p className="text-[20px] font-bold text-dark-gray">
+                {"Expire Date"}:<span className="text-lg font-medium"> {imageItem?.expiry_date}</span>
+              </p> */}
             </div>
-            <div className="flex items-center gap-3">
-
-              <div className=' px-3.5 h-10 bg-primary/10  duration-300 rounded-[4px]  font-medium text-sm text-primary  flex items-center justify-center'>
-                <label for="file-input" className="cursor-pointer" >
-                  {isLoading ? 'Loading...' : 'Add Image'}
-                </label>
-                <input
-                  type="file"
-                  id="file-input"
-                  className='hidden'
-                  onChange={addImage}
-                />
-              </div>
+            {/* <div className="flex items-center gap-3">
+              <CustomButton
+                onClick={() => {
+                  setEditModal(true);
+                  setModalOpen(false);
+                }}
+              >
+                <span className="flex items-center text-white gap-2">
+                  <Icon
+                    className="text-lg text-white rotate-180"
+                    icon="tabler:edit-circle"
+                  />
+                  <span>Edit</span>
+                </span>
+              </CustomButton>
               <button
                 onClick={() => setDeleteModal(true)}
                 className=" bg-error/10 flex items-center justify-center hover:bg-[#FF4D4D]/80 duration-300 w-[38px] h-[38px] rounded-[4px] font-medium text-[#FF4D4D] hover:text-white"
               >
                 <Icon icon="lucide:trash-2" className=" text-[20px]" />
               </button>
-            </div>
-          </div> */}
+            </div> */}
+          </div>
           <div>
             <>
               <Swiper
@@ -207,7 +173,7 @@ const CardModal = ({ row, refetch }) => {
                     key={index}
                   >
                     <button
-                      onClick={() => setImageIndex(index)}
+                      onClick={() => {setImageIndex(index);setImageItame(card)}}
                       className={`${imgIndex === index
                         ? "border-[3px] border-primary rounded-[18px]"
                         : "border-2 border-transparent rounded-[18px]"
@@ -289,7 +255,7 @@ const CardModal = ({ row, refetch }) => {
               />
             </div>
             <div className="flex items-center gap-3">
-              <CustomButton onClick={() => { setEditModal(false); saveChange(); }}>
+              <CustomButton onClick={() => setEditModal(false)}>
                 <span className="flex items-center text-white gap-2">
                   <span>Save Changes</span>
                 </span>
@@ -305,16 +271,17 @@ const CardModal = ({ row, refetch }) => {
         </div>
       </Modal> */}
 
-      {/* <DeleteModal
+      <CardEdit setModalOpen={setModalOpen} refetch={refetch} editModal={editModal} setEditModal={setEditModal} imageItem={imageItem} row={row} imgIndex={imgIndex}/>
+
+      <DeleteModal
         modalOPen={deletModal}
         onDelete={() => handelDelete()}
         setModalOpen={setDeleteModal}
         title={"Delete Image"}
         title2={"Are You Sure?"}
-        isLoading={deleteLoading}
-      /> */}
+      />
     </>
   );
 };
 
-export default CardModal;
+export default StrikeCard;

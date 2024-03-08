@@ -36,7 +36,7 @@ const CreateWorker = () => {
 
   useEffect(() => {
     const query = generateQuery(searchValue);
-    sestSearchQuery(`${query}`);
+    sestSearchQuery(`company_serial=${user?.company_serial}${query}`);
     refetch();
   }, [searchValue, refetch, user]);
 

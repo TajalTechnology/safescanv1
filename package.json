@@ -2,7 +2,6 @@
   "name": "eldereue",
   "version": "0.1.0",
   "private": true,
-  
   "dependencies": {
     "@ant-design/plots": "^1.2.5",
     "@react-hook/media-query": "^1.1.1",

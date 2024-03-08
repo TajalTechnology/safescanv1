@@ -18,8 +18,6 @@ const Admins = () => {
   const [searchValue] = useDebounce(search, 1000);
 
 
-  // console.log(user);
-  // console.log("query=======",searchQuery);
 
 
 
@@ -39,7 +37,6 @@ const Admins = () => {
     return queryParams.join("&");
   };
 
-  console.log(data);
 
   useEffect(() => {
     const query = generateQuery(searchValue);

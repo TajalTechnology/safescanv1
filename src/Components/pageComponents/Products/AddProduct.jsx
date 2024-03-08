@@ -37,6 +37,15 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
     formData.append("note", data?.note);
     formData.append("next_test_date", formattedNextDate);
     formData.append("status", active);
+    if(active==="passed"){
+      formData.append("passed", "true");
+    }
+    if(active==="attention"){
+      formData.append("attention", "true");
+    }
+    if(active==="failed"){
+      formData.append("failed", "true");
+    }
 
     // Append image files to the FormData object
     imageFiles.forEach((image, index) => {
@@ -44,7 +53,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
     });
 
     try {
-      const response = await axios.post(`https://z6qrd4mv7g.execute-api.us-east-1.amazonaws.com/api/v1/products`, formData, {
+      const response = await axios.post(`https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/products`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -311,7 +320,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           htmlFor="otp"
           className="mb-1.5 font-medium text-base text-dark-gray"
         >
-          Last Test Date
+          Notes
         </label>
         <textarea
           className="py-[15px] h-[74px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
