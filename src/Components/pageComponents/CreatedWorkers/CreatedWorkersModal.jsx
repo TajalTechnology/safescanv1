@@ -81,14 +81,17 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
         );
         if (response?.status === 200) {
           toast.custom(<SuccessToast message={response?.data?.message} />);
+          reset()
         } else {
-          toast.custom(<ErrorToast message={response?.data?.message} />);
+          toast.custom(<ErrorToast message={response?.data?.error} />);
+          reset()
         }
         setLoading(false);
         setSuccess(false);
         // console.log(response);
       } catch (error) {
         console.log("error", error);
+        toast.custom(<ErrorToast message={error?.response?.data?.error} />)
         setLoading(false);
       }
 
@@ -96,7 +99,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       //   console.log(shareText)
       //   const mailtoLink = `mailto:${encodeURIComponent(shareText)}?body=${encodeURIComponent(
       //     `
-      //     Hello, I am from Logoipsum. Here is your username and password:
+      //     Hello, I am from Safe Scan. Here is your username and password:
 
       //     Username : ${shareMsg?.username}
       //     Password : ${shareMsg?.password}
@@ -115,7 +118,11 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
     if (type === "Whatsapp") {
       if (shareText.trim() !== "") {
         const whatsappMessage = `
+<<<<<<< HEAD
         Hi, I am from Safescan. Here is your username and password:
+=======
+        Hi, I am from Safe Scan. Here is your username and password:
+>>>>>>> 6eeb3965d13d1be8bd472c0c27a396bf6d81d377
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
@@ -125,6 +132,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
         )}`;
         window.open(whatsappLink, "_blank");
         setSuccess(false);
+        reset()
       }
     }
   };
