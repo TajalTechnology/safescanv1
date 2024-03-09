@@ -41,7 +41,7 @@ const FinesAmountChart = ({ data }) => {
                                                 <span className={`h-1.5 w-1.5 rounded-full  ${name === 'Due' ? 'bg-[#B0A4FF]' : 'bg-primary'}`}></span>
                                                 <span className='text-xs font-medium text-white/70'>Fines {name}</span>
                                             </span>
-                                            <span className='text-white font-bold text-lg'>{item?.data?.amount}</span>
+                                            <span className='text-white font-bold text-lg'>€{item?.data?.amount}</span>
                                         </span>
                                     </span>
                                 </>
@@ -66,7 +66,7 @@ const FinesAmountChart = ({ data }) => {
                             <span  className={`h-2.5 w-2.5 rounded-full  ${fine.type === 'Due' ? 'bg-[#B0A4FF]' : 'bg-primary'}`}></span>
                             <span className='text-xs font-medium text-info'>Fines {fine.type}</span>
                         </span>
-                        <span className='text-dark-gray font-bold text-lg'>{fine.amount}</span>
+                        <span className='text-dark-gray font-bold text-lg'>€{fine.amount}</span>
                     </span>
                 </div>)
             }

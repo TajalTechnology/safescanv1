@@ -54,38 +54,7 @@ const TotalUsers = ({ workers, admins }) => {
   );
   const allUserData = arrayOfObjectsAdmins.concat(arrayOfObjectsWorkers);
 
-  const dffata = [
-    {
-      day:"2024-03-04",
-      value:5,
-      name:"worker"
-    },
-    {
-      day:"2024-03-04",
-      value:0,
-      name:"admin"
-    },
-    {
-      day:"2024-03-05",
-      value:5,
-      name:"worker"
-    },
-    {
-      day:"2024-03-05",
-      value:5,
-      name:"admin"
-    },
-    {
-      day:"2024-03-06",
-      value:5,
-      name:"worker"
-    },
-    {
-      day:"2024-03-06",
-      value:3,
-      name:"admin"
-    },
-  ];
+
 
   const newData = [];
   for (let i = 0; i < 30; i++) {

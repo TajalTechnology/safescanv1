@@ -17,15 +17,25 @@ const Dashboard = () => {
   const {
     data: admins,
     isLoading: adminsLoading,
-    refetch: adminsRefetch,
+    // refetch: adminsRefetch,
   } = useGetAdminQuery("");
+
   const {
     data: workers,
-    isLoading: workersLoading,
-    refetch: workersRefetch,
+    // isLoading: workersLoading,
+    // refetch: workersRefetch,
   } = useGetWorkerQuery("");
-  const { data: counters, isLoading: counterLoading } = useGetCountersQuery();
-  const { data: products, isLoading } = useGetProductsQuery("");
+
+  const {
+    data: counters,
+    // isLoading: counterLoading
+  } = useGetCountersQuery();
+
+  const {
+    data: products,
+    // isLoading 
+  } = useGetProductsQuery("");
+  
   // console.log( workers)
   return (
     <>

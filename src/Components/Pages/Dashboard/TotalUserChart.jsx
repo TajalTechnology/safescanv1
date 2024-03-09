@@ -22,7 +22,7 @@ const TotalUserChart = ({ data }) => {
                 },
             },
         },
-        minColumnWidth: 5,
+        minColumnWidth: 12,
         maxColumnWidth: 12,
         columnStyle: {
             radius: [15, 15, 15, 15], // Set the radius for rounded corners
