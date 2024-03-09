@@ -15,6 +15,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
   const [test, setTest] = useState(false);
   const [getUserPass, setGetUserPass] = useState(false);
   const { otpData } = useSelector((state) => state.auth);
+  const [otpphone,setOtpPhone]=useState()
   const navigate = useNavigate()
   // ------------otp------------
 
@@ -104,6 +105,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
   };
 
   const handleUserPass = async (data) => {
+    setOtpPhone(data)
     await otpSend(data);
   };
 
@@ -201,7 +203,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                         Forgot Password?
                       </h1>
                       <p className="text-normal text-base text-info">
-                        Please Enter OTP That Sent To 017******24
+                        Please Enter OTP That Sent To {otpphone?.phone?.slice(0,3)}******{otpphone?.phone?.slice(-2,otpphone?.phone?.length)}
                       </p>
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
