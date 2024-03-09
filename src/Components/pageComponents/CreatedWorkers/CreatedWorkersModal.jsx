@@ -118,11 +118,8 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
     if (type === "Whatsapp") {
       if (shareText.trim() !== "") {
         const whatsappMessage = `
-<<<<<<< HEAD
-        Hi, I am from Safescan. Here is your username and password:
-=======
+
         Hi, I am from Safe Scan. Here is your username and password:
->>>>>>> 6eeb3965d13d1be8bd472c0c27a396bf6d81d377
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
