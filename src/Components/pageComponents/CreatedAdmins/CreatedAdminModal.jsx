@@ -76,15 +76,19 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
         })
         if (response?.status === 200) {
           toast.custom(<SuccessToast message={response?.data?.message} />)
+          reset()
 
         } else {
-          toast.custom(<ErrorToast message={response?.data?.message} />)
+          toast.custom(<ErrorToast message={response?.data?.error} />)
+          reset()
+          // console.log(response)
         }
         setLoading(false)
         setSuccess(false)
-        // console.log(response)
+        
       } catch (error) {
         console.log('error', error)
+        toast.custom(<ErrorToast message={error?.response?.data?.error} />)
         setLoading(false)
       }
 
@@ -102,6 +106,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
         const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
         window.open(whatsappLink, '_blank');
         setSuccess(false)
+        reset()
       }
     }
 
