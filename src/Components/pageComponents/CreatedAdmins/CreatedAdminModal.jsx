@@ -98,7 +98,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     if (type === 'Whatsapp') {
       if (shareText.trim() !== '') {
         const whatsappMessage = `
-        Hi, I am from Logoipsum. Here is your username and password:
+        Hi, I am from Safe Scan. Here is your username and password:
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
