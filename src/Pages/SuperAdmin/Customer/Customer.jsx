@@ -49,7 +49,7 @@ const Customer = () => {
           { title: "Customers", url: "/super-admin/customers" },
         ]}
       />
-      <SuperAdminCustomerTop approved={data} notApproved={data1} data={all} isLoading={allLoad} data2={data2}/>
+      <SuperAdminCustomerTop data={all} isLoading={allLoad}/>
 
       <div>
         <SuperCustomerTable
@@ -76,6 +76,7 @@ const Customer = () => {
           refetch={refetch}
           refetch1={refetch1}
           refetch2={refetch2}
+          allrefecth={allrefecth}
         />
       </div>
       <div className=" mt-5">
@@ -88,6 +89,7 @@ const Customer = () => {
           isLoading={isLoading2}
           refetch={refetch}
           refetch1={refetch2}
+          allrefecth={allrefecth}
         />
       </div>
     </>

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 
-const CustomerAction = ({ row,refetch,refetch1 }) => {
+const CustomerAction = ({ row,refetch,refetch1,allrefecth }) => {
   const [reject, setReject] = useState(false);
   const [approve, { isLoading, error, isSuccess }] = useApproveMutation();
 
@@ -17,6 +17,7 @@ const CustomerAction = ({ row,refetch,refetch1 }) => {
       setReject(false);
       refetch()
       refetch1()
+      allrefecth()
     }
     if (error) {
       console.log("===error====", error);

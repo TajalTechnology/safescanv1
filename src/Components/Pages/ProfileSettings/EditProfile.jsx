@@ -97,7 +97,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter first name",
                                 },
                             })}
-                            error={errors.first_name}
+                            error={errors.frist_name}
                             placeholder={"Enter First Name"}
                         />
                     </div>
@@ -111,6 +111,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter last name",
                                 },
                             })}
+                            error={errors.last_name}
                         />
                     </div>
                 </div>
@@ -134,6 +135,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "",
                                 },
                             })}
+                            error={errors.username}
                         />
 
                     </div>
@@ -184,13 +186,14 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                 <div>
                     <CustomInput
                         label={'Email Address'}
-                        type={'text'}
+                        type={'email'}
                         register={register("email", {
                             required: {
                                 value: true,
                                 message: "Please enter email",
                             },
                         })}
+                        error={errors.email}
                     />
                 </div>
                 <div>
@@ -203,6 +206,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                 message: "Please enter site name",
                             },
                         })}
+                        error={errors.site_name}
                     />
                 </div>
                 <div>
@@ -227,6 +231,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                 message: "Please enter Employers Name",
                             },
                         })}
+                        error={errors.emloyeer_name}
                     />
                 </div>
                 <div className="flex flex-col items-start w-full mt-4">
@@ -257,6 +262,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter major",
                                 },
                             })}
+                            error={errors.minor_to_major}
                         />
                         <p className='absolute right-3 bottom-[14px] text-sm font-medium text-info'>Minor</p>
                     </div>
@@ -270,6 +276,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter dismissal",
                                 },
                             })}
+                            error={errors.major_to_dismissal}
                         />
                         <p className='absolute right-3 bottom-[14px] text-sm font-medium text-info'>Major</p>
                     </div>
@@ -285,6 +292,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter minor",
                                 },
                             })}
+                            error={errors.fines_per_mainor}
                         />
                         <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>€</p>
                     </div>
@@ -298,6 +306,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter major",
                                 },
                             })}
+                            error={errors.fines_per_major}
                         />
                         <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>€</p>
                     </div>
@@ -311,6 +320,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                                     message: "Please enter dismissal",
                                 },
                             })}
+                            error={errors.fines_per_dismissal}
                         />
                         <p className='absolute right-3 bottom-[14px] text-sm font-medium text-dark-gray'>€</p>
                     </div>

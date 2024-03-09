@@ -11,7 +11,7 @@ const TotalProducts = ({ products }) => {
 
     useEffect(() => {
         if (selected === 'Daily') {
-            setGetSlice(7)
+            setGetSlice(1)
         }
         if (selected === 'Weekly') {
             setGetSlice(7)

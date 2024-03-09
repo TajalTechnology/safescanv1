@@ -1,12 +1,15 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React from "react";
 import SectionWrapper from "../../../Shared/SectionWrapper";
-import { useCustomersQuery } from "../../../../redux/features/superAdmin/superApi";
 import { fetchDataAndCalculateValues, formattedDate, todayDataGet } from "../../../../helper/jwt";
 
-const SuperAdminCustomerTop = ({approved,notApproved,data,isLoading,data2}) => {
+const SuperAdminCustomerTop = ({data,isLoading}) => {
 
+  const approved = data?.filter((item)=>item?.account_status==="approved")
+  const notApproved = data?.filter((item)=>item?.account_status==="pending")
+  const data2 = data?.filter((item)=>item?.account_status==="rejected")
 
+console.log(data2)
 
   let currentDate = new Date();
   var sevenDaysAgo = new Date(currentDate);

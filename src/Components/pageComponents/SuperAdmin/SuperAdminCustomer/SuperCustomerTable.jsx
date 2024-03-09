@@ -69,6 +69,7 @@ const SuperCustomerTable = ({
                   tableData={data}
                   refetch={refetch}
                   refetch1={refetch2}
+                  allrefecth={allrefecth}
                 />
               </>
             )}

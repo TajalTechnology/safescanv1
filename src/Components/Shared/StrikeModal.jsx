@@ -222,12 +222,13 @@ const StrikeModal = ({ modalOPen, setModalOpen, item, refetch,title }) => {
                     message: "Please Enter Note",
                   },
                 })}
+                
                 placeholder="Some Note Here..."
               ></textarea>
               <label className="label">
-                {errors.last_name?.type === "required" && (
+                {errors.note?.type === "required" && (
                   <span className=" text-sm mt-1 text-red-500">
-                    {errors.last_name.message}
+                    {errors.note.message}
                   </span>
                 )}
               </label>
