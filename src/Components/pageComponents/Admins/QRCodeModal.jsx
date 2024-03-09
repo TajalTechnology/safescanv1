@@ -84,7 +84,7 @@ const QRCodeModal = ({ row, product = false }) => {
               />
               <div>
                 <h3 className=" text-[18px] font-bold text-[rk-grey-900#1B2559] mb-[-6px]">
-                  Company Name
+                Safe Scan
                 </h3>
                 <h4 className=" text-[#68769F] font-medium text-base">
                   {product
