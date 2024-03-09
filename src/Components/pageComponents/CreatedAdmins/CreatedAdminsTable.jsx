@@ -18,7 +18,7 @@ const CreatedAdminsTable = ({ tableData, rowSelection, refetch }) => {
       key: "id",
       render: (row) => (
         <span className=" text-[14px] font-normal text-info">
-          {row.phone === "" ? "--" : row.phone}
+          {row?.phone?row.phone : "--" }
         </span>
       ),
     },
