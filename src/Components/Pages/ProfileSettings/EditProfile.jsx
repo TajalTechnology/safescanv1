@@ -255,7 +255,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                     <div className='w-full relative'>
                         <CustomInput
                             label={'1 Major For'}
-                            type={'text'}
+                            type={'number'}
                             register={register("minor_to_major", {
                                 required: {
                                     value: true,
