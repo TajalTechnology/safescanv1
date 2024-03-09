@@ -32,7 +32,7 @@ const NoteEdit = ({ editModal,refetch, setEditModal, setModalOpen,row,activeNote
     setNote(activeNote?.note)
   },[activeNote])
 
-  console.log(activeNote)
+  // console.log(activeNote)
 
   const onSubmit = async(e) => {
       const body = {

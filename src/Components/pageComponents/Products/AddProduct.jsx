@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomModal from "../../Shared/modal/CustomModal";
 import CustomInput from "../../Shared/input/CustomInput";

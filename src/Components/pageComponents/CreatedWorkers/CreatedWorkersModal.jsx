@@ -86,7 +86,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
         }
         setLoading(false);
         setSuccess(false);
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log("error", error);
         setLoading(false);

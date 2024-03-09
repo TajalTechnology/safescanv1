@@ -20,7 +20,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
   const [shareMsg, setShareMsg] = useState({});
   const [loading, setLoading] = useState(false);
 
-  console.log('', shareMsg)
+  // console.log('', shareMsg)
   const {
     register,
     handleSubmit,
@@ -82,7 +82,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
         }
         setLoading(false)
         setSuccess(false)
-        console.log(response)
+        // console.log(response)
       } catch (error) {
         console.log('error', error)
         setLoading(false)

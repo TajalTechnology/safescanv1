@@ -40,7 +40,7 @@ const CreatedAdminsTableAction = ({ row,refetch }) => {
   const handleShare = () => {
     if (type === 'email') {
       if (shareText.trim() !== '') {
-        console.log(shareText)
+        // console.log(shareText)
         // Create a mailto link with the email address
         const mailtoLink = `mailto:${encodeURIComponent(shareText)}`;
 

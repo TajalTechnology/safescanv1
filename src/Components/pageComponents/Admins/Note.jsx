@@ -8,13 +8,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "../../Shared/modal/DeleteModal";
-import { useApproveUserMutation, useGetHelQuery, useNewnoteMutation, useUpdateNoteMutation } from "../../../redux/features/admin/adminApi";
+import { useApproveUserMutation, useGetHelQuery, useNewnoteMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import toast from "react-hot-toast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
 import { formattedDate } from "../../../helper/jwt";
-import axios from "axios";
-import { useSelector } from "react-redux";
 
 const Note = ({ row, refetch }) => {
   const [modalOPen, setModalOpen] = useState(false);
@@ -24,7 +22,6 @@ const Note = ({ row, refetch }) => {
   const [note, setNote] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeNote,setActiveNote]= useState()
-  const { user, token } = useSelector((state) => state.auth);
 
   const [approveUser, { isLoading, isSuccess, error }] =
     useApproveUserMutation();
@@ -33,7 +30,7 @@ const Note = ({ row, refetch }) => {
     const {data} = useGetHelQuery()
 
 
-    console.log("====test api====",data)
+    // console.log("====test api====",data)
 
     useEffect(() => {
       if (isSuccess1) {
@@ -53,7 +50,7 @@ const Note = ({ row, refetch }) => {
       setNote(activeNote?.note)
     },[activeNote])
   
-    console.log(activeNote)
+    // console.log(activeNote)
   
     const deleteNote = async(e) => {
         const body = {
@@ -82,7 +79,7 @@ const Note = ({ row, refetch }) => {
     }
   }, [isSuccess, error]);
 
-  console.log(activeIndex);
+  // console.log(activeIndex);
 
   const handleSlideChange = (swiper) => {
     setActiveIndex(swiper.activeIndex);

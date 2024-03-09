@@ -10,7 +10,7 @@ const FinesAmount = ({counters}) => {
 
     const counter=counters?.Items[0]
 
-    console.log("====count====",counter)
+    // console.log("====count====",counter)
     
     const monthlyData = [
         { type: "Due", value: counter?.fines_due ? counter?.fines_due : 0, amount:counter?.fines_due ? counter?.fines_due : 0 },

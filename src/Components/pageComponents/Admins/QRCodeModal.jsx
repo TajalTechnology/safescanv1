@@ -1,11 +1,8 @@
 import { Icon } from "@iconify/react";
 import { Modal, Tooltip } from "antd";
 import React, { useRef, useState } from "react";
-// import QRCode from "qrcode.react";
-// import html2canvas from "html2canvas";
 import ReactToPrint from "react-to-print";
 import ShareModal from "../../Shared/modal/ShareModal";
-import html2canvas from "html2canvas";
 import ImageDownloader from "../../Shared/DownloadQrc";
 
 

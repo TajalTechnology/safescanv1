@@ -31,7 +31,7 @@ const Products = () => {
     return queryParams.join("&");
   };
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     const query = generateQuery(searchValue);
@@ -40,7 +40,7 @@ const Products = () => {
 
   // ======table Select function=======
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    // console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const rowSelection = {

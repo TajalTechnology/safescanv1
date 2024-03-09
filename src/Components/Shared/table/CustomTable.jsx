@@ -15,7 +15,7 @@ const CustomTable = ({ tableData, columns, scroll, rowSelection }) => {
   // ====table pagination funcation====
   const handlePaginationChange = (page, pageSize) => {
     scrollTop();
-    console.log(`Page: ${page}, Page Size: ${pageSize}`);
+    // console.log(`Page: ${page}, Page Size: ${pageSize}`);
     setStart((pre) => (page === 1 ? 1 : page * 10 - 9));
     setend((pre) =>
       page * 10 > tableData?.length ? tableData?.length : page * 10

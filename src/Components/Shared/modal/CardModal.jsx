@@ -78,9 +78,9 @@ const CardModal = ({ row, refetch }) => {
         refetch();
         setIsLoading(false)
         setIsSuccess("Successfully Image Added.")
-        console.log(response.data)
+        // console.log(response.data)
       } catch (error) {
-        console.log('error', error)
+        console.log( error)
         setError(error)
       }
 

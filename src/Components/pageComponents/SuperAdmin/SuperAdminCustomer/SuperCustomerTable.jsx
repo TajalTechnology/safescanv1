@@ -22,7 +22,7 @@ const SuperCustomerTable = ({
   const [create, setCreate] = useState(false);
   const [searchValue] = useDebounce(search, 1000);
 
-  console.log(searchQuery);
+  // console.log(searchQuery);
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -39,7 +39,7 @@ const SuperCustomerTable = ({
   }, [searchValue]);
 
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <div>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomModal from "../../Shared/modal/CustomModal";
 import CustomInput from "../../Shared/input/CustomInput";
-import { Icon } from "@iconify/react";
 import { useApproveUserMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Shared/Toast/SuccessToast";

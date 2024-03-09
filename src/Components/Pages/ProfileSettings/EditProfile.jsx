@@ -71,7 +71,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             fines_per_major: Number(data.fines_per_major),
         }
         const id = item?.userid;
-        console.log(body)
+        // console.log(body)
         await approveUser({ id, body });
     };
 

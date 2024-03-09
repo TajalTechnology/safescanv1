@@ -25,7 +25,7 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2,allrefecth }) => {
       allrefecth()
     }
     if (error) {
-      console.log("===error====", error);
+      console.log(error);
       toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
     }
   }, [isSuccess, error]);

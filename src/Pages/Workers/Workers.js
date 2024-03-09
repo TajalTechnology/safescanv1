@@ -15,7 +15,7 @@ const Workers = () => {
   const [searchValue] = useDebounce(search, 1000);
   const  {user} = useSelector((state)=>state.auth)
 
-  console.log(searchQuery);
+  // console.log(searchQuery);
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery);
@@ -38,7 +38,7 @@ const Workers = () => {
   }, [searchValue, refetch,user]);
 
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    // console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const rowSelection = {

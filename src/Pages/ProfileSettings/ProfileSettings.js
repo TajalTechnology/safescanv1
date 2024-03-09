@@ -25,7 +25,7 @@ const ProfileSettings = () => {
 
   const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
 
-  console.log("data is=======", data);
+  // console.log("data is=======", data);
 
   const uploadeCover = async (e) => {
     setLoading(true);
@@ -55,7 +55,7 @@ const ProfileSettings = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.log("error", error);
+      console.log(error);
       setLoading(false);
       toast.custom(<ErrorToast message={"please try again"} />);
     }
