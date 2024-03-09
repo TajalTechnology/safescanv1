@@ -266,7 +266,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           },
         })}
         error={errors.location}
-        placeholder={"Enter level 3"}
+        placeholder={"Enter Location"}
       />
 
       <div className=" mt-5">

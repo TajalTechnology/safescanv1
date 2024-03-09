@@ -20,7 +20,7 @@ const ProfileSettings = () => {
   const [openModal, setOpenModal] = useState(false);
   const { user, token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
-  const [phoneOpen,setPhoneOpen] = useState(false)
+  const [phoneOpen, setPhoneOpen] = useState(false)
   const queryitem = `${user?.userid}?username=${user?.username}`;
 
   const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
@@ -133,11 +133,14 @@ const ProfileSettings = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-[14px] flex-wrap">
-                  <CustomButton onClick={()=>setPhoneOpen(true)} className={"bg-primary/10"}>
+                  <button onClick={() => setPhoneOpen(true)} className={` px-3.5 h-10 bg-primary/10 hover:bg-primary hover:text-white duration-500 rounded-[4px]  font-medium text-sm text-primary flex items-center justify-center `}>
+                  <span>Change Phone Number</span>
+                  </button>
+                  {/* <CustomButton  className={"bg-primary/10 hover:bg-primary/10"}>
                     <span className="flex text-primary">
-                      <span>Change Phone Number</span>
+                      
                     </span>
-                  </CustomButton>
+                  </CustomButton> */}
                   <CustomButton onClick={() => setOpenModal(true)}>
                     <span className="flex items-center text-white gap-2">
                       <Icon
@@ -219,7 +222,7 @@ const ProfileSettings = () => {
                   <div>
                     <p className="text-xs font-medium">1 Dismissal For</p>
                     <h1 className="text-lg font-medium text-[#485585]">
-                      {data?.major_to_dismissal} Major 
+                      {data?.major_to_dismissal} Major
                     </h1>
                   </div>
                 </div>
