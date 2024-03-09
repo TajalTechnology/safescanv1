@@ -77,6 +77,7 @@ const CreateNewPass = () => {
                       type={showpass ? "text" : "password"}
                       {...register("password", {
                         required: true,
+                        message: "Please enter password ",
                       })}
                       placeholder={"Enter Password"}
                     />
@@ -99,6 +100,13 @@ const CreateNewPass = () => {
                       </button>
                     </div>
                   </div>
+                  <label className="label">
+                  {error?.password?.type === "required" && (
+                    <span className=" text-sm mt-1 text-red-500">
+                      {error?.password?.message}
+                    </span>
+                  )}
+                </label>
                 </div>
                 <div className="mb-2">
                   <div className="flex flex-col items-start w-full mt-5 relative">
@@ -113,12 +121,12 @@ const CreateNewPass = () => {
                       type={showrepass ? "text" : "password"}
                       placeholder={"Enter Password"}
                       {...register("confirm_password", {
-                        required: true,
                         validate: (val) => {
                           if (watch("password") !== val) {
                             return "Your passwords do no match";
                           }
                         },
+                        message: "Please enter confirm_password ",
                       })}
                     />
                     <div className=" absolute top-[58%] right-[10px]">
@@ -140,7 +148,17 @@ const CreateNewPass = () => {
                       </button>
                     </div>
                   </div>
+                  <label className="label">
+                  {error?.confirm_password?.type === "required" && (
+                    <span className=" text-sm mt-1 text-red-500">
+                      {error?.confirm_password?.message}
+                    </span>
+                  )}
+                </label>
                 </div>
+                {errors?.confirm_password?.message && (
+              <p className="text-error mt-1">Your passwords does not match!</p>
+            )}
               </div>
               <div className="mt-6 w-full">
                 <CustomButton className={"w-full"}>

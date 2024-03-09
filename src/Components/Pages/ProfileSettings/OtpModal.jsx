@@ -135,7 +135,7 @@ const OtpModal = ({
         >
           <div>
             <p className="text-normal text-base text-info">
-              Please Enter OTP That Sent To 018******56
+              Please Enter OTP That Sent To {lastData?.phone?.slice(0,3)}******{lastData?.phone?.slice(-2,lastData?.phone?.length)}
             </p>
             <div className=" flex items-center justify-center w-full mt-5">
               <h1 className="text-lg font-medium text-dark-gray mb-4">
