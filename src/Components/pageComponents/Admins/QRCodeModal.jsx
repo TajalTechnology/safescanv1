@@ -19,7 +19,7 @@ const QRCodeModal = ({ row, product = false }) => {
     if (type === "Whatsapp") {
       if (shareText.trim() !== "") {
         const whatsappMessage = `
-        Hi, I am from Logoipsum.
+        Hi, I am from Safescan.
 
         https://scansafes3.s3.amazonaws.com/${row?.qrc_image}
 
