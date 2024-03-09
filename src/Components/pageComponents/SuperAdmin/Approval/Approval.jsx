@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import ApprovalTable from "./ApprovalTable";
@@ -22,7 +22,7 @@ const Approval = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,
   }, [searchValue]);
 
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <div>

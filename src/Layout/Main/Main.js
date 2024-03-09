@@ -9,7 +9,7 @@ const Main = () => {
   const tokenString = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
   
-  console.log("======tokenString======",user)
+  // console.log("======tokenString======",user)
 
   const navigate = useNavigate();
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomModal from "../../Shared/modal/CustomModal";
 import CustomInput from "../../Shared/input/CustomInput";
@@ -266,7 +266,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
           },
         })}
         error={errors.location}
-        placeholder={"Enter level 3"}
+        placeholder={"Enter Location"}
       />
 
       <div className=" mt-5">

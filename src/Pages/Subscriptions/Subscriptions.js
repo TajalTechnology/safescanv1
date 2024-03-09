@@ -1,5 +1,5 @@
 import React from "react";
-import SectionWrapper from "../../Components/Shared/SectionWrapper";
+// import SectionWrapper from "../../Components/Shared/SectionWrapper";
 import { Icon } from "@iconify/react";
 import CustomButton from "../../Components/Shared/CustomButton";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
@@ -8,13 +8,13 @@ import { useGetProfileQuery } from "../../redux/features/admin/adminApi";
 import Loader from "../../Components/Shared/Loader";
 
 const Subscriptions = () => {
-  const { user, token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const queryitem = `${user?.userid}?username=${user?.username}`;
 
-  const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
+  const { data, isLoading } = useGetProfileQuery(queryitem);
 
-  console.log("data is=======", data);
+  // console.log("data is=======", data);
   return (
     <>
       <BreadCrumb

@@ -24,7 +24,7 @@ const Customer = () => {
   });
 
 
-  console.log(data)
+  // console.log(data)
 
    // ========data fecthing Not approve=========
   const {

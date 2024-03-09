@@ -9,11 +9,14 @@ const Notification = ({ data, handleSeeAll }) => {
                 {
                     data?.length > 0 ? <>
                         {data?.map((notifi, index) => <div key={index} className='flex  gap-2 border-b border-gray-100 py-[18px] w-full '>
-                            <div className={`flex items-center justify-center h-[34px] w-[34px] rounded-[10px] p-2 ${notifi?.is_read === true ? 'text-Warning bg-Warning/10' : ' text-error bg-error/10'}`}>
+                            {/* <div className={`flex items-center justify-center h-[34px] w-[34px] rounded-[10px] p-2 ${notifi?.is_read === true ? 'text-Warning bg-Warning/10' : ' text-error bg-error/10'}`}>
 
                                 {notifi?.is_read === true ? <Icon className='text-lg' icon="ph:warning-bold" /> : <Icon className='text-lg' icon="mingcute:warning-line" />}
 
 
+                            </div> */}
+                            <div className='w-[40px] h-[40px]'>
+                                <img src={`https://scansafes3.s3.amazonaws.com/${notifi?.icon}`} alt='icon' className='w-full h-full object-fill'/>
                             </div>
                             <div className='-mt-1 w-[90%]'>
                                 <div className='flex justify-between w-full flex-wrap gap-2 '>

@@ -45,7 +45,7 @@ const StrikeCard = ({ row, refetch }) => {
     setUpdatedImages(row?.strike_images)
   }, [row]);
 
-  console.log("====imageItem======",imageItem)
+  console.log(imageItem)
 
   useEffect(()=>{
     if(row?.strike_images){
@@ -60,7 +60,7 @@ const StrikeCard = ({ row, refetch }) => {
       username:row?.username
     }
 
-    console.log(data)
+    // console.log(data)
 
     await imageDelete(data)
   }

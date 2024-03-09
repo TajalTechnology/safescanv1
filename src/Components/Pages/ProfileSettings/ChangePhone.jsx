@@ -39,12 +39,12 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
   }, [isSuccess, error]);
 
   const onSubmit = async(data) => {
-    console.log(data)
+    // console.log(data)
     setLastData(data)
     await phoneChange(data)
   };
 
-  console.log(data)
+  // console.log(data)
 
 
   return (

@@ -99,7 +99,7 @@ const OtpModal = ({
             otp:verifyNumberData,
         }
 
-        console.log(data)
+        // console.log(data)
 
          await phoneChange(data)
     }

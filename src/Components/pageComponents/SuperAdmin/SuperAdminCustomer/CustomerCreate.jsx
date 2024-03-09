@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../../Shared/input/CustomInput";
 import CustomButton from "../../../Shared/CustomButton";
-import PasswordInput from "../../../Shared/input/PasswordInput";
 import { useCreateCustomerMutation } from "../../../../redux/features/superAdmin/superApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
@@ -41,7 +40,7 @@ const CustomerCreate = ({
       reset()
     }
     if (error) {
-      console.log("===error====", error);
+      console.log( error);
       toast.custom(
         <ErrorToast message={error?.data.error || error?.data.message} />
       );

@@ -32,7 +32,7 @@ const SignIn = () => {
       reset()
     }
     if (error) {
-      console.log("===error====", error);
+      console.log( error);
       toast.custom(<ErrorToast message={error?.data?.error || error?.data?.message} />);
     }
   }, [isSuccess, error, reset]);
@@ -55,7 +55,7 @@ const SignIn = () => {
     // navigate('/admin/dashboard')
     login(data);
 
-    console.log("data===", data);
+    // console.log( data);
   };
   return (
     <div className="flex  ">

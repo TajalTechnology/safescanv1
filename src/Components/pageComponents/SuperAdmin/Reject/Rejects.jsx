@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import { useDebounce } from "use-debounce";

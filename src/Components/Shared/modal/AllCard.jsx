@@ -60,7 +60,7 @@ const AllCard = ({ row, refetch }) => {
       username:row?.username
     }
 
-    console.log(data)
+    // console.log(data)
 
     await imageDelete(data)
   }

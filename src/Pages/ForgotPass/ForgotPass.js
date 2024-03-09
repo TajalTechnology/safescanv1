@@ -33,7 +33,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
     { isLoading: isLoading1, isSuccess: isSuccess1, error: error1 },
   ] = useOtpSendMutation();
 
-  console.log("response data======", otpData);
+  // console.log("response data======", otpData);
 
   useEffect(() => {
     if (isSuccess1) {
