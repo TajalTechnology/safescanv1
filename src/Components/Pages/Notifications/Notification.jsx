@@ -3,6 +3,8 @@ import React from "react";
 import { formattedDate } from "../../../helper/jwt";
 
 const Notification = ({ data }) => {
+  console.log(data);
+
   return (
     <div className="h-[80vh]  overflow-y-auto">
       {data?.length > 0 ? (
@@ -12,7 +14,7 @@ const Notification = ({ data }) => {
               key={index}
               className="flex  gap-2 items-center border-b border-gray-100 py-[18px] w-full "
             >
-              <div
+              {/* <div
                 className={` flex items-center justify-center rounded-[10px] p-2 ${
                   notifi?.is_read === true
                     ? "text-Warning bg-Warning/10"
@@ -24,8 +26,14 @@ const Notification = ({ data }) => {
                 ) : (
                   <Icon className="text-lg" icon="mingcute:warning-line" />
                 )}
+              </div> */}
+              <div className="w-[40px] h-[40px]">
+                <img
+                  src={`https://scansafes3.s3.amazonaws.com/${notifi?.icon}`}
+                  alt="icon"
+                  className="w-full h-full object-fill"
+                />
               </div>
-              {/* <img src={`https://scansafes3.s3.amazonaws.com/${notifi?.icon}`} alt='icon' /> */}
               <div className="flex justify-between w-full flex-wrap gap-3">
                 <div>
                   <p className="text-dark-gray font-medium text-base">
