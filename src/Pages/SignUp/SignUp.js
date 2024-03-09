@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
 import { useCreateCustomerMutation } from "../../redux/features/superAdmin/superApi";
+import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SignUp = () => {
   useEffect(() => {
     if (isSuccess) {
       const message = "Create Customer success";
-      toast.success(message);
+      toast.custom(<SuccessToast message={message}/>);
       navigate("/")
     }
     if (error) {

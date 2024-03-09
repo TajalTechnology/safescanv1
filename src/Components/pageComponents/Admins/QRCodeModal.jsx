@@ -6,6 +6,7 @@ import React, { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
 import ShareModal from "../../Shared/modal/ShareModal";
 import html2canvas from "html2canvas";
+import ImageDownloader from "../../Shared/DownloadQrc";
 
 
 
@@ -16,33 +17,6 @@ const QRCodeModal = ({ row, product = false }) => {
   const [shareText, setShareText] = useState("");
   const [type, setType] = useState("Whatsapp");
 
-
-
-  const captureAndDownload = () => {
-    const component = document.getElementById("pdf-component");
-
-    if (component) {
-      // const originalWidth = component.scrollWidth;
-      // const originalHeight = component.scrollHeight;
-
-      // // Set the element's size to cover the entire content
-      // component.style.width = `${originalWidth}px`;
-      // component.style.height = `${originalHeight}px`;
-
-      html2canvas(component).then(async (canvas) => {
-        const dataURL = canvas.toDataURL("image/png");
-        const a = document.createElement("a");
-        a.href = `https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`;
-        a.download = `image.png`;
-        //only here download as pdf
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      });
-    }
-  };
-  console.log(row?.qrc_image);
   // ======Share funcation=========
   const handleShare = async () => {
     if (type === "Whatsapp") {
@@ -91,6 +65,9 @@ const QRCodeModal = ({ row, product = false }) => {
         <div className="p-7">
           <div className=" flex items-center justify-between">
             <h2 className=" text-[28px] font-[700] text-dark-gray">QRC Code</h2>
+
+
+
             <button
               onClick={() => setModalOpen(false)}
               className=" w-[40px] text-[30px] h-[40px] rounded-lg flex items-center justify-center hover:bg-[#FDEEEE] hover:text-[#FF5959] text-[#969BB3]"
@@ -119,15 +96,15 @@ const QRCodeModal = ({ row, product = false }) => {
                 </h4>
               </div>
             </div>
-            {/* <QRCode size={250} className=" " value={row.email} /> */}
-            <div id="pdf-component">
+
+            <div>
               <img
-                // src={`https://scansafes3.s3.amazonaws.com/1708928709838-Screenshot_23.png`}
                 src={`https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`}
                 alt="qr-code"
                 className="w-[300px] h-[300px]"
               />
             </div>
+
           </div>
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -146,15 +123,11 @@ const QRCodeModal = ({ row, product = false }) => {
               </button> */}
             </div>
             <div className="flex items-center gap-3">
-              <button
-                onClick={captureAndDownload}
-                className=" bg-primary hover:bg-primary/80 flex items-center justify-center duration-300 w-[38px] h-[38px] rounded-[4px] text-[14px] font-medium text-white"
-              >
-                <Icon
-                  icon="lucide:arrow-down-to-line"
-                  className=" text-[25px]"
-                />
-              </button>
+              <ImageDownloader
+                imageUrl={`https://scansafes3.s3.amazonaws.com/${row?.qrc_image}`}
+                fileName="qr_code.png"
+              />
+             
               <button
                 onClick={() => {
                   setShare(true);
