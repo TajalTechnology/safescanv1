@@ -206,21 +206,21 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       <div className=" flex items-center gap-4 justify-between">
         <CustomInput
           label={"Minor"}
-          type={"text"}
+          type={"number"}
           register={register("minor")}
           placeholder={item?.minor}
           required={false}
         />
         <CustomInput
           label={"Major"}
-          type={"text"}
+          type={"number"}
           register={register("major")}
           placeholder={item?.major}
           required={false}
         />
         <CustomInput
           label={"Dismissal"}
-          type={"text"}
+          type={"number"}
           register={register("dismissal")}
           placeholder={item?.dismissal}
           required={false}
