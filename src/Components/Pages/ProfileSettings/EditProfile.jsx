@@ -39,6 +39,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             frist_name: item.first_name,
             last_name: item.last_Name,
             username: item.username,
+            terms_conditions: item.terms_conditions,
             // password: item.password,
             email: item.email,
             phone: item.phone,
@@ -58,6 +59,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             username: item?.username,
             first_name: data.frist_name,
             email: data.email,
+            terms_conditions: data.terms_conditions,
             // phone: data.phone,
             site_address: data.site_address,
             site_name: data.site_name,
@@ -82,7 +84,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
             handleSubmit={handleSubmit(onSubmit)}
             width={600}
             title={'Edit Information'}
-            buttonText={isLoading?'Loading...':'Save Changes'}
+            buttonText={isLoading ? 'Loading...' : 'Save Changes'}
         >
 
             <div>
@@ -236,17 +238,23 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                 </div>
                 <div className="flex flex-col items-start w-full mt-4">
                     <label
-                        htmlFor="otp"
+                        htmlFor="tc"
                         className='mb-1.5 font-medium text-lg text-dark-gray'
                     >
                         {'T&Cs For Testing '}
                     </label>
                     <textarea
-                        defaultValue={'Our T&Cs Prag..'}
+                        {...register("terms_conditions", {
+                            required: {
+                                value: true,
+                                message: "Please enter terms conditions",
+                            },
+                        })}
+
                         className="py-[15px] h-[64px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
                         type={'text'}
-                        id="otp"
-                        {...'t&cs'}
+                        id="tc"
+                    // {...'t&cs'}
                     />
 
                 </div>

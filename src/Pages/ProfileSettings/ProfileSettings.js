@@ -208,7 +208,7 @@ const ProfileSettings = () => {
                   <div>
                     <p className="text-xs font-medium">T&Cs For Testing </p>
                     <h1 className="text-lg font-medium text-[#485585]">
-                      Our T&Cs Prag..
+                     {data?.terms_conditions}
                     </h1>
                   </div>
                 </div>
