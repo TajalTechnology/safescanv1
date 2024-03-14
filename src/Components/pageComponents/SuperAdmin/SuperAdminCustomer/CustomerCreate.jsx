@@ -100,7 +100,7 @@ const CustomerCreate = ({
                   },
                 })}
                 error={errors.first_name}
-                placeholder={"Create username"}
+                placeholder={"Enter First Name"}
               />
               <CustomInput
                 label={"Last Name"}
@@ -125,7 +125,7 @@ const CustomerCreate = ({
                 },
               })}
               error={errors.username}
-              placeholder={"Enter Phone Number"}
+              placeholder={"Enter Username"}
             />
             <CustomInput
               label={"Mobile Number"}

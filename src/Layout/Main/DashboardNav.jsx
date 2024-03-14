@@ -25,7 +25,7 @@ const DashboardNav = () => {
         </div>
         {/* -------------------------here notification ------- */}
         <div className="mt-9 ">
-          <Notification handleSeeAll={handleSeeAll} data={data?.Items} />
+          <Notification handleSeeAll={handleSeeAll} data={data?.Items} refetch={refetch}/>
         </div>
       </div>
     </div>

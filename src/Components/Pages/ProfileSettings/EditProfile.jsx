@@ -117,7 +117,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         />
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <div className="flex flex-col items-start w-full mt-3">
                         <label
                             htmlFor="otp"
@@ -141,7 +141,7 @@ const EditProfile = ({ item, refetch, setOpenModal, modalOPen }) => {
                         />
 
                     </div>
-                </div>
+                </div> */}
                 {/* <div className='relative'>
                     <button onClick={() => { setOpen(true); setOpenModal(false) }} className='absolute right-0 text-primary font-medium text-lg'>Forgot Password?</button>
                     <CustomInput

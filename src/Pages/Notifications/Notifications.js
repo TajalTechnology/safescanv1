@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SectionWrapper from '../../Components/Shared/SectionWrapper';
 import Notification from '../../Components/Pages/Notifications/Notification';
 import BreadCrumb from '../../Components/Shared/BreadCrumb';
@@ -8,8 +8,14 @@ import Loader from '../../Components/Shared/Loader';
 const Notifications = () => {
     const [activeTab, setActiveTab] = useState('All Notifications')
 
+    const { data, isLoading,refetch } = useGetNotificationsQuery('');
 
-    const { data, isLoading } = useGetNotificationsQuery('');
+
+
+
+console.log(data)
+
+
 
 
     const tabs = [
@@ -49,13 +55,13 @@ const Notifications = () => {
                         <div>
                             {isLoading ? <><Loader /></> : <>
                                 {
-                                    activeTab === 'All Notifications' && <Notification data={data?.Items} />
+                                    activeTab === 'All Notifications' && <Notification data={data?.Items} refetch={refetch}/>
                                 }
                                 {
-                                    activeTab === 'Unread' && <Notification data={data?.Items?.filter((d) => d.is_read === false)} />
+                                    activeTab === 'Unread' && <Notification data={data?.Items?.filter((d) => d.is_read === false)} refetch={refetch} />
                                 }
                                 {
-                                    activeTab === 'Read' && <Notification data={data?.Items?.filter((d) => d.is_read === true)} />
+                                    activeTab === 'Read' && <Notification data={data?.Items?.filter((d) => d.is_read === true)} refetch={refetch} />
                                 }
                             </>}
 

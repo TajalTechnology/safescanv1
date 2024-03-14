@@ -129,7 +129,7 @@ const ProfileSettings = () => {
                     <h1 className="font-bold text-2xl text-dark-gray">
                       {data?.first_name} {data?.last_Name}
                     </h1>
-                    <p className="text-lg font-medium -mt-1">{data?.email}</p>
+                    <p className="text-lg font-medium -mt-1">{data?.username}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-[14px] flex-wrap">
@@ -156,9 +156,9 @@ const ProfileSettings = () => {
               <div className="mt-5 mb-14 px-[25px]">
                 <div className="border-b py-5 border-gray-100 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2.5">
                   <div>
-                    <p className="text-xs font-medium">User Name</p>
+                    <p className="text-xs font-medium">User Email</p>
                     <h1 className="text-lg font-medium text-[#485585]">
-                      {data?.username}
+                      {data?.email}
                     </h1>
                   </div>
 
