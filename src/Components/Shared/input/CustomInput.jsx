@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomInput = ({ label, type, register, error, placeholder,required=true }) => {
+const CustomInput = ({ label, type, register, error, placeholder,required=true,}) => {
   return (
     <div className="flex flex-col items-start w-full mt-3">
       <label

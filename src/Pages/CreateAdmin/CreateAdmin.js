@@ -17,12 +17,22 @@ const CreateAdmin = () => {
   const { user } = useSelector((state) => state.auth);
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
-
+  const [sortData,setSortData] = useState([])
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetAdminQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
   });
+
+
+  useEffect(() => {
+    const updateData = data?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
 
 
   const generateQuery = (searchValue) => {
@@ -50,8 +60,6 @@ const CreateAdmin = () => {
     onChange: onSelectChange,
   };
 
-  // ======add a key for selected=======
-  const updateData = data?.map((item) => ({ key: item?.userid, ...item }));
 
   return (
     <>
@@ -85,7 +93,7 @@ const CreateAdmin = () => {
             ) : (
               <>
                 <CreatedAdminsTable
-                  tableData={updateData}
+                  tableData={sortData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />

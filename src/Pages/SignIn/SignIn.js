@@ -10,10 +10,10 @@ import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 
 const SignIn = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const navigate = useNavigate();
   const [showpass, setShowpass] = useState(false);
-  const tokenString = localStorage.getItem("token");
+  const tokenString = sessionStorage.getItem("token");
 
 
   const {

@@ -34,6 +34,12 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    updateNotifications: builder.query({
+      query: (query) => ({
+        url: `notifications/${query}`,
+        method: "GET",
+      }),
+    }),
     getWorker: builder.query({
       query: (query) => ({
         url: `users?usertype=worker&${query}`,
@@ -173,6 +179,7 @@ export const {
   useUpdateProductMutation,
   useGetCountersQuery,
   useGetNotificationsQuery,
+  useUpdateNotificationsQuery,
   useImageDeleteMutation,
   useDeleteProductCardImageMutation,
   useAddProductMutation,

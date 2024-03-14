@@ -17,12 +17,23 @@ const CreateWorker = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
   const { user } = useSelector((state) => state.auth);
+  const [sortData,setSortData] = useState([])
 
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
   });
+
+
+  useEffect(() => {
+    const updateData = data?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
 
 
   const generateQuery = (searchValue) => {
@@ -49,9 +60,6 @@ const CreateWorker = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-
-  // ======add a key for selected=======
-  const updateData = data?.map((item, index) => ({ key: index + 1, ...item }));
 
   return (
     <>
@@ -85,7 +93,7 @@ const CreateWorker = () => {
             ) : (
               <>
                 <CreatedWorkersTable
-                  tableData={updateData}
+                  tableData={sortData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />

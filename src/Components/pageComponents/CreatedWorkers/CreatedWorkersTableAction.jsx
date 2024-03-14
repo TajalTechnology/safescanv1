@@ -66,14 +66,14 @@ const CreatedWorkersTableAction = ({ row,refetch }) => {
   return (
     <>
       <div className=" flex items-center gap-1">
-        <Tooltip placement="topLeft" title="Share">
+        {/* <Tooltip placement="topLeft" title="Share">
           <button onClick={() => setShare(true)}>
             <Icon
               icon="lucide:share-2"
               className="text-[22px] hover:text-[#0070F0] text-[#8E9BBA]"
             />
           </button>
-        </Tooltip>
+        </Tooltip> */}
         {/* <Tooltip placement="topLeft" title="Edit">
           <button onClick={() => setEdit(true)}>
             <Icon

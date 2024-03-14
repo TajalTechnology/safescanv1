@@ -16,7 +16,7 @@ const Admins = () => {
   const  {user} = useSelector((state)=>state.auth)
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
-
+  const [sortData,setSortData] = useState([])
 
 
 
@@ -26,7 +26,17 @@ const Admins = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const filterData = data?.filter((item)=>item?.is_active === true)
+
+  useEffect(() => {
+    const updateData = data?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
+
+
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -54,7 +64,7 @@ const Admins = () => {
   };
 
   // ======add a key for selected=======
-  const updateData = filterData?.map((item) => ({ key: item?.userid, ...item }));
+  const filterData = sortData?.filter((item)=>item?.is_active === true)
 
   return (
     <>
@@ -84,7 +94,7 @@ const Admins = () => {
             ) : (
               <>
                 <AdminsTable
-                  tableData={updateData}
+                  tableData={filterData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />

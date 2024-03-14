@@ -14,13 +14,22 @@ const Workers = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
   const  {user} = useSelector((state)=>state.auth)
+  const [sortData,setSortData] = useState([])
 
   // console.log(searchQuery);
 
   // ========data fecthing=========
   const { data, isLoading, refetch } = useGetWorkerQuery(searchQuery);
 
-  const filterData = data?.filter((item)=>item?.is_active === true)
+
+  useEffect(() => {
+    const updateData = data?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -47,10 +56,8 @@ const Workers = () => {
   };
 
   // ======add a key for selected=======
-  const updateData = filterData?.map((item, index) => ({
-    key: index + 1,
-    ...item,
-  }));
+
+  const filterData = sortData?.filter((item)=>item?.is_active === true)
 
 
   return (
@@ -80,7 +87,7 @@ const Workers = () => {
             ) : (
               <div className="w-full">
                 <WorkersTable
-                  tableData={updateData}
+                  tableData={filterData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />

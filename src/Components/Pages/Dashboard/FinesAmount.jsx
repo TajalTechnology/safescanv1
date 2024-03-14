@@ -38,12 +38,12 @@ const FinesAmount = ({counters}) => {
                 <div className='py-7 px-[25px]'>
                     <div className='mb-8 flex items-center gap-5 justify-between flex-wrap'>
                         <SectionHeading><p>Fines Amount</p></SectionHeading>
-                        <TimePickerButton
+                        {/* <TimePickerButton
                             className="font-bold w-[120px]"
                             selected={selected}
                             setSelected={setSelected}
                             data={dataDay}
-                        />
+                        /> */}
                     </div>
                     <div className='flex items-center' >
                         <FinesAmountChart data={data} />

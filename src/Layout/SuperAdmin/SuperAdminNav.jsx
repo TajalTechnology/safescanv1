@@ -11,6 +11,11 @@ const SuperAdminNav = () => {
   const { data, isLoading, refetch } = useGetNotificationsQuery('', {
     refetchOnMountOrArgChange: true,
 });
+
+  const findData = data?.Items?.filter((item)=>item?.is_read===false)
+
+  console.log("fsfsfsfs5fs5f5sf5s5fs5fs5f",findData)
+
   const handleSeeAll = () => {
     navigate('/super-admin/notifications')
   }
@@ -25,7 +30,7 @@ const SuperAdminNav = () => {
         </div>
         {/* -------------------------here notification ------- */}
         <div className="mt-9 ">
-          <Notification handleSeeAll={handleSeeAll} data={data?.Items} />
+          <Notification handleSeeAll={handleSeeAll} data={data?.Items} refetch={refetch}/>
         </div>
       </div>
     </div>
@@ -60,12 +65,12 @@ const SuperAdminNav = () => {
               <span className=" flex md:hidden">Notification</span>
             </button> */}
             <div className="bg-white w-[48px] relative rounded-md flex items-center justify-center  h-[48px]">
-              <button className=" text-primary text-[27px]"><Icon icon="lets-icons:bell-pin" /></button>
-              <div className="w-[7px] absolute top-[14px] right-[13px] h-[7px] bg-red-500 rounded-full"></div>
+              <button className=" text-primary text-[27px]"><Icon icon="mi:notification" /></button>
+              {findData?.length > 0 && <div className="w-[7px] absolute top-[14px] right-[15px] h-[7px] bg-red-500 rounded-full"></div>}
             </div>
           </Popover>
         </div>
-
+        {/* <Icon icon="mi:notification" /> */}
       </div>
     </>
   );

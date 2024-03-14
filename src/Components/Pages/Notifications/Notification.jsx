@@ -1,9 +1,32 @@
-import { Icon } from "@iconify/react";
-import React from "react";
-import { formattedDate } from "../../../helper/jwt";
 
-const Notification = ({ data }) => {
-  console.log(data);
+import React from "react";
+import { useSelector } from "react-redux";
+import { format } from 'timeago.js';
+
+import axios from "axios";
+
+const Notification = ({ data,refetch }) => {
+  const {  token } = useSelector((state) => state.auth);
+
+  const updateNotifaction = async(id)=>{
+    try {
+      const response = await axios.get(
+        `https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/notifications/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response?.status === 200) {
+        refetch();
+      } else {
+
+      }
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <div className="h-[80vh]  overflow-y-auto">
@@ -12,7 +35,8 @@ const Notification = ({ data }) => {
           {data.map((notifi, index) => (
             <div
               key={index}
-              className="flex  gap-2 items-center border-b border-gray-100 py-[18px] w-full "
+              onClick={()=>updateNotifaction(notifi?.notificationid)}
+              className="flex  gap-2 items-center cursor-pointer border-b border-gray-100 py-[18px] w-full "
             >
               {/* <div
                 className={` flex items-center justify-center rounded-[10px] p-2 ${
@@ -45,9 +69,9 @@ const Notification = ({ data }) => {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <p className="text-xs font-medium text-info/80">
-                    {formattedDate(notifi?.created_at)}
+                    {format(notifi?.created_at)}
                   </p>
-                  {/* {notifi.time==='Now'&& <span className='w-1.5 mb-1 h-1.5 rounded-full bg-primary'></span>} */}
+                  {notifi.is_read===false&& <span className='w-2 mb-1 h-2 mt-1 rounded-full bg-primary'></span>}
                 </div>
               </div>
             </div>

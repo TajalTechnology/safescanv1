@@ -58,8 +58,8 @@ const SuperSidbar = () => {
 
 
   const logout=()=>{
-    localStorage.removeItem("user")
-    localStorage.removeItem("token")
+    sessionStorage.removeItem("user")
+    sessionStorage.removeItem("token")
     window.location.reload();
     setLoading(true)
   }
@@ -175,7 +175,7 @@ const SuperSidbar = () => {
           <div className="flex justify-between items-center group p-4">
             <button
               onClick={() => setShow(true)}
-              className="flex w-full text-dark-gray py-2 rounded-[10px] cursor-pointer justify-between px-3 items-center hover:text-white hover:bg-primary duration-300"
+              className="flex w-full text-dark-gray py-2 rounded-[10px] cursor-pointer justify-between px-3 items-center hover:text-white hover:bg-error duration-300"
             >
               <h2
                 className={`whitespace-pre text-base font-medium ${

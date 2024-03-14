@@ -4,8 +4,8 @@ export const authMiddleware = (api) => (next) => async (action) => {
   if (action.error && action.payload.status === 401) {
     // Unauthorized error
     // Clear token from local storage
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     // Dispatch action to clear user data or handle logout
     api.dispatch(
       userLoggedIn({
