@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeading from "../../../Shared/SectionHeading";
 import SearchInput from "../../../Shared/input/SearchInput";
 import { useDebounce } from "use-debounce";
@@ -9,7 +9,16 @@ import RejectsTable from "./RejectsTable";
 const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,refetch,refetch1,allrefecth}) => {
 
   const [searchValue] = useDebounce(search, 1000);
+  const [sortData,setSortData] = useState([])
 
+  useEffect(() => {
+    const updateData = data?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -47,7 +56,7 @@ const Rejects = ({search,setSearch,sestSearchQuery,searchQuery,data, isLoading,r
             ) : (
               <>
                 <RejectsTable
-                  tableData={data}
+                  tableData={sortData}
                   refetch={refetch}
                   refetch1={refetch1}
                   allrefecth={allrefecth}
