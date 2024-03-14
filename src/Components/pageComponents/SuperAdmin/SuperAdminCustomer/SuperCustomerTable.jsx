@@ -21,6 +21,16 @@ const SuperCustomerTable = ({
 }) => {
   const [create, setCreate] = useState(false);
   const [searchValue] = useDebounce(search, 1000);
+  const [sortData,setSortData] = useState([])
+
+  useEffect(() => {
+    const updateData = data?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
 
   // console.log(searchQuery);
 
@@ -66,7 +76,7 @@ const SuperCustomerTable = ({
             ) : (
               <>
                 <SuperCustomerTableData
-                  tableData={data}
+                  tableData={sortData}
                   refetch={refetch}
                   refetch1={refetch2}
                   allrefecth={allrefecth}

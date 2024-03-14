@@ -11,13 +11,6 @@ const Notifications = () => {
 
   const { data, isLoading, refetch } = useGetNotificationsQuery("");
 
-//   const updateData = data?.Items?.map((item) => ({
-//     key: item?.userid,
-//     ...item,
-//   }));
-
-  console.log("======", notifaction);
-
   useEffect(() => {
     const updateData = data?.Items?.map((item) => ({
         key: item?.userid,

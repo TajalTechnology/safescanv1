@@ -14,7 +14,6 @@ const Main = () => {
 
   const { data,refetch } = useGetProfileQuery(queryitem);
   
-  console.log("======tokenString======",data?.account_status)
 
   useEffect(()=>{
     if(path.pathname){

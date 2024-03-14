@@ -31,23 +31,23 @@ const ApprovalAction = ({ row,refetch,refetch1,refetch2,allrefecth }) => {
   }, [isSuccess, error]);
 
   const handleREject = async()=>{
+    settype("Customer Rejects success")
       const data={
         username:row?.username,
         account_status: "rejected",
       }
       const id=row?.userid;
      await approve({id,data})
-     settype("Customer Rejects success")
   }
 
   const handleApprove = async()=>{
+    settype("Customer Approve success")
     const data={
       username:row?.username,
       account_status: "approved",
     }
     const id=row?.userid;
     await approve({id,data})
-    settype("Customer Approve success")
 }
 
   return (
