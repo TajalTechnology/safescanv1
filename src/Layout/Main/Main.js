@@ -1,15 +1,35 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import DashboardNav from "./DashboardNav";
+import { useGetProfileQuery } from "../../redux/features/admin/adminApi";
 
 const Main = () => {
   // const { user } = useSelector((state) => state.auth);
+  const path = useLocation();
+  const tokenString = sessionStorage.getItem("token");
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
-  const tokenString = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const queryitem = `${user?.userid}?username=${user?.username}`;
+
+  const { data,refetch } = useGetProfileQuery(queryitem);
   
-  // console.log("======tokenString======",user)
+  console.log("======tokenString======",data?.account_status)
+
+  useEffect(()=>{
+    if(path.pathname){
+      refetch()
+    }
+  },[path])
+
+  useEffect(()=>{
+    if(data){
+      if(data?.account_status==="rejected"){
+        sessionStorage.setItem("token", JSON.stringify(""));
+        sessionStorage.setItem("user", JSON.stringify(""));
+      }
+    }
+  },[data])
 
   const navigate = useNavigate();
   useEffect(() => {

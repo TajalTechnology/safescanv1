@@ -58,8 +58,8 @@ const SuperSidbar = () => {
 
 
   const logout=()=>{
-    localStorage.removeItem("user")
-    localStorage.removeItem("token")
+    sessionStorage.removeItem("user")
+    sessionStorage.removeItem("token")
     window.location.reload();
     setLoading(true)
   }

@@ -4,13 +4,26 @@ import { Popover } from "antd";
 import Notification from "../../Components/Shared/Notification";
 import { useNavigate } from "react-router-dom";
 import { useGetNotificationsQuery } from "../../redux/features/admin/adminApi";
+import { useEffect, useState } from "react";
 
 const DashboardNav = () => {
   const navigate = useNavigate()
+  const [notifaction, setNotification] = useState([]);
 
   const { data, isLoading, refetch } = useGetNotificationsQuery('', {
     refetchOnMountOrArgChange: true,
 });
+
+useEffect(() => {
+  const updateData = data?.Items?.map((item) => ({
+      key: item?.userid,
+      ...item,
+    }));
+  const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  setNotification(update);
+}, [data]);
+
+const findData = data?.Items?.filter((item)=>item?.is_read===false)
   const handleSeeAll = () => {
     navigate('/admin/notifications')
   }
@@ -25,7 +38,7 @@ const DashboardNav = () => {
         </div>
         {/* -------------------------here notification ------- */}
         <div className="mt-9 ">
-          <Notification handleSeeAll={handleSeeAll} data={data?.Items} refetch={refetch}/>
+          <Notification handleSeeAll={handleSeeAll} data={notifaction} refetch={refetch}/>
         </div>
       </div>
     </div>
@@ -60,8 +73,8 @@ const DashboardNav = () => {
               <span className=" flex md:hidden">Notification</span>
             </button> */}
             <div className="bg-white w-[48px] relative rounded-md flex items-center justify-center  h-[48px]">
-              <button className=" text-primary text-[27px]"><Icon icon="lets-icons:bell-pin" /></button>
-              <div className="w-[7px] absolute top-[14px] right-[13px] h-[7px] bg-red-500 rounded-full"></div>
+              <button className=" text-primary text-[27px]"><Icon icon="mi:notification" /></button>
+              {findData?.length > 0 && <div className="w-[7px] absolute top-[14px] right-[15px] h-[7px] bg-red-500 rounded-full"></div>}
             </div>
           </Popover>
         </div>

@@ -1,12 +1,12 @@
-import { Icon } from "@iconify/react";
+
 import React from "react";
-import { formattedDate } from "../../../helper/jwt";
-import { useUpdateNotificationsQuery } from "../../../redux/features/admin/adminApi";
 import { useSelector } from "react-redux";
+import { format } from 'timeago.js';
+
 import axios from "axios";
 
 const Notification = ({ data,refetch }) => {
-  const { user, token } = useSelector((state) => state.auth);
+  const {  token } = useSelector((state) => state.auth);
 
   const updateNotifaction = async(id)=>{
     try {
@@ -69,7 +69,7 @@ const Notification = ({ data,refetch }) => {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <p className="text-xs font-medium text-info/80">
-                    {formattedDate(notifi?.created_at)}
+                    {format(notifi?.created_at)}
                   </p>
                   {notifi.is_read===false&& <span className='w-2 mb-1 h-2 mt-1 rounded-full bg-primary'></span>}
                 </div>

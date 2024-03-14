@@ -15,12 +15,22 @@ const Products = () => {
   const [searchQuery, sestSearchQuery] = useState("");
   const [searchValue] = useDebounce(search, 1000);
   const [create, setCreate] = useState(false);
+  const [sortData,setSortData] = useState([])
 
   // -----------get all products-----------
 
   const { data, isLoading, refetch } = useGetProductsQuery(searchQuery, {
     refetchOnMountOrArgChange: true,
   });
+
+  useEffect(() => {
+    const updateData = data?.Items?.map((item) => ({
+        key: item?.userid,
+        ...item,
+      }));
+    const update = updateData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setSortData(update);
+  }, [data]);
 
   const generateQuery = (searchValue) => {
     const queryParams = [];
@@ -86,7 +96,7 @@ const Products = () => {
               </div>
               <div>
                 <ProductsTable
-                  tableData={updateData}
+                  tableData={sortData}
                   rowSelection={rowSelection}
                   refetch={refetch}
                 />

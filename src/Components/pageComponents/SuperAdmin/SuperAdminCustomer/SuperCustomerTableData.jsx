@@ -92,12 +92,11 @@ const SuperCustomerTableData = ({
     },
     {
       title: "Expire Date",
-
       render: (row) => (
         <ExpiryDate row={row} refetch={refetch} refetch1={refetch1} />
       ),
       sorter: (a, b) => a?.expiry_date - b?.expiry_date,
-      width: "200px",
+      width: "150px",
     },
     {
       title: "Action",

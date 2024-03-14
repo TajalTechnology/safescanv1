@@ -7,8 +7,8 @@ export const apiSlice = createApi({
     baseQuery:fetchBaseQuery({
         baseUrl:"https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/",
         prepareHeaders: (headers) => {
-            // Get the token from localStorage
-            const tokenString = localStorage.getItem("token");
+            // Get the token from sessionStorage
+            const tokenString = sessionStorage.getItem("token");
       
             if (tokenString !== null) {
               // Set the Bearer token in the headers
@@ -36,8 +36,8 @@ export const apiSlice = createApi({
                     const result = await queryFulfilled;
                 } catch (error) {
                     if(error?.error?.status){
-                        localStorage.removeItem("user")
-                        localStorage.removeItem("token")
+                        sessionStorage.removeItem("user")
+                        sessionStorage.removeItem("token")
                     }
                     console.log(error?.error?.status)
                 }
@@ -53,8 +53,8 @@ export const apiSlice = createApi({
                     const result = await queryFulfilled;
                 } catch (error) {
                     if(error?.error?.status){
-                        localStorage.removeItem("user")
-                        localStorage.removeItem("token")
+                        sessionStorage.removeItem("user")
+                        sessionStorage.removeItem("token")
                     }
                     console.log(error?.error?.status)
                 }

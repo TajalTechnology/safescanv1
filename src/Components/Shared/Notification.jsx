@@ -1,8 +1,8 @@
 
 import React from "react";
-import { formattedDate } from "../../helper/jwt";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { format } from 'timeago.js';
 
 const Notification = ({ data, handleSeeAll, refetch }) => {
   const {  token } = useSelector((state) => state.auth);
@@ -49,7 +49,7 @@ const Notification = ({ data, handleSeeAll, refetch }) => {
                     </p>
                     <div className="flex items-center gap-1.5">
                       <p className="text-xs font-medium text-info/80">
-                        {formattedDate(notifi?.created_at)}
+                        {format(notifi?.created_at)}
                       </p>
                       {notifi.is_read === false && (
                         <span className="w-2 mb-1 h-2 mt-1 rounded-full bg-primary"></span>

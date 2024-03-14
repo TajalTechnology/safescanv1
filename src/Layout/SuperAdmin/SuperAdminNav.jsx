@@ -66,7 +66,7 @@ const SuperAdminNav = () => {
             </button> */}
             <div className="bg-white w-[48px] relative rounded-md flex items-center justify-center  h-[48px]">
               <button className=" text-primary text-[27px]"><Icon icon="mi:notification" /></button>
-              {findData?.length > 0 && <div className="w-[7px] absolute top-[14px] right-[13px] h-[7px] bg-red-500 rounded-full"></div>}
+              {findData?.length > 0 && <div className="w-[7px] absolute top-[14px] right-[15px] h-[7px] bg-red-500 rounded-full"></div>}
             </div>
           </Popover>
         </div>
