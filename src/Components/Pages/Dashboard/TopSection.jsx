@@ -6,7 +6,6 @@ const TopSection = ({workers,admins,counters}) => {
 
     const filterAdmin = admins?.filter((item)=>item?.is_active === true)
     const filterWorker = workers?.filter((item)=>item?.is_active === true)
-    const counter=counters?.Items[0]
     return (
         <>
             <div className='lg:flex items-center gap-5 justify-between mb-5'>
@@ -45,18 +44,18 @@ const TopSection = ({workers,admins,counters}) => {
                                 </div>
                                 <div className='h-10 -mt-2'>
                                     <p className='text-xs font-medium text-white/70'>Warning Issued</p>
-                                    <h1 className='text-2xl font-bold ' >{counter?.warning_issues}</h1>
+                                    <h1 className='text-2xl font-bold ' >{counters?.warning_issues?counters?.warning_issues:0}</h1>
                                 </div>
                             </div>
 
                             <div className='flex items-center h-10 w-full  md:w-[65%]  justify-between mt-10 md:mt-0'>
                                 <div className='w-[50%]'>
                                     <p className='text-xs font-medium text-white/70'>Total Fines</p>
-                                    <h1 className='text-2xl font-bold ' >€{counter?.total_fines}</h1>
+                                    <h1 className='text-2xl font-bold ' >€{counters?.due_fines}</h1>
                                 </div>
                                 <div className='w-[50%]'>
                                     <p className='text-xs font-medium text-white/70'>Fines Outstanding</p>
-                                    <h1 className='text-2xl font-bold ' >€{counter?.outstanding_fines}</h1>
+                                    <h1 className='text-2xl font-bold ' >€{counters?.collected_fines}</h1>
                                 </div>
                             </div>
                         </div>

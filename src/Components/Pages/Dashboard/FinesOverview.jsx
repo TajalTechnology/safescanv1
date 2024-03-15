@@ -3,11 +3,10 @@ import SectionWrapper from "../../Shared/SectionWrapper";
 import SectionHeading from "../../Shared/SectionHeading";
 import TimePickerButton from "../../Shared/TimePickerButton";
 import FinesOverViewChart from "./FinesOverViewChart";
-import { useGetFinesQuery } from "../../../redux/features/admin/adminApi";
 import { formattedDate } from "../../../helper/jwt";
 
-const FinesOverview = () => {
-  const [selected, setSelected] = useState("Monthly");
+const FinesOverview = ({finesData}) => {
+  const [selected, setSelected] = useState("Weekly");
 
   const [getSlice, setGetSlice] = useState(7);
   const dataDay = ["Weekly", "Monthly"];
@@ -20,7 +19,6 @@ const FinesOverview = () => {
     }
   }, [selected]);
 
-  const { data: finesData, isLoading, refetch } = useGetFinesQuery("");
 
   const countSameDateOccurrences = (products) => {
     const dateCounts = {};

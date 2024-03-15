@@ -48,7 +48,7 @@ const CreatedAdminsTable = ({ tableData, rowSelection, refetch }) => {
     {
       title: "Actions",
       key: "id",
-      width: "120px",
+      width: "100px",
       render: (row) => <CreatedAdminsTableAction row={row} refetch={refetch} />,
     },
   ];

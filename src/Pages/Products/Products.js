@@ -58,11 +58,8 @@ const Products = () => {
     onChange: onSelectChange,
   };
 
-  // ======add a key for selected=======
-  const updateData = data?.Items?.map((item, index) => ({
-    key: index + 1,
-    ...item,
-  }));
+
+
 
   return (
     <>

@@ -24,6 +24,7 @@ const CreateAdmin = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  console.log(sortData)
 
   useEffect(() => {
     const updateData = data?.map((item) => ({

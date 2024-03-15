@@ -35,6 +35,7 @@ const CreateWorker = () => {
     setSortData(update);
   }, [data]);
 
+  console.log(sortData)
 
   const generateQuery = (searchValue) => {
     const queryParams = [];

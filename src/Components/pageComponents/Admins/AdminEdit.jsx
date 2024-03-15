@@ -239,10 +239,20 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
             type={"number"}
             placeholder={"Enter Amount"}
             id="otp"
-            {...register("outstanding_fines")}
+            {...register("outstanding_fines",{
+              required: false,
+              validate: (val) => {
+                if ( (item.fine_status-item?.outstanding_fines) < val) {
+                  return "Your passwords do no match";
+                }
+              },
+            })} 
           />
           <span className=" absolute top-[10px] right-[10px] text-[#2D396B] text-[14px] font-bold">€</span>
         </div>
+        {errors?.outstanding_fines?.message && (
+              <p className="text-error mt-1">Your passwords does not match!</p>
+            )}
       </div>
     </CustomModal>
   );

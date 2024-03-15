@@ -25,7 +25,7 @@ const ProfileSettings = () => {
 
   const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
 
-  // console.log("data is=======", data);
+  console.log("data is=======", data);
 
   const uploadeCover = async (e) => {
     setLoading(true);
