@@ -71,6 +71,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
         </Tooltip>
       ),
       sorter: (a, b) => new Date(a.last_test_date) - new Date(b.last_test_date),
+      width:"130px"
     },
     {
       title: "Next Test Date",
@@ -83,6 +84,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
         </Tooltip>
       ),
       sorter: (a, b) => new Date(a.next_test_date) - new Date(b.next_test_date),
+      width:"135px"
     },
 
     {

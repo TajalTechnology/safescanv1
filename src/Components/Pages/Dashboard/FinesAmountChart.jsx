@@ -2,6 +2,7 @@ import { Pie } from '@ant-design/plots';
 import React from 'react';
 
 const FinesAmountChart = ({ data }) => {
+
     const config = {
         appendPadding: 10,
         data,

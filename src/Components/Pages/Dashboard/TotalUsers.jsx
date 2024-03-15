@@ -88,7 +88,7 @@ const TotalUsers = ({ workers, admins }) => {
 
 // const data = newData?.slice(0, getSlice);
 const data = newData?.slice(-getSlice);
-console.log("======",data)
+
 
   return (
     <div className="w-full">

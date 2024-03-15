@@ -71,7 +71,7 @@ const CreatedAdminsTableAction = ({ row,refetch }) => {
 
   return (
     <>
-      <div className=" flex items-center gap-1">
+      <div className=" flex items-center justify-center w-full gap-1">
         {/* <Tooltip placement="topLeft" title="Share">
           <button onClick={() => setShare(true)}>
             <Icon
@@ -89,7 +89,7 @@ const CreatedAdminsTableAction = ({ row,refetch }) => {
           </button>
         </Tooltip> */}
         <Tooltip placement="topLeft" title="Delete">
-          <button onClick={() => setDeleteModal(true)}>
+          <button onClick={() => setDeleteModal(true)} className=" mr-4">
             <Icon
               icon="gg:trash-empty"
               className="text-[22px] hover:text-red-500 text-[#8E9BBA]"
