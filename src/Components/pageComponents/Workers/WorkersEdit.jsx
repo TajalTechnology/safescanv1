@@ -10,6 +10,8 @@ import ErrorToast from "../../Shared/Toast/ErrorToast";
 const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
 
     const [active,setActive]=useState("due")
+    const [getFine, setGetFine] = useState();
+    const [fineError, setFineError] = useState(false);
 
     const {
       register,
@@ -34,6 +36,23 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
         toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
       }
     }, [isSuccess, error]);
+
+
+    const handelFine = (e) => {
+      const value = e.target.value;
+      if (value) {
+        console.log(value);
+        setGetFine(value);
+      }
+    };
+  
+    useEffect(() => {
+      if (item.fine_status - item?.outstanding_fines < getFine) {
+        setFineError(true);
+      } else {
+        setFineError(false);
+      }
+    }, [getFine, item]);
 
 
 
@@ -238,9 +257,13 @@ const WorkersEdit = ({ item, setModalOpen, modalOPen,refetch }) => {
             placeholder={"Enter Amount"}
             id="otp"
             {...register("outstanding_fines")}
+            onChange={handelFine}
           />
           <span className=" absolute top-[10px] right-[10px] text-[#2D396B] text-[14px] font-bold">€</span>
         </div>
+        {fineError && (
+          <p className="text-error mt-1">Your amount is more than fine due!</p>
+        )}
       </div>
 
 

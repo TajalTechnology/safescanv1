@@ -9,6 +9,8 @@ import ErrorToast from "../../Shared/Toast/ErrorToast";
 
 const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
   const [active, setActive] = useState(0);
+  const [getFine, setGetFine] = useState();
+  const [fineError, setFineError] = useState(false);
 
   const {
     register,
@@ -27,7 +29,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       toast.custom(<SuccessToast message={message} />);
       refetch();
       setModalOpen(false);
-      reset()
+      reset();
     }
     if (error) {
       toast.custom(
@@ -36,6 +38,21 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
     }
   }, [isSuccess, error]);
 
+  const handelFine = (e) => {
+    const value = e.target.value;
+    if (value) {
+      console.log(value);
+      setGetFine(value);
+    }
+  };
+
+  useEffect(() => {
+    if (item.fine_status - item?.outstanding_fines < getFine) {
+      setFineError(true);
+    } else {
+      setFineError(false);
+    }
+  }, [getFine, item]);
 
   useEffect(() => {
     if (item) {
@@ -52,6 +69,7 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       // setValue("minor", item?.minor);
       // setValue("major", item?.major);
       // setValue("dismissal", item?.dismissal);
+      setGetFine();
     }
   }, [item]);
 
@@ -63,19 +81,25 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
       email: data.email,
       // phone: data.phone,
       site_address: data.site_address,
-      outstanding_fines: active,
+      // outstanding_fines: active,
       emloyeer_name: data.emloyeer_name,
       ice_name: data.ice_name,
       ice_number: data.ice_number,
       medical_condition: data.medical_condition,
-      outstanding_fines:Number(data.outstanding_fines),
+      outstanding_fines: Number(getFine),
       minor: Number(data.minor),
       major: Number(data.major),
       dismissal: Number(data.dismissal),
-      is_active:true
+      is_active: true,
     };
     const id = item?.userid;
-    await approveUser({ id, body });
+    if (item.fine_status - item?.outstanding_fines < getFine) {
+      toast.custom(
+        <ErrorToast message={"Your amount is more than fine due! Please enter valid amount"} />
+      );
+    } else {
+      await approveUser({ id, body });
+    }
   };
 
   return (
@@ -232,27 +256,25 @@ const AdminEdit = ({ item, setModalOpen, refetch, modalOPen }) => {
         </h3>
         <div className="w-full relative flex item-center justify-center overflow-hidden  gap-0 border-[1px] rounded-[10px]">
           <div className=" flex items-center h-[44px] px-[14px] w-[250px] rounded-l-[10px] border-[1px] border-[#F40909]/30 ">
-            <h2 className=" font-medium text-[14px] text-[#F40909]">Fines Due: €{item.fine_status-item?.outstanding_fines} </h2>
+            <h2 className=" font-medium text-[14px] text-[#F40909]">
+              Fines Due: €{item.fine_status - item?.outstanding_fines}{" "}
+            </h2>
           </div>
           <input
             className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0] rounded-[10px]  w-full text-sm font-medium outline-none border-none "
             type={"number"}
             placeholder={"Enter Amount"}
             id="otp"
-            {...register("outstanding_fines",{
-              required: false,
-              validate: (val) => {
-                if ( (item.fine_status-item?.outstanding_fines) < val) {
-                  return "Your passwords do no match";
-                }
-              },
-            })} 
+            register={register("outstanding_fines")}
+            onChange={handelFine}
           />
-          <span className=" absolute top-[10px] right-[10px] text-[#2D396B] text-[14px] font-bold">€</span>
+          <span className=" absolute top-[10px] right-[10px] text-[#2D396B] text-[14px] font-bold">
+            €
+          </span>
         </div>
-        {errors?.outstanding_fines?.message && (
-              <p className="text-error mt-1">Your passwords does not match!</p>
-            )}
+        {fineError && (
+          <p className="text-error mt-1">Your amount is more than fine due!</p>
+        )}
       </div>
     </CustomModal>
   );
