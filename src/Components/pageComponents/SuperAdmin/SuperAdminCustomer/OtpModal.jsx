@@ -7,13 +7,13 @@ import toast from "react-hot-toast";
 import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 import { useOtpVaryFyMutation } from "../../../../redux/features/admin/adminApi";
-import { useNavigate } from "react-router-dom";
 import ResentOtp from "../../../Shared/ResentOtp";
 
 
 const OtpModal = ({
   modalOPen,
   setModalOpen,
+  phoneModal,
   lastData,
   oldData,
   setOldData,
@@ -23,7 +23,6 @@ const OtpModal = ({
   length = 4,
   onOtpSubmit = () => {},
 }) => {
-  const navigate = useNavigate()
   const [otpVaryFy,{isLoading,isSuccess,error}] = useOtpVaryFyMutation()
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const inputRefs = useRef([]);
@@ -37,10 +36,11 @@ const OtpModal = ({
       const message = "Phone Number Verify Success";
       toast.custom(<SuccessToast message={message} />);
       setOtp(new Array(length).fill(""))
-      navigate("/")
       allrefecth()
       refetch1()
       refetch2()
+      phoneModal(false)
+      setModalOpen(false)
     }
     if (error) {
       toast.custom(

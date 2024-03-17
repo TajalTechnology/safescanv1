@@ -96,8 +96,8 @@ const PhoneAdd = ({ username }) => {
                   Phone Number
                 </label>
                 <PhoneInput
-                  country="bd"
-                  onlyCountries={["bd", "us"]}
+                  country="gb"
+                  onlyCountries={["gb", "ie"]}
                   enableSearch={false}
                   value={phone}
                   inputProps={{

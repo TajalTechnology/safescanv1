@@ -21,6 +21,7 @@ const PhoneModal = ({
   refetch2,
   allrefecth,
   username,
+  phoneNumber,
 }) => {
   const [phone, setPhone] = useState("");
   const [sentOpt, setSentOtp] = useState(false);
@@ -28,6 +29,13 @@ const PhoneModal = ({
   const [oldData, setOldData] = useState();
   const [error1, setError] = useState(false);
   const { handleSubmit } = useForm();
+
+
+  useEffect(()=>{
+    if(phoneNumber){
+      setPhone(phoneNumber)
+    }
+  },[phoneNumber])
 
   const [otpVaryFy, { isLoading, isSuccess, error, data }] =
     useOtpVaryFyMutation();
@@ -111,8 +119,8 @@ const PhoneModal = ({
                   Phone Number
                 </label>
                 <PhoneInput
-                  country="bd"
-                  onlyCountries={["bd", "us"]}
+                  country="gb"
+                  onlyCountries={["gb", "ie"]}
                   enableSearch={false}
                   value={phone}
                   inputProps={{
@@ -120,7 +128,7 @@ const PhoneModal = ({
                     required: true,
                     autoFocus: false,
                   }}
-                  onChange={(phone) => setPhone(phone)}
+                  onChange={handleChange}
                   containerStyle={{
                     borderRadius: "5px", // Example border radius
                     padding: "5px", // Example padding
@@ -161,6 +169,7 @@ const PhoneModal = ({
       <OtpModal
         modalOPen={sentOpt}
         setModalOpen={setSentOtp}
+        phoneModal={setModalOpen}
         oldData={oldData}
         lastData={lastData}
         setOldData={setOldData}
