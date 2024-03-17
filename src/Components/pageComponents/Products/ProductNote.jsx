@@ -12,9 +12,9 @@ const ProductNote = ({ row }) => {
           onClick={() => setModalOpen(true)}
           className=" text-[14px]  font-normal text-info flex items-center w-full justify-between gap-1 "
         >
-          <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
+          {/* <span className=" text-[14px] font-normal text-info flex items-center gap-1 ">
             {row?.note?.slice(0, 12)}...
-          </span>
+          </span> */}
           <Icon
             icon="material-symbols:edit-document-outline-rounded"
             className=" text-[20px]"

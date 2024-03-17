@@ -846,3 +846,24 @@ body {
 width: 100% !important;
 }
 /* -----------end date picker---------- */
+
+
+
+.flag-dropdown .selected-flag.open:before{
+  border-color: #fff !important;
+  box-shadow: none !important;
+}
+
+.react-tel-input .selected-flag:before{
+  border: none !important;
+  transform: none !important;
+}
+
+.react-tel-input .selected-flag:focus:before{
+  box-shadow: none !important;
+}
+
+.react-tel-input .form-control{
+  transform: none !important;
+  box-shadow: none !important;
+}

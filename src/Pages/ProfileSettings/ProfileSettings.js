@@ -14,14 +14,15 @@ import Profile from "../../Components/Pages/ProfileSettings/Profile";
 import axios from "axios";
 import Loader2 from "../../Components/Shared/Loader2";
 import ChangePhone from "../../Components/Pages/ProfileSettings/ChangePhone";
-
+import PhoneModal from "../../Components/pageComponents/SuperAdmin/SuperAdminCustomer/PhoneModal";
 
 const ProfileSettings = () => {
   const [openModal, setOpenModal] = useState(false);
   const { user, token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
-  const [phoneOpen, setPhoneOpen] = useState(false)
+  const [phoneOpen, setPhoneOpen] = useState(false);
   const queryitem = `${user?.userid}?username=${user?.username}`;
+  const [verifyPhone, setVerifyPhone] = useState(false);
 
   const { data, isLoading, refetch } = useGetProfileQuery(queryitem);
 
@@ -129,12 +130,17 @@ const ProfileSettings = () => {
                     <h1 className="font-bold text-2xl text-dark-gray">
                       {data?.first_name} {data?.last_Name}
                     </h1>
-                    <p className="text-lg font-medium -mt-1">{data?.username}</p>
+                    <p className="text-lg font-medium -mt-1">
+                      {data?.username}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-[14px] flex-wrap">
-                  <button onClick={() => setPhoneOpen(true)} className={` px-3.5 h-10 bg-primary/10 hover:bg-primary hover:text-white duration-500 rounded-[4px]  font-medium text-sm text-primary flex items-center justify-center `}>
-                  <span>Change Phone Number</span>
+                  <button
+                    onClick={() => setPhoneOpen(true)}
+                    className={` px-3.5 h-10 bg-primary/10 hover:bg-primary hover:text-white duration-500 rounded-[4px]  font-medium text-sm text-primary flex items-center justify-center `}
+                  >
+                    <span>Change Phone Number</span>
                   </button>
                   {/* <CustomButton  className={"bg-primary/10 hover:bg-primary/10"}>
                     <span className="flex text-primary">
@@ -177,11 +183,22 @@ const ProfileSettings = () => {
 
                                     </div> */}
 
-                  <div>
+                  <div className=" lg:ml-36">
                     <p className="text-xs font-medium">Phone Number </p>
                     <h1 className="text-lg font-medium text-[#485585]">
                       {data?.phone}
                     </h1>
+                  </div>
+                  <div className=" flex  items-center justify-end ">
+                    {data?.is_verified ? (
+                      <h1 className="text-[14px] font-medium text-[#44B200]">
+                        Verified
+                      </h1>
+                    ) : (
+                      <button onClick={()=>setVerifyPhone(true)} className="text-[14px] font-medium text-primary">
+                        Verify Number
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className="border-b py-5 border-gray-100 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2.5">
@@ -208,7 +225,7 @@ const ProfileSettings = () => {
                   <div>
                     <p className="text-xs font-medium">T&Cs For Testing </p>
                     <h1 className="text-lg font-medium text-[#485585]">
-                     {data?.terms_conditions}
+                      {data?.terms_conditions}
                     </h1>
                   </div>
                 </div>
@@ -255,6 +272,15 @@ const ProfileSettings = () => {
             refetch={refetch}
             modalOPen={openModal}
             setOpenModal={setOpenModal}
+          />
+          <PhoneModal
+            modalOPen={verifyPhone}
+            setModalOpen={setVerifyPhone}
+            refetch1={()=>{}}
+            refetch2={refetch}
+            allrefecth={()=>{}}
+            username={data?.username}
+            phoneNumber={data?.phone}
           />
 
           <ChangePhone

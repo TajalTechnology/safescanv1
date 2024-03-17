@@ -11,6 +11,7 @@ import ErrorToast from "../../Shared/Toast/ErrorToast";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import PasswordInput from "../../Shared/input/PasswordInput";
+import Unverified from "../../Shared/modal/Unverified";
 
 const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
   const { token } = useSelector((state) => state.auth);
@@ -19,6 +20,8 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
   const [shareText, setShareText] = useState("");
   const [shareMsg, setShareMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [veryfyModal,setVeryfyModal] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -39,9 +42,12 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       setShareText("")
     }
     if (error) {
-      toast.custom(
-        <ErrorToast message={error?.data.error || error?.data.message} />
-      );
+      if(error?.status === 401){
+        setVeryfyModal(true)
+        setModalOpen(false)
+      }else{
+        toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
+      }
     }
   }, [isSuccess, error]);
 
@@ -286,6 +292,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
           </div>
         </div>
       </Modal>
+      <Unverified modalOPen={veryfyModal} setModalOpen={setVeryfyModal}  />
     </div>
   );
 };

@@ -181,7 +181,7 @@ const ProductsEdit = ({ refetch, item, setModalOpen, modalOPen }) => {
 
       <div className=" mt-5">
         <h3 className="mb-1.5 font-medium text-base text-dark-gray">
-          Fine Status
+           Product status
         </h3>
         <div className="w-full flex item-center justify-center gap-5">
           <button
