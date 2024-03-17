@@ -20,6 +20,8 @@ const OtpModal = ({
   refetch1,
   refetch2,
   allrefecth,
+  logout,
+  setPhone,
   length = 4,
   onOtpSubmit = () => {},
 }) => {
@@ -35,12 +37,20 @@ const OtpModal = ({
     if (isSuccess) {
       const message = "Phone Number Verify Success";
       toast.custom(<SuccessToast message={message} />);
-      setOtp(new Array(length).fill(""))
-      allrefecth()
-      refetch1()
-      refetch2()
-      phoneModal(false)
-      setModalOpen(false)
+
+      if(logout){
+        sessionStorage.removeItem("user")
+        sessionStorage.removeItem("token")
+        window.location.reload();
+      }else{
+        setOtp(new Array(length).fill(""))
+        allrefecth()
+        refetch1()
+        refetch2()
+        phoneModal(false)
+        setModalOpen(false)
+        setPhone("")
+      }
     }
     if (error) {
       toast.custom(

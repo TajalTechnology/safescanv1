@@ -22,6 +22,7 @@ const PhoneModal = ({
   allrefecth,
   username,
   phoneNumber,
+  logout=false
 }) => {
   const [phone, setPhone] = useState("");
   const [sentOpt, setSentOtp] = useState(false);
@@ -176,6 +177,8 @@ const PhoneModal = ({
         refetch1={refetch1}
         refetch2={refetch2}
         allrefecth={allrefecth}
+        logout={logout}
+        setPhone={setPhone}
       />
     </>
   );

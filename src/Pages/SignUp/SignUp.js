@@ -12,7 +12,7 @@ import PhoneAdd from "./PhoneAdd";
 const SignUp = () => {
   const [showpass, setShowpass] = useState(false);
   const [showrepass, setShowrepass] = useState(false);
-  const [phoneActive, setPhoneActive] = useState(true);
+  const [phoneActive, setPhoneActive] = useState(false);
   const [password,setPassword]=useState("")
 
   const {
