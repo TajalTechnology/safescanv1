@@ -281,6 +281,7 @@ const ProfileSettings = () => {
             allrefecth={()=>{}}
             username={data?.username}
             phoneNumber={data?.phone}
+            logout={true}
           />
 
           <ChangePhone

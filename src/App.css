@@ -857,7 +857,9 @@ width: 100% !important;
 .react-tel-input .selected-flag:before{
   border: none !important;
   transform: none !important;
+  color: rgb(231, 228, 228);
 }
+
 
 .react-tel-input .selected-flag:focus:before{
   box-shadow: none !important;

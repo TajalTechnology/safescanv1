@@ -10,13 +10,18 @@ import SuccessToast from "../../Components/Shared/Toast/SuccessToast";
 import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import { useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
+import ResentOtp2 from "../../Components/Shared/ResentOtp2";
 
 const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
   const [test, setTest] = useState(false);
   const [getUserPass, setGetUserPass] = useState(false);
   const { otpData } = useSelector((state) => state.auth);
-  const [otpphone,setOtpPhone]=useState()
-  const navigate = useNavigate()
+  const [otpphone, setOtpPhone] = useState();
+  const [phone, setPhone] = useState("");
+  const [error2, setError] = useState(false);
+  const navigate = useNavigate();
   // ------------otp------------
 
   const [otp, setOtp] = useState(new Array(length).fill(""));
@@ -33,7 +38,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
     { isLoading: isLoading1, isSuccess: isSuccess1, error: error1 },
   ] = useOtpSendMutation();
 
-  // console.log("response data======", otpData);
+  console.log("response data======", otpData);
 
   useEffect(() => {
     if (isSuccess1) {
@@ -53,6 +58,14 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
       inputRefs.current[0].focus();
     }
   }, []);
+
+
+  const handleChange2 = (value) => {
+    if (value) {
+      setPhone(value);
+      setError(false);
+    }
+  };
 
   const handleChange = (index, e) => {
     const value = e.target.value;
@@ -105,14 +118,25 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
   };
 
   const handleUserPass = async (data) => {
-    setOtpPhone(data)
-    await otpSend(data);
+    if (!phone) {
+      setError(true);
+    } else {
+        const body = {
+          username:data?.username,
+          phone:phone
+        }
+        setOtpPhone(body);
+        await otpSend(body);
+    }
   };
 
   return (
     <>
       <div className=" absolute top-[50px] left-[50px]">
-        <button onClick={()=>navigate("/")} className=" flex items-center gap-2 py-1 px-3 bg-primary rounded-md text-white">
+        <button
+          onClick={() => navigate("/")}
+          className=" flex items-center gap-2 py-1 px-3 bg-primary rounded-md text-white"
+        >
           <Icon icon="humbleicons:arrow-left" className=" text-[25px]" /> Back
         </button>
       </div>
@@ -145,18 +169,46 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                       error={errors.lastName}
                       placeholder={"Enter Username"}
                     />
-                    <CustomInput
-                      label={"Phone Number"}
-                      type={"text"}
-                      register={register("phone", {
-                        required: {
-                          value: true,
-                          message: "Please Enter phone",
-                        },
-                      })}
-                      error={errors.lastName}
-                      placeholder={"Enter Phone"}
-                    />
+                    <div className=" flex items-start flex-col justify-between py-3">
+                      <label
+                        htmlFor=""
+                        className="mb-1.5 font-medium text-base text-dark-gray"
+                      >
+                        Phone Number
+                      </label>
+                      <PhoneInput
+                        country="gb"
+                        onlyCountries={["gb", "ie"]}
+                        enableSearch={false}
+                        value={phone}
+                        inputProps={{
+                          name: "phone",
+                          required: true,
+                          autoFocus: false,
+                        }}
+                        onChange={handleChange2}
+                        containerStyle={{
+                          borderRadius: "5px", // Example border radius
+                          padding: "5px", // Example padding
+                        }}
+                        inputStyle={{
+                          width: "100%",
+                          height: "45px",
+                          fontSize: "16px",
+                          paddingLeft: "50px",
+                          outline: "none",
+                          border:"1px solid rgb(231, 228, 228)",
+                          borderRadius: "10px",
+                        }}
+                      />
+                      {error2 && (
+                        <label className="label">
+                          <span className=" text-sm mt-1 text-red-500">
+                            Please Enter Phone Number
+                          </span>
+                        </label>
+                      )}
+                    </div>
                   </div>
                   <div className="mt-6 w-full">
                     <CustomButton className={"w-full"}>
@@ -203,7 +255,9 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                         Forgot Password?
                       </h1>
                       <p className="text-normal text-base text-info">
-                        Please Enter OTP That Sent To {otpphone?.phone?.slice(0,3)}******{otpphone?.phone?.slice(-2,otpphone?.phone?.length)}
+                        Please Enter OTP That Sent To{" "}
+                        {otpphone?.phone?.slice(0, 3)}******
+                        {otpphone?.phone?.slice(-2, otpphone?.phone?.length)}
                       </p>
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -233,6 +287,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                           <p>Verify OTP</p>
                         </CustomButton>
                       </div>
+                      <ResentOtp2 data={otpphone}/>
                     </form>
                   </div>
                 </div>
