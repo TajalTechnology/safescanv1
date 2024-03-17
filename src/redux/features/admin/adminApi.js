@@ -162,6 +162,13 @@ export const adminApi = apiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    otpVaryFy: builder.mutation({
+      query: (body) => ({
+        url: `otp-verify`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -188,4 +195,5 @@ export const {
   useNewnoteMutation,
   useGetHelQuery,
   usePhoneChangeMutation,
+  useOtpVaryFyMutation
 } = adminApi;
