@@ -16,17 +16,16 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 
 const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
-  const { token } = useSelector((state) => state.auth)
+  const { token, search } = useSelector((state) => state.auth);
   const [success, setSuccess] = useState(false);
-  const [type, setType] = useState("email")
+  const [type, setType] = useState("email");
   const [shareText, setShareText] = useState("");
   const [shareMsg, setShareMsg] = useState({});
   const [loading, setLoading] = useState(false);
-  const [veryfyModal,setVeryfyModal] = useState(false)
+  const [veryfyModal, setVeryfyModal] = useState(false);
   const [phone, setPhone] = useState("");
   const [error1, setError] = useState(false);
 
-  // console.log('', shareMsg)
   const {
     register,
     handleSubmit,
@@ -34,10 +33,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     reset,
   } = useForm();
 
-  const [
-    createUser,
-    { isLoading, error, isSuccess },
-  ] = useCreateUserMutation();
+  const [createUser, { isLoading, error, isSuccess }] = useCreateUserMutation();
 
   const handleChange = (value) => {
     if (value) {
@@ -50,96 +46,93 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     if (isSuccess) {
       const message = "Create Admin success";
       toast.custom(<SuccessToast message={message} />);
-      refetch()
-      setModalOpen(false)
-      reset()
-      setSuccess(true)
-      setShareText("")
+      refetch();
+      setModalOpen(false);
+      reset();
+      setSuccess(true);
+      setShareText("");
     }
     if (error) {
-
-      if(error?.status === 401){
-        setVeryfyModal(true)
-        setModalOpen(false)
-      }else{
-        toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
-      }
+        toast.custom(
+          <ErrorToast message={error?.data.error || error?.data.message} />
+        );
     }
   }, [isSuccess, error]);
 
-
-
   const onSubmit = (data) => {
-    const bodyData = {
-      username: data?.username,
-      password: data?.Password,
-      confirm_password: data?.Password,
-      usertype: "admin",
+    if (search?.is_verified) {
+      const bodyData = {
+        username: data?.username,
+        password: data?.Password,
+        confirm_password: data?.Password,
+        usertype: "admin",
+      }
+      createUser(bodyData);
+      setShareMsg(bodyData)
+    }else{
+      setVeryfyModal(true);
+      setModalOpen(false);
     }
-    createUser(bodyData);
-    setShareMsg(bodyData)
+
   };
 
-
   const handleShare = async () => {
-
-    if (type === 'email' && shareText && shareMsg?.username && shareMsg?.password) {
-      setLoading(true)
+    if (
+      type === "email" &&
+      shareText &&
+      shareMsg?.username &&
+      shareMsg?.password
+    ) {
+      setLoading(true);
       try {
-        const response = await axios.get(`https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const response = await axios.get(
+          `https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/users/shared?email=${shareText}&username=${shareMsg?.username}&password=${shareMsg?.password}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response?.status === 200) {
-          toast.custom(<SuccessToast message={response?.data?.message} />)
-          reset()
-
+          toast.custom(<SuccessToast message={response?.data?.message} />);
+          reset();
         } else {
-          toast.custom(<ErrorToast message={response?.data?.error} />)
-          reset()
+          toast.custom(<ErrorToast message={response?.data?.error} />);
+          reset();
           // console.log(response)
         }
-        setLoading(false)
-        setSuccess(false)
-        
+        setLoading(false);
+        setSuccess(false);
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
 
-        toast.custom(<ErrorToast message={error?.response?.data?.error} />)
-        setLoading(false)
+        toast.custom(<ErrorToast message={error?.response?.data?.error} />);
+        setLoading(false);
       }
-
-
     }
 
-    if (type === 'Whatsapp') {
-      if (phone.trim() !== '') {
+    if (type === "Whatsapp") {
+      if (phone.trim() !== "") {
         const whatsappMessage = `
         Hi, I am from Safe Scan. Here is your username and password:
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
-         `
-        const whatsappLink = `https://wa.me/${phone}/?text=${encodeURIComponent(whatsappMessage)}`;
-        window.open(whatsappLink, '_blank');
-        setSuccess(false)
-        reset()
+         `;
+        const whatsappLink = `https://wa.me/${phone}/?text=${encodeURIComponent(
+          whatsappMessage
+        )}`;
+        window.open(whatsappLink, "_blank");
+        setSuccess(false);
+        reset();
       }
     }
-
-
-
   };
-
-
-
 
   const modalStyle = {
     padding: 0, // Set padding to 0 for the Modal component
   };
-
 
   return (
     <div>
@@ -201,7 +194,9 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
                 />
               </div>
               <div className="mt-[20px] flex items-center gap-5">
-                <CustomButton className={" w-full"}>{isLoading ? "Loading..." : "Create New"}</CustomButton>
+                <CustomButton className={" w-full"}>
+                  {isLoading ? "Loading..." : "Create New"}
+                </CustomButton>
               </div>
             </form>
           </div>
@@ -244,10 +239,23 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
 
             <div className=" pt-4">
               <div className="w-full flex items-center justify-between">
-                <button onClick={() => setType("email")} className={`text-base font-medium ${type === "email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button>
+                <button
+                  onClick={() => setType("email")}
+                  className={`text-base font-medium ${
+                    type === "email" ? "text-dark-gray" : "text-primary"
+                  } `}
+                >
+                  Share Via Email
+                </button>
 
-                <button onClick={() => setType("Whatsapp")} className={`text-base font-medium ${type === "Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
-
+                <button
+                  onClick={() => setType("Whatsapp")}
+                  className={`text-base font-medium ${
+                    type === "Whatsapp" ? "text-dark-gray" : "text-primary"
+                  }`}
+                >
+                  Share Via Whatsapp
+                </button>
               </div>
               {type === "email" ? (
                 <input
@@ -266,7 +274,7 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
                 <>
                   <PhoneInput
                     country="gb"
-                    onlyCountries={["gb", "ie","bd"]}
+                    onlyCountries={["gb", "ie", "bd"]}
                     enableSearch={false}
                     value={phone}
                     inputProps={{
@@ -310,12 +318,12 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
               onClick={handleShare}
               className="font-bold w-full  h-[40px] px-6 rounded-[10px] bg-primary hover:bg-primary/80 duration-300 border border-primary text-white "
             >
-              {loading ? 'Loading...' : ' Share'}
+              {loading ? "Loading..." : " Share"}
             </button>
           </div>
         </div>
       </Modal>
-      <Unverified modalOPen={veryfyModal} setModalOpen={setVeryfyModal}  />
+      <Unverified modalOPen={veryfyModal} setModalOpen={setVeryfyModal} />
     </div>
   );
 };

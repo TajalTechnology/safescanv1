@@ -1,5 +1,6 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import { authMiddleware } from "./authMiddleware";
+import { addSearch } from "../auth/authSlice";
 
 
 export const apiSlice = createApi({
@@ -45,17 +46,14 @@ export const apiSlice = createApi({
         }),
         loadMe:builder.query({
             query:(query)=>({
-                url:`users`,
+                url:`user/${query}`,
                 method:"GET",
             }),
             async onQueryStarted(arg,{queryFulfilled,dispatch}){
                 try {
                     const result = await queryFulfilled;
+                    dispatch(addSearch(result?.data))
                 } catch (error) {
-                    if(error?.error?.status){
-                        sessionStorage.removeItem("user")
-                        sessionStorage.removeItem("token")
-                    }
                     console.log(error?.error?.status)
                 }
             }

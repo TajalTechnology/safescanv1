@@ -123,7 +123,7 @@ const CardModal = ({ row, refetch }) => {
         styles={{ borderRadius: 30 }}
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
-        width={1005}
+        width={955}
         className={` bg-red-500 pt-3 rounded-[30px]`}
       >
         <div className="p-7">
@@ -138,11 +138,11 @@ const CardModal = ({ row, refetch }) => {
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <div className="w-full flex items-center justify-center py-5">
+          <div className="w-full h-[350px] md:h-[544px]  flex items-center justify-center mb-6 py-5">
             <img
               src={img}
               alt="card"
-              className="w-full  h-[300px] md:h-[544px] object-container"
+              className="w-full h-full rounded-2xl object-contain"
             />
           </div>
           {/* <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">
