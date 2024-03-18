@@ -7,7 +7,7 @@ import { formattedDate } from "../../../helper/jwt";
 const TotalUsers = ({ workers, admins }) => {
   const filterAdmin = admins?.filter((item) => item?.is_active === true);
   const filterWorker = workers?.filter((item) => item?.is_active === true);
-  const [selected, setSelected] = useState("Monthly");
+  const [selected, setSelected] = useState("Weekly");
   const [getSlice, setGetSlice] = useState(14);
   const dataDay = ["Weekly", "Monthly"];
   useEffect(() => {

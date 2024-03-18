@@ -8,7 +8,6 @@ import SuccessToast from "../../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../../Shared/Toast/ErrorToast";
 import {
   useOtpVaryFyMutation,
-  usePhoneChangeMutation,
 } from "../../../../redux/features/admin/adminApi";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
@@ -42,7 +41,7 @@ const PhoneModal = ({
     useOtpVaryFyMutation();
   useEffect(() => {
     if (isSuccess) {
-      const message = "Send otp your phone";
+      const message = `Send otp your phone! OTP=${data?.user?.otp}`;
       toast.custom(<SuccessToast message={message} />);
       setSentOtp(true);
       setOldData(data);

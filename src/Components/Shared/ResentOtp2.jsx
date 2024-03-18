@@ -9,7 +9,7 @@ const ResentOtp2 = ({data}) => {
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Send otp your phone";
+      const message = `Send otp your phone! OTP=${otpData?.otp}`;
       toast.custom(<SuccessToast message={message} />);
     }
     if (error) {
@@ -27,7 +27,17 @@ const ResentOtp2 = ({data}) => {
   console.log("====otpData====", otpData);
   return (
     <div>
-        <button type='button' disabled={isLoading} onClick={()=>onSubmit()} className=' text-red-500'>re sent otp</button>
+      <p className="text-center text-info text-sm font-medium mt-4">
+        Didn't get the code?{" "}
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => onSubmit()}
+          className={`font-bold underline ${isLoading ? " text-gray-500" : "text-primary "}`}
+        >
+          Click to resend
+        </button>
+      </p>
     </div>
   )
 }

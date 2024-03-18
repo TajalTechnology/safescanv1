@@ -180,6 +180,7 @@ const OtpModal = ({
                     );
                   })}
                 </div>
+                <ResentOtp data={lastData} setOldData={setOldData}/>
               </div>
               <div className="mt-[20px] flex items-center gap-5">
                 <button
@@ -193,7 +194,6 @@ const OtpModal = ({
                   {isLoading ? "Loading..." : "Verify"}
                 </CustomButton>
               </div>
-              <ResentOtp data={lastData} setOldData={setOldData}/>
             </form>
           </div>
         </div>

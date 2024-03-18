@@ -149,11 +149,11 @@ const CreateNewPass = () => {
                     </div>
                   </div>
                   <label className="label">
-                  {error?.confirm_password?.type === "required" && (
-                    <span className=" text-sm mt-1 text-red-500">
-                      {error?.confirm_password?.message}
-                    </span>
-                  )}
+                {errors?.confirm_password?.message && (
+                  <p className="text-error mt-1">
+                    Your passwords does not match!
+                  </p>
+                )}
                 </label>
                 </div>
                 {errors?.confirm_password?.message && (
@@ -178,7 +178,7 @@ const CreateNewPass = () => {
               className=" absolute bottom-0 right-0 "
             />
             <img
-              src="/Images/mainLogo.svg"
+              src="/Images/logonew.png"
               alt=""
               className=" absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
             />

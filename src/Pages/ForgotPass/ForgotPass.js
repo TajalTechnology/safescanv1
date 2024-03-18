@@ -42,7 +42,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
 
   useEffect(() => {
     if (isSuccess1) {
-      const message = "send otp this phone number";
+      const message = `send otp this phone number! OTP=${otpData?.otp}`;
       toast.custom(<SuccessToast message={message} />);
       setGetUserPass(true);
     }
@@ -282,12 +282,12 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                           );
                         })}
                       </div>
+                      <ResentOtp2 data={otpphone}/>
                       <div className="mt-6 w-full">
                         <CustomButton className={"w-full"}>
                           <p>Verify OTP</p>
                         </CustomButton>
                       </div>
-                      <ResentOtp2 data={otpphone}/>
                     </form>
                   </div>
                 </div>
@@ -301,7 +301,7 @@ const ForgotPass = ({ length = 4, onOtpSubmit = () => {} }) => {
                       className=" absolute bottom-0 right-0 "
                     />
                     <img
-                      src="/Images/mainLogo.svg"
+                      src="/Images/logonew.png"
                       alt=""
                       className=" absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
                     />
