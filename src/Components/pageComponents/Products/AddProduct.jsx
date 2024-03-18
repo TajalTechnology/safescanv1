@@ -18,7 +18,7 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
   const [nextDate, setNextDate] = useState(new Date());
   const formattedNextDate = formattedDate(nextDate);
   const [imageFiles, setImageFiles] = useState([]);
-  const { token } = useSelector((state) => state.auth);
+  const { token, search } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [veryfyModal, setVeryfyModal] = useState(false);
 
@@ -30,61 +30,63 @@ const AddProduct = ({ refetch, setModalOpen, modalOPen }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true);
+    if (search?.is_verified) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("product_name", data?.product_name);
+      formData.append("location", data?.location);
+      formData.append("site_address", data?.site_address);
+      formData.append("note", data?.note);
+      formData.append("next_test_date", formattedNextDate);
+      formData.append("status", active);
+      if (active === "passed") {
+        formData.append("passed", "true");
+      }
+      if (active === "attention") {
+        formData.append("attention", "true");
+      }
+      if (active === "failed") {
+        formData.append("failed", "true");
+      }
 
-    const formData = new FormData();
-    formData.append("product_name", data?.product_name);
-    formData.append("location", data?.location);
-    formData.append("site_address", data?.site_address);
-    formData.append("note", data?.note);
-    formData.append("next_test_date", formattedNextDate);
-    formData.append("status", active);
-    if (active === "passed") {
-      formData.append("passed", "true");
-    }
-    if (active === "attention") {
-      formData.append("attention", "true");
-    }
-    if (active === "failed") {
-      formData.append("failed", "true");
-    }
+      // Append image files to the FormData object
+      imageFiles.forEach((image, index) => {
+        formData.append(`files`, image);
+      });
 
-    // Append image files to the FormData object
-    imageFiles.forEach((image, index) => {
-      formData.append(`files`, image);
-    });
+      try {
+        const response = await axios.post(
+          `https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/products`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-    try {
-      const response = await axios.post(
-        `https://23zw2glbhk.execute-api.us-east-1.amazonaws.com/api/v1/products`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        console.log("=======rrtrtrtrtrtrt======", response.status);
 
-      console.log("=======rrtrtrtrtrtrt======", response.status);
-
-      if (response.status === 201) {
-        // Handle success
-        handleSuccess();
-      } else {
-        // Handle unexpected response status
-        if (response.status === 401) {
-          setVeryfyModal(true);
-          setModalOpen(false);
+        if (response.status === 201) {
+          // Handle success
+          handleSuccess();
         } else {
+          // Handle unexpected response status
+          // if (response.status === 401) {
+          //   setVeryfyModal(true);
+          //   setModalOpen(false);
+          // } else {
           handleUnexpectedStatus();
         }
+      } catch (error) {
+        handleError(error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
+    } else {
       setVeryfyModal(true);
       setModalOpen(false);
-    } finally {
-      setLoading(false);
     }
   };
 

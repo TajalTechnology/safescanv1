@@ -87,7 +87,7 @@ const StrikeCard = ({ row, refetch }) => {
         styles={{ borderRadius: 30 }}
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
-        width={1005}
+        width={905}
         className={` bg-red-500 pt-3 rounded-[30px]`}
       >
         <div className="p-7">
@@ -106,7 +106,7 @@ const StrikeCard = ({ row, refetch }) => {
             <img
               src={`https://scansafes3.s3.amazonaws.com/${imageItem}`}
               alt="card"
-              className="w-full h-full rounded-2xl object-fill"
+              className="w-full h-full rounded-2xl object-contain"
             />
           </div>
           <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">

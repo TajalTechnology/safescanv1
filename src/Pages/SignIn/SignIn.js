@@ -24,7 +24,6 @@ const SignIn = () => {
 
   const [login, { isSuccess, isLoading, error, data }] = useLoginMutation();
 
-  console.log("=========", data);
 
   useEffect(() => {
     if (isSuccess) {
@@ -98,7 +97,7 @@ const SignIn = () => {
                   htmlFor="otp"
                   className="mb-1.5 font-medium text-base text-dark-gray"
                 >
-                  {"Create Password"}
+                  {" Password"}
                 </label>
                 <input
                   className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"

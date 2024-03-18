@@ -16,7 +16,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 
 const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
-  const { token } = useSelector((state) => state.auth);
+  const { token,search } = useSelector((state) => state.auth);
   const [success, setSuccess] = useState(false);
   const [type, setType] = useState("email");
   const [shareText, setShareText] = useState("");
@@ -46,14 +46,9 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       setShareText("");
     }
     if (error) {
-      if (error?.status === 401) {
-        setVeryfyModal(true);
-        setModalOpen(false);
-      } else {
         toast.custom(
           <ErrorToast message={error?.data.error || error?.data.message} />
         );
-      }
     }
   }, [isSuccess, error]);
 
@@ -65,14 +60,21 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
   };
 
   const onSubmit = (data) => {
-    const bodyData = {
-      username: data?.username,
-      password: data?.Password,
-      confirm_password: data?.Password,
-      usertype: "worker",
-    };
-    createUser(bodyData);
-    setShareMsg(bodyData);
+
+
+    if (search?.is_verified) {
+      const bodyData = {
+        username: data?.username,
+        password: data?.Password,
+        confirm_password: data?.Password,
+        usertype: "worker",
+      };
+      createUser(bodyData);
+      setShareMsg(bodyData);
+    }else{
+      setVeryfyModal(true);
+      setModalOpen(false);
+    }
   };
 
   const modalStyle = {

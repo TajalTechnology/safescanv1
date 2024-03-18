@@ -87,7 +87,7 @@ const AllCard = ({ row, refetch }) => {
         styles={{ borderRadius: 30 }}
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
-        width={1005}
+        width={905}
         className={` bg-red-500 pt-3 rounded-[30px]`}
       >
         <div className="p-7">
@@ -102,11 +102,11 @@ const AllCard = ({ row, refetch }) => {
               <Icon icon="material-symbols:close" />
             </button>
           </div>
-          <div className="w-full flex h-[300px] rounded-lg overflow-hidden md:h-[544px] items-center justify-center py-5">
+          <div className="w-full flex h-[350px] rounded-lg overflow-hidden md:h-[544px] items-center justify-center py-5">
             <img
               src={`https://scansafes3.s3.amazonaws.com/${imageItem?.image}`}
               alt="card"
-              className="w-full h-full rounded-2xl object-fill"
+              className="w-full h-full rounded-2xl object-contain"
             />
           </div>
           <div className=" flex items-center justify-between flex-wrap gap-3 mb-5">

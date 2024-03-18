@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import DashboardNav from "./DashboardNav";
 import { useGetProfileQuery } from "../../redux/features/admin/adminApi";
+import { useLoadMeQuery } from "../../redux/features/api/apiSlice";
 
 const Main = () => {
   // const { user } = useSelector((state) => state.auth);
@@ -13,6 +14,9 @@ const Main = () => {
   const queryitem = `${user?.userid}?username=${user?.username}`;
 
   const { data,refetch } = useGetProfileQuery(queryitem);
+  const {data:data2} = useLoadMeQuery(queryitem)
+
+  console.log(data2)
   
 
   useEffect(()=>{
