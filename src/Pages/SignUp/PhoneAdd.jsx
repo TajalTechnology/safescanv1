@@ -9,6 +9,7 @@ import ErrorToast from "../../Components/Shared/Toast/ErrorToast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 const PhoneAdd = ({ username }) => {
   const [phone, setPhone] = useState("");
@@ -22,7 +23,7 @@ const PhoneAdd = ({ username }) => {
     useOtpVaryFyMutation();
   useEffect(() => {
     if (isSuccess) {
-      const message = "Send otp your phone";
+      const message = `Send otp your phone! Otp=${data?.user?.otp}`;
       toast.custom(<SuccessToast message={message} />);
       setSentOtp(true);
       setOldData(data);
@@ -132,6 +133,12 @@ const PhoneAdd = ({ username }) => {
                   {isLoading ? <p>Loading...</p> : <p>Submit</p>}
                 </CustomButton>
               </div>
+              <p className="text-center text-info text-sm font-medium mt-4">
+                Already Have An Account?{" "}
+                <Link to={"/"} className="font-bold underline text-primary">
+                  Sign In
+                </Link>
+              </p>
             </form>
           </div>
         </>

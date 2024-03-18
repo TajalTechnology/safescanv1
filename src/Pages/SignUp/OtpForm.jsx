@@ -25,7 +25,7 @@ const OtpForm = ({
   
     useEffect(() => {
       if (isSuccess) {
-        const message = "Phone Number Update Success";
+        const message = "Phone Number Verify Success";
         toast.custom(<SuccessToast message={message} />);
         setOtp(new Array(length).fill(""))
         navigate("/")
@@ -134,6 +134,7 @@ const OtpForm = ({
             );
           })}
         </div>
+        <ResentOtp data={lastData} setOldData={setOldData}/>
       </div>
 
       <div className="mt-[30px] flex items-center gap-5">
@@ -141,7 +142,6 @@ const OtpForm = ({
           {isLoading ? "Loading..." : "Continue"}
         </CustomButton>
       </div>
-      <ResentOtp data={lastData} setOldData={setOldData}/>
     </form>
   </div>
   )

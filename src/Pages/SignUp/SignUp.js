@@ -268,7 +268,7 @@ const SignUp = () => {
                 )}
                 <div className="mt-6 w-full">
                   <CustomButton className={"w-full"}>
-                    {isLoading ? <p>Loading...</p> : <p>Sign Up</p>}
+                    {isLoading ? <p>Loading...</p> : <p>Next</p>}
                   </CustomButton>
                 </div>
               </form>

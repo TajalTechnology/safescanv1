@@ -12,6 +12,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import PasswordInput from "../../Shared/input/PasswordInput";
 import Unverified from "../../Shared/modal/Unverified";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
 const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
   const { token } = useSelector((state) => state.auth)
@@ -21,6 +23,8 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
   const [shareMsg, setShareMsg] = useState({});
   const [loading, setLoading] = useState(false);
   const [veryfyModal,setVeryfyModal] = useState(false)
+  const [phone, setPhone] = useState("");
+  const [error1, setError] = useState(false);
 
   // console.log('', shareMsg)
   const {
@@ -35,7 +39,12 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     { isLoading, error, isSuccess },
   ] = useCreateUserMutation();
 
-
+  const handleChange = (value) => {
+    if (value) {
+      setPhone(value);
+      setError(false);
+    }
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -106,14 +115,14 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
     }
 
     if (type === 'Whatsapp') {
-      if (shareText.trim() !== '') {
+      if (phone.trim() !== '') {
         const whatsappMessage = `
         Hi, I am from Safe Scan. Here is your username and password:
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
          `
-        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(whatsappMessage)}`;
+        const whatsappLink = `https://wa.me/${phone}/?text=${encodeURIComponent(whatsappMessage)}`;
         window.open(whatsappLink, '_blank');
         setSuccess(false)
         reset()
@@ -240,15 +249,53 @@ const CreatedAdminModal = ({ modalOPen, refetch, setModalOpen }) => {
                 <button onClick={() => setType("Whatsapp")} className={`text-base font-medium ${type === "Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
 
               </div>
-              <input
-                className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
-                type={type === "email" ? "email" : "number"}
-                required
-                placeholder={type === "email" ? "Enter Email Address" : "Enter Whatsapp Number"}
-                id="otp"
-                onChange={(e) => setShareText(e.target.value)}
-
-              />
+              {type === "email" ? (
+                <input
+                  className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+                  type={type === "email" ? "email" : "text"}
+                  required
+                  placeholder={
+                    type === "email"
+                      ? "Enter Email Address"
+                      : "Enter Whatsapp Number"
+                  }
+                  id="otp"
+                  onChange={(e) => setShareText(e.target.value)}
+                />
+              ) : (
+                <>
+                  <PhoneInput
+                    country="gb"
+                    onlyCountries={["gb", "ie","bd"]}
+                    enableSearch={false}
+                    value={phone}
+                    inputProps={{
+                      name: "phone",
+                      required: true,
+                      autoFocus: false,
+                    }}
+                    onChange={handleChange}
+                    containerStyle={{
+                      borderRadius: "5px", // Example border radius
+                      padding: "5px", // Example padding
+                    }}
+                    inputStyle={{
+                      width: "100%",
+                      height: "45px",
+                      fontSize: "16px",
+                      paddingLeft: "50px",
+                      outline: "none",
+                    }}
+                  />
+                  {error1 && (
+                    <label className="label">
+                      <span className=" text-sm mt-1 text-red-500">
+                        Please Enter Phone Number
+                      </span>
+                    </label>
+                  )}
+                </>
+              )}
             </div>
           </div>
 

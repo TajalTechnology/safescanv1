@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import DeleteModal from "../../Shared/modal/DeleteModal";
-import { useApproveUserMutation, useGetHelQuery, useNewnoteMutation } from "../../../redux/features/admin/adminApi";
+import { useApproveUserMutation, useNewnoteMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import toast from "react-hot-toast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
@@ -27,7 +27,7 @@ const Note = ({ row, refetch }) => {
     useApproveUserMutation();
 
     const [newnote,{isLoading:isLoading1,isSuccess:isSuccess1,error:error1}]=useNewnoteMutation()
-    const {data} = useGetHelQuery()
+
 
 
     // console.log("====test api====",data)

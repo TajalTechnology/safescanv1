@@ -3,14 +3,16 @@ import ErrorToast from './Toast/ErrorToast';
 import SuccessToast from './Toast/SuccessToast';
 import toast from 'react-hot-toast';
 import { useOtpSendMutation } from '../../redux/features/auth/authApi';
+import { usePhoneChangeMutation } from '../../redux/features/admin/adminApi';
 
-const ResentOtp2 = ({data}) => {
-    const [otpSend, { isLoading, isSuccess, error, data:otpData }] =useOtpSendMutation();
+const ResentOtp3 = ({data,setOldData}) => {
+    const [phoneChange, { isLoading, isSuccess, error, data:otpData }] =usePhoneChangeMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      const message = `Send otp your phone! OTP=${otpData?.otp}`;
+      const message = `Send otp your phone! OTP=${otpData?.user?.otp}`;
       toast.custom(<SuccessToast message={message} />);
+      setOldData(otpData)
     }
     if (error) {
       toast.custom(
@@ -20,7 +22,7 @@ const ResentOtp2 = ({data}) => {
   }, [isSuccess, error,otpData]);
 
   const onSubmit = async () => {
-      await otpSend(data);
+      await phoneChange(data);
       console.log(data);
   };
 
@@ -42,4 +44,4 @@ const ResentOtp2 = ({data}) => {
   )
 }
 
-export default ResentOtp2
+export default ResentOtp3
