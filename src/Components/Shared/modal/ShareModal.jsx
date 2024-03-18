@@ -1,8 +1,15 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "antd";
 import CustomButton from "../CustomButton";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
 const ShareModal = ({type,setType,modalOPen,setModalOpen,shareText,setShareText,handleShare}) => {
+  const handleChange = (value) => {
+    if (value) {
+      setShareText(value)
+    }
+  };
     
   return (
     <div>
@@ -33,15 +40,29 @@ const ShareModal = ({type,setType,modalOPen,setModalOpen,shareText,setShareText,
                 {/* <button type="button" onClick={()=>setType("email")} className={`text-base font-medium ${type==="email" ? "text-dark-gray" : "text-primary"} `}>Share Via Email</button> */}
                 <button type="button" onClick={()=>setType("Whatsapp")} className={`text-base font-medium ${type==="Whatsapp" ? "text-dark-gray" : "text-primary"}`}>Share Via Whatsapp</button>
               </div>
-              <input
-                className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
-                type={type==="email" ?"email" : "text"}
-                required
-                placeholder={type==="email" ? "Enter Email Address" : "Enter Whatsapp Number"}
-                id="otp"
-                value={shareText}
-                onChange={(e)=>setShareText(e.target.value)}
-              />
+              <PhoneInput
+                  country="gb"
+                  onlyCountries={["gb", "ie"]}
+                  enableSearch={false}
+                  value={shareText}
+                  inputProps={{
+                    name: "phone",
+                    required: true,
+                    autoFocus: false,
+                  }}
+                  onChange={handleChange}
+                  containerStyle={{
+                    borderRadius: "5px", // Example border radius
+                    padding: "5px", // Example padding
+                  }}
+                  inputStyle={{
+                    width: "100%",
+                    height: "45px",
+                    fontSize: "16px",
+                    paddingLeft: "50px",
+                    outline: "none",
+                  }}
+                />
             </div>
             <div className="mt-[20px] flex items-center gap-5">
               <CustomButton

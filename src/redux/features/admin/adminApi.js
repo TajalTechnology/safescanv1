@@ -193,7 +193,6 @@ export const {
   useGetFinesQuery, 
   useUpdateNoteMutation,
   useNewnoteMutation,
-  useGetHelQuery,
   usePhoneChangeMutation,
   useOtpVaryFyMutation
 } = adminApi;

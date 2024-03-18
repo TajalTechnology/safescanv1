@@ -15,7 +15,6 @@ const SignIn = () => {
   const [showpass, setShowpass] = useState(false);
   const tokenString = sessionStorage.getItem("token");
 
-
   const {
     register,
     handleSubmit,
@@ -23,17 +22,28 @@ const SignIn = () => {
     reset,
   } = useForm();
 
-  const [login, { isSuccess, isLoading, error }] = useLoginMutation();
+  const [login, { isSuccess, isLoading, error, data }] = useLoginMutation();
+
+  console.log("=========", data);
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "login success";
-      toast.custom(<SuccessToast message={message} />);
-      reset()
+      if (data?.user?.usertype === "super_admin") {
+        const message = "login success";
+        toast.custom(<SuccessToast message={message} />);
+      }else{
+        toast.custom(
+          <ErrorToast message={"you are not super admin"} />
+        );
+      }
+
+      reset();
     }
     if (error) {
-      console.log( error);
-      toast.custom(<ErrorToast message={error?.data?.error || error?.data?.message} />);
+      console.log(error);
+      toast.custom(
+        <ErrorToast message={error?.data?.error || error?.data?.message} />
+      );
     }
   }, [isSuccess, error, reset]);
 
@@ -48,8 +58,6 @@ const SignIn = () => {
       // toast.error("you are not Valid user")
     }
   }, [user, navigate]);
-
-
 
   const onSubmit = (data) => {
     // navigate('/admin/dashboard')
@@ -121,16 +129,19 @@ const SignIn = () => {
               </div>
             </div>
             <p className="underline text-info text-sm font-medium mt-4">
-              <Link
-                to={"/forgotPass"}
-                className="font-bold text-primary"
-              >
+              <Link to={"/forgotPass"} className="font-bold text-primary">
                 Forgot Password?
               </Link>
             </p>
             <div className="mt-6 w-full">
               <CustomButton className={"w-full"}>
-                {isLoading ? <><p>Loading...</p></> : <p>Sign In</p>}
+                {isLoading ? (
+                  <>
+                    <p>Loading...</p>
+                  </>
+                ) : (
+                  <p>Sign In</p>
+                )}
               </CustomButton>
             </div>
           </form>

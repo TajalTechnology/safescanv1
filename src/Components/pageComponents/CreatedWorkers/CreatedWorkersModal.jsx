@@ -12,6 +12,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import PasswordInput from "../../Shared/input/PasswordInput";
 import Unverified from "../../Shared/modal/Unverified";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
 const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
   const { token } = useSelector((state) => state.auth);
@@ -20,7 +22,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
   const [shareText, setShareText] = useState("");
   const [shareMsg, setShareMsg] = useState({});
   const [loading, setLoading] = useState(false);
-  const [veryfyModal,setVeryfyModal] = useState(false)
+  const [veryfyModal, setVeryfyModal] = useState(false);
 
   const {
     register,
@@ -29,6 +31,8 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
     reset,
   } = useForm();
 
+  const [phone, setPhone] = useState("");
+  const [error1, setError] = useState(false);
   const [createUser, { isLoading, error, isSuccess }] = useCreateUserMutation();
 
   useEffect(() => {
@@ -39,17 +43,26 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
       setModalOpen(false);
       reset();
       setSuccess(true);
-      setShareText("")
+      setShareText("");
     }
     if (error) {
-      if(error?.status === 401){
-        setVeryfyModal(true)
-        setModalOpen(false)
-      }else{
-        toast.custom(<ErrorToast message={error?.data.error || error?.data.message} />);
+      if (error?.status === 401) {
+        setVeryfyModal(true);
+        setModalOpen(false);
+      } else {
+        toast.custom(
+          <ErrorToast message={error?.data.error || error?.data.message} />
+        );
       }
     }
   }, [isSuccess, error]);
+
+  const handleChange = (value) => {
+    if (value) {
+      setPhone(value);
+      setError(false);
+    }
+  };
 
   const onSubmit = (data) => {
     const bodyData = {
@@ -87,17 +100,17 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
         );
         if (response?.status === 200) {
           toast.custom(<SuccessToast message={response?.data?.message} />);
-          reset()
+          reset();
         } else {
           toast.custom(<ErrorToast message={response?.data?.error} />);
-          reset()
+          reset();
         }
         setLoading(false);
         setSuccess(false);
         // console.log(response);
       } catch (error) {
         console.log("error", error);
-        toast.custom(<ErrorToast message={error?.response?.data?.error} />)
+        toast.custom(<ErrorToast message={error?.response?.data?.error} />);
         setLoading(false);
       }
 
@@ -122,19 +135,19 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
     }
 
     if (type === "Whatsapp") {
-      if (shareText.trim() !== "") {
+      if (phone.trim() !== "") {
         const whatsappMessage = `
         Hi, I am from Safe Scan. Here is your username and password:
 
         Username : ${shareMsg?.username}
         Password : ${shareMsg?.password}
          `;
-        const whatsappLink = `https://wa.me/${shareText}/?text=${encodeURIComponent(
+        const whatsappLink = `https://wa.me/${phone}/?text=${encodeURIComponent(
           whatsappMessage
         )}`;
         window.open(whatsappLink, "_blank");
         setSuccess(false);
-        reset()
+        reset();
       }
     }
   };
@@ -261,18 +274,53 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
                   Share Via Whatsapp
                 </button>
               </div>
-              <input
-                className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
-                type={type === "email" ? "email" : "text"}
-                required
-                placeholder={
-                  type === "email"
-                    ? "Enter Email Address"
-                    : "Enter Whatsapp Number"
-                }
-                id="otp"
-                onChange={(e) => setShareText(e.target.value)}
-              />
+              {type === "email" ? (
+                <input
+                  className="py-[15px] h-[44px] px-[14px]  text-dark-gray placeholder:text-[#A3AED0]  rounded-[10px] w-full text-sm font-medium outline-none  border-[1px] focus:border-primary"
+                  type={type === "email" ? "email" : "text"}
+                  required
+                  placeholder={
+                    type === "email"
+                      ? "Enter Email Address"
+                      : "Enter Whatsapp Number"
+                  }
+                  id="otp"
+                  onChange={(e) => setShareText(e.target.value)}
+                />
+              ) : (
+                <>
+                  <PhoneInput
+                    country="gb"
+                    onlyCountries={["gb", "ie"]}
+                    enableSearch={false}
+                    value={phone}
+                    inputProps={{
+                      name: "phone",
+                      required: true,
+                      autoFocus: false,
+                    }}
+                    onChange={handleChange}
+                    containerStyle={{
+                      borderRadius: "5px", // Example border radius
+                      padding: "5px", // Example padding
+                    }}
+                    inputStyle={{
+                      width: "100%",
+                      height: "45px",
+                      fontSize: "16px",
+                      paddingLeft: "50px",
+                      outline: "none",
+                    }}
+                  />
+                  {error1 && (
+                    <label className="label">
+                      <span className=" text-sm mt-1 text-red-500">
+                        Please Enter Phone Number
+                      </span>
+                    </label>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
@@ -292,7 +340,7 @@ const CreatedWorkersModal = ({ modalOPen, refetch, setModalOpen }) => {
           </div>
         </div>
       </Modal>
-      <Unverified modalOPen={veryfyModal} setModalOpen={setVeryfyModal}  />
+      <Unverified modalOPen={veryfyModal} setModalOpen={setVeryfyModal} />
     </div>
   );
 };

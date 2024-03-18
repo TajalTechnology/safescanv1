@@ -10,11 +10,17 @@ import { usePhoneChangeMutation } from "../../../redux/features/admin/adminApi";
 import toast from "react-hot-toast";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
 import ErrorToast from "../../Shared/Toast/ErrorToast";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
-const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
+const ChangePhone = ({ modalOPen, setModalOpen, refetch }) => {
   const [opt, setOtp] = useState(false);
-  const [lastData,setLastData] = useState()
-  const [phoneChange,{isLoading,isSuccess,error,data}] = usePhoneChangeMutation()
+  const [lastData, setLastData] = useState();
+  const [phone, setPhone] = useState("");
+  const [error1, setError] = useState(false);
+  const [oldData,setOldData] = useState()
+  const [phoneChange, { isLoading, isSuccess, error, data }] =
+    usePhoneChangeMutation();
 
   const {
     register,
@@ -25,27 +31,38 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      const message = "Send OTP";
+      const message = `Send OTP your Phone! OTP=${data?.user?.otp}`;
       toast.custom(<SuccessToast message={message} />);
       setModalOpen(false);
-      setOtp(true)
+      setOtp(true);
       reset();
+      setOldData(data)
     }
     if (error) {
       toast.custom(
         <ErrorToast message={error?.data.error || error?.data.message} />
       );
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error,data]);
 
-  const onSubmit = async(data) => {
-    // console.log(data)
-    setLastData(data)
-    await phoneChange(data)
+  const handleChange = (value) => {
+    if (value) {
+      setPhone(value);
+      setError(false);
+    }
   };
 
-  // console.log(data)
+  const onSubmit = async (data) => {
+      // console.log(data)
+      const body={
+        phone:phone,
+        password:data?.password
+      }
+    setLastData(body);
+    await phoneChange(body);
+  };
 
+  console.log(data)
 
   return (
     <>
@@ -77,18 +94,44 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
             className="w-full mt-[0px] max-h-[75vh] overflow-y-scroll px-9 pb-9"
           >
             <div className="">
-              <CustomInput
-                label={"New Number"}
-                type={"number"}
-                register={register("phone", {
-                  required: {
-                    value: true,
-                    message: "Please enter phone",
-                  },
-                })}
-                error={errors.phone}
-                placeholder={"Enter Your New Phone Number"}
-              />
+              <div className=" flex items-start flex-col justify-between">
+                <label
+                  htmlFor=""
+                  className="mb-1.5 font-medium text-base text-dark-gray"
+                >
+                  Phone Number
+                </label>
+                <PhoneInput
+                  country="gb"
+                  onlyCountries={["gb", "ie"]}
+                  enableSearch={false}
+                  value={phone}
+                  inputProps={{
+                    name: "phone",
+                    required: true,
+                    autoFocus: false,
+                  }}
+                  onChange={handleChange}
+                  containerStyle={{
+                    borderRadius: "5px", // Example border radius
+                    padding: "5px", // Example padding
+                  }}
+                  inputStyle={{
+                    width: "100%",
+                    height: "45px",
+                    fontSize: "16px",
+                    paddingLeft: "50px",
+                    outline: "none",
+                  }}
+                />
+                {error1 && (
+                  <label className="label">
+                    <span className=" text-sm mt-1 text-red-500">
+                      Please Enter Phone Number
+                    </span>
+                  </label>
+                )}
+              </div>
               <PasswordInput
                 label={"Password"}
                 type={"password"}
@@ -121,7 +164,8 @@ const ChangePhone = ({ modalOPen, setModalOpen,refetch }) => {
         refetch={refetch}
         modalOPen={opt}
         setModalOpen={setOtp}
-        oldData={data}
+        oldData={oldData}
+        setOldData={setOldData}
         lastData={lastData}
       />
     </>

@@ -6,13 +6,13 @@ import ShareModal from "../../Shared/modal/ShareModal";
 import ImageDownloader from "../../Shared/DownloadQrc";
 
 
-
 const QRCodeModal = ({ row, product = false }) => {
   const [modalOPen, setModalOpen] = useState(false);
   const componentRef = useRef();
   const [share, setShare] = useState(false);
   const [shareText, setShareText] = useState("");
   const [type, setType] = useState("Whatsapp");
+
 
   // ======Share funcation=========
   const handleShare = async () => {

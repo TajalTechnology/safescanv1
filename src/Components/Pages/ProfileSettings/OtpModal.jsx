@@ -7,12 +7,14 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { usePhoneChangeMutation } from "../../../redux/features/admin/adminApi";
 import SuccessToast from "../../Shared/Toast/SuccessToast";
+import ResentOtp3 from "../../Shared/ResentOtp3";
 
 const OtpModal = ({
   refetch,
   modalOPen,
   setModalOpen,
   oldData,
+  setOldData,
   lastData,
   length = 4,
   onOtpSubmit = () => {},
@@ -158,6 +160,7 @@ const OtpModal = ({
                 );
               })}
             </div>
+            <ResentOtp3 data={lastData} setOldData={setOldData}/>
           </div>
 
           <div className="mt-[30px] flex items-center gap-5">
