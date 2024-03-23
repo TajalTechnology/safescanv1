@@ -120,7 +120,7 @@ const ProductsTable = ({ tableData, rowSelection, refetch }) => {
         a.status.localeCompare(b.status, "en", { sensitivity: "base" }),
     },
     {
-      title: "Image",
+      title: "Test Image",
       key: "id",
       render: (row) => (
         <CardModal
