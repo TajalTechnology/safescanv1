@@ -41,7 +41,7 @@ const Products = () => {
     return queryParams.join("&");
   };
 
-  // console.log(data);
+  console.log(data);
 
   useEffect(() => {
     const query = generateQuery(searchValue);
