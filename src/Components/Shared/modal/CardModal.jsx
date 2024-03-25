@@ -54,7 +54,7 @@ const CardModal = ({ row, refetch }) => {
   // }, [deletImageSuccess, deleteImageError]);
 
   useEffect(() => {
-    setUpdatedImages(row?.product_images)
+    setUpdatedImages(row?.attach_images)
   }, [row]);
 
   const img = `https://scansafes3.s3.amazonaws.com/${updatedImages[imgIndex]}`
